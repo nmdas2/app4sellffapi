@@ -1,0 +1,28 @@
+<div class="container">
+    <h2>Modal Example</h2>
+    <a (click)="checkevent()">Venu BAbu Borra</a>
+    <!-- Trigger the modal with a button -->
+    <div class="row">
+        <div class="col-xs-12 my-img">
+            <a *ngFor = "let item of imgGallery" (click)="checkevent(item.imgUrl, template)" id="link1" href="javascript:void(0)">
+                <img [src]="item.imgUrl"
+                    id="img1" class="img-responsive" width="250px">
+            </a>
+        </div>
+
+
+        <!-- Ngx bootstrap modal popup -->
+        <ng-template #template>
+            <div class="modal-header" style="padding: 0;">
+                <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button> -->
+            </div>
+            <div class="modal-body" style="padding: 0;">
+                <div *ngIf="dynamicImg">
+                    <img [src]="dynamicImg" class="rounded" alt="" >
+                </div>
+
+            </div>
+        </ng-template>
+    </div>
