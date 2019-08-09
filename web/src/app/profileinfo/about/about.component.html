@@ -91,7 +91,8 @@
                         <div class="box-header with-border">
                             <p *ngIf="!isAboutInEditMode; else elseBlock" style="text-justify: distribute-all-lines;">
                                 {{textValue}}
-                                <button class="glyphicon glyphicon-edit text-right" (click)="logText()"></button>
+                                <button class="glyphicon glyphicon-edit text-right"
+                                 *ngIf="loggedInUserInfo.UserRefProfileId==null || loggedInUserInfo.UserRefProfileId==0"  (click)="logText()"></button>
                             </p>
                             <ng-template #elseBlock>
                                 <textarea cols="150" rows="10" [(ngModel)] = "textValue" required></textarea>
@@ -153,7 +154,7 @@
                                     </div>
                                 </div>
                                 <p *ngIf="!AllowImageUpload; else upldelseBlock" style="text-justify: distribute-all-lines;">
-                                    <button class="glyphicon glyphicon-edit text-right" (click)="ShowGalUpPop()">Upload Image</button>
+                                    <button class="glyphicon glyphicon-edit text-right"  *ngIf="loggedInUserInfo.UserRefProfileId==null || loggedInUserInfo.UserRefProfileId==0" (click)="ShowGalUpPop()">Upload Image</button>
                                 </p>
                                 <ng-template #upldelseBlock>
                                 <div class="row">
