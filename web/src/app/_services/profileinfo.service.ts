@@ -3,6 +3,7 @@ import { Subject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { constants as consts } from '../constants';
 import { ProfileInfo, userAboutInfo } from '../_models/profileinfo';
+import { Post } from 'src/app/_models/post';
 
 export interface searchRes {
   DisplayName: string;
@@ -44,8 +45,8 @@ export class ProfileinfoService {
     return this.http.post(`${consts.DomainURL}ProfileInfo/SaveUserMessages`, data);
   }
 
-  getUserPosts(userId: number): Observable<any>{
-    return this.http.get(`${consts.DomainURL}ProfileInfo/GetAllUserPosts/${userId}`);
+  getUserPosts(userId: number): Observable<Post[]>{
+    return this.http.get<Post[]>(`${consts.DomainURL}ProfileInfo/GetAllUserPosts/${userId}`);
   }
 
   getAllUserPromotions(userId: number): Observable<any>{
@@ -63,6 +64,8 @@ export class ProfileinfoService {
   getUsersAboutNGalleryInfo(userId: number,sectionId : number): Observable<any>{
     return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserAboutNGalleryInfo/${userId}/${sectionId}`);
   }
-  
+  postText(post: Post): Observable<any>{
+    return this.http.post(`${consts.DomainURL}ProfileInfo/postText`, post);
+  }
 }
 

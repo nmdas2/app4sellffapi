@@ -85,22 +85,87 @@
                 <a href="#"><i id="social-em" style="padding-right: 4px;"
                         class="fa fa-envelope-square fa-2x social"></i></a>
             </div>
-            <div class="container">
-                <div class="row box">
-                    <div class="col-sm-12" *ngFor="let post of userPosts">
-                        <h4 *ngIf="post.createdOn">{{post.createdOn | date: 'MMM yyyy'}}</h4>
+            <ng-template #template>
+                <div class="modal-header">
+                    <h4 class="modal-title pull-left">Create Post</h4>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="resetPostTextForm()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form [formGroup]="postTextForm" (ngSubmit)="savePost(postTextForm.value)">
                         <div class="row">
-                            <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                <div class="box">
-                                    <h5 *ngIf="post.title">{{post.title}}</h5>
-                                    <div *ngIf="post.userContent">{{post.userContent}}</div>
+                            <div class="col-md-12">
+                                <div class="form-group row justify-content-center">
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control" formControlName="title" placeholder="Title"/><br>
+                                        <span *ngIf="postTextForm.controls['title'].touched && postTextForm.controls['title'].invalid" class="form-error">Title required</span>
+                                    </div>
                                 </div>
+                            </div>
+
+
+
+                            <div class="col-md-12">
+                                <div class="form-group row justify-content-center">
+                                    <div class="col-md-12">
+                                       <textarea class="form-control" formControlName="text" placeholder="Place text here" rows="4" cols="50"></textarea><br>
+                                        <span *ngIf="postTextForm.controls['text'].touched && postTextForm.controls['text'].invalid" class="form-error">Text 
+                                            required</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <button class="blue-rnd-btn sm-btn mx-auto btn-primary" type="submit"
+                                    [disabled]="postTextForm.invalid">Submit</button> | 
+                                <button class="blue-rnd-btn sm-btn mx-auto btn-warning" type="button"
+                                    (click)="resetPostTextForm()">Reset</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </ng-template>
+            <div>
+                <a (click)="popupPostTextModel(template)">Create Text Post</a> | <a>Create Image Post</a>
+            </div>
+            <div class="container PostsByGroups">
+                <div class="row box" *ngIf="PostsByGroups.length>0">
+
+                    <div class="col-sm-12" *ngFor="let postGroup of PostsByGroups;let i = index">
+                        <h4>
+                            {{postGroup.key}}
+                        </h4>
+                        <div class="col-sm-4" *ngFor="let post of postGroup.value; let j = index">
+                            <div *ngIf="post.ContentType==1">
+                                {{post.UserContent}}
+                            </div>
+                            <div *ngIf="post.ContentType==2">
+
+                                <a data-toggle="modal" data-target="#1" (click)="setModelImage(post.ImagePath)">
+                                    <img src={{post.ImagePath}} />
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="1" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <div class="modal-body">
+                            <img src="{{selectedModelImgPath}}" />
+                        </div>
 
+                    </div>
+                </div>
+            </div>
             <div class="row" style="display: none;">
                 <div class="col-md-12">
                     <div class="box">
