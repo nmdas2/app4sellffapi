@@ -29,13 +29,35 @@ namespace Sellff_API.Models
         [DataMember]
         public string DisplayName { get; set; }
         [DataMember]
-        public int UserRefId { get; set; }
+        public int UserRefProfileId { get; set; }
         [DataMember]
         public string Message { get; set; }
         [DataMember]
         public string UserIP { get; set; }
         [DataMember]
         public string MessageSentTime { get; set; }
+        [DataMember]
+        public string ProfilePicPath { get; set; }
+        [DataMember]
+        public string ProfileSummary { get; set; }
+        [DataMember]
+        public string FacebookLink { get; set; }
+        [DataMember]
+        public string LinkedInLink { get; set; }
+        [DataMember]
+        public string InstagramLink { get; set; }
+        [DataMember]
+        public string TwitterLink { get; set; }
+        [DataMember]
+        public string YouTubeLink { get; set; }
+        [DataMember]
+        public int Views { get; set; }
+        [DataMember]
+        public int Posts { get; set; }
+        [DataMember]
+        public string City { get; set; }
+        [DataMember]
+        public string Occupation { get; set; }
     }
 
     public class PromotionsBO

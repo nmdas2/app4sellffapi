@@ -5,9 +5,21 @@ import { constants as consts } from '../constants';
 import { ProfileInfo, userAboutInfo } from '../_models/profileinfo';
 
 export interface searchRes {
-  displayName: string;
-  email: string;
-  userId: number;
+  DisplayName: string;
+  Email: string;
+  UserId: number;
+  UserRefProfileId: number;
+  ProfilePicPath: string;
+  ProfileSummary: string;
+  FacebookLink: string;
+  LinkedInLink: string;
+  InstagramLink: string;
+  TwitterLink: string;
+  YouTubeLink: string;
+  Views: number;
+  Posts: number;
+  City: string;
+  Occupation: string;
 }
 
 @Injectable({
@@ -20,9 +32,9 @@ export class ProfileinfoService {
 
   constructor(private http: HttpClient) { }
 
-  // getUsersBySearchTerm(srchTerm: string) {
-  //   return this.http.get<searchRes[]>(`${consts.DomainURL}ProfileInfo/GetUsersInfoBySearchTerm/${srchTerm}`);
-  // }
+  getUsersBySearchTerm(parttext: string) {
+    return this.http.get<searchRes[]>(`${consts.DomainURL}ProfileInfo/GetSummaryResults/${parttext}`);
+  }
 
   getAllUsersMessages(userId: number): Observable<any>{
     return this.http.get(`${consts.DomainURL}ProfileInfo/GetAllUserMessages/${userId}`);

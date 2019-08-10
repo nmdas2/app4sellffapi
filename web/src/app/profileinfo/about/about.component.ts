@@ -14,19 +14,18 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class AboutComponent implements OnInit {
   userAboutInfoList: userAboutInfo[];
-  textValue: string = 'initial value';
+  textValue: string = '';
   isAboutInEditMode: boolean = false;
   AllowImageUpload: boolean = false;
   loggedInUserInfo: User;
   altrPath: string;
-
   fileData: File = null;
   previewUrl: any = null;
   fileUploadProgress: string = null;
   uploadedFilePath: string = null;
   dynamicImg: string = "";
   modalRef: BsModalRef;
-  imgGallery = []
+  imgGallery = [];
 
   constructor(
     private profileInfoService: ProfileinfoService,
@@ -63,7 +62,7 @@ export class AboutComponent implements OnInit {
 
   getUserAboutText(): void {
     this.userAboutInfoList = [];
-    this.profileInfoService.getUsersAboutNGalleryInfo(this.loggedInUserInfo.UserId, ProfileSection.About)
+    this.profileInfoService.getUsersAboutNGalleryInfo(this.loggedInUserInfo.UserRefProfileId, ProfileSection.About)
       .subscribe(res => {
         if (res && res.length)
           this.userAboutInfoList = res;
@@ -81,7 +80,9 @@ export class AboutComponent implements OnInit {
           };
           this.imgGallery.push(image);
         }
-        this.textValue = this.userAboutInfoList[0].About;
+        if(typeof this.userAboutInfoList[0].About !='undefined' && this.userAboutInfoList[0].About){
+          this.textValue = this.userAboutInfoList[0].About;
+       }
       }, error => {
         console.log(error);
       })

@@ -2,7 +2,8 @@ const isProduction = false;
 export const constants = {
     AppName: "Sellff",
     DomainURL: 'http://localhost:50517/api/',
-    ImagesPath: './././assets/selfprflimages/'
+    ImagesPath: './././assets/selfprflimages/',
+    AboutPath:'/profileinfo/about'
 };
 export const enum UploadType {
     Image =1 ,

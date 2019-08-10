@@ -25,12 +25,21 @@ namespace Sellff_API.ADO
                 DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetProfilesBySearchTerm", objSqlParam);
                 if (_objDataSet.Tables[0].Rows.Count > 0)
                 {
-                    ProfileInfoBO objProfileInfoBO = new ProfileInfoBO();
-                    var objDataRow = _objDataSet.Tables[0].Rows[0];
-                    objProfileInfoBO.UserId = Convert.ToInt32(objDataRow["UserId"]);
-                    objProfileInfoBO.Email = Convert.ToString(objDataRow["Email"]);
-                    objProfileInfoBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
-                    objProfilesList.Add(objProfileInfoBO);
+                    for (int i = 0; i < _objDataSet.Tables[0].Rows.Count; i++)
+                    {
+                        ProfileInfoBO objProfileInfoBO = new ProfileInfoBO();
+                        var objDataRow = _objDataSet.Tables[0].Rows[i];
+                        objProfileInfoBO.UserId = Convert.ToInt32(objDataRow["UserId"]);
+                        objProfileInfoBO.Email = Convert.ToString(objDataRow["Email"]);
+                        objProfileInfoBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
+                        objProfileInfoBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                        objProfileInfoBO.City = Convert.ToString(objDataRow["City"]);
+                        objProfileInfoBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
+                        objProfileInfoBO.UserRefProfileId = Convert.ToInt32(objDataRow["UserId"]);
+                        objProfileInfoBO.Views = Convert.ToInt32(objDataRow["Views"]);
+                        objProfileInfoBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
+                        objProfilesList.Add(objProfileInfoBO);
+                    }
                 }
             }
             catch (Exception ex)
@@ -46,7 +55,7 @@ namespace Sellff_API.ADO
             {
                 var sqlParams = new SqlParameter[4];
                 sqlParams[0] = new SqlParameter("@Message", SqlDbType.VarChar) { Value = objProfileInfoBO.Message };
-                sqlParams[1] = new SqlParameter("@MessageTo", SqlDbType.VarChar) { Value = objProfileInfoBO.UserRefId };
+                sqlParams[1] = new SqlParameter("@MessageTo", SqlDbType.VarChar) { Value = objProfileInfoBO.UserRefProfileId };
                 sqlParams[2] = new SqlParameter("@MessageFrom", SqlDbType.VarChar) { Value = objProfileInfoBO.UserId };
                 if (string.IsNullOrEmpty(objProfileInfoBO.UserIP))
                     objProfileInfoBO.UserIP = "::1";

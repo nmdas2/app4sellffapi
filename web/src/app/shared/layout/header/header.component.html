@@ -12,9 +12,12 @@
   <span class="sr-only">Toggle navigation</span>
 </a>
 <div class="navbar-custom-menu pull-left col-md-9 navmobile" style="margin-top:7px;">
-  <form action="#" method="get" class="pull-left col-md-9" >
+  <form [formGroup]=searchForm class="pull-left col-md-9" (ngSubmit)="onSubmit()">
     <div class="input-group">
-      <input type="text" name="q" class="form-control control1" placeholder="Search...">
+      <input type="text" formControlName="searchprofiles" class="form-control control1" placeholder="Search..." [ngClass]="{ 'is-invalid': submitted && f.searchprofiles.errors }">
+      <div *ngIf="submitted && f.searchprofiles.errors" class="invalid-feedback">
+          <div *ngIf="f.searchprofiles.errors.required">Search text is required</div>
+      </div>
         <span class="input-group-btn">
           <button type="submit" name="search" id="search-btn " class="btn btn-flat sbtn">
             <i class="fa fa-search"></i>

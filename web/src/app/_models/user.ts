@@ -5,4 +5,5 @@ export class User {
     displayName: string;
     token: string;
     UserRefProfileId: number;
+    ViewingSearchProfile: boolean = false;
 }
