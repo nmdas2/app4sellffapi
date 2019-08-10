@@ -35,7 +35,7 @@ namespace Sellff_API.ADO
                         objProfileInfoBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
                         objProfileInfoBO.City = Convert.ToString(objDataRow["City"]);
                         objProfileInfoBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
-                        objProfileInfoBO.UserRefProfileId = Convert.ToInt32(objDataRow["UserId"]);
+                        objProfileInfoBO.UserRefProfileId = 0;// Convert.ToInt32(objDataRow["UserId"]);
                         objProfileInfoBO.Views = Convert.ToInt32(objDataRow["Views"]);
                         objProfileInfoBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
                         objProfilesList.Add(objProfileInfoBO);
