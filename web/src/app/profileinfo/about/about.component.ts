@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { userAboutInfo } from 'src/app/_models/profileinfo';
+import { userAboutInfo, ProfileInfo } from 'src/app/_models/profileinfo';
 import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
 import { User } from 'src/app/_models/user';
 import { HttpClient, HttpEventType } from '@angular/common/http';
@@ -13,27 +13,29 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
-  userAboutInfoList: userAboutInfo[];
-  textValue: string = '';
-  isAboutInEditMode: boolean = false;
-  AllowImageUpload: boolean = false;
-  loggedInUserInfo: User;
-  altrPath: string;
-  fileData: File = null;
-  previewUrl: any = null;
-  fileUploadProgress: string = null;
-  uploadedFilePath: string = null;
-  dynamicImg: string = "";
-  modalRef: BsModalRef;
-  imgGallery = [];
-
-  constructor(
-    private profileInfoService: ProfileinfoService,
-    private http: HttpClient,
-    private modalService: BsModalService
+  userAboutInfoList: userAboutInfo[];   textValue: string = '';  isAboutInEditMode: boolean = false;
+  AllowImageUpload: boolean = false;  loggedInUserInfo: User;  altrPath: string;  fileData: File = null;
+  previewUrl: any = null;  fileUploadProgress: string = null;  uploadedFilePath: string = null;
+  dynamicImg: string = "";  modalRef: BsModalRef;  imgGallery = [];  userProfileInfo: ProfileInfo;  UserProfileViews: number;
+  UserIdForGallery: number;
+  constructor(     private profileInfoService: ProfileinfoService,     private http: HttpClient,  private modalService: BsModalService
   ) {
     this.userAboutInfoList = [];
-    this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
+    if(localStorage.getItem('currentUser') != null){
+      this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
+      if(this.loggedInUserInfo.UserId == this.loggedInUserInfo.UserRefProfileId){
+        this.isAboutInEditMode = true;
+      }
+      if(this.loggedInUserInfo.UserRefProfileId == 0)
+      {
+        this.UserIdForGallery = this.loggedInUserInfo.UserId;
+      }else{this.UserIdForGallery = this.loggedInUserInfo.UserRefProfileId;}
+    }
+    if(localStorage.getItem('profileviewUser') != null){
+      this.loggedInUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
+        this.isAboutInEditMode = false;
+        this.UserIdForGallery = this.loggedInUserInfo.UserRefProfileId;
+    }
     this.getUserAboutText();
   }
 
@@ -62,7 +64,7 @@ export class AboutComponent implements OnInit {
 
   getUserAboutText(): void {
     this.userAboutInfoList = [];
-    this.profileInfoService.getUsersAboutNGalleryInfo(this.loggedInUserInfo.UserRefProfileId, ProfileSection.About)
+    this.profileInfoService.getUsersAboutNGalleryInfo(this.UserIdForGallery, ProfileSection.About)
       .subscribe(res => {
         if (res && res.length)
           this.userAboutInfoList = res;
@@ -80,12 +82,28 @@ export class AboutComponent implements OnInit {
           };
           this.imgGallery.push(image);
         }
-        if(typeof this.userAboutInfoList[0].About !='undefined' && this.userAboutInfoList[0].About){
+        if(typeof this.userAboutInfoList[0].About !='undefined' && this.userAboutInfoList[0].About && this.userAboutInfoList[0].About != null){
           this.textValue = this.userAboutInfoList[0].About;
        }
+       if(typeof this.userAboutInfoList[0].Views !='undefined' && this.userAboutInfoList[0].Views){
+        this.UserProfileViews = this.userAboutInfoList[0].Views;
+     }
       }, error => {
         console.log(error);
       })
+      //Updating views in case of if viewing other profile
+      //this.transferDatafromUsertoProfile(this.loggedInUserInfo,this.userProfileInfo);
+      this.profileInfoService.UpdateUserViewsCount(this.loggedInUserInfo)
+      .subscribe(res => {
+      }, error => {
+        console.log(error);
+      })
+  }
+
+  transferDatafromUsertoProfile(uInfo,pInfo)
+  {
+      pInfo.UserId = uInfo.UserId;
+      pInfo.UserRefProfileId = uInfo.UserRefProfileId;
   }
 
   fileProgress(fileInput: any) {

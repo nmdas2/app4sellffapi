@@ -80,7 +80,6 @@ namespace Sellff_API.Controllers
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserAboutNGalleryInfo(UserId, SectionId)));
         }
 
-
         ///summary
         /// This method will Save user About info  based on UserId
         ///</summary>
@@ -90,7 +89,6 @@ namespace Sellff_API.Controllers
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.SaveUserAboutText(objUserAboutBO)));
         }
-
 
         ///summary
         /// This method will Save user gallery info based on UserId
@@ -120,7 +118,6 @@ namespace Sellff_API.Controllers
             return response;
         }
 
-
         ///summary
         /// This method will get all users Messages info based on UserId
         ///</summary>
@@ -129,6 +126,46 @@ namespace Sellff_API.Controllers
         public IHttpActionResult GetSummaryResults(string parttext)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUsersInfoBySearchTerm(parttext)));
+        }
+
+        ///summary
+        /// This method will Save user Post section text messgaes info  based on UserId
+        ///</summary>
+        /// <param name="objUserAboutBO"></param>
+        [HttpPost, Route("api/ProfileInfo/SaveUserPostTextMessages")]
+        public IHttpActionResult SaveUserPostTextMessages([FromBody]UserPostBO objUserPostBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.SaveUserPostTextMessages(objUserPostBO)));
+        }
+
+        ///summary
+        /// This method will Save user Post section images info  based on UserId
+        ///</summary>
+        /// <param name="objUserAboutBO"></param>
+        //[HttpPost, Route("api/ProfileInfo/SaveUserPostImages")]
+        //public IHttpActionResult SaveUserPostImages([FromBody]UserPostBO objUserPostBO)
+        //{
+        //    return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.SaveUserPostImages(objUserPostBO)));
+        //}
+
+        ///summary
+        /// This method will Save user Views number info  based on UserId
+        ///</summary>
+        /// <param name="objUserAboutBO"></param>
+        [HttpPost, Route("api/ProfileInfo/UpdateUsersViewCount")]
+        public IHttpActionResult UpdateUsersViewCount([FromBody]ProfileInfoBO objProfileInfoBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.UpdateUsersViewCount(objProfileInfoBO)));
+        }
+
+        ///summary
+        /// This method will Save user Views number info  based on UserId
+        ///</summary>
+        /// <param name="objUserAboutBO"></param>
+        [HttpPost, Route("api/ProfileInfo/UpdateUsersSocialInfo")]
+        public IHttpActionResult UpdateUsersSocialInfo([FromBody]ProfileInfoBO objProfileInfoBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.UpdateUsersSocialInfo(objProfileInfoBO)));
         }
 
     }

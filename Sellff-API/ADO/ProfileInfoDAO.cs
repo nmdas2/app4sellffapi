@@ -213,6 +213,9 @@ namespace Sellff_API.ADO
                         objResponseBO.ImagePath = Convert.ToString(objDataRow["ImagePath"]);
                         objResponseBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
                         objResponseBO.Type = Convert.ToInt32(objDataRow["Type"]);
+                        objResponseBO.Views = Convert.ToInt32(objDataRow["Views"]);
+                        objResponseBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                        objResponseBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
                         objAboutList.Add(objResponseBO);
                     }
                 }
@@ -269,5 +272,67 @@ namespace Sellff_API.ADO
             }
             return result;
         }
+        public bool SaveUserPostTextMessages(UserPostBO objUserPostBO)
+        {
+            var result = false;
+            try
+            {
+                var sqlParams = new SqlParameter[6];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = objUserPostBO.UserId };
+                sqlParams[1] = new SqlParameter("@ImagePath", SqlDbType.VarChar) { Value = objUserPostBO.ImagePath };
+                if (string.IsNullOrEmpty(objUserPostBO.CreatedIP))
+                    objUserPostBO.CreatedIP = "::1";
+                sqlParams[2] = new SqlParameter("@CreatedIP", SqlDbType.VarChar) { Value = objUserPostBO.CreatedIP };
+                sqlParams[3] = new SqlParameter("@ContentType", SqlDbType.Int) { Value = objUserPostBO.ContentType };
+                sqlParams[4] = new SqlParameter("@Title", SqlDbType.VarChar) { Value = objUserPostBO.Title };
+                sqlParams[5] = new SqlParameter("@UserContent", SqlDbType.VarChar) { Value = objUserPostBO.Content };
+
+                if (SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "SaveUserPosts", sqlParams) > 0)
+                    result = true;
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return result;
+        }
+        public bool UpdateUsersViewCount(ProfileInfoBO objProfileInfoBO)
+        {
+            var result = false;
+            try
+            {
+                var sqlParams = new SqlParameter[1];
+                sqlParams[0] = new SqlParameter("@UserRefId", SqlDbType.Int) { Value = objProfileInfoBO.UserRefProfileId };
+
+                if (SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "UpdateUserViewsCount", sqlParams) > 0)
+                    result = true;
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return result;
+        }
+
+        public bool UpdateUsersSocialInfo(ProfileInfoBO objProfileInfoBO)
+        {
+            var result = false;
+            try
+            {
+                var sqlParams = new SqlParameter[3];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = objProfileInfoBO.UserId };
+                sqlParams[1] = new SqlParameter("@SocialLinkType", SqlDbType.Int) { Value = objProfileInfoBO.SocialLinkType };
+                sqlParams[2] = new SqlParameter("@SocialLink", SqlDbType.Int) { Value = objProfileInfoBO.SocialLink };
+
+                if (SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "UpdateUserSocialDetails", sqlParams) > 0)
+                    result = true;
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return result;
+        }
+
     }
 }

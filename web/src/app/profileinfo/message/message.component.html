@@ -1,4 +1,20 @@
 <div class="wrapper">
+        <aside class="main-sidebar">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <ul class="sidebar-menu" data-widget="tree">
+                        <li class="active treeview menu-open"><a style="cursor: pointer;" routerLink="/profileinfo/about"><i class="fa fa-user"></i> <span>About</span><span class="pull-right-container"></span></a></li>
+                        <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/post"><i class="fa fa-sticky-note-o"></i> <span>Posts</span><span class="pull-right-container"></span></a></li>
+                        <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/message"><i class="fa fa-envelope-o"></i> <span>Message</span><span class="pull-right-container"></span></a></li>
+                        <li class=""><a routerLink="/profileinfo/promote"><i class="fa fa-bullhorn"></i> <span>Promote</span><span class="pull-right-container"></span></a> </li>
+                        <li class=""><a routerLink="/profileinfo/review"><i class="fa fa-star"></i> <span>Review</span><span class="pull-right-container"></span></a> </li>
+                        <li class=""><a routerLink="/profileinfo/invest"><i class="fa fa-money"></i> <span>Invest</span><span class="pull-right-container"></span></a> </li>
+                        <li class=""><a routerLink="/profileinfo/consult"><i class="fa fa-handshake-o"></i> <span>Consult</span><span class="pull-right-container"></span></a> </li>
+                        <li class=""><a routerLink="/profileinfo/refer"><i class="fa fa fa-user-plus"></i> <span>Refer</span><span class="pull-right-container"></span></a> </li>
+                    </ul>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
         <div class="content-wrapper" >      
             <section class="content">
                 <!-- Info boxes -->
@@ -83,34 +99,34 @@
             <div class="row"><div class="col-md-6"></div></div>
                 <div class="row">
                     <div class="col-md-6">                
-                        <div class="box" style="padding: 8px;">    
+                        <div class="box" >    
                             <h4>Message History</h4>      
                             <div style="border-radius: 10px; background-color: rgb(248, 248, 238);" *ngFor = "let message of userMessages">
                                 <label class="text-left col-sm-6" *ngIf = "message.displayName">{{message.displayName}}</label>
                                 <label class="text-right col-sm-6" *ngIf = "message.messageSentTime">{{message.messageSentTime | date : 'dd-MMM-yyyy'}} | {{message.messageSentTime | date : 'hh:mm aa'}}</label><br> 
-                                <p style="padding: 8px;" *ngIf = "message.message">{{message.message}}</p>
+                                <p  *ngIf = "message.message">{{message.message}}</p>
                                 <!-- <p class="text-right"><a>[more]</a></p> -->
                             </div>      
                             <!-- <div style="border-radius: 10px; background-color: rgb(248, 248, 238);">
                                 <label class="text-left col-sm-6">Rebaccah</label>
                                 <label class="text-right col-sm-6">08-April-2019 | 11:40AM</label><br> 
-                                <p style="padding: 8px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                <p >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                                 <p class="text-right"><a>[more]</a></p>
                             </div>
                             <div style="border-radius: 10px; background-color: rgb(248, 248, 238);">
                                 <label class="text-left col-sm-6">Rebaccah</label>
                                 <label class="text-right col-sm-6">22-March-2019 | 09:00PM</label><br> 
-                                <p style="padding: 8px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                <p >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                                 <p class="text-right"><a>[more]</a></p>
                             </div> -->
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="box" style="padding: 8px; height: 467px !important;">
+                        <div class="box message-box">
                             <h4>New Message</h4>
-                            <textarea cols="90" rows="17" [(ngModel)] = "userMsg"></textarea>
+                            <textarea [(ngModel)] = "userMsg"></textarea>
                             <span *ngIf = "isSubmitted && !userMsg" style="color: red">Please enter the message</span>
-                            <button type="button" (click) = "sendMessage()" class="btn btn-primary pull-right" style="background-color: orange; border: orange;">Send Message</button>
+                            <button type="button" (click) = "sendMessage()" class="btn btn-primary pull-right">Send Message</button>
                         </div>
                     </div>
                     <!-- /.box -->

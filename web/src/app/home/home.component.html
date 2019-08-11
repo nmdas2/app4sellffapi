@@ -1,53 +1,46 @@
-<body style=" background-image: url(././assets/images/n.png); background-repeat: no-repeat; background-size: cover;">
+<body class="home-body" style=" background-image: url(././assets/images/n.png); ">
     <div class="container">
-        <div class="col-md-6 col-md-offset-3  companyCaption">
-            <h1 style="text-align:center;">Grow Your Business with Sellff</h1>
-            <p style="text-align:center;	color: #000"><span>a market place for buyers and sellers of Personal/Professional Services</span></p>
-            <!-- <div class="input-group-btn search-panel">
-                <select id="catid1" name="catid1" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="height:40px;" aria-expanded="false">
-                    <option selected="" value="all">All</option>
-                    <option value="1">Categories</option>
-                    <option value="2">Categories</option>
-                    <option value="3">Categories</option>
-                    <option value="4">Categories</option>
-                </select>
-                <input type="hidden" id="catcid" name="catcid">
-            </div> -->
-            <div id="sub_cat" onchange="ssn()"></div>
-                <input type="text" onfocus="myFunction(this)" id="search1" autocomplete="off" class="form-control" name="search1" placeholder="what type of service are you loocking for?" style="padding:19px;" required="">
-                <span class="input-group-btn">
-          <button class="btn btn-primary" type="submit" style="height:39px; "> Search</button></span>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-    <div class=" home-middle">
-        <div class="container-fluid">
-            <div class="col-md-8 col-md-offset-2 ">
-
-                <div class="col-md-4 col-sm-4 ">
-				<div class="buy pull-right">
-
-                  
-                        <h2>For Buyers</h2>
-                        <p><i class="fa fa-search"></i> Find Trustworthy Providers</p>
-                        <p><i class="fa fa-thumbs-up"></i>Hire Great People</p>
-                        <p><i class="fa fa-user"></i>Get Better Results</p>
-                 
-  </div>
-  
-                </div>
-                <div class="col-md-4 col-sm-4"><img src="././assets/images/business.jpg" class="img-responsive" /></div>
-                <div class="col-md-4 col-sm-4">
-                 	<div class="buy ">  
-                  
-             <h2>For Sellers</h2>
-                        <p> <i class="fa fa-volume-up"></i> Easily Promote Your Services</p>
-                        <p> <i class="fa fa-credit-card"></i>Reach Motivated Buyers</p>
-                        <p> <i class="fa fa-usd"></i>Do More Business</p>
+        <div class="home-screen">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="companyCaption">
+                        <h1>Grow Your Business with Sellff</h1>
+                        <p>a market place for buyers and sellers of Personal/Professional Services</p>
+                        <div class="home-from-data">
+                                <div id="sub_cat" onchange="ssn()"></div>
+                                <form [formGroup]=homesearchForm class="home-search" (ngSubmit)="onSubmit()">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" formControlName="homesearchprofiles" placeholder="what type of service are you loocking for?" style="padding:19px;">
+                                        <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit" name="search"> Search</button></span>
+                                    </div>
+                                </form>
+                                <div class="clearfix"></div>
+                        </div>
                     </div>
                 </div>
-
+                <div class="col-md-12 col-sm-12">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="buy">
+                                    <h2>For Buyers</h2>
+                                    <p><i class="fa fa-search"></i> Find Trustworthy Providers</p>
+                                    <p><i class="fa fa-thumbs-up"></i>Hire Great People</p>
+                                    <p><i class="fa fa-user"></i>Get Better Results</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 buy mobile-hide"><img src="././assets/images/business.jpg" class="img-responsive" /></div>
+                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="buy">
+                                        <h2>For Sellers</h2>
+                                        <p> <i class="fa fa-volume-up"></i> Easily Promote Your Services</p>
+                                        <p> <i class="fa fa-credit-card"></i>Reach Motivated Buyers</p>
+                                        <p> <i class="fa fa-usd"></i>Do More Business</p>
+                                    </div>
+                                </div>
+                        </div>
+                </div>
             </div>
         </div>
-    </div>    
+    </div>
 </body>

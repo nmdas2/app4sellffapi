@@ -19,28 +19,29 @@ export class SearchsummaryComponent implements OnInit {
   currentProfileId: number;
   searchProfileId: number;
   srchParam: string;
+  hasSession: boolean = false;
   
-  constructor(private pis: ProfileinfoService,
+  constructor(private pfrlsrvs: ProfileinfoService,
     private router: Router,
     private aroute: ActivatedRoute) { 
     if(localStorage.getItem('currentUser') != null){
       this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
-      console.log(this.loggedInUserInfo);
       this.currentProfileId = this.loggedInUserInfo.UserId;
       this.searchProfileId = this.loggedInUserInfo.UserRefProfileId;
+      this.hasSession = true;
     }
     else{
-      this.router.navigate([this.returnUrl]);
+      //this.router.navigate([this.returnUrl]);
     }
   }
-
+ 
   ngOnInit() {
-    this.aroute.queryParams.subscribe(params => {
-      this.srchParam = params['shashval'];
-      console.log(this.srchParam); // Print the parameter to the console. 
-  });
+    this.aroute.params.subscribe(p=>{
+        let key=p;
+        this.srchParam = p.shashval;
+    });
 
-    this.pis.getUsersBySearchTerm(this.srchParam)
+    this.pfrlsrvs.getUsersBySearchTerm(this.srchParam)
       .subscribe(res => {
         this.searchResults = res;
       });
@@ -50,14 +51,11 @@ export class SearchsummaryComponent implements OnInit {
     this.userTrackerSub.unsubscribe();
   }
 
-  openotherprofile(RefsearchUserId){
-    console.log(RefsearchUserId);
-    this.searchProfileId = RefsearchUserId;
-    this.loggedInUserInfo.UserRefProfileId = RefsearchUserId;
-    this.loggedInUserInfo.ViewingSearchProfile = true;
-    localStorage.setItem('currentUser', JSON.stringify(this.loggedInUserInfo));
-    console.log(this.loggedInUserInfo);
-    //this.router.navigate([consts.AboutPath]);
+  openotherprofile(RefsearchUserIdBo){    
+    RefsearchUserIdBo.UserRefProfileId = RefsearchUserIdBo.UserId;
+    RefsearchUserIdBo.ViewingSearchProfile = true;
+    localStorage.setItem('profileviewUser', JSON.stringify(RefsearchUserIdBo));
+    this.router.navigate([consts.AboutPath]);
   }
 
 }

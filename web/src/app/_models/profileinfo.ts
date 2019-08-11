@@ -13,6 +13,14 @@ export interface ProfileInfo{
     message?: string;
     userIP?: string;
     messageSentTime?: string;
+    views: number;
+    socialLinkType: number;
+    socialLink: string;
+    FacebookLink: string;
+    LinkedInLink: string;
+    InstagramLink: string;
+    TwitterLink: string;
+    YouTubeLink: string;
 }
 export interface userAboutInfo{
     AutoId: number;
@@ -22,4 +30,15 @@ export interface userAboutInfo{
     CreatedIP?: string;
     Type: number;
     Section: number;
+    Views: number;
+    ProfilePicPath: string;
+    Posts: number;
+}
+export interface userPostInfo{
+    UserId: number;
+    ImagePath: string;
+    CreatedIP?: string;
+    ContentType: number;
+    Title: string;
+    UserContent: string;
 }

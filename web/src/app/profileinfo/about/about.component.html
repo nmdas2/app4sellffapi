@@ -1,4 +1,20 @@
 <div class="wrapper">    
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="active treeview menu-open"><a style="cursor: pointer;" routerLink="/profileinfo/about"><i class="fa fa-user"></i> <span>About</span><span class="pull-right-container"></span></a></li>
+                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/post"><i class="fa fa-sticky-note-o"></i> <span>Posts</span><span class="pull-right-container"></span></a></li>
+                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/message"><i class="fa fa-envelope-o"></i> <span>Message</span><span class="pull-right-container"></span></a></li>
+                <li class=""><a routerLink="/profileinfo/promote"><i class="fa fa-bullhorn"></i> <span>Promote</span><span class="pull-right-container"></span></a> </li>
+                <li class=""><a routerLink="/profileinfo/review"><i class="fa fa-star"></i> <span>Review</span><span class="pull-right-container"></span></a> </li>
+                <li class=""><a routerLink="/profileinfo/invest"><i class="fa fa-money"></i> <span>Invest</span><span class="pull-right-container"></span></a> </li>
+                <li class=""><a routerLink="/profileinfo/consult"><i class="fa fa-handshake-o"></i> <span>Consult</span><span class="pull-right-container"></span></a> </li>
+                <li class=""><a routerLink="/profileinfo/refer"><i class="fa fa fa-user-plus"></i> <span>Refer</span><span class="pull-right-container"></span></a> </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
     <div class="content-wrapper" >      
         <section class="content">
             <!-- Info boxes -->
@@ -10,7 +26,7 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text">Views</span>
-                            <span class="info-box-number">89</span>
+                            <span class="info-box-number">{{UserProfileViews}}</span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -89,15 +105,18 @@
                 <div class="col-md-12">                
                     <div class="box">                
                         <div class="box-header with-border">
-                            <p *ngIf="!isAboutInEditMode; else elseBlock" style="text-justify: distribute-all-lines;">
+                            <p class="edit-btn" *ngIf="!isAboutInEditMode; else elseBlock" style="text-justify: distribute-all-lines;">
                                 {{textValue}}
                                 <button class="glyphicon glyphicon-edit text-right"
                                  *ngIf="loggedInUserInfo.UserRefProfileId==null || loggedInUserInfo.UserRefProfileId==0"  (click)="logText()"></button>
                             </p>
                             <ng-template #elseBlock>
-                                <textarea cols="150" rows="10" [(ngModel)] = "textValue" required></textarea>
-                                <!-- <input #textbox id="txtAboutUser" type="textarea" width="85%" height="100px;" [(ngModel)]="textValue" required> -->
-                                <button class="btn btn-primary" (click)="saveupdatedabout()">Update</button>
+                                <div class="edit-box">
+                                        <textarea cols="150" rows="10" [(ngModel)] = "textValue" required></textarea>
+                                        <!-- <input #textbox id="txtAboutUser" type="textarea" width="85%" height="100px;" [(ngModel)]="textValue" required> -->
+                                        <button class="btn btn-primary" (click)="saveupdatedabout()">Update</button>
+                                </div>
+                                
                             </ng-template>                            
                             <!-- /.box-header -->
                             <h4>Services Offered</h4>
@@ -126,9 +145,8 @@
                                 <button type="button" class="btn btn-block btn-default btn-sm">Real Estate Brokerage and Finacing</button>
                             </div>
                         </div>
-                        <section>
-                            <div class="container">
-                                <div class="row">
+                        <section class="upload-img-section">
+                                <div class="">
                                     <div class="col-md-12">
                                         <h4>Gallery</h4>
                                         <a *ngFor = "let item of imgGallery" (click)="checkevent(item.imgUrl, template, item.galType,item.altUrl)" id="link1" href="javascript:void(0)">
@@ -153,46 +171,38 @@
                                         </ng-template>
                                     </div>
                                 </div>
-                                <p *ngIf="!AllowImageUpload; else upldelseBlock" style="text-justify: distribute-all-lines;">
-                                    <button class="glyphicon glyphicon-edit text-right"  *ngIf="loggedInUserInfo.UserRefProfileId==null || loggedInUserInfo.UserRefProfileId==0" (click)="ShowGalUpPop()">Upload Image</button>
-                                </p>
-                                <ng-template #upldelseBlock>
-                                <div class="row">
+                                <div class="col-md-12">
+                                        <p class="upload-btn" *ngIf="!AllowImageUpload; else upldelseBlock" style="text-justify: distribute-all-lines;">
+                                                <button class="glyphicon glyphicon-edit text-right"  *ngIf="loggedInUserInfo.UserRefProfileId==null || loggedInUserInfo.UserRefProfileId==0" (click)="ShowGalUpPop()">Upload Image</button>
+                                            </p>
+                                </div>
+                               
+                            <ng-template #upldelseBlock>
+                                <div class="upload-file">
                                     <div class="col-md-12">
                                         <h4>Upload</h4>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="col-md-6 offset-md-3">
-                                                <div class="form-group">
-                                                    <input type="file" name="image" (change)="fileProgress($event)" />
-                                                </div>
-                                            </div>
-                                        </div> 
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="col-md-12 offset-md-3">
-                                                <div class="image-preview mb-3" *ngIf="previewUrl">
-                                                    <img [src]="previewUrl" height="300" />                 
-                                                </div>                                            
-                                                <div class="mb-3" *ngIf="uploadedFilePath">
+                                        <div class="col-md-12">
+                                            <div class="upload-img">
+                                                <input type="file" name="image" (change)="fileProgress($event)" />
+                                                <div class="" *ngIf="uploadedFilePath">
                                                     {{uploadedFilePath}}
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="col-md-6 offset-md-3">
                                                 <div *ngIf="fileUploadProgress">
                                                     Upload progress: {{ fileUploadProgress }}
                                                 </div>
-                                                <div class="form-group">
-                                                    <button class="btn btn-primary"  (click)="onSubmit()">Submit</button>
-                                                </div>
+                                                <button class="btn btn-primary"  (click)="onSubmit()">Submit</button>
+                                            </div>
+                                        </div> 
+                                        <div class="col-md-12">
+                                            <div class="col-sm-3">
+                                                <div class="image-preview mb-3" *ngIf="previewUrl">
+                                                        <img [src]="previewUrl" height="300" />                 
+                                                </div>                                            
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                    </ng-template>
-                                
-                                
-                            </div>
+                            </ng-template>
                         </section>
                         <!-- /.box-footer -->
                     </div>

@@ -29,6 +29,8 @@ namespace Sellff_API.ADO
                     objAuthenticationBO.UserId = Convert.ToInt32(objDataRow["UserId"]);
                     objAuthenticationBO.Email = Convert.ToString(objDataRow["Email"]);
                     objAuthenticationBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
+                    objAuthenticationBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                    objAuthenticationBO.UserRefProfileId = 0;
                 }
             }
             catch (Exception ex)

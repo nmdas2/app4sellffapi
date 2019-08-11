@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { constants as consts } from '../constants';
 import { ProfileInfo, userAboutInfo } from '../_models/profileinfo';
 import { Post } from 'src/app/_models/post';
+import { User } from '../_models/user';
 
 export interface searchRes {
   DisplayName: string;
@@ -70,5 +71,10 @@ export class ProfileinfoService {
   postGallery(post: any): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/postGallery`, post);
   }
+  
+  UpdateUserViewsCount(data: User): Observable<any>{
+    return this.http.post(`${consts.DomainURL}ProfileInfo/UpdateUsersViewCount`, data);
+  }
+
 }
 

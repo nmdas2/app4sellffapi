@@ -27,11 +27,11 @@ export class HeaderComponent implements OnInit {
       if(localStorage.getItem('currentUser') != null){
         this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
         this.loggedInUserId = this.loggedInUserInfo.UserId;
-        this.loggedInUserName = this.loggedInUserInfo.displayName;
+        this.loggedInUserName = this.loggedInUserInfo.DisplayName;
         this.hasActiveSession = true;
       }
       else{
-        this.router.navigate([this.returnUrl]);
+        //this.router.navigate([this.returnUrl]);
         this.hasActiveSession = false;
       }
     }
@@ -46,15 +46,16 @@ export class HeaderComponent implements OnInit {
 
   signoutplz(){
     this.authenticationService.logout();
+    this.hasActiveSession = false;
     this.router.navigate([this.returnUrl]);
   }
 
-  onSubmit() {
+  onSubmit() {    
     if (this.searchForm.invalid) {
       return;
-    }    
-    console.log(this.searchForm.value["searchprofiles"]);
-    this.router.navigate(['/profileinfo/searchsummary/',{shashval: this.searchForm.value["searchprofiles"]}]);
+    }  
+    var sparam = this.searchForm.value["searchprofiles"];
+    this.router.navigate(['/profileinfo/searchsummary/'+sparam]);
     // this.profileService.getUsersBySearchTerm(this.searchForm.value)
     // .subscribe(
     //     data => {
@@ -65,6 +66,13 @@ export class HeaderComponent implements OnInit {
     //         // this.alertService.error(error);
     //         // this.loading = false;
     //     });
+  }
+
+  taketoActualProfile()
+  {
+    localStorage.removeItem('profileviewUser');
+    this.loggedInUserInfo.UserRefProfileId = 0;    
+    this.router.navigate(['/home']);
   }
 
 }

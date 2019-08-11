@@ -58,6 +58,10 @@ namespace Sellff_API.Models
         public string City { get; set; }
         [DataMember]
         public string Occupation { get; set; }
+        [DataMember]
+        public int SocialLinkType { get; set; }
+        [DataMember]
+        public string SocialLink { get; set; }
     }
 
     public class PromotionsBO
@@ -140,5 +144,30 @@ namespace Sellff_API.Models
         public string CreatedIP { get; set; }
         [DataMember]
         public int Section { get; set; }
+        [DataMember]
+        public int Views { get; set; }
+        [DataMember]
+        public string ProfilePicPath { get; set; }
+        [DataMember]
+        public int Posts { get; set; }
+    }
+
+    public class UserPostBO
+    {
+        [DataMember]
+        public int ContentType { get; set; }
+        [DataMember]
+        public int UserId { get; set; }
+        [DataMember]
+        public string Title { get; set; }
+        [DataMember]
+        public string Content { get; set; }
+        [DataMember]
+        public string ImagePath { get; set; }
+        public string CreatedOn { get; set; }
+        [DataMember]
+        public int CreatedBy { get; set; }
+        [DataMember]
+        public string CreatedIP { get; set; }
     }
 }

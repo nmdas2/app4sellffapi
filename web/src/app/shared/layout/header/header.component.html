@@ -1,6 +1,6 @@
 <header class="main-header">
   <!-- Logo -->
-  <a href="index.html" class="logo">
+  <a href="home.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini">Sellff</span>
       <!-- logo for regular state and mobile devices -->
@@ -26,24 +26,24 @@
     </div>
   </form>
 </div>
-<div class="navbar-custom-menu pull-right">
+<div class="navbar-custom-menu pull-right" *ngIf="hasActiveSession">
   <ul class="nav navbar-nav">
     <li class="dropdown user user-menu">
       <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-        <img src="././././assets/images/user2-160x160.jpg" class="user-image" alt="User Image">
-        <span class="hidden-xs">{{loggedInUserName}}</span>
+        <img src='{{loggedInUserInfo.ProfilePicPath}}' class="user-image" alt="User Image">
+        <span class="hidden-xs">{{loggedInUserInfo.DisplayName}}</span>
       </a>
       <ul class="dropdown-menu">
         <!-- User image -->
         <li class="user-header">
-          <img src="././././assets/images/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src='{{loggedInUserInfo.ProfilePicPath}}' class="img-circle" alt="User Image">
           <p>
-            Alexander Pierce - Web Developer
-            <small>Member since Nov. 2012</small>
+              {{loggedInUserInfo.DisplayName}} - {{loggedInUserInfo.Occupation}}
+            <!-- <small>Member since Nov. 2012</small> -->
           </p>
         </li>
         <!-- Menu Body -->
-        <li class="user-body">
+        <!-- <li class="user-body">
           <div class="row">
             <div class="col-xs-4 text-center">
               <a href="#">Followers</a>
@@ -55,12 +55,12 @@
               <a href="#">Friends</a>
             </div>
           </div>
-          <!-- /.row -->
-        </li>
+           //.row 
+        </li> -->
         <!-- Menu Footer-->
         <li class="user-footer">
           <div class="pull-left">
-            <a href="#" class="btn btn-default btn-flat">Profile</a>
+            <a (click)="taketoActualProfile()" class="btn btn-default btn-flat">Profile</a>
           </div>
           <div class="pull-right">
             <a routerLink="" class="btn btn-default btn-flat" (click)=signoutplz()>Sign out</a>
@@ -78,8 +78,8 @@
   <div class="container-fluid">	
       <div class="row">
           <div class="col-md-2 col-xs-12 cover-img">
-          <img src="././././assets/images/3d.png" class="img-responsive">
-          <h4 >Tom Clarke</h4>
+          <img src='{{loggedInUserInfo.ProfilePicPath}}' class="img-responsive">
+          <h4 >{{loggedInUserInfo.DisplayName}}</h4>
           </div>          
          <div class="col-md-2 col-xs-12  pull-right  circle1 hidden-xs hidden-sm">
     <h3 class=""> 512</h3>        

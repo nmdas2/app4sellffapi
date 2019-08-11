@@ -1,5 +1,6 @@
 ﻿using Sellff_API.ADO;
 using Sellff_API.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Sellff_API.Services
@@ -45,6 +46,18 @@ namespace Sellff_API.Services
         public bool SaveUserGalleryImage(UserAboutBO objUserAboutBO)
         {
             return objProfileInfoDAO.SaveUserGalleryImage(objUserAboutBO);
+        }
+        public bool SaveUserPostTextMessages(UserPostBO objUserPostBO)
+        {
+            return objProfileInfoDAO.SaveUserPostTextMessages(objUserPostBO);
+        }
+        public bool UpdateUsersViewCount(ProfileInfoBO objProfileInfoBO)
+        {
+            return objProfileInfoDAO.UpdateUsersViewCount(objProfileInfoBO);
+        }
+        public bool UpdateUsersSocialInfo(ProfileInfoBO objProfileInfoBO)
+        {
+            return objProfileInfoDAO.UpdateUsersSocialInfo(objProfileInfoBO);
         }
     }
 }

@@ -26,10 +26,10 @@ export class AuthenticationService {
     login(user: User) {
         return this.http.post<any>(`${consts.DomainURL}SellffDefault/AuthenticateSellffUserInfo`,  user )
             .pipe(map(user => {
+                console.log(user);
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user));
-                localStorage.setItem('currentProfileId', user.UserId);
-                localStorage.setItem('searchProfileId', user.UserRefProfileId);
+                localStorage.removeItem('profileviewUser');
                 this.currentUserSubject.next(user);
                 return user;
             }));
