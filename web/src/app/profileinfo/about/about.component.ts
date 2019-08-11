@@ -128,7 +128,6 @@ export class AboutComponent implements OnInit {
   onSubmit() {
     const formData = new FormData();
     formData.append('files', this.fileData);
-    console.log(this.fileData.name)
     this.fileUploadProgress = '0%';
     this.http.post('http://localhost:50517/api/ProfileInfo/SaveImagesForGallery', formData, {
       reportProgress: true,
@@ -137,10 +136,8 @@ export class AboutComponent implements OnInit {
       .subscribe(events => {
         if (events.type === HttpEventType.UploadProgress) {
           this.fileUploadProgress = Math.round(events.loaded / events.total * 100) + '%';
-          console.log(this.fileUploadProgress);
         } else if (events.type === HttpEventType.Response) {
           this.fileUploadProgress = '';
-          console.log(events.body);
           //alert('SUCCESS !!');
         }
       })

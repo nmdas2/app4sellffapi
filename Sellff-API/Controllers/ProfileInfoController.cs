@@ -111,7 +111,7 @@ namespace Sellff_API.Controllers
                 {
                     var postedFile = httpRequest.Files[file];
                     //var filePath = HttpContext.Current.Server.MapPath("~/GalleryImages/" + postedFile.FileName);
-                    var filePath = "F:/Projects/Ron/Sellff/Sellff-App/src/assets/selfprflimages/" + postedFile.FileName;
+                    var filePath = "F:/Projects/Ron/Das/web/src/assets/selfprflimages/" + postedFile.FileName;
                     postedFile.SaveAs(filePath);
                 }
             }
