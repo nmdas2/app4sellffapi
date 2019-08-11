@@ -67,5 +67,8 @@ export class ProfileinfoService {
   postText(post: Post): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/postText`, post);
   }
+  postGallery(post: any): Observable<any>{
+    return this.http.post(`${consts.DomainURL}ProfileInfo/postGallery`, post);
+  }
 }
 

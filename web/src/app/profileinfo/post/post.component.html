@@ -85,6 +85,54 @@
                 <a href="#"><i id="social-em" style="padding-right: 4px;"
                         class="fa fa-envelope-square fa-2x social"></i></a>
             </div>
+
+            <ng-template #templateForPostGallary>
+                <div class="modal-header">
+                    <h4 class="modal-title pull-left">Create Post</h4>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="resetPostGalleryForm()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form [formGroup]="postGalleryForm" (ngSubmit)="saveGalleryPost(postGalleryForm.value)">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row justify-content-center">
+                                    <label>Upload Photo</label>
+                                    <div class="col-md-12">
+                                        <input type="file" name="image" (change)="attachToFormControl($event)" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-6">
+                                <div class="form-group row justify-content-center">
+                                    <div class="col-md-12">
+                                            <label>Upload Photo from web</label>
+                                        <input type="text" class="form-control" formControlName="webUrl"
+                                            placeholder="Place text here"/>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <button class="blue-rnd-btn sm-btn mx-auto btn-primary" type="submit"
+                                    [disabled]="postGalleryForm.invalid">Submit</button> |
+                                <button class="blue-rnd-btn sm-btn mx-auto btn-warning" type="button"
+                                    (click)="resetPostGalleryForm()">Reset</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </ng-template>
+
             <ng-template #template>
                 <div class="modal-header">
                     <h4 class="modal-title pull-left">Create Post</h4>
@@ -99,8 +147,11 @@
                             <div class="col-md-12">
                                 <div class="form-group row justify-content-center">
                                     <div class="col-md-12">
-                                        <input type="text" class="form-control" formControlName="title" placeholder="Title"/>
-                                        <span *ngIf="postTextForm.controls['title'].touched && postTextForm.controls['title'].invalid" class="form-error">Title required</span>
+                                        <input type="text" class="form-control" formControlName="title"
+                                            placeholder="Title" />
+                                        <span
+                                            *ngIf="postTextForm.controls['title'].touched && postTextForm.controls['title'].invalid"
+                                            class="form-error">Title required</span>
                                     </div>
                                 </div>
                             </div>
@@ -110,8 +161,11 @@
                             <div class="col-md-12">
                                 <div class="form-group row justify-content-center">
                                     <div class="col-md-12">
-                                       <textarea class="form-control" formControlName="text" placeholder="Place text here" rows="4" cols="50"></textarea>
-                                        <span *ngIf="postTextForm.controls['text'].touched && postTextForm.controls['text'].invalid" class="form-error">Text 
+                                        <textarea class="form-control" formControlName="text"
+                                            placeholder="Place text here" rows="4" cols="50"></textarea>
+                                        <span
+                                            *ngIf="postTextForm.controls['text'].touched && postTextForm.controls['text'].invalid"
+                                            class="form-error">Text
                                             required</span>
                                     </div>
                                 </div>
@@ -121,7 +175,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <button class="blue-rnd-btn sm-btn mx-auto btn-primary" type="submit"
-                                    [disabled]="postTextForm.invalid">Submit</button> | 
+                                    [disabled]="postTextForm.invalid">Submit</button> |
                                 <button class="blue-rnd-btn sm-btn mx-auto btn-warning" type="button"
                                     (click)="resetPostTextForm()">Reset</button>
                             </div>
@@ -131,7 +185,7 @@
                 </div>
             </ng-template>
             <div>
-                <a (click)="popupPostTextModel(template)">Create Text Post</a> | <a>Create Image Post</a>
+                <a (click)="popupPostTextModel(template)">Create Text Post</a> | <a (click)="popupPostGalleryModel(templateForPostGallary)">Create Image Post</a>
             </div>
             <div class="container PostsByGroups">
                 <div class="row box" *ngIf="PostsByGroups.length>0">

@@ -31,6 +31,7 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     this.createPostTextForm();
+    this.createPostGallryForm();
     this.getUserPosts();
     
   }
@@ -116,4 +117,49 @@ export class PostComponent implements OnInit {
     })
   }
   //end create text post
+
+  //start gallery post upload
+  modalRefForGallery: BsModalRef;
+  popupPostGalleryModel(template) {
+    this.modalRefForGallery = this.modalService.show(template,
+      Object.assign({}, this.config, { class: 'gray modal-small' })
+    );
+  }
+  resetPostGalleryForm(){
+    this.modalRefForGallery.hide();
+    this.postGalleryForm.reset();
+  }
+  postGalleryForm: FormGroup
+  createPostGallryForm() {
+    this.postGalleryForm = this.fb.group({
+      image: ['', []],
+      webUrl: ['', []]
+    });
+  }
+
+  attachToFormControl(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.postGalleryForm.get('image').setValue(file);
+    }
+  }
+
+  saveGalleryPost(postData){
+    const formData = new FormData();
+    formData.append('file', this.postGalleryForm.get('image').value);
+
+    let galleryPost={
+      image:formData,
+      webUrl:postData.webUrl,
+      UserId:this.loggedInUserInfo.UserId
+    };
+    this.profileInfoService.postGallery(galleryPost)
+    .subscribe((res: any) => {
+      this.getUserPosts();
+      this.resetPostGalleryForm();
+    }, error => {
+      console.log(error);
+    })
+  }
+  //end gallery post upload
 }
