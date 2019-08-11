@@ -1,7 +1,20 @@
 <div class="wrapper">
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/about"><i class="fa fa-user"></i> <span>About</span><span class="pull-right-container"></span></a></li>
+                <li class="active treeview menu-open"><a style="cursor: pointer;" routerLink="/profileinfo/post"><i class="fa fa-sticky-note-o"></i> <span>Posts</span><span class="pull-right-container"></span></a></li>
+                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/message"><i class="fa fa-envelope-o"></i> <span>Message</span><span class="pull-right-container"></span></a></li>
+                <li class=""><a routerLink="/profileinfo/promote"><i class="fa fa-bullhorn"></i> <span>Promote</span><span class="pull-right-container"></span></a> </li>
+                <li class=""><a routerLink="/profileinfo/review"><i class="fa fa-star"></i> <span>Review</span><span class="pull-right-container"></span></a> </li>
+                <li class=""><a routerLink="/profileinfo/invest"><i class="fa fa-money"></i> <span>Invest</span><span class="pull-right-container"></span></a> </li>
+                <li class=""><a routerLink="/profileinfo/consult"><i class="fa fa-handshake-o"></i> <span>Consult</span><span class="pull-right-container"></span></a> </li>
+                <li class=""><a routerLink="/profileinfo/refer"><i class="fa fa fa-user-plus"></i> <span>Refer</span><span class="pull-right-container"></span></a> </li>
+            </ul>
+        </section>
+    </aside>
     <div class="content-wrapper">
         <section class="content">
-            <!-- Info boxes -->
             <div class="row">
                 <!-- /.col -->
                 <div class="col-md-2  col-xs-12 views">
@@ -70,7 +83,6 @@
                 </div>
                 <!-- /.col -->
             </div>
-            <!-- /.row -->
             <div class="text-center pull-right">
                 <a href="#"><i id="social-gp" style="padding-right: 4px;" class="fa fa-globe fa-2x social"></i></a>
                 <a href="#"><i id="social-tw" style="padding-right: 4px;"
@@ -85,7 +97,6 @@
                 <a href="#"><i id="social-em" style="padding-right: 4px;"
                         class="fa fa-envelope-square fa-2x social"></i></a>
             </div>
-
             <ng-template #templateForPostGallary>
                 <div class="modal-header">
                     <h4 class="modal-title pull-left">Create Post</h4>
@@ -184,12 +195,11 @@
                     </form>
                 </div>
             </ng-template>
-            <div>
+            <div *ngIf="isAboutInEditMode">
                 <a (click)="popupPostTextModel(template)">Create Text Post</a> | <a (click)="popupPostGalleryModel(templateForPostGallary)">Create Image Post</a>
             </div>
             <div class="container PostsByGroups">
                 <div class="row box" *ngIf="PostsByGroups.length>0">
-
                     <div class="col-sm-12" *ngFor="let postGroup of PostsByGroups;let i = index">
                         <h4>
                             {{postGroup.key}}
@@ -199,7 +209,6 @@
                                 {{post.UserContent}}
                             </div>
                             <div *ngIf="post.ContentType==2">
-
                                 <a data-toggle="modal" data-target="#1" (click)="setModelImage(post.ImagePath)">
                                     <img src={{post.ImagePath}} />
                                 </a>
@@ -591,11 +600,6 @@
             <!-- /.col -->
         </section>
     </div>
-    <!-- /.row -->
-    <!-- Main row -->
-    <!-- /.row -->
-
-    <!-- /.content -->
     <footer class="main-footer">
         <div class="pull-right ">
             <a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Site map</a>

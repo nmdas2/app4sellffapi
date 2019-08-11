@@ -31,6 +31,8 @@ namespace Sellff_API.Models
         [DataMember]
         public int UserRefProfileId { get; set; }
         [DataMember]
+        public int userRefId { get; set; }
+        [DataMember]
         public string Message { get; set; }
         [DataMember]
         public string UserIP { get; set; }
@@ -62,6 +64,10 @@ namespace Sellff_API.Models
         public int SocialLinkType { get; set; }
         [DataMember]
         public string SocialLink { get; set; }
+        [DataMember]
+        public int MessageTo { get; set; }
+        [DataMember]
+        public int MessageFrom { get; set; }
     }
 
     public class PromotionsBO

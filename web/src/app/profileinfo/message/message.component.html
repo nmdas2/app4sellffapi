@@ -1,20 +1,18 @@
 <div class="wrapper">
-        <aside class="main-sidebar">
-                <!-- sidebar: style can be found in sidebar.less -->
-                <section class="sidebar">
-                    <ul class="sidebar-menu" data-widget="tree">
-                        <li class="active treeview menu-open"><a style="cursor: pointer;" routerLink="/profileinfo/about"><i class="fa fa-user"></i> <span>About</span><span class="pull-right-container"></span></a></li>
-                        <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/post"><i class="fa fa-sticky-note-o"></i> <span>Posts</span><span class="pull-right-container"></span></a></li>
-                        <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/message"><i class="fa fa-envelope-o"></i> <span>Message</span><span class="pull-right-container"></span></a></li>
-                        <li class=""><a routerLink="/profileinfo/promote"><i class="fa fa-bullhorn"></i> <span>Promote</span><span class="pull-right-container"></span></a> </li>
-                        <li class=""><a routerLink="/profileinfo/review"><i class="fa fa-star"></i> <span>Review</span><span class="pull-right-container"></span></a> </li>
-                        <li class=""><a routerLink="/profileinfo/invest"><i class="fa fa-money"></i> <span>Invest</span><span class="pull-right-container"></span></a> </li>
-                        <li class=""><a routerLink="/profileinfo/consult"><i class="fa fa-handshake-o"></i> <span>Consult</span><span class="pull-right-container"></span></a> </li>
-                        <li class=""><a routerLink="/profileinfo/refer"><i class="fa fa fa-user-plus"></i> <span>Refer</span><span class="pull-right-container"></span></a> </li>
-                    </ul>
-                </section>
-                <!-- /.sidebar -->
-            </aside>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/about"><i class="fa fa-user"></i> <span>About</span><span class="pull-right-container"></span></a></li>
+                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/post"><i class="fa fa-sticky-note-o"></i> <span>Posts</span><span class="pull-right-container"></span></a></li>
+                <li class="active treeview menu-open"><a style="cursor: pointer;" routerLink="/profileinfo/message"><i class="fa fa-envelope-o"></i> <span>Message</span><span class="pull-right-container"></span></a></li>
+                <li class=""><a routerLink="/profileinfo/promote"><i class="fa fa-bullhorn"></i> <span>Promote</span><span class="pull-right-container"></span></a> </li>
+                <li class=""><a routerLink="/profileinfo/review"><i class="fa fa-star"></i> <span>Review</span><span class="pull-right-container"></span></a> </li>
+                <li class=""><a routerLink="/profileinfo/invest"><i class="fa fa-money"></i> <span>Invest</span><span class="pull-right-container"></span></a> </li>
+                <li class=""><a routerLink="/profileinfo/consult"><i class="fa fa-handshake-o"></i> <span>Consult</span><span class="pull-right-container"></span></a> </li>
+                <li class=""><a routerLink="/profileinfo/refer"><i class="fa fa fa-user-plus"></i> <span>Refer</span><span class="pull-right-container"></span></a> </li>
+            </ul>
+        </section>
+    </aside>
         <div class="content-wrapper" >      
             <section class="content">
                 <!-- Info boxes -->
@@ -101,10 +99,10 @@
                     <div class="col-md-6">                
                         <div class="box" >    
                             <h4>Message History</h4>      
-                            <div style="border-radius: 10px; background-color: rgb(248, 248, 238);" *ngFor = "let message of userMessages">
-                                <label class="text-left col-sm-6" *ngIf = "message.displayName">{{message.displayName}}</label>
-                                <label class="text-right col-sm-6" *ngIf = "message.messageSentTime">{{message.messageSentTime | date : 'dd-MMM-yyyy'}} | {{message.messageSentTime | date : 'hh:mm aa'}}</label><br> 
-                                <p  *ngIf = "message.message">{{message.message}}</p>
+                            <div style="border-radius: 10px; background-color: rgb(248, 248, 238);" *ngFor = "let message of userMessages">                                
+                                <a style="cursor: pointer;" (click)=openotherprofile(message)><label class="text-left col-sm-6" *ngIf = "message.DisplayName">{{message.DisplayName}}</label></a>
+                                <label class="text-right col-sm-6" *ngIf = "message.MessageSentTime">{{message.MessageSentTime | date : 'dd-MMM-yyyy'}} | {{message.MessageSentTime | date : 'hh:mm aa'}}</label><br> 
+                                <p  *ngIf = "message.Message">{{message.Message}}</p>
                                 <!-- <p class="text-right"><a>[more]</a></p> -->
                             </div>      
                             <!-- <div style="border-radius: 10px; background-color: rgb(248, 248, 238);">
@@ -121,7 +119,7 @@
                             </div> -->
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" *ngIf="!isAboutInEditMode">
                         <div class="box message-box">
                             <h4>New Message</h4>
                             <textarea [(ngModel)] = "userMsg"></textarea>

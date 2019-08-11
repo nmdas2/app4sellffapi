@@ -55,7 +55,7 @@ namespace Sellff_API.ADO
             {
                 var sqlParams = new SqlParameter[4];
                 sqlParams[0] = new SqlParameter("@Message", SqlDbType.VarChar) { Value = objProfileInfoBO.Message };
-                sqlParams[1] = new SqlParameter("@MessageTo", SqlDbType.VarChar) { Value = objProfileInfoBO.UserRefProfileId };
+                sqlParams[1] = new SqlParameter("@MessageTo", SqlDbType.VarChar) { Value = objProfileInfoBO.userRefId };
                 sqlParams[2] = new SqlParameter("@MessageFrom", SqlDbType.VarChar) { Value = objProfileInfoBO.UserId };
                 if (string.IsNullOrEmpty(objProfileInfoBO.UserIP))
                     objProfileInfoBO.UserIP = "::1";
@@ -96,6 +96,8 @@ namespace Sellff_API.ADO
                         objResponseBO.Message = Convert.ToString(objDataRow["Message"]);
                         objResponseBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
                         objResponseBO.MessageSentTime = Convert.ToString(objDataRow["MessageSentTime"]);
+                        objResponseBO.MessageTo = Convert.ToInt32(objDataRow["MessageTo"]);
+                        objResponseBO.MessageFrom = Convert.ToInt32(objDataRow["MessageFrom"]);
                         objProfilesList.Add(objResponseBO);
                     }
                 }

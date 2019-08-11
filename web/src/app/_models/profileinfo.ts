@@ -8,11 +8,11 @@ export interface ProfileInfo{
     gender?: string;
     userName?: string;
     password?: string;
-    displayName?: string;
+    DisplayName?: string;
     userRefId: number;
-    message?: string;
+    Message?: string;
     userIP?: string;
-    messageSentTime?: string;
+    MessageSentTime?: string;
     views: number;
     socialLinkType: number;
     socialLink: string;
@@ -21,6 +21,8 @@ export interface ProfileInfo{
     InstagramLink: string;
     TwitterLink: string;
     YouTubeLink: string;
+    MessageFrom: number;
+    MessageTo: number;
 }
 export interface userAboutInfo{
     AutoId: number;

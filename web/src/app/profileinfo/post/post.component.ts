@@ -16,17 +16,32 @@ export class PostComponent implements OnInit {
   monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
+  userPosts: any;  PostsByGroups:PostByGroup[]=[];  loggedInUserInfo: User; isAboutInEditMode: boolean = false;
+  UserIdForGallery: number; MainUserId: number;
 
-  userPosts: any;
-  PostsByGroups:PostByGroup[]=[];
-  loggedInUserInfo: User;
   constructor(
     private profileInfoService: ProfileinfoService,
     private modalService: BsModalService,
     private fb: FormBuilder,
   ) { 
     this.userPosts = [];
-    this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
+    if(localStorage.getItem('currentUser') != null){
+      this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
+      this.MainUserId = this.loggedInUserInfo.UserId;
+      if(this.loggedInUserInfo.UserId == this.loggedInUserInfo.UserRefProfileId){
+        this.isAboutInEditMode = true;
+      }
+      if(this.loggedInUserInfo.UserRefProfileId == 0)
+      {
+        this.UserIdForGallery = this.loggedInUserInfo.UserId;
+        this.isAboutInEditMode = true;
+      }else{this.UserIdForGallery = this.loggedInUserInfo.UserRefProfileId;}
+    }
+    if(localStorage.getItem('profileviewUser') != null){
+      this.loggedInUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
+        this.isAboutInEditMode = false;
+        this.UserIdForGallery = this.loggedInUserInfo.UserRefProfileId;
+    }
   }
 
   ngOnInit() {
@@ -39,7 +54,7 @@ export class PostComponent implements OnInit {
   //get user posts
   getUserPosts(){
     this.userPosts = [];
-    this.profileInfoService.getUserPosts(this.loggedInUserInfo.UserId)
+    this.profileInfoService.getUserPosts(this.UserIdForGallery)
     .subscribe((posts: Post[]) => {
       this.PostsByGroups=[];
       for(let post of posts){
