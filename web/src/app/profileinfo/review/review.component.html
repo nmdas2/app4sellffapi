@@ -96,6 +96,62 @@
                 </div>
                 <div class="row"><div class="col-md-6"></div></div>
                     <div class="row">
+                        <button type="button" class="btn btn-primary" (click)="openModal(template)">Write a Member Review</button>
+                        <ng-template #template>
+                            <div class="modal-header">
+                                <h4 class="modal-title pull-left">Modal</h4>
+                                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <rating [(ngModel)]="rate" [max]="max" [readonly]="isReadonly"
+                                (onHover)="hoveringOver($event)" (onLeave)="resetStar()"
+                                [titles]="['one','two','three']"></rating>
+                                <span class="label"
+                                    [ngClass]="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}"
+                                    [ngStyle]="{display: (overStar && !isReadonly) ? 'inline' : 'none'}">{{percent}}%</span>
+                                <div class="card">
+                                    <pre class="card-block card-header" style="margin:15px 0;">Rate: <b>{{rate}}</b>;  Readonly is: <i>{{isReadonly}}</i>;  Hovering over: <b>{{overStar || "none"}}</b></pre>
+                                </div>
+                                
+                                <button type="button" class="btn btn-sm btn-danger" (click)="rate = 0"
+                                        [disabled]="isReadonly">Clear
+                                </button>
+                                <button type="button" class="btn btn-sm btn-primary"
+                                        (click)="isReadonly = ! isReadonly">Toggle Readonly
+                                </button>
+                            </div>
+                            <div class="modal-header">
+                                <h4 class="modal-title pull-left">Create Post</h4>
+                                <button type="button" class="close pull-right" aria-label="Close" (click)="resetPostTextForm()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">            
+                                <form [formGroup]="reviewUserForm" (ngSubmit)="onSubmit()">
+                                    <div class="form-row">
+                                            <div class="form-group col-5">
+                                                <input type="text" formControlName="reviewTitle" placeholder="Review Title" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.reviewTitle.errors }" />
+                                                <div *ngIf="submitted && f.reviewTitle.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.reviewTitle.errors.required">Review Title is required</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-5">
+                                                <label>Last Name</label>
+                                                <input type="textarea" formControlName="reviewContent" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.reviewContent.errors }" />
+                                                <div *ngIf="submitted && f.reviewContent.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.reviewContent.errors.required">Last Name is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <button class="btn btn-primary mr-1">Submit Review</button>
+                                            <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
+                                        </div>
+                                </form>
+                            </div>
+                        </ng-template>                        
                     </div>
                 </section>
             </div>

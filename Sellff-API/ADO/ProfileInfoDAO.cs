@@ -48,6 +48,7 @@ namespace Sellff_API.ADO
             }
             return objProfilesList;
         }
+
         public List<ProfileInfoBO> SaveUserMessages(ProfileInfoBO objProfileInfoBO)
         {
             List<ProfileInfoBO> objProfilesList = new List<ProfileInfoBO>();
@@ -335,6 +336,83 @@ namespace Sellff_API.ADO
             }
             return result;
         }
+
+        public bool SaveReviewForUsers(UserReviewBO objUserReviewBO)
+        {
+            var result = false;
+            try
+            {
+                var sqlParams = new SqlParameter[6];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = objUserReviewBO.UserId };
+                sqlParams[1] = new SqlParameter("@ReviewTitle", SqlDbType.VarChar) { Value = objUserReviewBO.ReviewTitle };
+                if (string.IsNullOrEmpty(objUserReviewBO.CreatedIP))
+                    objUserReviewBO.CreatedIP = "::1";
+                sqlParams[2] = new SqlParameter("@CreatedIP", SqlDbType.VarChar) { Value = objUserReviewBO.CreatedIP };
+                sqlParams[3] = new SqlParameter("@ReviewContent", SqlDbType.VarChar) { Value = objUserReviewBO.ReviewContent };
+                sqlParams[4] = new SqlParameter("@Rating", SqlDbType.Int) { Value = objUserReviewBO.Rating };
+                sqlParams[5] = new SqlParameter("@RatingGivenTo", SqlDbType.Int) { Value = objUserReviewBO.RatingGivenTo };
+
+                if (SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "SaveUserReviews", sqlParams) > 0)
+                    result = true;
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return result;
+        }
+
+        public bool UpdateUsersReviewAsHelpful(UserReviewBO objUserReviewBO)
+        {
+            var result = false;
+            try
+            {
+                var sqlParams = new SqlParameter[2];
+                sqlParams[0] = new SqlParameter("@ReviewId", SqlDbType.Int) { Value = objUserReviewBO.ReviewId };
+                sqlParams[1] = new SqlParameter("@HelpfullGivenBy", SqlDbType.Int) { Value = objUserReviewBO.UserId };
+
+                if (SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "UpdateUsersReviewAsHelpful", sqlParams) > 0)
+                    result = true;
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return result;
+        }
+        public List<UserReviewBO> GetAllUserReviewsByUser(int UserId)
+        {
+            List<UserReviewBO> objResponseList = new List<UserReviewBO>();
+            try
+            {
+                var sqlParams = new SqlParameter[1];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = UserId };
+
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetAllUserReviewsByUser", sqlParams);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    for (int i = 0; i < _objDataSet.Tables[0].Rows.Count; i++)
+                    {
+                        UserReviewBO objResponseBO = new UserReviewBO();
+                        var objDataRow = _objDataSet.Tables[0].Rows[i];
+                        objResponseBO.ReviewId = Convert.ToInt32(objDataRow["ReviewId"]);
+                        objResponseBO.ReviewTitle = Convert.ToString(objDataRow["ReviewTitle"]);
+                        objResponseBO.ReviewContent = Convert.ToString(objDataRow["ReviewContent"]);
+                        objResponseBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
+                        objResponseBO.CreatedBy = Convert.ToInt32(objDataRow["CreatedBy"]);
+                        objResponseBO.Rating = Convert.ToInt32(objDataRow["Rating"]);
+                        objResponseBO.helpful = Convert.ToInt32(objDataRow["helpful"]);
+                        objResponseList.Add(objResponseBO);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objResponseList;
+        }
+
 
     }
 }

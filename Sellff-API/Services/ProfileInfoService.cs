@@ -59,5 +59,9 @@ namespace Sellff_API.Services
         {
             return objProfileInfoDAO.UpdateUsersSocialInfo(objProfileInfoBO);
         }
+        public bool SaveReviewForUsers(UserReviewBO objUserReviewBO)
+        {
+            return objProfileInfoDAO.SaveReviewForUsers(objUserReviewBO);
+        }
     }
 }

@@ -176,4 +176,28 @@ namespace Sellff_API.Models
         [DataMember]
         public string CreatedIP { get; set; }
     }
+
+    public class UserReviewBO
+    {
+        [DataMember]
+        public int ReviewId { get; set; }
+        [DataMember]
+        public int UserId { get; set; }
+        [DataMember]
+        public string ReviewTitle { get; set; }
+        [DataMember]
+        public string ReviewContent { get; set; }
+        [DataMember]
+        public string CreatedOn { get; set; }
+        [DataMember]
+        public int CreatedBy { get; set; }
+        [DataMember]
+        public string CreatedIP { get; set; }
+        [DataMember]
+        public int Rating { get; set; }
+        [DataMember]
+        public int RatingGivenTo { get; set; }
+        [DataMember]
+        public int helpful { get; set; }
+    }
 }

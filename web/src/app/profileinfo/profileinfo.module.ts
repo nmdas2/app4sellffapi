@@ -17,6 +17,7 @@ import { MytestingComponent } from './mytesting/mytesting.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { UploadComponent } from './upload/upload.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RatingModule } from 'ngx-bootstrap';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    RatingModule.forRoot()
   ]
 })
 export class ProfileinfoModule { }

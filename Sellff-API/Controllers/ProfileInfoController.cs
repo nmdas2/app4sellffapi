@@ -168,5 +168,17 @@ namespace Sellff_API.Controllers
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.UpdateUsersSocialInfo(objProfileInfoBO)));
         }
 
+
+        ///summary
+        /// This method will Save user About info  based on UserId
+        ///</summary>
+        /// <param name="objUserAboutBO"></param>
+        [HttpPost, Route("api/ProfileInfo/SaveReviewForUsers")]
+        public IHttpActionResult SaveReviewForUsers([FromBody]UserReviewBO objUserReviewBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.SaveReviewForUsers(objUserReviewBO)));
+        }
+
+
     }
 }
