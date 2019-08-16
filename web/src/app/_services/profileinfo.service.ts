@@ -71,14 +71,15 @@ export class ProfileinfoService {
   }
   postGallery(post: any): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/postGallery`, post);
-  }
-  
+  }  
   UpdateUserViewsCount(data: User): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/UpdateUsersViewCount`, data);
   }
   SaveReview(data: Review): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/SaveReviewForUsers`, data);
   }
-
+  GetUserReviewsById(Infoval: User): Observable<Review[]>{
+    return this.http.post<Review[]>(`${consts.DomainURL}ProfileInfo/GetUserReviewsByUser`, Infoval);
+  }
 }
 

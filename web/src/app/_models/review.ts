@@ -9,4 +9,6 @@ export class Review {
     CreatedIP?: string;
     CreatedBy?: number;
     ReviewId?:number;
+    ProfilePicPath?: string;
+    DisplayName?: string;
 }

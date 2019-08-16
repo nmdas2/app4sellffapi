@@ -199,5 +199,38 @@ namespace Sellff_API.Models
         public int RatingGivenTo { get; set; }
         [DataMember]
         public int helpful { get; set; }
+        [DataMember]
+        public int IdForDataRequest { get; set; } = 0;
+        [DataMember]
+        public string ProfilePicPath { get; set; }
+        [DataMember]
+        public string DisplayName { get; set; }
     }
+
+    public class UserLocalStorageBO
+    {
+        [DataMember]
+        public int UserId { get; set; }
+        [DataMember]
+        public string email { get; set; }
+        [DataMember]
+        public string password { get; set; }
+        [DataMember]
+        public string DisplayName { get; set; }
+        [DataMember]
+        public string token { get; set; }
+        [DataMember]
+        public int UserRefProfileId { get; set; }
+        [DataMember]
+        public int userRefId { get; set; }
+        [DataMember]
+        public bool ViewingSearchProfile { get; set; }
+        [DataMember]
+        public int SocialLinkType { get; set; }
+        [DataMember]
+        public string SocialLink { get; set; }
+        [DataMember]
+        public string Occupation { get; set; }
+    }
+
 }

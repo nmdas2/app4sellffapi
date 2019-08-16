@@ -63,5 +63,9 @@ namespace Sellff_API.Services
         {
             return objProfileInfoDAO.SaveReviewForUsers(objUserReviewBO);
         }
+        public List<UserReviewBO> GetAllUserReviewsByUser(UserLocalStorageBO objUserLocalStorageBO)
+        {
+            return objProfileInfoDAO.GetAllUserReviewsByUser(objUserLocalStorageBO.UserId);
+        }
     }
 }

@@ -352,7 +352,7 @@ namespace Sellff_API.ADO
                 sqlParams[4] = new SqlParameter("@Rating", SqlDbType.Int) { Value = objUserReviewBO.Rating };
                 sqlParams[5] = new SqlParameter("@RatingGivenTo", SqlDbType.Int) { Value = objUserReviewBO.RatingGivenTo };
 
-                if (SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "SaveUserReviews", sqlParams) > 0)
+                if (SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_SaveUserReviews", sqlParams) > 0)
                     result = true;
             }
             catch (Exception ex)
@@ -395,13 +395,15 @@ namespace Sellff_API.ADO
                     {
                         UserReviewBO objResponseBO = new UserReviewBO();
                         var objDataRow = _objDataSet.Tables[0].Rows[i];
-                        objResponseBO.ReviewId = Convert.ToInt32(objDataRow["ReviewId"]);
-                        objResponseBO.ReviewTitle = Convert.ToString(objDataRow["ReviewTitle"]);
-                        objResponseBO.ReviewContent = Convert.ToString(objDataRow["ReviewContent"]);
-                        objResponseBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
-                        objResponseBO.CreatedBy = Convert.ToInt32(objDataRow["CreatedBy"]);
-                        objResponseBO.Rating = Convert.ToInt32(objDataRow["Rating"]);
-                        objResponseBO.helpful = Convert.ToInt32(objDataRow["helpful"]);
+                        objResponseBO.ReviewId = Convert.ToInt32(objDataRow["AutoId"]);
+                        objResponseBO.ReviewTitle = Convert.ToString(objDataRow["ReviewHeadline"]);
+                        objResponseBO.ReviewContent = Convert.ToString(objDataRow["ReviewDetails"]);
+                        objResponseBO.CreatedOn = Convert.ToString(objDataRow["ReviewedDate"]);
+                        objResponseBO.UserId = Convert.ToInt32(objDataRow["ReviewFromUserId"]);
+                        objResponseBO.Rating = Convert.ToInt32(objDataRow["OverallRating"]);
+                        objResponseBO.helpful = Convert.ToInt32(objDataRow["Helpful"]);
+                        objResponseBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                        objResponseBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
                         objResponseList.Add(objResponseBO);
                     }
                 }

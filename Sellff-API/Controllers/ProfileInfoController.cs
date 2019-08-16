@@ -179,6 +179,15 @@ namespace Sellff_API.Controllers
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.SaveReviewForUsers(objUserReviewBO)));
         }
 
+        ///summary
+        /// This method will get all users Messages info based on UserId
+        ///</summary>
+        /// <param name="objUserLocalStorageBO"></param>
+        [HttpPost, Route("api/ProfileInfo/GetUserReviewsByUser")]
+        public IHttpActionResult GetAllUserReviewsByUser([FromBody]UserLocalStorageBO objUserLocalStorageBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetAllUserReviewsByUser(objUserLocalStorageBO)));
+        }
 
     }
 }

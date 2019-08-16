@@ -96,7 +96,40 @@
                 </div>
                 <div class="row"><div class="col-md-6"></div></div>
                     <div class="row">
-                        <button type="button" class="btn btn-primary" (click)="openModal(template)">Write a Member Review</button>
+                        <div class="col-md-4">
+                            <div class="box message-box">
+                                <button *ngIf="canReview" type="button" class="btn btn-primary" (click)="openModal(template)">Write a Member Review</button>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="box message-box">
+                                <div class="table table-responsive ">
+                                    <table id="datatable" class="table table-responsive-sm table-hover table-outline mb-0" cellspacing="0" width="100%">
+                                        <tbody>  
+                                            <tr *ngFor="let review of userReviews">
+                                                <td>
+                                                    <table style="width: 100%;">
+                                                        <tr>
+                                                            <td><img src="{{review.ProfilePicPath}}" width="85%" class="reviewsmallpic"></td>
+                                                            <td><a style="cursor: pointer;" (click)=openotherprofile(review)>{{review.DisplayName}}</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><rating [ngModel]=review.Rating [max]="max" [readonly]="true"></rating></td>
+                                                            <td>{{review.ReviewTitle}}</td>
+                                                        </tr>
+                                                        <tr><td>{{review.CreatedOn}}</td></tr>
+                                                        <tr>
+                                                            <td colspan="2">{{review.ReviewContent}}</td>
+                                                        </tr>
+                                                        <tr><td><button class="btn btn-primary btn-xs">Helpful</button></td></tr>
+                                                    </table>
+                                                </td>
+                                            </tr>  
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>                        
                         <ng-template #template>
                             <div class="modal-header">
                                 <h4 class="modal-title pull-left">Modal</h4>
