@@ -342,7 +342,7 @@ namespace Sellff_API.ADO
             var result = false;
             try
             {
-                var sqlParams = new SqlParameter[6];
+                var sqlParams = new SqlParameter[9];
                 sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = objUserReviewBO.UserId };
                 sqlParams[1] = new SqlParameter("@ReviewTitle", SqlDbType.VarChar) { Value = objUserReviewBO.ReviewTitle };
                 if (string.IsNullOrEmpty(objUserReviewBO.CreatedIP))
@@ -351,6 +351,9 @@ namespace Sellff_API.ADO
                 sqlParams[3] = new SqlParameter("@ReviewContent", SqlDbType.VarChar) { Value = objUserReviewBO.ReviewContent };
                 sqlParams[4] = new SqlParameter("@Rating", SqlDbType.Int) { Value = objUserReviewBO.Rating };
                 sqlParams[5] = new SqlParameter("@RatingGivenTo", SqlDbType.Int) { Value = objUserReviewBO.RatingGivenTo };
+                sqlParams[6] = new SqlParameter("@Performance", SqlDbType.Int) { Value = objUserReviewBO.Performance };
+                sqlParams[7] = new SqlParameter("@Communication", SqlDbType.Int) { Value = objUserReviewBO.Communication };
+                sqlParams[8] = new SqlParameter("@QOW", SqlDbType.Int) { Value = objUserReviewBO.QOW };
 
                 if (SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_SaveUserReviews", sqlParams) > 0)
                     result = true;
@@ -367,11 +370,14 @@ namespace Sellff_API.ADO
             var result = false;
             try
             {
-                var sqlParams = new SqlParameter[2];
+                var sqlParams = new SqlParameter[3];
                 sqlParams[0] = new SqlParameter("@ReviewId", SqlDbType.Int) { Value = objUserReviewBO.ReviewId };
                 sqlParams[1] = new SqlParameter("@HelpfullGivenBy", SqlDbType.Int) { Value = objUserReviewBO.UserId };
+                if (string.IsNullOrEmpty(objUserReviewBO.CreatedIP))
+                    objUserReviewBO.CreatedIP = "::1";
+                sqlParams[2] = new SqlParameter("@CreatedIp", SqlDbType.VarChar) { Value = objUserReviewBO.CreatedIP };
 
-                if (SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "UpdateUsersReviewAsHelpful", sqlParams) > 0)
+                if (SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_UpdateHelpfulInfo", sqlParams) > 0)
                     result = true;
             }
             catch (Exception ex)
@@ -400,10 +406,14 @@ namespace Sellff_API.ADO
                         objResponseBO.ReviewContent = Convert.ToString(objDataRow["ReviewDetails"]);
                         objResponseBO.CreatedOn = Convert.ToString(objDataRow["ReviewedDate"]);
                         objResponseBO.UserId = Convert.ToInt32(objDataRow["ReviewFromUserId"]);
+                        objResponseBO.RatingGivenTo = Convert.ToInt32(objDataRow["ReviewToUserId"]);
                         objResponseBO.Rating = Convert.ToInt32(objDataRow["OverallRating"]);
                         objResponseBO.helpful = Convert.ToInt32(objDataRow["Helpful"]);
                         objResponseBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
                         objResponseBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
+                        objResponseBO.Performance = Convert.ToInt32(objDataRow["Performance"]);
+                        objResponseBO.Communication = Convert.ToInt32(objDataRow["Communication"]);
+                        objResponseBO.QOW = Convert.ToInt32(objDataRow["QOW"]);
                         objResponseList.Add(objResponseBO);
                     }
                 }

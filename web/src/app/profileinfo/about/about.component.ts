@@ -35,6 +35,7 @@ export class AboutComponent implements OnInit {
       this.loggedInUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
         this.isAboutInEditMode = false;
         this.UserIdForGallery = this.loggedInUserInfo.UserRefProfileId;
+        console.log(this.loggedInUserInfo);
     }
     this.getUserAboutText();
   }

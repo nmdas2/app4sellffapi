@@ -205,6 +205,22 @@ namespace Sellff_API.Models
         public string ProfilePicPath { get; set; }
         [DataMember]
         public string DisplayName { get; set; }
+        [DataMember]
+        public int Performance { get; set; }
+        [DataMember]
+        public int Communication { get; set; }
+        [DataMember]
+        public int QOW { get; set; }
+        [DataMember]
+        public int Starts5 { get; set; } = 0;
+        [DataMember]
+        public int Starts4 { get; set; } = 0;
+        [DataMember]
+        public int Starts3 { get; set; } = 0;
+        [DataMember]
+        public int Starts2 { get; set; } = 0;
+        [DataMember]
+        public int Starts1 { get; set; } = 0;
     }
 
     public class UserLocalStorageBO

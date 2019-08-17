@@ -189,5 +189,25 @@ namespace Sellff_API.Controllers
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetAllUserReviewsByUser(objUserLocalStorageBO)));
         }
 
+        ///summary
+        /// This method will get all users Messages info based on UserId
+        ///</summary>
+        /// <param name="objUserReviewBO"></param>
+        [HttpPost, Route("api/ProfileInfo/UpdateUsersReviewAsHelpful")]
+        public IHttpActionResult UpdateUsersReviewAsHelpful([FromBody]UserReviewBO objUserReviewBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.UpdateUsersReviewAsHelpful(objUserReviewBO)));
+        }
+
+        ///summary
+        /// This method will get all users Messages info based on UserId
+        ///</summary>
+        /// <param name="objUserLocalStorageBO"></param>
+        [HttpGet, Route("api/ProfileInfo/GetCurrentUserRatingById/{Infoval}")]
+        public IHttpActionResult GetCurrentUserRatingById(int Infoval)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetCurrentUserRatingById(Infoval)));
+        }
+
     }
 }

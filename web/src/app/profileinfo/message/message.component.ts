@@ -71,6 +71,7 @@ export class MessageComponent implements OnInit {
   }
 
   openotherprofile(RefsearchUserIdBo){    
+    localStorage.removeItem('profileviewUser');
     RefsearchUserIdBo.UserRefProfileId = RefsearchUserIdBo.MessageFrom;
     RefsearchUserIdBo.ViewingSearchProfile = true;
     localStorage.setItem('profileviewUser', JSON.stringify(RefsearchUserIdBo));

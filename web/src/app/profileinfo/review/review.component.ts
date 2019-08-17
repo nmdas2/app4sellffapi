@@ -13,15 +13,15 @@ import { constants as consts } from '../../constants';
   styleUrls: ['./review.component.scss']
 })
 export class ReviewComponent implements OnInit {  
-  max = 5;   rate = 0;  isReadonly = false;   overStar: number | undefined;  percent: number;
-  modalRef: BsModalRef; loggedInUserInfo: User;  ratingGivenTo: number;  reviewUserForm: FormGroup
-  canReview: boolean = false;  idToGetReviews:number; userReviews: Review[]; searchProfileUserId: number = 0;
+  max = 5;   rate = 0; communicationRate=0;  QOWRate=0; isReadonly = false;   overStar: number | undefined; percent: number; 
+  ViewUserInfo: User;  modalRef: BsModalRef; loggedInUserInfo: User;  ratingGivenTo: number;  reviewUserForm: FormGroup
+  canReview: boolean = false;  idToGetReviews:number; userReviews: Review[]; searchProfileUserId: number = 0; currentRating: Review;
 
   constructor(
     private profileInfoService: ProfileinfoService,
     private formBuilder: FormBuilder,
     private modalService: BsModalService,
-    private router: Router
+    private router: Router,
     ) { 
       this.SetLocalStorageInfo();
     }
@@ -32,26 +32,30 @@ export class ReviewComponent implements OnInit {
         reviewContent: ['', Validators.required]
     });
     this.getUserReviews(this.loggedInUserInfo);
-    console.log(this.canReview);
+    this.FilterListForCurrentuserRating(this.idToGetReviews);
+  }
+  FilterListForCurrentuserRating(idToGetReviews: number) {
+    this.profileInfoService.GetCurrentUserRatingById(idToGetReviews)
+    .subscribe((res: any) => {
+      console.log(res);
+      this.currentRating = res;
+    }, error => {
+      console.log(error);
+    })
   }
   // convenience getter for easy access to form fields
   get f() { return this.reviewUserForm.controls; }
-
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
-
   hoveringOver(value: number): void {
     this.overStar = value;
     this.percent = (value / this.max) * 100;
-  }
- 
+  } 
   resetStar(): void {
     this.overStar = void 0;
   }
-
   onSubmit() {
-
     if (this.reviewUserForm.invalid) {
         return;
     }
@@ -61,6 +65,9 @@ export class ReviewComponent implements OnInit {
       UserId:this.loggedInUserInfo.UserId,
       Rating: this.rate,
       RatingGivenTo: this.searchProfileUserId,
+      Performance: this.rate,
+      Communication: this.communicationRate,
+      QOW: this.QOWRate,
     };
     this.profileInfoService.SaveReview(postReview)
     .subscribe((res: any) => {
@@ -88,19 +95,23 @@ export class ReviewComponent implements OnInit {
   }
   SetLocalStorageInfo() {
     if(localStorage.getItem('currentUser') != null){
-      this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));      
+      this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
+      this.idToGetReviews = this.loggedInUserInfo.UserId; 
     }
     if(localStorage.getItem('profileviewUser') != null){
       var viewprofinfo = JSON.parse(localStorage.getItem('profileviewUser'));
+      this.idToGetReviews = viewprofinfo.UserRefProfileId; 
       this.searchProfileUserId = viewprofinfo.UserId;
-        this.canReview = true;
+      this.canReview = true;
     }
   }
 
-  openotherprofile(RefsearchUserIdBo){    
-    RefsearchUserIdBo.UserRefProfileId = RefsearchUserIdBo.UserId;
-    RefsearchUserIdBo.ViewingSearchProfile = true;
-    localStorage.setItem('profileviewUser', JSON.stringify(RefsearchUserIdBo));
+  openotherprofile(RefsearchUserIdBo){
+    localStorage.removeItem('profileviewUser');
+    //this.ViewUserInfo.UserId = this.loggedInUserInfo.UserId;
+    this.ViewUserInfo.UserRefProfileId = RefsearchUserIdBo.UserId;
+    this.ViewUserInfo.ViewingSearchProfile = true;
+    localStorage.setItem('profileviewUser', JSON.stringify(this.ViewUserInfo));
     this.router.navigate([consts.AboutPath]);
   }
 

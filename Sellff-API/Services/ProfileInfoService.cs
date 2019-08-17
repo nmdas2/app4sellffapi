@@ -2,6 +2,7 @@
 using Sellff_API.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sellff_API.Services
 {
@@ -37,7 +38,7 @@ namespace Sellff_API.Services
 
         public List<UserAboutBO> GetUserAboutNGalleryInfo(int UserId, int SectionId)
         {
-            return objProfileInfoDAO.GetUserAboutNGalleryInfo(UserId,SectionId);
+            return objProfileInfoDAO.GetUserAboutNGalleryInfo(UserId, SectionId);
         }
         public bool SaveUserAboutText(UserAboutBO objUserAboutBO)
         {
@@ -61,11 +62,102 @@ namespace Sellff_API.Services
         }
         public bool SaveReviewForUsers(UserReviewBO objUserReviewBO)
         {
+            try
+            {
+                objUserReviewBO.Rating = (objUserReviewBO.Performance + objUserReviewBO.Communication + objUserReviewBO.QOW / 3);
+            }
+            catch (Exception ex)
+            {
+                objUserReviewBO.Rating = 0;
+            }
             return objProfileInfoDAO.SaveReviewForUsers(objUserReviewBO);
         }
         public List<UserReviewBO> GetAllUserReviewsByUser(UserLocalStorageBO objUserLocalStorageBO)
         {
             return objProfileInfoDAO.GetAllUserReviewsByUser(objUserLocalStorageBO.UserId);
+        }
+        public bool UpdateUsersReviewAsHelpful(UserReviewBO objUserReviewBO)
+        {
+            return objProfileInfoDAO.UpdateUsersReviewAsHelpful(objUserReviewBO);
+        }
+
+        public UserReviewBO GetCurrentUserRatingById(int currentUserId)
+        {
+            UserReviewBO objFinalResponse = new UserReviewBO();
+            List<UserReviewBO> resultlist = objProfileInfoDAO.GetAllUserReviewsByUser(currentUserId);
+            resultlist = (List<UserReviewBO>)resultlist.Where(o => o.RatingGivenTo == currentUserId).ToList();
+            if (resultlist.Count > 0)
+            {
+                objFinalResponse = resultlist[0];
+                objFinalResponse.Performance = objFinalResponse.Communication = objFinalResponse.QOW = 0;
+                foreach (UserReviewBO item in resultlist)
+                {
+                    objFinalResponse.Performance += item.Performance;
+                    objFinalResponse.Communication += item.Communication;
+                    objFinalResponse.QOW += item.QOW;
+                    switch (item.Performance)
+                    {
+                        case 5:
+                            objFinalResponse.Starts5 += 1;
+                            break;
+                        case 4:
+                            objFinalResponse.Starts4 += 1;
+                            break;
+                        case 3:
+                            objFinalResponse.Starts3 += 1;
+                            break;
+                        case 2:
+                            objFinalResponse.Starts2 += 1;
+                            break;
+                        case 1:
+                            objFinalResponse.Starts1 += 1;
+                            break;
+                        default:
+                            break;
+                    }
+                    switch (item.Communication)
+                    {
+                        case 5:
+                            objFinalResponse.Starts5 += 1;
+                            break;
+                        case 4:
+                            objFinalResponse.Starts4 += 1;
+                            break;
+                        case 3:
+                            objFinalResponse.Starts3 += 1;
+                            break;
+                        case 2:
+                            objFinalResponse.Starts2 += 1;
+                            break;
+                        case 1:
+                            objFinalResponse.Starts1 += 1;
+                            break;
+                        default:
+                            break;
+                    }
+                    switch (item.QOW)
+                    {
+                        case 5:
+                            objFinalResponse.Starts5 += 1;
+                            break;
+                        case 4:
+                            objFinalResponse.Starts4 += 1;
+                            break;
+                        case 3:
+                            objFinalResponse.Starts3 += 1;
+                            break;
+                        case 2:
+                            objFinalResponse.Starts2 += 1;
+                            break;
+                        case 1:
+                            objFinalResponse.Starts1 += 1;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return objFinalResponse;
         }
     }
 }
