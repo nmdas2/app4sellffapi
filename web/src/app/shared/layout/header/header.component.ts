@@ -21,36 +21,44 @@ export class HeaderComponent implements OnInit, OnDestroy {
   hasActiveSession: boolean = false;
   searchForm: FormGroup; readonlyUserInfo: ReadOnlyInfo;
   profileSubscription: Subscription
+  submitted = false;
   
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
     private profileService: ProfileinfoService,
-    private commonService : CommonService,
-    ) { 
-            
-    }
+    private commonService: CommonService,
+  ) {
+
+  }
 
   ngOnInit() {
-    // if(localStorage.getItem('profileviewUser')){
-    //   this.commonService.isProfileSelected.next(true);
-    // }
-    // else{
-    //   this.commonService.isProfileSelected.next(false);
-    // }
 
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
-        
-        if(localStorage.getItem('currentUser')){
-          this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
+      this.hasActiveSession = false;
+      this.loggedInUserInfo = <User>{};
+      this.loggedInUserId = 0;
+      this.loggedInUserName = "";
+      this.loggedInUserRank = 0;
+      this.LoggedInUserProfilePic = "";
+      
+      if(localStorage.getItem('currentUser')){
+        this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
+      }
+      if (!status) {
+        if (localStorage.getItem('currentUser')) {
+          
           this.loggedInUserId = this.loggedInUserInfo.UserId;
           this.loggedInUserName = this.loggedInUserInfo.DisplayName;
           this.loggedInUserRank = this.loggedInUserInfo.Rank;
           this.LoggedInUserProfilePic = this.loggedInUserInfo.ProfilePicPath;
           this.hasActiveSession = true;
         }
-        else if(localStorage.getItem('profileviewUser')){
+      }
+
+      else {
+        if (localStorage.getItem('profileviewUser')) {
           this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
           this.loggedInUserId = this.readonlyUserInfo.roUserId;
           this.loggedInUserName = this.readonlyUserInfo.roDisplayName;
@@ -58,30 +66,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.LoggedInUserProfilePic = this.readonlyUserInfo.roProfilePicPath;
           this.hasActiveSession = true;
         }
-        else{
-          //this.router.navigate([this.returnUrl]);
-          this.hasActiveSession = false;
-        }
+      }
+
     })
     this.searchForm = this.formBuilder.group({
-      searchprofiles: ['', [Validators.required,Validators.maxLength(25),Validators.pattern('^[a-zA-Z \-\']+')]]
-  });
+      searchprofiles: ['', [Validators.required, Validators.maxLength(25), Validators.pattern('^[a-zA-Z \-\']+')]]
+    });
   }
 
   get f() { return this.searchForm.controls; }
 
-  signoutplz(){
+  signoutplz() {
     this.authenticationService.logout();
     this.hasActiveSession = false;
     this.router.navigate([this.returnUrl]);
   }
 
-  onSubmit() {    
+  onSubmit() {
     if (this.searchForm.invalid) {
       return;
-    }  
+    }
     var sparam = this.searchForm.value["searchprofiles"];
-    this.router.navigate(['/profileinfo/searchsummary/'+sparam]);
+    this.router.navigate(['/profileinfo/searchsummary/' + sparam]);
     // this.profileService.getUsersBySearchTerm(this.searchForm.value)
     // .subscribe(
     //     data => {
@@ -94,15 +100,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //     });
   }
 
-  taketoActualProfile()
-  {
+  taketoActualProfile() {
     localStorage.removeItem('profileviewUser');
-    this.loggedInUserInfo.UserRefProfileId = 0;  
+    this.loggedInUserInfo.UserRefProfileId = 0;
     this.commonService.isProfileSelected.next(false);
     this.router.navigate(['/home']);
   }
-  ngOnDestroy(){
-    if(this.profileSubscription)
+  ngOnDestroy() {
+    if (this.profileSubscription)
       this.profileSubscription.unsubscribe();
   }
 

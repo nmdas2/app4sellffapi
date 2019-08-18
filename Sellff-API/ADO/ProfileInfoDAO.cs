@@ -162,6 +162,51 @@ namespace Sellff_API.ADO
             }
             return objProotionsList;
         }
+
+        public ProfileInfoBO GetUserProfileInfoByUserId(int loginUser)
+        {
+            ProfileInfoBO objResponseBO = new ProfileInfoBO();
+            try
+            {
+                var sqlParams = new SqlParameter[1];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = loginUser };
+
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetUserProfileInfoByUserId", sqlParams);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    var objDataRow = _objDataSet.Tables[0].Rows[0];
+                    objResponseBO.UserId = Convert.ToInt32(objDataRow["UserId"]);
+                    objResponseBO.Email = Convert.ToString(objDataRow["Email"]);
+                    objResponseBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
+                    //objResponseBO.Age = Convert.ToInt32(objDataRow["UserId"]);
+                    objResponseBO.City = Convert.ToString(objDataRow["City"]);
+                    objResponseBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                    objResponseBO.ProfileSummary = Convert.ToString(objDataRow["ProfileSummary"]);
+                    //objResponseBO.SellffVirtualCash = Convert.ToString(objDataRow["UserId"]);
+                    //objResponseBO.About = Convert.ToString(objDataRow["UserId"]);
+                    objResponseBO.FacebookLink = Convert.ToString(objDataRow["FacebookLink"]);
+                    objResponseBO.LinkedInLink = Convert.ToString(objDataRow["LinkedInLink"]);
+                    objResponseBO.InstagramLink = Convert.ToString(objDataRow["InstagramLink"]);
+                    objResponseBO.TwitterLink = Convert.ToString(objDataRow["TwitterLink"]);
+                    objResponseBO.YouTubeLink = Convert.ToString(objDataRow["YouTubeLink"]);
+                    //objResponseBO.IsActive = Convert.ToBoolean(objDataRow["UserId"]);
+                    //objResponseBO.IsVerifiedUser = Convert.ToInt32(objDataRow["UserId"]);
+                    objResponseBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
+                    //objResponseBO.Resume = Convert.ToString(objDataRow["Resume"]);
+                    //objResponseBO.UniqueId = Convert.ToString(objDataRow["UniqueId"]);
+                    objResponseBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
+                    objResponseBO.Views = Convert.ToInt32(objDataRow["UserId"]);
+                    objResponseBO.Posts = Convert.ToInt32(objDataRow["UserId"]);
+                    objResponseBO.Rank = Convert.ToInt32(objDataRow["UserId"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objResponseBO;
+        }
+
         public List<PostsBO> GetAllUserPosts(int UserId)
         {
             List<PostsBO> objPostsList = new List<PostsBO>();

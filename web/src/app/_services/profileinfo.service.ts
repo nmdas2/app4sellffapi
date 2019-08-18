@@ -84,5 +84,8 @@ export class ProfileinfoService {
   GetCurrentUserRatingById(Infoval: number): Observable<any>{
     return this.http.get(`${consts.DomainURL}ProfileInfo/GetCurrentUserRatingById/${Infoval}`);
   }
+  GetUserProfileInfoByUserId(loginUser: number): Observable<any>{
+    return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserProfileInfoByUserId/${loginUser}`);
+  }
 }
 

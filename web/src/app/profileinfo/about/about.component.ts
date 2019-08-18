@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { userAboutInfo, ProfileInfo } from 'src/app/_models/profileinfo';
 import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
 import { User } from 'src/app/_models/user';
@@ -7,47 +7,61 @@ import { UploadType, ProfileSection } from 'src/app/constants';
 import { constants as consts } from '../../constants';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ReadOnlyInfo } from 'src/app/_models/readonlyinfo';
+import { CommonService } from 'src/app/_services/common.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })
-export class AboutComponent implements OnInit {
-  userAboutInfoList: userAboutInfo[];   textValue: string = '';  isAboutInEditMode: boolean = false;
-  AllowImageUpload: boolean = false;  loggedInUserInfo: User;  altrPath: string;  fileData: File = null;
-  previewUrl: any = null;  fileUploadProgress: string = null;  uploadedFilePath: string = null;
-  dynamicImg: string = "";  modalRef: BsModalRef;  imgGallery = [];  userProfileInfo: ProfileInfo;  UserProfileViews: number;
+export class AboutComponent implements OnInit, OnDestroy {
+  userAboutInfoList: userAboutInfo[]; textValue: string = ''; isAboutInEditMode: boolean = false;
+  AllowImageUpload: boolean = false; loggedInUserInfo: User; altrPath: string; fileData: File = null;
+  previewUrl: any = null; fileUploadProgress: string = null; uploadedFilePath: string = null;
+  dynamicImg: string = ""; modalRef: BsModalRef; imgGallery = []; userProfileInfo: ProfileInfo; UserProfileViews: number;
   UserIdForGallery: number; readonlyUserInfo: ReadOnlyInfo;
-  constructor(     private profileInfoService: ProfileinfoService,     private http: HttpClient,  private modalService: BsModalService
+  profileSubscription: Subscription;
+  isEditbale: boolean;
+  constructor(
+    private profileInfoService: ProfileinfoService, 
+    private http: HttpClient, 
+    private modalService: BsModalService,
+    private commonService: CommonService
   ) {
     this.userAboutInfoList = [];
-    if(localStorage.getItem('currentUser') != null){
+    if (localStorage.getItem('currentUser') != null) {
       this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
-      if(this.loggedInUserInfo.UserId == this.loggedInUserInfo.UserRefProfileId){
+      if (this.loggedInUserInfo.UserId == this.loggedInUserInfo.UserRefProfileId) {
         this.isAboutInEditMode = true;
       }
-      if(this.loggedInUserInfo.UserRefProfileId == 0)
-      {
+      if (this.loggedInUserInfo.UserRefProfileId == 0) {
         this.UserIdForGallery = this.loggedInUserInfo.UserId;
-      }else{this.UserIdForGallery = this.loggedInUserInfo.UserRefProfileId;}
+      } else { this.UserIdForGallery = this.loggedInUserInfo.UserRefProfileId; }
     }
-    if(localStorage.getItem('profileviewUser') != null){      
+    if (localStorage.getItem('profileviewUser') != null) {
       this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
-        this.isAboutInEditMode = false;
-        this.UserIdForGallery = this.readonlyUserInfo.roUserId;
+      this.isAboutInEditMode = false;
+      this.UserIdForGallery = this.readonlyUserInfo.roUserId;
     }
     this.getUserAboutText();
   }
 
   ngOnInit() {
+    this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
+
+      this.isEditbale = true;
+      if(localStorage.getItem('profileviewUser') && status){
+        this.isEditbale = false;
+      }
+    })
   }
 
-  logText(value: string): void {
+  logText(): void {
     this.isAboutInEditMode = true;
   }
 
-  saveupdatedabout(value: string): void {
+  saveupdatedabout(): void {
     this.isAboutInEditMode = false;
 
     if (this.textValue) {
@@ -83,28 +97,27 @@ export class AboutComponent implements OnInit {
           };
           this.imgGallery.push(image);
         }
-        if(typeof this.userAboutInfoList[0].About !='undefined' && this.userAboutInfoList[0].About && this.userAboutInfoList[0].About != null){
+        if (typeof this.userAboutInfoList[0].About != 'undefined' && this.userAboutInfoList[0].About && this.userAboutInfoList[0].About != null) {
           this.textValue = this.userAboutInfoList[0].About;
-       }
-       if(typeof this.userAboutInfoList[0].Views !='undefined' && this.userAboutInfoList[0].Views){
-        this.UserProfileViews = this.userAboutInfoList[0].Views;
-     }
+        }
+        if (typeof this.userAboutInfoList[0].Views != 'undefined' && this.userAboutInfoList[0].Views) {
+          this.UserProfileViews = this.userAboutInfoList[0].Views;
+        }
       }, error => {
         console.log(error);
       })
-      //Updating views in case of if viewing other profile
-      //this.transferDatafromUsertoProfile(this.loggedInUserInfo,this.userProfileInfo);
-      this.profileInfoService.UpdateUserViewsCount(this.loggedInUserInfo)
+    //Updating views in case of if viewing other profile
+    //this.transferDatafromUsertoProfile(this.loggedInUserInfo,this.userProfileInfo);
+    this.profileInfoService.UpdateUserViewsCount(this.loggedInUserInfo)
       .subscribe(res => {
       }, error => {
         console.log(error);
       })
   }
 
-  transferDatafromUsertoProfile(uInfo,pInfo)
-  {
-      pInfo.UserId = uInfo.UserId;
-      pInfo.UserRefProfileId = uInfo.UserRefProfileId;
+  transferDatafromUsertoProfile(uInfo, pInfo) {
+    pInfo.UserId = uInfo.UserId;
+    pInfo.UserRefProfileId = uInfo.UserRefProfileId;
   }
 
   fileProgress(fileInput: any) {
@@ -174,20 +187,25 @@ export class AboutComponent implements OnInit {
     //window.location.href = response.altUrl;
   }
 
-  ShowGalUpPop(value: string): void {
+  ShowGalUpPop(): void {
     this.AllowImageUpload = true;
   }
 
   //social link section
   postLayoutType: string = "";
-  socialLink:string="";
+  socialLink: string = "";
   showSocialLayout(type: string) {
-    this.socialLink="";
+    this.socialLink = "";
     this.postLayoutType = type;
   }
   SubmitSocialLink() {
     console.log(this.socialLink);
-    this.postLayoutType="";
+    this.postLayoutType = "";
   }
   //end social link section
+
+  ngOnDestroy(){
+    if(this.profileSubscription)
+      this.profileSubscription.unsubscribe();
+  }
 }

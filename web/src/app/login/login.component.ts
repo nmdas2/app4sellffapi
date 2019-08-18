@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../_services/authentication.service';
 import { AlertService } from '../_services/alert.service';
+import { ProfileinfoService } from '../_services/profileinfo.service';
+import { User } from '../_models/user';
 
 
 @Component({ templateUrl: 'login.component.html' })
@@ -18,7 +20,8 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private profileInfo: ProfileinfoService
     ) {
         // redirect to home if already logged in
         // if (this.authenticationService.currentUserValue) {
@@ -57,12 +60,12 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.loginForm.value)
             .pipe(first())
             .subscribe(
-                data => {                    
+                (data: User) => {                        
                     this.router.navigate(['/home']);
                 },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
-                });
+                });        
     }
 }

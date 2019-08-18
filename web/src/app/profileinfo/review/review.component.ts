@@ -17,7 +17,7 @@ export class ReviewComponent implements OnInit {
   max = 5;   rate = 0; communicationRate=0;  QOWRate=0; isReadonly = false;   overStar: number | undefined; percent: number; 
   ViewUserInfo: User;  modalRef: BsModalRef; loggedInUserInfo: User;  ratingGivenTo: number;  reviewUserForm: FormGroup
   canReview: boolean = false;  idToGetReviews:number; userReviews: Review[]; searchProfileUserId: number = 0; currentRating: Review;
-  readonlyUserInfo: ReadOnlyInfo;
+  readonlyUserInfo: ReadOnlyInfo; submitted = false;
   constructor(
     private profileInfoService: ProfileinfoService,
     private formBuilder: FormBuilder,
@@ -38,7 +38,6 @@ export class ReviewComponent implements OnInit {
   FilterListForCurrentuserRating(idToGetReviews: number) {
     this.profileInfoService.GetCurrentUserRatingById(idToGetReviews)
     .subscribe((res: any) => {
-      console.log(res);
       this.currentRating = res;
     }, error => {
       console.log(error);
@@ -119,5 +118,12 @@ export class ReviewComponent implements OnInit {
     this.ViewUserInfo.ViewingSearchProfile = true;
     this.router.navigate([consts.AboutPath]);
   }
+
+  sayhelpful()
+  {
+
+  }
+
+  resetPostTextForm(){}
 
 }

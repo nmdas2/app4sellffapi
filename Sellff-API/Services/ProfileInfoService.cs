@@ -159,5 +159,10 @@ namespace Sellff_API.Services
             }
             return objFinalResponse;
         }
+
+        public ProfileInfoBO GetUserProfileInfoByUserId(int loginUser)
+        {
+            return objProfileInfoDAO.GetUserProfileInfoByUserId(loginUser);
+        }
     }
 }

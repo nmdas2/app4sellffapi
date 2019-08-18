@@ -70,6 +70,8 @@ namespace Sellff_API.Models
         public int MessageFrom { get; set; }
         [DataMember]
         public int Rank { get; set; }
+        [DataMember]
+        public string CreatedOn { get; set; }
     }
 
     public class PromotionsBO

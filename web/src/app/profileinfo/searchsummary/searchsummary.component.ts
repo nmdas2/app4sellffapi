@@ -50,7 +50,6 @@ export class SearchsummaryComponent implements OnInit {
     this.userTrackerSub.unsubscribe();
   }
   openotherprofile(RefsearchUserIdBo){  
-    this.commonService.isProfileSelected.next(true);
     this.readonlyUserInfo = <ReadOnlyInfo>{};
     this.readonlyUserInfo.roUserId = RefsearchUserIdBo.UserId;
     this.readonlyUserInfo.roProfilePicPath = RefsearchUserIdBo.ProfilePicPath;
@@ -59,6 +58,7 @@ export class SearchsummaryComponent implements OnInit {
     RefsearchUserIdBo.ViewingSearchProfile = true;
     localStorage.setItem('profileviewUser', JSON.stringify(this.readonlyUserInfo));
     this.router.navigate([consts.AboutPath]);
+    this.commonService.isProfileSelected.next(true);
   }
 
 }
