@@ -37,5 +37,9 @@ namespace Sellff_API.Models
         public int UserRefProfileId { get; set; }
         [DataMember]
         public string Occupation { get; set; }
+        [DataMember]
+        public int UniqueId { get; set; }
+        [DataMember]
+        public int Rank { get; set; }
     }
 }

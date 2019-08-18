@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../_models/user';
 import { constants as consts } from './../constants';
+import { CommonService } from './common.service';
 
 
 @Injectable({ providedIn: 'root' })
@@ -14,7 +15,9 @@ export class AuthenticationService {
     get isLogin$(){
         return this.isLogin.asObservable();
     }
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+            private commonService : CommonService
+        ) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
@@ -31,6 +34,7 @@ export class AuthenticationService {
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 localStorage.removeItem('profileviewUser');
                 this.currentUserSubject.next(user);
+                this.commonService.isProfileSelected.next(false);
                 return user;
             }));
     }

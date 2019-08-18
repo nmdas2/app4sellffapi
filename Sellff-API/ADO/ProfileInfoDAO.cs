@@ -38,6 +38,7 @@ namespace Sellff_API.ADO
                         objProfileInfoBO.UserRefProfileId = 0;// Convert.ToInt32(objDataRow["UserId"]);
                         objProfileInfoBO.Views = Convert.ToInt32(objDataRow["Views"]);
                         objProfileInfoBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
+                        objProfileInfoBO.Rank = Convert.ToInt32(objDataRow["Rank"]);
                         objProfilesList.Add(objProfileInfoBO);
                     }
                 }
@@ -288,7 +289,7 @@ namespace Sellff_API.ADO
                 sqlParams[2] = new SqlParameter("@CreatedIP", SqlDbType.VarChar) { Value = objUserPostBO.CreatedIP };
                 sqlParams[3] = new SqlParameter("@ContentType", SqlDbType.Int) { Value = objUserPostBO.ContentType };
                 sqlParams[4] = new SqlParameter("@Title", SqlDbType.VarChar) { Value = objUserPostBO.Title };
-                sqlParams[5] = new SqlParameter("@UserContent", SqlDbType.VarChar) { Value = objUserPostBO.Content };
+                sqlParams[5] = new SqlParameter("@UserContent", SqlDbType.VarChar) { Value = objUserPostBO.UserContent };
 
                 if (SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "SaveUserPosts", sqlParams) > 0)
                     result = true;

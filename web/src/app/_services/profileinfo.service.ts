@@ -67,7 +67,7 @@ export class ProfileinfoService {
     return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserAboutNGalleryInfo/${userId}/${sectionId}`);
   }
   postText(post: Post): Observable<any>{
-    return this.http.post(`${consts.DomainURL}ProfileInfo/postText`, post);
+    return this.http.post(`${consts.DomainURL}ProfileInfo/SaveUserPostTextMessages`, post);
   }
   postGallery(post: any): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/postGallery`, post);

@@ -118,6 +118,23 @@ namespace Sellff_API.Controllers
             return response;
         }
 
+        [HttpPost, Route("api/ProfileInfo/SaveImagesForPost")]
+        public HttpResponseMessage UploadPostJsonFile()
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            var httpRequest = HttpContext.Current.Request;
+            if (httpRequest.Files.Count > 0)
+            {
+                foreach (string file in httpRequest.Files)
+                {
+                    var postedFile = httpRequest.Files[file];
+                    var filePath = "F:/Projects/Ron/Das/web/src/assets/selfprflimages/postimages/" + postedFile.FileName;
+                    postedFile.SaveAs(filePath);
+                }
+            }
+            return response;
+        }
+
         ///summary
         /// This method will get all users Messages info based on UserId
         ///</summary>

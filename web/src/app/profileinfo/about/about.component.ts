@@ -6,6 +6,7 @@ import { HttpClient, HttpEventType } from '@angular/common/http';
 import { UploadType, ProfileSection } from 'src/app/constants';
 import { constants as consts } from '../../constants';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ReadOnlyInfo } from 'src/app/_models/readonlyinfo';
 
 @Component({
   selector: 'app-about',
@@ -17,7 +18,7 @@ export class AboutComponent implements OnInit {
   AllowImageUpload: boolean = false;  loggedInUserInfo: User;  altrPath: string;  fileData: File = null;
   previewUrl: any = null;  fileUploadProgress: string = null;  uploadedFilePath: string = null;
   dynamicImg: string = "";  modalRef: BsModalRef;  imgGallery = [];  userProfileInfo: ProfileInfo;  UserProfileViews: number;
-  UserIdForGallery: number;
+  UserIdForGallery: number; readonlyUserInfo: ReadOnlyInfo;
   constructor(     private profileInfoService: ProfileinfoService,     private http: HttpClient,  private modalService: BsModalService
   ) {
     this.userAboutInfoList = [];
@@ -31,11 +32,10 @@ export class AboutComponent implements OnInit {
         this.UserIdForGallery = this.loggedInUserInfo.UserId;
       }else{this.UserIdForGallery = this.loggedInUserInfo.UserRefProfileId;}
     }
-    if(localStorage.getItem('profileviewUser') != null){
-      this.loggedInUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
+    if(localStorage.getItem('profileviewUser') != null){      
+      this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
         this.isAboutInEditMode = false;
-        this.UserIdForGallery = this.loggedInUserInfo.UserRefProfileId;
-        console.log(this.loggedInUserInfo);
+        this.UserIdForGallery = this.readonlyUserInfo.roUserId;
     }
     this.getUserAboutText();
   }

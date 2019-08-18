@@ -68,6 +68,8 @@ namespace Sellff_API.Models
         public int MessageTo { get; set; }
         [DataMember]
         public int MessageFrom { get; set; }
+        [DataMember]
+        public int Rank { get; set; }
     }
 
     public class PromotionsBO
@@ -167,7 +169,7 @@ namespace Sellff_API.Models
         [DataMember]
         public string Title { get; set; }
         [DataMember]
-        public string Content { get; set; }
+        public string UserContent { get; set; }
         [DataMember]
         public string ImagePath { get; set; }
         public string CreatedOn { get; set; }

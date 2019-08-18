@@ -6,6 +6,7 @@ import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
 import { Review } from 'src/app/_models/review';
 import { Router } from '@angular/router';
 import { constants as consts } from '../../constants';
+import { ReadOnlyInfo } from 'src/app/_models/readonlyinfo';
 
 @Component({
   selector: 'app-review',
@@ -16,7 +17,7 @@ export class ReviewComponent implements OnInit {
   max = 5;   rate = 0; communicationRate=0;  QOWRate=0; isReadonly = false;   overStar: number | undefined; percent: number; 
   ViewUserInfo: User;  modalRef: BsModalRef; loggedInUserInfo: User;  ratingGivenTo: number;  reviewUserForm: FormGroup
   canReview: boolean = false;  idToGetReviews:number; userReviews: Review[]; searchProfileUserId: number = 0; currentRating: Review;
-
+  readonlyUserInfo: ReadOnlyInfo;
   constructor(
     private profileInfoService: ProfileinfoService,
     private formBuilder: FormBuilder,
@@ -99,19 +100,23 @@ export class ReviewComponent implements OnInit {
       this.idToGetReviews = this.loggedInUserInfo.UserId; 
     }
     if(localStorage.getItem('profileviewUser') != null){
-      var viewprofinfo = JSON.parse(localStorage.getItem('profileviewUser'));
-      this.idToGetReviews = viewprofinfo.UserRefProfileId; 
-      this.searchProfileUserId = viewprofinfo.UserId;
+      this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
+      this.idToGetReviews = this.readonlyUserInfo.roUserId;
+      this.searchProfileUserId = this.readonlyUserInfo.roUserId;
       this.canReview = true;
     }
   }
 
   openotherprofile(RefsearchUserIdBo){
     localStorage.removeItem('profileviewUser');
-    //this.ViewUserInfo.UserId = this.loggedInUserInfo.UserId;
-    this.ViewUserInfo.UserRefProfileId = RefsearchUserIdBo.UserId;
+    this.readonlyUserInfo = <ReadOnlyInfo>{};
+    this.readonlyUserInfo.roUserId = RefsearchUserIdBo.UserId;
+    this.readonlyUserInfo.roProfilePicPath = RefsearchUserIdBo.ProfilePicPath;
+    this.readonlyUserInfo.roRank = RefsearchUserIdBo.Rank;
+    this.readonlyUserInfo.roDisplayName = RefsearchUserIdBo.DisplayName;
+    RefsearchUserIdBo.ViewingSearchProfile = true;
+    localStorage.setItem('profileviewUser', JSON.stringify(this.readonlyUserInfo));
     this.ViewUserInfo.ViewingSearchProfile = true;
-    localStorage.setItem('profileviewUser', JSON.stringify(this.ViewUserInfo));
     this.router.navigate([consts.AboutPath]);
   }
 

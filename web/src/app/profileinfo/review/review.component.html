@@ -97,7 +97,12 @@
                 <div class="row"><div class="col-md-6"></div></div>
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="box message-box">
+                            <div class="box message-box" *ngIf="currentRating">
+                                <div class="col-sm-4">
+                                    <div class="mb-2">
+                                        5 Star<progressbar [value]="22" type="warning" [striped]="true">22%</progressbar>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <label class="aria-label padding-right">Performance</label>
                                     <rating [ngModel]=currentRating.Performance [max]="max" [readonly]="true"></rating>

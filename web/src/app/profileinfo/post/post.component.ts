@@ -4,7 +4,9 @@ import { User } from 'src/app/_models/user';
 import { PostByGroup, Post } from 'src/app/_models/post';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { ReadOnlyInfo } from 'src/app/_models/readonlyinfo';
+import { HttpClient, HttpEventType } from '@angular/common/http';
+import { constants as consts } from '../../constants';
 
 @Component({
   selector: 'app-post',
@@ -17,12 +19,13 @@ export class PostComponent implements OnInit {
   "July", "August", "September", "October", "November", "December"
 ];
   userPosts: any;  PostsByGroups:PostByGroup[]=[];  loggedInUserInfo: User; isAboutInEditMode: boolean = false;
-  UserIdForGallery: number; MainUserId: number;
+  UserIdForGallery: number; MainUserId: number; readonlyUserInfo: ReadOnlyInfo;fileData: File = null;
 
   constructor(
     private profileInfoService: ProfileinfoService,
     private modalService: BsModalService,
     private fb: FormBuilder,
+    private http: HttpClient,
   ) { 
     this.userPosts = [];
     if(localStorage.getItem('currentUser') != null){
@@ -38,9 +41,9 @@ export class PostComponent implements OnInit {
       }else{this.UserIdForGallery = this.loggedInUserInfo.UserRefProfileId;}
     }
     if(localStorage.getItem('profileviewUser') != null){
-      this.loggedInUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
+      this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
         this.isAboutInEditMode = false;
-        this.UserIdForGallery = this.loggedInUserInfo.UserRefProfileId;
+        this.UserIdForGallery = this.readonlyUserInfo.roUserId;
     }
   }
 
@@ -72,7 +75,8 @@ export class PostComponent implements OnInit {
           this.PostsByGroups.push(newPostGroup);
         }
 
-      }       
+      }  
+ 
     }, error => {
       console.log(error);
     })
@@ -80,8 +84,10 @@ export class PostComponent implements OnInit {
 
   getPostGroupKey(post:Post):string{
     var dateSplit=post.CreatedOn.split('/');
+
     const d = new Date(+dateSplit[2],+dateSplit[0]-1,+dateSplit[1]);
-    let month= this.monthNames[d.getMonth()];
+    let getMonth = Number(dateSplit[0]) - 1
+    let month= this.monthNames[getMonth];
     let key= month+" "+ dateSplit[2];
     return key;
   }
@@ -131,9 +137,6 @@ export class PostComponent implements OnInit {
       console.log(error);
     })
   }
-  //end create text post
-
-  //start gallery post upload
   modalRefForGallery: BsModalRef;
   popupPostGalleryModel(template) {
     this.modalRefForGallery = this.modalService.show(template,
@@ -151,24 +154,35 @@ export class PostComponent implements OnInit {
       webUrl: ['', []]
     });
   }
-
   attachToFormControl(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
+      this.fileData = <File>event.target.files[0];
       this.postGalleryForm.get('image').setValue(file);
     }
   }
-
   saveGalleryPost(postData){
-    const formData = new FormData();
+    const formData = new FormData();    
     formData.append('file', this.postGalleryForm.get('image').value);
-
-    let galleryPost={
+    formData.append('files', this.fileData);    
+    let galleryPost:Post={
       image:formData,
-      webUrl:postData.webUrl,
-      UserId:this.loggedInUserInfo.UserId
+      ImagePath:consts.ImagesPath + this.fileData.name,
+      UserId:this.loggedInUserInfo.UserId,
+      ContentType:2
     };
-    this.profileInfoService.postGallery(galleryPost)
+    this.http.post('http://localhost:50517/api/ProfileInfo/SaveImagesForPost', formData, {
+      reportProgress: true,
+      observe: 'events'
+    })
+      .subscribe(events => {
+        if (events.type === HttpEventType.UploadProgress) {
+        } else if (events.type === HttpEventType.Response) {
+          
+        }
+      })
+      
+    this.profileInfoService.postText(galleryPost)
     .subscribe((res: any) => {
       this.getUserPosts();
       this.resetPostGalleryForm();
@@ -176,5 +190,12 @@ export class PostComponent implements OnInit {
       console.log(error);
     })
   }
-  //end gallery post upload
+  userContent: string;
+  contentModalRef: BsModalRef;  
+  getUserContent(content, contentTemplate){
+    this.userContent = content;
+    this.contentModalRef = this.modalService.show(contentTemplate,
+      Object.assign({}, this.config, { class: 'gray modal-small' })
+    );
+  }
 }

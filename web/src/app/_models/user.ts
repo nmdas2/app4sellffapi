@@ -9,4 +9,7 @@ export class User {
     SocialLinkType: number;
     SocialLink: string;
     Occupation: string;
+    UniqueId?: number = 0;
+    Rank?: number = 0;
+    ProfilePicPath?: string;
 }
