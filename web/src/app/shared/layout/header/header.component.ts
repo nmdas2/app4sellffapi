@@ -111,4 +111,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.profileSubscription.unsubscribe();
   }
 
+  gotoregister()
+  {
+    this.router.navigate(['/register']);
+  }
+  
+  gotologin()
+  {
+    this.router.navigate(['/login']);
+  }
+
 }

@@ -41,15 +41,25 @@ export class MessageComponent implements OnInit {
   }
 
   getAllUserMessages(){
-    console.log(this.UserIdForGallery);
     this.userMessages = [];
-    this.profileInfoService.getAllUsersMessages(this.UserIdForGallery)
+    if(this.isAboutInEditMode){
+      this.profileInfoService.getAllUsersMessages(this.UserIdForGallery)
+      .subscribe(res =>{
+        if(res && res.length)
+          this.userMessages = res;
+      }, error =>{
+        console.log(error);
+      })
+    }
+    else{
+      this.profileInfoService.GetUserMessagesBetween2Users(this.readonlyUserInfo.roUserId,this.loggedInUserInfo.UserId)
     .subscribe(res =>{
       if(res && res.length)
         this.userMessages = res;
     }, error =>{
       console.log(error);
     })
+    }
   }
 
   sendMessage(){

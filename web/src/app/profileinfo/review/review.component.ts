@@ -97,7 +97,7 @@ export class ReviewComponent implements OnInit {
       this.idToGetReviews = this.loggedInUserInfo.UserId; 
     }
     if(localStorage.getItem('profileviewUser') != null){
-      this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
+      this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));      
       this.idToGetReviews = this.readonlyUserInfo.roUserId;
       this.searchProfileUserId = this.readonlyUserInfo.roUserId;
       this.canReview = true;

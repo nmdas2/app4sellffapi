@@ -10,7 +10,8 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'profileinfo', loadChildren: () => import(`./profileinfo/profileinfo.module`).then(m => m.ProfileinfoModule) },
+    {path:'profileinfo',loadChildren: './profileinfo//profileinfo.module#ProfileinfoModule'},
+   // { path: 'profileinfo', loadChildren: () => import(`./profileinfo/profileinfo.module`).then(m => m.ProfileinfoModule) },
     // otherwise redirect to home  , canActivate: [AuthGuard]
     { path: '**', redirectTo: '' }
 ];
