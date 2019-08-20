@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace Sellff_API.ADO
 {
@@ -189,15 +190,16 @@ namespace Sellff_API.ADO
                     objResponseBO.InstagramLink = Convert.ToString(objDataRow["InstagramLink"]);
                     objResponseBO.TwitterLink = Convert.ToString(objDataRow["TwitterLink"]);
                     objResponseBO.YouTubeLink = Convert.ToString(objDataRow["YouTubeLink"]);
+                    objResponseBO.WebsiteLink = Convert.ToString(objDataRow["WebsiteLink"]);
                     //objResponseBO.IsActive = Convert.ToBoolean(objDataRow["UserId"]);
                     //objResponseBO.IsVerifiedUser = Convert.ToInt32(objDataRow["UserId"]);
                     objResponseBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
                     //objResponseBO.Resume = Convert.ToString(objDataRow["Resume"]);
                     //objResponseBO.UniqueId = Convert.ToString(objDataRow["UniqueId"]);
                     objResponseBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
-                    objResponseBO.Views = Convert.ToInt32(objDataRow["UserId"]);
-                    objResponseBO.Posts = Convert.ToInt32(objDataRow["UserId"]);
-                    objResponseBO.Rank = Convert.ToInt32(objDataRow["UserId"]);
+                    objResponseBO.Views = Convert.ToInt32(objDataRow["Views"]);
+                    objResponseBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
+                    objResponseBO.Rank = Convert.ToInt32(objDataRow["Rank"]);
                 }
             }
             catch (Exception ex)
@@ -371,7 +373,7 @@ namespace Sellff_API.ADO
                 var sqlParams = new SqlParameter[3];
                 sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = objProfileInfoBO.UserId };
                 sqlParams[1] = new SqlParameter("@SocialLinkType", SqlDbType.Int) { Value = objProfileInfoBO.SocialLinkType };
-                sqlParams[2] = new SqlParameter("@SocialLink", SqlDbType.Int) { Value = objProfileInfoBO.SocialLink };
+                sqlParams[2] = new SqlParameter("@SocialLink", SqlDbType.VarChar) { Value = objProfileInfoBO.SocialLink };
 
                 if (SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "UpdateUserSocialDetails", sqlParams) > 0)
                     result = true;
@@ -471,6 +473,54 @@ namespace Sellff_API.ADO
             return objResponseList;
         }
 
+        public List<PostGroups> GetUserPostsAsGroups(int UserId)
+        {
+            List<PostGroups> objPostsGroupList = new List<PostGroups>();
+            List<PostsBO> objPostsList = new List<PostsBO>();
+            try
+            {
+                var sqlParams = new SqlParameter[1];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = UserId };
+
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "GetUserPostsByUserIdByGroup", sqlParams);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    for (int i = 0; i < _objDataSet.Tables[0].Rows.Count; i++)
+                    {
+                        PostsBO objResponseBO = new PostsBO();
+                        var objDataRow = _objDataSet.Tables[0].Rows[i];
+                        objResponseBO.UserId = Convert.ToInt32(objDataRow["UserId"]);
+                        objResponseBO.ContentType = Convert.ToInt32(objDataRow["ContentType"]);
+                        objResponseBO.Title = Convert.ToString(objDataRow["Title"]);
+                        objResponseBO.UserContent = Convert.ToString(objDataRow["UserContent"]);
+                        objResponseBO.ImagePath = Convert.ToString(objDataRow["ImagePath"]);
+                        objResponseBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
+                        objResponseBO.CreatedBy = Convert.ToInt32(objDataRow["CreatedBy"]);
+                        objResponseBO.CreatedIP = Convert.ToString(objDataRow["CreatedIP"]);
+                        objResponseBO.MonthYear = Convert.ToString(objDataRow["MonthYear"]);
+                        objPostsList.Add(objResponseBO);
+                    }
+                }
+                if (_objDataSet.Tables[1].Rows.Count > 0)
+                {
+                    for (int j = 0; j < _objDataSet.Tables[1].Rows.Count; j++)
+                    {
+                        PostGroups objResponseGroups = new PostGroups();
+                        List<PostsBO> objPostsList4Groups = new List<PostsBO>();
+                        var objDataRow1 = _objDataSet.Tables[1].Rows[j];
+                        objResponseGroups.MonthYear = Convert.ToString(objDataRow1["date"]);
+                        objPostsList4Groups = objPostsList.Where(item => item.MonthYear == objResponseGroups.MonthYear).ToList();
+                        objResponseGroups.objPostsList = objPostsList4Groups;
+                        objPostsGroupList.Add(objResponseGroups);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objPostsGroupList;
+        }
 
     }
 }

@@ -57,25 +57,26 @@ export class PostComponent implements OnInit {
   //get user posts
   getUserPosts(){
     this.userPosts = [];
-    this.profileInfoService.getUserPosts(this.UserIdForGallery)
-    .subscribe((posts: Post[]) => {
-      this.PostsByGroups=[];
-      for(let post of posts){
-        let key=this.getPostGroupKey(post);
-        let isExist= this.PostsByGroups.filter(pg=>pg.key==key)[0];
-        if(isExist){
-          isExist.value.push(post);
-        }
-        if(!isExist){
-          let newPostGroup:PostByGroup={
-             key:key,
-             value:[]
-          };
-          newPostGroup.value.push(post);
-          this.PostsByGroups.push(newPostGroup);
-        }
+    this.profileInfoService.getUserPostsByGroups(this.UserIdForGallery)
+    .subscribe((posts: any) => {
+      this.PostsByGroups = posts;
+      //this.PostsByGroups=[];
+      // for(let post of posts){
+      //   let key=this.getPostGroupKey(post);
+      //   let isExist= this.PostsByGroups.filter(pg=>pg.key==key)[0];
+      //   if(isExist){
+      //     isExist.value.push(post);
+      //   }
+      //   if(!isExist){
+      //     let newPostGroup:PostByGroup={
+      //        key:key,
+      //        value:[]
+      //     };
+      //     newPostGroup.value.push(post);
+      //     this.PostsByGroups.push(newPostGroup);
+      //   }
 
-      }  
+      // }  
  
     }, error => {
       console.log(error);

@@ -3,7 +3,7 @@ import { userAboutInfo, ProfileInfo } from 'src/app/_models/profileinfo';
 import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
 import { User } from 'src/app/_models/user';
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import { UploadType, ProfileSection } from 'src/app/constants';
+import { UploadType, ProfileSection, UserSocialLinksInfo } from 'src/app/constants';
 import { constants as consts } from '../../constants';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ReadOnlyInfo } from 'src/app/_models/readonlyinfo';
@@ -22,7 +22,8 @@ export class AboutComponent implements OnInit, OnDestroy {
   dynamicImg: string = ""; modalRef: BsModalRef; imgGallery = []; userProfileInfo: ProfileInfo; UserProfileViews: number;
   UserIdForGallery: number; readonlyUserInfo: ReadOnlyInfo;
   profileSubscription: Subscription;
-  isEditbale: boolean;
+  isEditbale: boolean = false;
+  html: string = `<span class="btn btn-danger">Never trust not sanitized HTML!!!</span>`;
   constructor(
     private profileInfoService: ProfileinfoService, 
     private http: HttpClient, 
@@ -46,24 +47,26 @@ export class AboutComponent implements OnInit, OnDestroy {
     }
     this.getUserAboutText();
   }
-
   ngOnInit() {
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
-
       this.isEditbale = true;
       if(localStorage.getItem('profileviewUser') && status){
         this.isEditbale = false;
       }
     })
+    this.profileInfoService.GetUserProfileInfoByUserId(this.loggedInUserInfo.UserId)
+      .subscribe(res => {
+        this.userProfileInfo = res;
+        console.log(this.userProfileInfo);
+      }, error => {
+        console.log(error);
+      })
   }
-
   logText(): void {
     this.isAboutInEditMode = true;
   }
-
   saveupdatedabout(): void {
     this.isAboutInEditMode = false;
-
     if (this.textValue) {
       let userAboutInfoBO = <userAboutInfo>{};
       userAboutInfoBO.About = this.textValue;
@@ -192,15 +195,34 @@ export class AboutComponent implements OnInit, OnDestroy {
   }
 
   //social link section
-  postLayoutType: string = "";
+  postLayoutType: number = 1;
   socialLink: string = "";
-  showSocialLayout(type: string) {
+  showSocialLayout(type: number) {
     this.socialLink = "";
     this.postLayoutType = type;
+    switch(type){
+      case 1:
+          this.socialLink = this.userProfileInfo.WebsiteLink;
+        break;
+      case 2:
+          this.socialLink = this.userProfileInfo.TwitterLink;
+        break;
+      default:
+        break;
+    }
   }
   SubmitSocialLink() {
-    console.log(this.socialLink);
-    this.postLayoutType = "";
+    console.log(this.userProfileInfo);
+    //this.userProfileInfo = <ProfileInfo>{};    
+    this.userProfileInfo.userId = this.loggedInUserInfo.UserId;
+    this.userProfileInfo.socialLink = this.socialLink;
+    this.userProfileInfo.socialLinkType = this.postLayoutType;
+    this.profileInfoService.UpdateUserSocialLinkInfo(this.userProfileInfo)
+      .subscribe(res => {
+      }, error => {
+        console.log(error);
+      })
+    this.postLayoutType = 1;
   }
   //end social link section
 

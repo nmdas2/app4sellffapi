@@ -13,16 +13,17 @@ export interface ProfileInfo{
     Message?: string;
     userIP?: string;
     MessageSentTime?: string;
-    views: number;
-    socialLinkType: number;
-    socialLink: string;
-    FacebookLink: string;
-    LinkedInLink: string;
-    InstagramLink: string;
-    TwitterLink: string;
-    YouTubeLink: string;
-    MessageFrom: number;
-    MessageTo: number;
+    views?: number;
+    socialLinkType?: number;
+    socialLink?: string;
+    WebsiteLink?: string;
+    FacebookLink?: string;
+    LinkedInLink?: string;
+    InstagramLink?: string;
+    TwitterLink?: string;
+    YouTubeLink?: string;
+    MessageFrom?: number;
+    MessageTo?: number;
 }
 export interface userAboutInfo{
     AutoId: number;

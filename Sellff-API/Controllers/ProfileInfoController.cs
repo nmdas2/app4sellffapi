@@ -236,5 +236,15 @@ namespace Sellff_API.Controllers
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserProfileInfoByUserId(loginUser)));
         }
 
+        ///summary
+        /// This method will get all users Posts info based on UserId
+        ///</summary>
+        /// <param name="UserId"></param>
+        [HttpGet, Route("api/ProfileInfo/GetUserPostsAsGroups/{UserId}")]
+        public IHttpActionResult GetUserPostsAsGroups(int UserId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserPostsAsGroups(UserId)));
+        }
+
     }
 }

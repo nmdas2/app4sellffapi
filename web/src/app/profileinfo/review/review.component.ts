@@ -17,7 +17,7 @@ export class ReviewComponent implements OnInit {
   max = 5;   rate = 0; communicationRate=0;  QOWRate=0; isReadonly = false;   overStar: number | undefined; percent: number; 
   ViewUserInfo: User;  modalRef: BsModalRef; loggedInUserInfo: User;  ratingGivenTo: number;  reviewUserForm: FormGroup
   canReview: boolean = false;  idToGetReviews:number; userReviews: Review[]; searchProfileUserId: number = 0; currentRating: Review;
-  readonlyUserInfo: ReadOnlyInfo; submitted = false;
+  readonlyUserInfo: ReadOnlyInfo; submitted = false; totalRatings: number = 0;
   constructor(
     private profileInfoService: ProfileinfoService,
     private formBuilder: FormBuilder,
@@ -39,6 +39,7 @@ export class ReviewComponent implements OnInit {
     this.profileInfoService.GetCurrentUserRatingById(idToGetReviews)
     .subscribe((res: any) => {
       this.currentRating = res;
+      this.totalRatings = this.currentRating.Starts5 + this.currentRating.Starts4 + this.currentRating.Starts3 + this.currentRating.Starts2 + this.currentRating.Starts1
     }, error => {
       console.log(error);
     })
@@ -76,9 +77,6 @@ export class ReviewComponent implements OnInit {
     }, error => {
       console.log(error);
     })
-
-    // display form values on success
-    //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
 }
   getUserReviews(idToGetReviews: User) {
     this.profileInfoService.GetUserReviewsById(idToGetReviews)
@@ -119,11 +117,11 @@ export class ReviewComponent implements OnInit {
     this.router.navigate([consts.AboutPath]);
   }
 
-  sayhelpful()
-  {
+  sayhelpful()  {
 
   }
+  resetPostTextForm(){
 
-  resetPostTextForm(){}
+  }
 
 }

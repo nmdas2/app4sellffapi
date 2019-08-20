@@ -14,3 +14,12 @@ export const enum ProfileSection {
     Posts = 2,
     Message = 3
 }
+export const enum UserSocialLinksInfo {
+    Website =1 ,
+    Twitter = 2,
+    LinkedIn = 3,
+    Facebook = 4,
+    Googleplus = 5,
+    YouTube = 6,
+    Instagram = 7,
+}

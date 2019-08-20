@@ -17,7 +17,7 @@ import { MytestingComponent } from './mytesting/mytesting.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { UploadComponent } from './upload/upload.component';
 import { HttpClientModule } from '@angular/common/http';
-import { RatingModule, ProgressbarModule } from 'ngx-bootstrap';
+import { RatingModule, ProgressbarModule, PopoverModule } from 'ngx-bootstrap';
 
 
 @NgModule({
@@ -30,7 +30,8 @@ import { RatingModule, ProgressbarModule } from 'ngx-bootstrap';
     ModalModule.forRoot(),
     HttpClientModule,
     RatingModule.forRoot(),
-    ProgressbarModule.forRoot()
+    ProgressbarModule.forRoot(),
+    PopoverModule.forRoot()
   ]
 })
 export class ProfileinfoModule { }

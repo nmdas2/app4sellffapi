@@ -43,6 +43,8 @@ namespace Sellff_API.Models
         [DataMember]
         public string ProfileSummary { get; set; }
         [DataMember]
+        public string WebsiteLink { get; set; }
+        [DataMember]
         public string FacebookLink { get; set; }
         [DataMember]
         public string LinkedInLink { get; set; }
@@ -132,8 +134,21 @@ namespace Sellff_API.Models
         public int CreatedBy { get; set; }
         [DataMember]
         public string CreatedIP { get; set; }
+        [DataMember]
+        public string MonthYear { get; set; }
     }
 
+    public class PostGroups
+    {        
+        public PostGroups()
+        {
+            objPostsList = new List<PostsBO>();
+        }
+        [DataMember]
+        public List<PostsBO> objPostsList;
+        [DataMember]
+        public string MonthYear { get; set; }
+    }
     public class UserAboutBO
     {
         [DataMember]

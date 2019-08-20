@@ -164,5 +164,10 @@ namespace Sellff_API.Services
         {
             return objProfileInfoDAO.GetUserProfileInfoByUserId(loginUser);
         }
+
+        public List<PostGroups> GetUserPostsAsGroups(int UserId)
+        {
+            return objProfileInfoDAO.GetUserPostsAsGroups(UserId);
+        }
     }
 }

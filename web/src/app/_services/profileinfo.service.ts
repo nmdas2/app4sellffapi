@@ -47,8 +47,8 @@ export class ProfileinfoService {
     return this.http.post(`${consts.DomainURL}ProfileInfo/SaveUserMessages`, data);
   }
 
-  getUserPosts(userId: number): Observable<Post[]>{
-    return this.http.get<Post[]>(`${consts.DomainURL}ProfileInfo/GetAllUserPosts/${userId}`);
+  getUserPosts(userId: number): Observable<any>{
+    return this.http.get<any>(`${consts.DomainURL}ProfileInfo/GetAllUserPosts/${userId}`);
   }
 
   getAllUserPromotions(userId: number): Observable<any>{
@@ -86,6 +86,12 @@ export class ProfileinfoService {
   }
   GetUserProfileInfoByUserId(loginUser: number): Observable<any>{
     return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserProfileInfoByUserId/${loginUser}`);
+  }
+  UpdateUserSocialLinkInfo(data: ProfileInfo): Observable<any>{
+    return this.http.post(`${consts.DomainURL}ProfileInfo/UpdateUsersSocialInfo`, data);
+  }  
+  getUserPostsByGroups(userId: number): Observable<any>{
+    return this.http.get<any>(`${consts.DomainURL}ProfileInfo/GetUserPostsAsGroups/${userId}`);
   }
 }
 

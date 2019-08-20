@@ -98,9 +98,42 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="box message-box" *ngIf="currentRating">
-                                <div class="col-sm-4">
-                                    <div class="mb-2">
-                                        5 Star<progressbar [value]="22" type="warning" [striped]="true">22%</progressbar>
+                                <div class="row" style="font-weight: bold;">
+                                    {{totalRatings}} Customer Reviews
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="mb-2">
+                                            5 Star<progressbar max="{{totalRatings}}" [value]=currentRating.Starts5 type="warning" [striped]="true">{{currentRating.Starts5}}</progressbar>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="mb-2">
+                                            4 Star<progressbar max="{{totalRatings}}" [value]=currentRating.Starts4 type="warning" [striped]="true">{{currentRating.Starts4}}</progressbar>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="mb-2">
+                                            3 Star<progressbar max="{{totalRatings}}" [value]=currentRating.Starts3 type="warning" [striped]="true">{{currentRating.Starts3}}</progressbar>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="mb-2">
+                                            2 Star<progressbar max="{{totalRatings}}" [value]=currentRating.Starts2 type="warning" [striped]="true">{{currentRating.Starts2}}</progressbar>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="mb-2">
+                                            1 Star<progressbar max="{{totalRatings}}" [value]=currentRating.Starts1 type="warning" [striped]="true">{{currentRating.Starts1}}</progressbar>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
