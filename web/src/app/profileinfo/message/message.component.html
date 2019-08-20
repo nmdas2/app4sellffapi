@@ -100,8 +100,8 @@
                         <div class="box" >    
                             <h4>Message History</h4>      
                             <div style="border-radius: 10px; background-color: rgb(248, 248, 238);" *ngFor = "let message of userMessages">                                
-                                <a style="cursor: pointer;" (click)=openotherprofile(message)><label class="text-left col-sm-6" *ngIf = "message.DisplayName">{{message.DisplayName}}</label></a>
-                                <label class="text-right col-sm-6" *ngIf = "message.MessageSentTime">{{message.MessageSentTime | date : 'dd-MMM-yyyy'}} | {{message.MessageSentTime | date : 'hh:mm aa'}}</label><br> 
+                                <a style="cursor: pointer;" (click)=openotherprofile(message)><label class="text-left col-sm-6" *ngIf = "message.DisplayName">{{message.DisplayName}}</label></a><a data-toggle="modal" data-target="#myModal" (click)="showcommunication(message.MessageFrom,message.MessageTo)"><span class="glyphicon glyphicon-list-alt"></span></a>
+                                <label class="text-right col-sm-6" *ngIf = "message.MessageSentTime">{{message.MessageSentTime}}</label><br> 
                                 <p  *ngIf = "message.Message">{{message.Message}}</p>
                                 <!-- <p class="text-right"><a>[more]</a></p> -->
                             </div>      
@@ -144,6 +144,30 @@
     Copyright 2019 All Right Reserved
         </footer>
     </div>
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+      
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Message History</h4>
+            </div>
+            <div class="modal-body">
+                <div style="border-radius: 10px;" *ngFor = "let commmessage of usersCommMessages">                                
+                    <label class="text-left col-sm-6" *ngIf = "commmessage.DisplayName">{{commmessage.DisplayName}}</label>
+                    <label class="text-right col-sm-6" *ngIf = "commmessage.MessageSentTime">{{commmessage.MessageSentTime}}</label><br> 
+                    <p  *ngIf = "commmessage.Message">{{commmessage.Message}}</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+      
+        </div>
+      </div>
     <!-- /.content-wrapper -->
 <div class="control-sidebar-bg"></div>
 <script src="js/jquery.min.js"></script>

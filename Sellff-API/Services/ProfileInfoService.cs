@@ -72,6 +72,11 @@ namespace Sellff_API.Services
             }
             return objProfileInfoDAO.SaveReviewForUsers(objUserReviewBO);
         }
+        public List<ProfileInfoBO> GetUserMessagesBetween2Users(int userId, int recepId)
+        {
+            return objProfileInfoDAO.GetUserMessagesBetween2Users(userId, recepId);
+        }
+
         public List<UserReviewBO> GetAllUserReviewsByUser(UserLocalStorageBO objUserLocalStorageBO)
         {
             return objProfileInfoDAO.GetAllUserReviewsByUser(objUserLocalStorageBO.UserId);

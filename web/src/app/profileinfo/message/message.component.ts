@@ -4,6 +4,7 @@ import { ProfileInfo } from 'src/app/_models/profileinfo';
 import { User } from 'src/app/_models/user';
 import { Router } from '@angular/router';
 import { constants as consts } from '../../constants';
+import { ReadOnlyInfo } from 'src/app/_models/readonlyinfo';
 
 @Component({
   selector: 'app-message',
@@ -12,7 +13,7 @@ import { constants as consts } from '../../constants';
 })
 export class MessageComponent implements OnInit {
   userMessages: ProfileInfo[];  userMsg: string;  isSubmitted: boolean = false; loggedInUserInfo: User; isAboutInEditMode: boolean = false;
-  UserIdForGallery: number; MainUserId: number;
+  UserIdForGallery: number; MainUserId: number; usersCommMessages: ProfileInfo[]; readonlyUserInfo: ReadOnlyInfo;
 
   constructor(private profileInfoService: ProfileinfoService, private router: Router)
   {
@@ -29,9 +30,9 @@ export class MessageComponent implements OnInit {
       }else{this.UserIdForGallery = this.loggedInUserInfo.UserRefProfileId;}
     }
     if(localStorage.getItem('profileviewUser') != null){
-      this.loggedInUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
+      this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
         this.isAboutInEditMode = false;
-        this.UserIdForGallery = this.loggedInUserInfo.UserRefProfileId;
+        this.UserIdForGallery = this.readonlyUserInfo.roUserId;
     }
     this.getAllUserMessages();
   }
@@ -40,6 +41,7 @@ export class MessageComponent implements OnInit {
   }
 
   getAllUserMessages(){
+    console.log(this.UserIdForGallery);
     this.userMessages = [];
     this.profileInfoService.getAllUsersMessages(this.UserIdForGallery)
     .subscribe(res =>{
@@ -48,7 +50,6 @@ export class MessageComponent implements OnInit {
     }, error =>{
       console.log(error);
     })
-    console.log(this.userMessages);
   }
 
   sendMessage(){
@@ -78,4 +79,15 @@ export class MessageComponent implements OnInit {
     this.router.navigate([consts.AboutPath]);
   }
 
+  showcommunication(messageFromId: number,messageToId: number)
+  {
+    this.usersCommMessages = [];
+    this.profileInfoService.GetUserMessagesBetween2Users(messageToId,messageFromId)
+    .subscribe(res =>{
+      if(res && res.length)
+        this.usersCommMessages = res;
+    }, error =>{
+      console.log(error);
+    })
+  }
 }

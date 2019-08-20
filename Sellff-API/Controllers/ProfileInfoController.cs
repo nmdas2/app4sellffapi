@@ -51,6 +51,16 @@ namespace Sellff_API.Controllers
         }
 
         ///summary
+        /// This method will get all users Messages info based on UserId
+        ///</summary>
+        /// <param name="UserId"></param>
+        [HttpGet, Route("api/ProfileInfo/GetUserMessagesBetween2Users/{UserId}/{RecepId}")]
+        public IHttpActionResult GetUserMessagesBetween2Users(int UserId, int RecepId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserMessagesBetween2Users(UserId, RecepId)));
+        }
+
+        ///summary
         /// This method will get all users promotions info based on UserId
         ///</summary>
         /// <param name="UserId"></param>
