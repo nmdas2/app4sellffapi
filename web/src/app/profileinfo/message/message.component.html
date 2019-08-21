@@ -100,43 +100,24 @@
                         <div class="box" >    
                             <h4>Message History</h4>      
                             <div style="border-radius: 10px; background-color: rgb(248, 248, 238);" *ngFor = "let message of userMessages">                                
-                                <a style="cursor: pointer;" (click)=openotherprofile(message)><label class="text-left col-sm-6" *ngIf = "message.DisplayName">{{message.DisplayName}}</label></a><a data-toggle="modal" data-target="#myModal" (click)="showcommunication(message.MessageFrom,message.MessageTo)"><span class="glyphicon glyphicon-list-alt"></span></a>
+                                <a style="cursor: pointer;" (click)=openotherprofile(message)><label class="text-left col-sm-6" *ngIf = "message.DisplayName">{{message.DisplayName}}</label></a>
+                                <a (click)="showcommunication(message.MessageFrom,message.MessageTo,message.DisplayName)"><span class="glyphicon glyphicon-list-alt"></span></a>
                                 <label class="text-right col-sm-6" *ngIf = "message.MessageSentTime">{{message.MessageSentTime}}</label><br> 
                                 <p  *ngIf = "message.Message">{{message.Message}}</p>
-                                <!-- <p class="text-right"><a>[more]</a></p> -->
-                            </div>      
-                            <!-- <div style="border-radius: 10px; background-color: rgb(248, 248, 238);">
-                                <label class="text-left col-sm-6">Rebaccah</label>
-                                <label class="text-right col-sm-6">08-April-2019 | 11:40AM</label><br> 
-                                <p >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                <p class="text-right"><a>[more]</a></p>
                             </div>
-                            <div style="border-radius: 10px; background-color: rgb(248, 248, 238);">
-                                <label class="text-left col-sm-6">Rebaccah</label>
-                                <label class="text-right col-sm-6">22-March-2019 | 09:00PM</label><br> 
-                                <p >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                <p class="text-right"><a>[more]</a></p>
-                            </div> -->
                         </div>
                     </div>
-                    <div class="col-md-6" *ngIf="!isAboutInEditMode">
+                    <div class="col-md-6" *ngIf="!isAboutInEditMode || showcommunicationbox">
                         <div class="box message-box">
-                            <h4>New Message</h4>
+                            <div><h4>New Message</h4></div><div *ngIf="showcommunicationbox"> - {{messageDisplayName}}</div>
                             <textarea [(ngModel)] = "userMsg"></textarea>
                             <span *ngIf = "isSubmitted && !userMsg" style="color: red">Please enter the message</span>
                             <button type="button" (click) = "sendMessage()" class="btn btn-primary pull-right">Send Message</button>
                         </div>
                     </div>
-                    <!-- /.box -->
                 </div>
-                <!-- /.col -->
             </section>
         </div>
-        <!-- /.row -->
-        <!-- Main row -->
-        <!-- /.row -->
-        
-        <!-- /.content -->
         <footer class="main-footer">
         <div class="pull-right ">
             <a href="#">Terms & Conditions</a> |  <a href="#">Privacy Policy</a> | <a href="#">Site map</a>

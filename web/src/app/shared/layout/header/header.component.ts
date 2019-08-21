@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   searchForm: FormGroup; readonlyUserInfo: ReadOnlyInfo;
   profileSubscription: Subscription
   submitted = false;
-  
+  showheadsection: boolean = false;
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -34,7 +34,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
       this.hasActiveSession = false;
       this.loggedInUserInfo = <User>{};
@@ -42,9 +41,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.loggedInUserName = "";
       this.loggedInUserRank = 0;
       this.LoggedInUserProfilePic = "";
-      
       if(localStorage.getItem('currentUser')){
         this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
+        this.showheadsection = true;
+        this.hasActiveSession = true;
       }
       if (!status) {
         if (localStorage.getItem('currentUser')) {
@@ -64,7 +64,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.loggedInUserName = this.readonlyUserInfo.roDisplayName;
           this.loggedInUserRank = this.readonlyUserInfo.roRank;
           this.LoggedInUserProfilePic = this.readonlyUserInfo.roProfilePicPath;
-          this.hasActiveSession = true;
+          this.showheadsection = true;
         }
       }
 
@@ -77,6 +77,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   get f() { return this.searchForm.controls; }
 
   signoutplz() {
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('profileviewUser');
     this.authenticationService.logout();
     this.hasActiveSession = false;
     this.router.navigate([this.returnUrl]);

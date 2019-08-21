@@ -14,7 +14,7 @@ import { ReadOnlyInfo } from 'src/app/_models/readonlyinfo';
 export class MessageComponent implements OnInit {
   userMessages: ProfileInfo[];  userMsg: string;  isSubmitted: boolean = false; loggedInUserInfo: User; isAboutInEditMode: boolean = false;
   UserIdForGallery: number; MainUserId: number; usersCommMessages: ProfileInfo[]; readonlyUserInfo: ReadOnlyInfo;
-
+  showcommunicationbox: boolean = false; guestIdToSendMessage: number=0; messageDisplayName: string="";
   constructor(private profileInfoService: ProfileinfoService, private router: Router)
   {
     if(localStorage.getItem('currentUser') != null){
@@ -34,6 +34,7 @@ export class MessageComponent implements OnInit {
         this.isAboutInEditMode = false;
         this.UserIdForGallery = this.readonlyUserInfo.roUserId;
     }
+    console.log(this.UserIdForGallery);
     this.getAllUserMessages();
   }
 
@@ -61,7 +62,6 @@ export class MessageComponent implements OnInit {
     })
     }
   }
-
   sendMessage(){
     this.isSubmitted = true;
     if(this.userMsg){
@@ -69,7 +69,11 @@ export class MessageComponent implements OnInit {
       messageInfo.Message = this.userMsg;
       messageInfo.MessageSentTime = new Date().toDateString();
       messageInfo.userId = this.MainUserId;
-      messageInfo.userRefId = this.UserIdForGallery;
+      if(this.guestIdToSendMessage > 0){
+        messageInfo.userRefId = this.guestIdToSendMessage;
+        this.guestIdToSendMessage = 0;
+      }
+      else{messageInfo.userRefId = this.UserIdForGallery;}
       this.profileInfoService.postUserMessage(messageInfo)
       .subscribe(res => {
         this.isSubmitted = false;
@@ -80,7 +84,6 @@ export class MessageComponent implements OnInit {
       })
     }
   }
-
   openotherprofile(RefsearchUserIdBo){    
     localStorage.removeItem('profileviewUser');
     RefsearchUserIdBo.UserRefProfileId = RefsearchUserIdBo.MessageFrom;
@@ -88,16 +91,20 @@ export class MessageComponent implements OnInit {
     localStorage.setItem('profileviewUser', JSON.stringify(RefsearchUserIdBo));
     this.router.navigate([consts.AboutPath]);
   }
-
-  showcommunication(messageFromId: number,messageToId: number)
+  showcommunication(messageFromId: number,messageToId: number, mdisName: string)
   {
-    this.usersCommMessages = [];
-    this.profileInfoService.GetUserMessagesBetween2Users(messageToId,messageFromId)
-    .subscribe(res =>{
-      if(res && res.length)
-        this.usersCommMessages = res;
-    }, error =>{
-      console.log(error);
-    })
+    if(messageFromId != messageToId)
+    {this.showcommunicationbox = true;
+    this.messageDisplayName = mdisName;
+    }
+    this.guestIdToSendMessage = messageFromId;
+    // this.usersCommMessages = [];
+    // this.profileInfoService.GetUserMessagesBetween2Users(messageToId,messageFromId)
+    // .subscribe(res =>{
+    //   if(res && res.length)
+    //     this.usersCommMessages = res;
+    // }, error =>{
+    //   console.log(error);
+    // })
   }
 }
