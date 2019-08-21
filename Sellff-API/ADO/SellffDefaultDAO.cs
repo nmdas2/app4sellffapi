@@ -34,6 +34,10 @@ namespace Sellff_API.ADO
                     objAuthenticationBO.UniqueId = Convert.ToInt32(objDataRow["UniqueId"]);
                     objAuthenticationBO.Rank = Convert.ToInt32(objDataRow["Rank"]);
                 }
+                else
+                {
+                    objAuthenticationBO.ErrorMessage = "Invalid user name / password";
+                }
             }
             catch (Exception ex)
             {

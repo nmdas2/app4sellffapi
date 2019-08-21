@@ -100,7 +100,7 @@ namespace Sellff_API.Services
                     objFinalResponse.Performance += item.Performance;
                     objFinalResponse.Communication += item.Communication;
                     objFinalResponse.QOW += item.QOW;
-                    switch (item.Performance)
+                    switch (item.Rating)
                     {
                         case 5:
                             objFinalResponse.Starts5 += 1;
@@ -120,47 +120,51 @@ namespace Sellff_API.Services
                         default:
                             break;
                     }
-                    switch (item.Communication)
-                    {
-                        case 5:
-                            objFinalResponse.Starts5 += 1;
-                            break;
-                        case 4:
-                            objFinalResponse.Starts4 += 1;
-                            break;
-                        case 3:
-                            objFinalResponse.Starts3 += 1;
-                            break;
-                        case 2:
-                            objFinalResponse.Starts2 += 1;
-                            break;
-                        case 1:
-                            objFinalResponse.Starts1 += 1;
-                            break;
-                        default:
-                            break;
-                    }
-                    switch (item.QOW)
-                    {
-                        case 5:
-                            objFinalResponse.Starts5 += 1;
-                            break;
-                        case 4:
-                            objFinalResponse.Starts4 += 1;
-                            break;
-                        case 3:
-                            objFinalResponse.Starts3 += 1;
-                            break;
-                        case 2:
-                            objFinalResponse.Starts2 += 1;
-                            break;
-                        case 1:
-                            objFinalResponse.Starts1 += 1;
-                            break;
-                        default:
-                            break;
-                    }
+                    //switch (item.Communication)
+                    //{
+                    //    case 5:
+                    //        objFinalResponse.Starts5 += 1;
+                    //        break;
+                    //    case 4:
+                    //        objFinalResponse.Starts4 += 1;
+                    //        break;
+                    //    case 3:
+                    //        objFinalResponse.Starts3 += 1;
+                    //        break;
+                    //    case 2:
+                    //        objFinalResponse.Starts2 += 1;
+                    //        break;
+                    //    case 1:
+                    //        objFinalResponse.Starts1 += 1;
+                    //        break;
+                    //    default:
+                    //        break;
+                    //}
+                    //switch (item.QOW)
+                    //{
+                    //    case 5:
+                    //        objFinalResponse.Starts5 += 1;
+                    //        break;
+                    //    case 4:
+                    //        objFinalResponse.Starts4 += 1;
+                    //        break;
+                    //    case 3:
+                    //        objFinalResponse.Starts3 += 1;
+                    //        break;
+                    //    case 2:
+                    //        objFinalResponse.Starts2 += 1;
+                    //        break;
+                    //    case 1:
+                    //        objFinalResponse.Starts1 += 1;
+                    //        break;
+                    //    default:
+                    //        break;
+                    //}
                 }
+
+                objFinalResponse.Performance = Convert.ToInt32(objFinalResponse.Performance / resultlist.Count);
+                objFinalResponse.Communication = Convert.ToInt32(objFinalResponse.Communication / resultlist.Count);
+                objFinalResponse.QOW = Convert.ToInt32(objFinalResponse.QOW / resultlist.Count);
             }
             return objFinalResponse;
         }

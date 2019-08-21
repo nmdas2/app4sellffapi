@@ -12,4 +12,5 @@ export class User {
     UniqueId?: number = 0;
     Rank?: number = 0;
     ProfilePicPath?: string;
+    ErrorMessage?: String;
 }
