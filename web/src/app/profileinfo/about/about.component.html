@@ -72,13 +72,13 @@
                 </div>
             </div>
         <div class="text-center pull-right">       
-            <a (click)="showSocialLayout('1')"><i id="social-gp" style="padding-right: 4px;" class="fa fa-globe fa-2x social"></i></a>
-            <a (click)="showSocialLayout('2')"><i id="social-tw" style="padding-right: 4px;" class="fa fa-twitter-square fa-2x social"></i></a>
-            <a (click)="showSocialLayout('3')"><i id="social-em" style="padding-right: 4px;" class="fa fa-bell fa-2x social"></i></a>
-            <a (click)="showSocialLayout('4')"><i id="social-fb" style="padding-right: 4px;" class="fa fa-facebook-square fa-2x social"></i></a>
-            <a (click)="showSocialLayout('5')"><i id="social-gp" style="padding-right: 4px;" class="fa fa-google-plus-square fa-2x social"></i></a>
-            <a (click)="showSocialLayout('6')"><i id="social-em" style="padding-right: 4px;" class="fa fa-envelope-square fa-2x social"></i></a>
-            <a (click)="showSocialLayout('7')"><i id="social-ig" style="padding-right: 4px;" class="fa fa-instagram-square fa-2x social"></i></a>            
+            <a (click)="showSocialLayout('g')"><i id="social-gp" style="padding-right: 4px;" class="fa fa-globe fa-2x social"></i></a>
+            <a (click)="showSocialLayout('tw')"><i id="social-tw" style="padding-right: 4px;" class="fa fa-twitter-square fa-2x social"></i></a>
+            <a (click)="showSocialLayout('em')"><i id="social-em" style="padding-right: 4px;" class="fa fa-bell fa-2x social"></i></a>
+            <a (click)="showSocialLayout('fb')"><i id="social-fb" style="padding-right: 4px;" class="fa fa-facebook-square fa-2x social"></i></a>
+            <a (click)="showSocialLayout('gp')"><i id="social-gp" style="padding-right: 4px;" class="fa fa-google-plus-square fa-2x social"></i></a>
+            <a (click)="showSocialLayout('sem')"><i id="social-em" style="padding-right: 4px;" class="fa fa-envelope-square fa-2x social"></i></a>
+            <a (click)="showSocialLayout('ig')"><i id="social-ig" style="padding-right: 4px;" class="fa fa-instagram-square fa-2x social"></i></a>            
         <div *ngIf="postLayoutType!='' && isEditbale">
             <input type="text" placeholder="link.." name="link" [(ngModel)]="socialLink"/>
             <button type="submit" (click)="SubmitSocialLink()"><i class="fa fa-address-book"></i></button>

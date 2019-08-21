@@ -25,8 +25,8 @@ export class AboutComponent implements OnInit, OnDestroy {
   isEditbale: boolean = false;
   html: string = `<span class="btn btn-danger">Never trust not sanitized HTML!!!</span>`;
   constructor(
-    private profileInfoService: ProfileinfoService, 
-    private http: HttpClient, 
+    private profileInfoService: ProfileinfoService,
+    private http: HttpClient,
     private modalService: BsModalService,
     private commonService: CommonService
   ) {
@@ -50,7 +50,7 @@ export class AboutComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
       this.isEditbale = true;
-      if(localStorage.getItem('profileviewUser') && status){
+      if (localStorage.getItem('profileviewUser') && status) {
         this.isEditbale = false;
       }
     })
@@ -195,39 +195,120 @@ export class AboutComponent implements OnInit, OnDestroy {
   }
 
   //social link section
-  postLayoutType: number = 1;
+  postLayoutType: string = "";
   socialLink: string = "";
-  showSocialLayout(type: number) {
+  showSocialLayout(type: string) {
+
+    if(!this.isEditbale){
+      this.showSocialLayoutForOthers(type);
+      return;
+    }
     this.socialLink = "";
     this.postLayoutType = type;
-    switch(type){
-      case 1:
-          this.socialLink = this.userProfileInfo.WebsiteLink;
+    switch (type) {
+      case "g":
+        this.socialLink = this.userProfileInfo.LinkedInLink;
         break;
-      case 2:
-          this.socialLink = this.userProfileInfo.TwitterLink;
+      case "tw":
+        this.socialLink = this.userProfileInfo.TwitterLink;
+        break;
+      case "em":
+        this.socialLink = this.userProfileInfo.email;
+        break;
+      case "fb":
+        this.socialLink = this.userProfileInfo.FacebookLink;
+        break;
+      case "gp":
+        this.socialLink = this.userProfileInfo.TwitterLink;
+        break;
+      case "sem":
+        this.socialLink = this.userProfileInfo.TwitterLink;
+        break;
+      case "ig":
+        this.socialLink = this.userProfileInfo.InstagramLink;
         break;
       default:
         break;
     }
+  }
+
+  showSocialLayoutForOthers(type: string) { //readonlyinfo object
+    this.socialLink = "";
+    this.postLayoutType = type;
+    switch (type) {
+      case "g":
+        this.socialLink = this.userProfileInfo.LinkedInLink;
+        break;
+      case "tw":
+        this.socialLink = this.userProfileInfo.TwitterLink;
+        break;
+      case "em":
+        this.socialLink = this.userProfileInfo.email;
+        break;
+      case "fb":
+        this.socialLink = this.userProfileInfo.FacebookLink;
+        break;
+      case "gp":
+        this.socialLink = this.userProfileInfo.TwitterLink;
+        break;
+      case "sem":
+        this.socialLink = this.userProfileInfo.TwitterLink;
+        break;
+      case "ig":
+        this.socialLink = this.userProfileInfo.InstagramLink;
+        break;
+      default:
+        break;
+    }
+  }
+
+  mapSocialLinkLegends(type:string):number{
+    let postLayoutType = 0;
+    switch (type) {
+      case "g":
+        postLayoutType = 1;
+        break;
+      case "tw":
+        postLayoutType = 2;
+        break;
+      case "em":
+        postLayoutType = 3;
+        break;
+      case "fb":
+        postLayoutType = 4;
+        break;
+      case "gp":
+        postLayoutType = 5;
+        break;
+      case "sem":
+        postLayoutType = 6;
+        break;
+      case "ig":
+        postLayoutType = 7;
+        break;
+      default:
+        break;
+    }
+
+    return postLayoutType;
   }
   SubmitSocialLink() {
     console.log(this.userProfileInfo);
     //this.userProfileInfo = <ProfileInfo>{};    
     this.userProfileInfo.userId = this.loggedInUserInfo.UserId;
     this.userProfileInfo.socialLink = this.socialLink;
-    this.userProfileInfo.socialLinkType = this.postLayoutType;
+    this.userProfileInfo.socialLinkType =this.mapSocialLinkLegends(this.postLayoutType);
     this.profileInfoService.UpdateUserSocialLinkInfo(this.userProfileInfo)
       .subscribe(res => {
       }, error => {
         console.log(error);
       })
-    this.postLayoutType = 1;
+    //this.postLayoutType = 1;
   }
   //end social link section
 
-  ngOnDestroy(){
-    if(this.profileSubscription)
+  ngOnDestroy() {
+    if (this.profileSubscription)
       this.profileSubscription.unsubscribe();
   }
 }
