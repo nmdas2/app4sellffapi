@@ -141,6 +141,7 @@
                                     <textarea cols="150" rows="10" [(ngModel)]="textValue" required></textarea>
                                     <!-- <input #textbox id="txtAboutUser" type="textarea" width="85%" height="100px;" [(ngModel)]="textValue" required> -->
                                     <button class="btn btn-primary" (click)="saveupdatedabout()">Update</button>
+                                    <button class="btn btn-danger ml-3" (click)="onCancel()">Cancel</button>
                                 </div>
 
                             </ng-template>
@@ -225,7 +226,9 @@
                                                     Upload progress: {{ fileUploadProgress }}
                                                 </div>
                                                 <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
+                                                <button class="btn btn-danger ml-3" (click)="AllowImageUpload = false">Cancel</button>
                                             </div>
+
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-sm-3">

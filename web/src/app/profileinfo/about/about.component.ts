@@ -310,6 +310,10 @@ export class AboutComponent implements OnInit, OnDestroy {
   }
   //end social link section
 
+  onCancel(){
+    this.isAboutInEditMode = false;
+  }
+
   ngOnDestroy() {
     if (this.profileSubscription)
       this.profileSubscription.unsubscribe();
