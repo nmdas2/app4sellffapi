@@ -242,14 +242,13 @@ namespace Sellff_API.ADO
             }
             return objPostsList;
         }
-        public List<UserAboutBO> GetUserAboutNGalleryInfo(int UserId, int SectionId)
+        public List<UserAboutBO> GetUserAboutNGalleryInfo(int UserId)
         {
             List<UserAboutBO> objAboutList = new List<UserAboutBO>();
             try
             {
-                var sqlParams = new SqlParameter[2];
+                var sqlParams = new SqlParameter[1];
                 sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = UserId };
-                sqlParams[1] = new SqlParameter("@SectionId", SqlDbType.Int) { Value = SectionId };
 
                 DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetAboutNGalleryInfo", sqlParams);
                 if (_objDataSet.Tables[0].Rows.Count > 0)

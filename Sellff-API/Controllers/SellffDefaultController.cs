@@ -25,9 +25,14 @@ namespace Sellff_API.Controllers
         /// <param name="AuthenticationBO"></param>
 
         [HttpPost, Route("api/SellffDefault/AuthenticateSellffUserInfo")]
-        public IHttpActionResult AuthenticateSellffUserInfo([FromBody]AuthenticationBO objAuthenticationBO)
+        public IHttpActionResult AuthenticateSellffUserInfo([FromBody]ProfileInfoBO objAuthenticationBO)
         {
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.AuthenticateSellffUser(objAuthenticationBO)));
+            var response = objSellffDefaultService.AuthenticateSellffUser(objAuthenticationBO);
+            if(!string.IsNullOrEmpty(response.ErrorMessage))
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Unauthorized, response));
+            else
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, response));
+
         }
 
         ///summary

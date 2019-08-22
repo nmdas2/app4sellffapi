@@ -85,9 +85,9 @@ namespace Sellff_API.Controllers
         ///</summary>
         /// <param name="UserId"></param>
         [HttpGet, Route("api/ProfileInfo/GetUserAboutNGalleryInfo/{UserId}/{SectionId}")]
-        public IHttpActionResult GetUserAboutNGalleryInfo(int UserId,int SectionId)
+        public IHttpActionResult GetUserAboutNGalleryInfo(int UserId)
         {
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserAboutNGalleryInfo(UserId, SectionId)));
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserAboutNGalleryInfo(UserId)));
         }
 
         ///summary
@@ -121,7 +121,8 @@ namespace Sellff_API.Controllers
                 {
                     var postedFile = httpRequest.Files[file];
                     //var filePath = HttpContext.Current.Server.MapPath("~/GalleryImages/" + postedFile.FileName);
-                    var filePath = "F:/Projects/Ron/Das/web/src/assets/selfprflimages/" + postedFile.FileName;
+                    //var filePath = "F:/Projects/Ron/Das/web/src/assets/selfprflimages/" + postedFile.FileName;
+                    var filePath = "C:/www/dev-sellff/assets/selfprflimages/" + postedFile.FileName;
                     postedFile.SaveAs(filePath);
                 }
             }
@@ -138,7 +139,8 @@ namespace Sellff_API.Controllers
                 foreach (string file in httpRequest.Files)
                 {
                     var postedFile = httpRequest.Files[file];
-                    var filePath = "F:/Projects/Ron/Das/web/src/assets/selfprflimages/postimages/" + postedFile.FileName;
+                    //var filePath = "F:/Projects/Ron/Das/web/src/assets/selfprflimages/postimages/" + postedFile.FileName;
+                    var filePath = "C:/www/dev-sellff/assets/selfprflimages/postimages/" + postedFile.FileName;
                     postedFile.SaveAs(filePath);
                 }
             }

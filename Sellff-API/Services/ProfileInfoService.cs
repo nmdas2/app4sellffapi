@@ -36,9 +36,9 @@ namespace Sellff_API.Services
             return objProfileInfoDAO.GetAllUserPosts(UserId);
         }
 
-        public List<UserAboutBO> GetUserAboutNGalleryInfo(int UserId, int SectionId)
+        public List<UserAboutBO> GetUserAboutNGalleryInfo(int UserId)
         {
-            return objProfileInfoDAO.GetUserAboutNGalleryInfo(UserId, SectionId);
+            return objProfileInfoDAO.GetUserAboutNGalleryInfo(UserId);
         }
         public bool SaveUserAboutText(UserAboutBO objUserAboutBO)
         {
@@ -64,7 +64,7 @@ namespace Sellff_API.Services
         {
             try
             {
-                objUserReviewBO.Rating = (objUserReviewBO.Performance + objUserReviewBO.Communication + objUserReviewBO.QOW / 3);
+                objUserReviewBO.Rating = ((objUserReviewBO.Performance + objUserReviewBO.Communication + objUserReviewBO.QOW) / 3);
             }
             catch (Exception ex)
             {

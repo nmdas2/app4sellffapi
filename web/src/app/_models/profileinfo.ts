@@ -24,6 +24,7 @@ export interface ProfileInfo{
     YouTubeLink?: string;
     MessageFrom?: number;
     MessageTo?: number;
+    ProfileSummary?: string;
 }
 export interface userAboutInfo{
     AutoId: number;

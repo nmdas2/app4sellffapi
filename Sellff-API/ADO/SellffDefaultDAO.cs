@@ -14,7 +14,7 @@ namespace Sellff_API.ADO
         {
 
         }
-        public AuthenticationBO AuthenticateSellffUserInfo(AuthenticationBO objAuthenticationBO)
+        public ProfileInfoBO AuthenticateSellffUserInfo(ProfileInfoBO objAuthenticationBO)
         {
             SqlParameter[] objSqlParam = new SqlParameter[2];
             try
@@ -31,8 +31,20 @@ namespace Sellff_API.ADO
                     objAuthenticationBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
                     objAuthenticationBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
                     objAuthenticationBO.UserRefProfileId = 0;
-                    objAuthenticationBO.UniqueId = Convert.ToInt32(objDataRow["UniqueId"]);
+                    objAuthenticationBO.City = Convert.ToString(objDataRow["City"]);
+                    objAuthenticationBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
+                    objAuthenticationBO.Views = Convert.ToInt32(objDataRow["Views"]);
+                    objAuthenticationBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
                     objAuthenticationBO.Rank = Convert.ToInt32(objDataRow["Rank"]);
+                    objAuthenticationBO.ProfileSummary = Convert.ToString(objDataRow["ProfileSummary"]);
+                    objAuthenticationBO.FacebookLink = Convert.ToString(objDataRow["FacebookLink"]);
+                    objAuthenticationBO.LinkedInLink = Convert.ToString(objDataRow["LinkedInLink"]);
+                    objAuthenticationBO.InstagramLink = Convert.ToString(objDataRow["InstagramLink"]);
+                    objAuthenticationBO.TwitterLink = Convert.ToString(objDataRow["TwitterLink"]);
+                    objAuthenticationBO.YouTubeLink = Convert.ToString(objDataRow["YouTubeLink"]);
+                    objAuthenticationBO.WebsiteLink = Convert.ToString(objDataRow["WebsiteLink"]);
+                    objAuthenticationBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
+                    objAuthenticationBO.ErrorMessage = "";
                 }
                 else
                 {

@@ -172,7 +172,7 @@ export class PostComponent implements OnInit {
       UserId:this.loggedInUserInfo.UserId,
       ContentType:2
     };
-    this.http.post('http://localhost:50517/api/ProfileInfo/SaveImagesForPost', formData, {
+    this.http.post('http://apollostage2.quad1test.com/practice/api/ProfileInfo/SaveImagesForPost', formData, {
       reportProgress: true,
       observe: 'events'
     })

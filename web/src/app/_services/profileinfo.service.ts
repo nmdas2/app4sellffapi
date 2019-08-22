@@ -66,8 +66,8 @@ export class ProfileinfoService {
     return this.http.post(`${consts.DomainURL}ProfileInfo/SaveUserGalleryImagesPath`, data);
   }
 
-  getUsersAboutNGalleryInfo(userId: number,sectionId : number): Observable<any>{
-    return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserAboutNGalleryInfo/${userId}/${sectionId}`);
+  getUsersAboutNGalleryInfo(userId: number): Observable<any>{
+    return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserAboutNGalleryInfo/${userId}`);
   }
   postText(post: Post): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/SaveUserPostTextMessages`, post);
@@ -75,7 +75,7 @@ export class ProfileinfoService {
   postGallery(post: any): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/postGallery`, post);
   }  
-  UpdateUserViewsCount(data: User): Observable<any>{
+  UpdateUserViewsCount(data: ProfileInfo): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/UpdateUsersViewCount`, data);
   }
   SaveReview(data: Review): Observable<any>{
