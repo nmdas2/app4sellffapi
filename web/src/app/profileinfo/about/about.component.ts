@@ -54,13 +54,16 @@ export class AboutComponent implements OnInit, OnDestroy {
         this.isEditbale = false;
       }
     })
-    this.profileInfoService.GetUserProfileInfoByUserId(this.loggedInUserInfo.UserId)
-      .subscribe(res => {
-        this.userProfileInfo = res;
-        console.log(this.userProfileInfo);
-      }, error => {
-        console.log(error);
-      })
+    if (this.loggedInUserInfo) {
+      this.profileInfoService.GetUserProfileInfoByUserId(this.loggedInUserInfo.UserId)
+        .subscribe(res => {
+          this.userProfileInfo = res;
+          console.log(this.userProfileInfo);
+        }, error => {
+          console.log(error);
+        })
+    }
+
   }
   logText(): void {
     this.isAboutInEditMode = true;
@@ -199,7 +202,7 @@ export class AboutComponent implements OnInit, OnDestroy {
   socialLink: string = "";
   showSocialLayout(type: string) {
 
-    if(!this.isEditbale){
+    if (!this.isEditbale) {
       this.showSocialLayoutForOthers(type);
       return;
     }
@@ -262,7 +265,7 @@ export class AboutComponent implements OnInit, OnDestroy {
     }
   }
 
-  mapSocialLinkLegends(type:string):number{
+  mapSocialLinkLegends(type: string): number {
     let postLayoutType = 0;
     switch (type) {
       case "g":
@@ -297,7 +300,7 @@ export class AboutComponent implements OnInit, OnDestroy {
     //this.userProfileInfo = <ProfileInfo>{};    
     this.userProfileInfo.userId = this.loggedInUserInfo.UserId;
     this.userProfileInfo.socialLink = this.socialLink;
-    this.userProfileInfo.socialLinkType =this.mapSocialLinkLegends(this.postLayoutType);
+    this.userProfileInfo.socialLinkType = this.mapSocialLinkLegends(this.postLayoutType);
     this.profileInfoService.UpdateUserSocialLinkInfo(this.userProfileInfo)
       .subscribe(res => {
       }, error => {

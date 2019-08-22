@@ -1,19 +1,33 @@
-<div class="wrapper">    
+<div class="wrapper">
     <aside class="main-sidebar">
         <section class="sidebar">
             <ul class="sidebar-menu" data-widget="tree">
-                <li class="active treeview menu-open"><a style="cursor: pointer;" routerLink="/profileinfo/about"><i class="fa fa-user"></i> <span>About</span><span class="pull-right-container"></span></a></li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/post"><i class="fa fa-sticky-note-o"></i> <span>Posts</span><span class="pull-right-container"></span></a></li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/message"><i class="fa fa-envelope-o"></i> <span>Message</span><span class="pull-right-container"></span></a></li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/promote"><i class="fa fa-bullhorn"></i> <span>Promote</span><span class="pull-right-container"></span></a> </li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/review"><i class="fa fa-star"></i> <span>Review</span><span class="pull-right-container"></span></a> </li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/invest"><i class="fa fa-money"></i> <span>Invest</span><span class="pull-right-container"></span></a> </li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/consult"><i class="fa fa-handshake-o"></i> <span>Consult</span><span class="pull-right-container"></span></a> </li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/refer"><i class="fa fa fa-user-plus"></i> <span>Refer</span><span class="pull-right-container"></span></a> </li>
+                <li class="active treeview menu-open"><a style="cursor: pointer;" routerLink="/profileinfo/about"><i
+                            class="fa fa-user"></i> <span>About</span><span class="pull-right-container"></span></a>
+                </li>
+                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/post"><i
+                            class="fa fa-sticky-note-o"></i> <span>Posts</span><span
+                            class="pull-right-container"></span></a></li>
+                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/message"><i
+                            class="fa fa-envelope-o"></i> <span>Message</span><span
+                            class="pull-right-container"></span></a></li>
+                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/promote"><i
+                            class="fa fa-bullhorn"></i> <span>Promote</span><span
+                            class="pull-right-container"></span></a> </li>
+                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/review"><i class="fa fa-star"></i>
+                        <span>Review</span><span class="pull-right-container"></span></a> </li>
+                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/invest"><i class="fa fa-money"></i>
+                        <span>Invest</span><span class="pull-right-container"></span></a> </li>
+                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/consult"><i
+                            class="fa fa-handshake-o"></i> <span>Consult</span><span
+                            class="pull-right-container"></span></a> </li>
+                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/refer"><i
+                            class="fa fa fa-user-plus"></i> <span>Refer</span><span
+                            class="pull-right-container"></span></a> </li>
             </ul>
         </section>
     </aside>
-    <div class="content-wrapper" >      
+    <div class="content-wrapper">
         <section class="content">
             <div class="row">
                 <div class="col-md-2  col-xs-12 views">
@@ -27,7 +41,8 @@
                 </div>
                 <div class="col-md-2 col-xs-12 views">
                     <div class="info-box">
-                        <span class="info-box-icon bg-green"><i class="fa fa-sticky-note-o" aria-hidden="true"></i></span>
+                        <span class="info-box-icon bg-green"><i class="fa fa-sticky-note-o"
+                                aria-hidden="true"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Posts</span>
                             <span class="info-box-number">42</span>
@@ -71,98 +86,131 @@
                     <!-- /.info-box -->
                 </div>
             </div>
-        <div class="text-center pull-right">       
-            <a (click)="showSocialLayout('g')"><i id="social-gp" style="padding-right: 4px;" class="fa fa-globe fa-2x social"></i></a>
-            <a (click)="showSocialLayout('tw')"><i id="social-tw" style="padding-right: 4px;" class="fa fa-twitter-square fa-2x social"></i></a>
-            <a (click)="showSocialLayout('em')"><i id="social-em" style="padding-right: 4px;" class="fa fa-bell fa-2x social"></i></a>
-            <a (click)="showSocialLayout('fb')"><i id="social-fb" style="padding-right: 4px;" class="fa fa-facebook-square fa-2x social"></i></a>
-            <a (click)="showSocialLayout('gp')"><i id="social-gp" style="padding-right: 4px;" class="fa fa-google-plus-square fa-2x social"></i></a>
-            <a (click)="showSocialLayout('sem')"><i id="social-em" style="padding-right: 4px;" class="fa fa-envelope-square fa-2x social"></i></a>
-            <a (click)="showSocialLayout('ig')"><i id="social-ig" style="padding-right: 4px;" class="fa fa-instagram-square fa-2x social"></i></a>            
-        <div *ngIf="postLayoutType!='' && isEditbale">
-            <input type="text" placeholder="link.." name="link" [(ngModel)]="socialLink"/>
-            <button type="submit" (click)="SubmitSocialLink()"><i class="fa fa-address-book"></i></button>
-        </div>
-        <div *ngIf= "postLayoutType!='' && !isEditbale">
-            <p>{{socialLink}},<a href="javascript:void(0)" (click) = "postLayoutType = ''">Close</a> </p>
-        </div>
-        </div>
+            <div class="text-center pull-right">
+                <div *ngIf="isEditbale">
+                    <a (click)="showSocialLayout('g')"><i id="social-gp" style="padding-right: 4px;"
+                            class="fa fa-globe fa-2x social"></i></a>
+                    <a (click)="showSocialLayout('tw')"><i id="social-tw" style="padding-right: 4px;"
+                            class="fa fa-twitter-square fa-2x social"></i></a>
+                    <a (click)="showSocialLayout('em')"><i id="social-em" style="padding-right: 4px;"
+                            class="fa fa-bell fa-2x social"></i></a>
+                    <a (click)="showSocialLayout('fb')"><i id="social-fb" style="padding-right: 4px;"
+                            class="fa fa-facebook-square fa-2x social"></i></a>
+                    <a (click)="showSocialLayout('gp')"><i id="social-gp" style="padding-right: 4px;"
+                            class="fa fa-google-plus-square fa-2x social"></i></a>
+                    <a (click)="showSocialLayout('sem')"><i id="social-em" style="padding-right: 4px;"
+                            class="fa fa-envelope-square fa-2x social"></i></a>
+                    <a (click)="showSocialLayout('ig')"><i id="social-ig" style="padding-right: 4px;"
+                            class="fa fa-instagram-square fa-2x social"></i></a>
+                </div>
+                <div *ngIf="!isEditbale && userProfileInfo">
+                    <a *ngIf="userProfileInfo.LinkedInLink" href="{{userProfileInfo.LinkedInLink}}" target="_blank"><i id="social-gp" style="padding-right: 4px;"
+                            class="fa fa-globe fa-2x social"></i></a>
+                    <a *ngIf="userProfileInfo.TwitterLink" href="{{userProfileInfo.TwitterLink}}" target="_blank"><i id="social-tw" style="padding-right: 4px;"
+                            class="fa fa-twitter-square fa-2x social"></i></a>
+                    <a *ngIf="userProfileInfo.email" href="{{userProfileInfo.email}}" target="_blank"><i id="social-em" style="padding-right: 4px;"
+                            class="fa fa-bell fa-2x social"></i></a>
+                    <a *ngIf="userProfileInfo.FacebookLink" href="{{userProfileInfo.FacebookLink}}" target="_blank"><i id="social-fb" style="padding-right: 4px;"
+                            class="fa fa-facebook-square fa-2x social"></i></a>
+                    <a *ngIf="userProfileInfo.TwitterLink" href="{{userProfileInfo.TwitterLink}}" target="_blank"><i id="social-gp" style="padding-right: 4px;"
+                            class="fa fa-google-plus-square fa-2x social"></i></a>
+                    <a *ngIf="userProfileInfo.TwitterLink" href="{{userProfileInfo.TwitterLink}}" target="_blank"><i id="social-em" style="padding-right: 4px;"
+                            class="fa fa-envelope-square fa-2x social"></i></a>
+                    <a *ngIf="userProfileInfo.InstagramLink" href="{{userProfileInfo.InstagramLink}}" target="_blank"><i id="social-ig" style="padding-right: 4px;"
+                            class="fa fa-instagram-square fa-2x social"></i></a>
+                </div>
+
+                <div *ngIf="postLayoutType!='' && isEditbale">
+                    <input type="text" placeholder="link.." name="link" [(ngModel)]="socialLink" />
+                    <button type="submit" (click)="SubmitSocialLink()"><i class="fa fa-address-book"></i></button>
+                </div>
+                <!-- <div *ngIf="postLayoutType!='' && !isEditbale">
+                    <p>{{socialLink}},<a [href]="socialLink" (click)="postLayoutType = ''">Close</a> </p>
+                </div> -->
+            </div>
             <div class="row">
-                <div class="col-md-12">                
-                    <div class="box">                
+                <div class="col-md-12">
+                    <div class="box">
                         <div class="box-header with-border">
                             <p class="edit-btn" *ngIf="!isAboutInEditMode; else elseBlock" style="text-justify: distribute-all-lines;">
                                 {{textValue}}
-                                <button class="glyphicon glyphicon-edit text-right"
-                                 *ngIf="isEditbale"  (click)="logText()"></button>
+                                <button class="glyphicon glyphicon-edit text-right" *ngIf="isEditbale" (click)="logText()"></button>
                             </p>
                             <ng-template #elseBlock>
                                 <div class="edit-box">
-                                        <textarea cols="150" rows="10" [(ngModel)] = "textValue" required></textarea>
-                                        <!-- <input #textbox id="txtAboutUser" type="textarea" width="85%" height="100px;" [(ngModel)]="textValue" required> -->
-                                        <button class="btn btn-primary" (click)="saveupdatedabout()">Update</button>
+                                    <textarea cols="150" rows="10" [(ngModel)]="textValue" required></textarea>
+                                    <!-- <input #textbox id="txtAboutUser" type="textarea" width="85%" height="100px;" [(ngModel)]="textValue" required> -->
+                                    <button class="btn btn-primary" (click)="saveupdatedabout()">Update</button>
                                 </div>
-                                
-                            </ng-template>                            
+
+                            </ng-template>
                             <!-- /.box-header -->
                             <h4>Services Offered</h4>
                             <div class="col-md-3 service-offered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">NWare Virtualization</button>
+                                <button type="button" class="btn btn-block btn-default btn-sm">NWare
+                                    Virtualization</button>
                             </div>
                             <div class="col-md-3 service-offered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">Data Center Architecture</button>
+                                <button type="button" class="btn btn-block btn-default btn-sm">Data Center
+                                    Architecture</button>
                             </div>
                             <div class="col-md-3 service-offered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">Fibre Channel & NFS Storage</button>
+                                <button type="button" class="btn btn-block btn-default btn-sm">Fibre Channel & NFS
+                                    Storage</button>
                             </div>
                             <div class="col-md-3 service-offered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">Virtual Desktop Infrastucture</button>
+                                <button type="button" class="btn btn-block btn-default btn-sm">Virtual Desktop
+                                    Infrastucture</button>
                             </div>
                             <div class="col-md-3 service-offered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">Real Estate Investing</button>
+                                <button type="button" class="btn btn-block btn-default btn-sm">Real Estate
+                                    Investing</button>
                             </div>
                             <div class="col-md-3 service-offered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">Multifamily Investing</button>
+                                <button type="button" class="btn btn-block btn-default btn-sm">Multifamily
+                                    Investing</button>
                             </div>
                             <div class="col-md-3 service-offered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">Real Estate Finacial Analysis</button>
+                                <button type="button" class="btn btn-block btn-default btn-sm">Real Estate Finacial
+                                    Analysis</button>
                             </div>
                             <div class="col-md-3 service-offered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">Real Estate Brokerage and Finacing</button>
+                                <button type="button" class="btn btn-block btn-default btn-sm">Real Estate Brokerage and
+                                    Finacing</button>
                             </div>
                         </div>
                         <section class="upload-img-section">
-                                <div class="">
-                                    <div class="col-md-12">
-                                        <h4>Gallery</h4>
-                                        <a *ngFor = "let item of imgGallery" (click)="checkevent(item.imgUrl, template, item.galType,item.altUrl)" id="link1" href="javascript:void(0)">
-                                            <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                                <div class="box">
-                                                    <img [src]="item.imgUrl" id="img1" class="img-responsive" width="20%" height="20%">
-                                                </div>
+                            <div class="">
+                                <div class="col-md-12">
+                                    <h4>Gallery</h4>
+                                    <a *ngFor="let item of imgGallery" (click)="checkevent(item.imgUrl, template, item.galType,item.altUrl)" id="link1" href="javascript:void(0)">
+                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
+                                            <div class="box">
+                                                <img [src]="item.imgUrl" id="img1" class="img-responsive" width="20%" height="20%">
                                             </div>
-                                        </a>
-                                        <ng-template #template>
-                                            <div class="modal-header" style="padding: 0;">
-                                                <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                        </div>
+                                    </a>
+                                    <ng-template #template>
+                                        <div class="modal-header" style="padding: 0;">
+                                            <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button> -->
+                                        </div>
+                                        <div class="modal-body" style="padding: 0;">
+                                            <div *ngIf="dynamicImg">
+                                                <img [src]="dynamicImg" class="rounded" alt="">
                                             </div>
-                                            <div class="modal-body" style="padding: 0;">
-                                                <div *ngIf="dynamicImg">
-                                                    <img [src]="dynamicImg" class="rounded" alt="">
-                                                </div>
-                                
-                                            </div>
-                                        </ng-template>
-                                    </div>
+
+                                        </div>
+                                    </ng-template>
                                 </div>
-                                <div class="col-md-12">
-                                        <p class="upload-btn" *ngIf="!AllowImageUpload; else upldelseBlock" style="text-justify: distribute-all-lines;">
-                                                <button class="glyphicon glyphicon-edit text-right"  *ngIf="isEditbale" (click)="ShowGalUpPop()">Upload Image</button>
-                                            </p>
-                                </div>
-                               
+                            </div>
+                            <div class="col-md-12">
+                                <p class="upload-btn" *ngIf="!AllowImageUpload; else upldelseBlock" style="text-justify: distribute-all-lines;">
+                                    <button class="glyphicon glyphicon-edit text-right" *ngIf="isEditbale" (click)="ShowGalUpPop()">Upload Image</button>
+                                </p>
+                            </div>
+
                             <ng-template #upldelseBlock>
                                 <div class="upload-file">
                                     <div class="col-md-12">
@@ -176,14 +224,14 @@
                                                 <div *ngIf="fileUploadProgress">
                                                     Upload progress: {{ fileUploadProgress }}
                                                 </div>
-                                                <button class="btn btn-primary"  (click)="onSubmit()">Submit</button>
+                                                <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
                                             </div>
-                                        </div> 
+                                        </div>
                                         <div class="col-md-12">
                                             <div class="col-sm-3">
                                                 <div class="image-preview mb-3" *ngIf="previewUrl">
-                                                        <img [src]="previewUrl" height="300" />                 
-                                                </div>                                            
+                                                    <img [src]="previewUrl" height="300" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -201,13 +249,13 @@
     <!-- /.row -->
     <!-- Main row -->
     <!-- /.row -->
-    
+
     <!-- /.content -->
     <footer class="main-footer">
-    <div class="pull-right ">
-        <a href="#">Terms & Conditions</a> |  <a href="#">Privacy Policy</a> | <a href="#">Site map</a>
-    </div>
-Copyright 2019 All Right Reserved
+        <div class="pull-right ">
+            <a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Site map</a>
+        </div>
+        Copyright 2019 All Right Reserved
     </footer>
 </div>
 <!-- /.content-wrapper -->

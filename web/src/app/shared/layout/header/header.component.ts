@@ -36,19 +36,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
       this.hasActiveSession = false;
+      this.showheadsection = false;
       this.loggedInUserInfo = <User>{};
       this.loggedInUserId = 0;
       this.loggedInUserName = "";
       this.loggedInUserRank = 0;
       this.LoggedInUserProfilePic = "";
-      if(localStorage.getItem('currentUser')){
+      if (localStorage.getItem('currentUser')) {
         this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
         this.showheadsection = true;
         this.hasActiveSession = true;
       }
       if (!status) {
         if (localStorage.getItem('currentUser')) {
-          
+
           this.loggedInUserId = this.loggedInUserInfo.UserId;
           this.loggedInUserName = this.loggedInUserInfo.DisplayName;
           this.loggedInUserRank = this.loggedInUserInfo.Rank;
@@ -113,13 +114,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.profileSubscription.unsubscribe();
   }
 
-  gotoregister()
-  {
+  gotoregister() {
     this.router.navigate(['/register']);
   }
-  
-  gotologin()
-  {
+
+  gotologin() {
     this.router.navigate(['/login']);
   }
 
