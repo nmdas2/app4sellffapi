@@ -43,6 +43,8 @@ namespace Sellff_API.ADO
                     objAuthenticationBO.TwitterLink = Convert.ToString(objDataRow["TwitterLink"]);
                     objAuthenticationBO.YouTubeLink = Convert.ToString(objDataRow["YouTubeLink"]);
                     objAuthenticationBO.WebsiteLink = Convert.ToString(objDataRow["WebsiteLink"]);
+                    objAuthenticationBO.GooglePlusLink = Convert.ToString(objDataRow["GooglePlusLink"]);
+                    //objAuthenticationBO.SocialEmail = Convert.ToString(objDataRow["SocialEmail"]);
                     objAuthenticationBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
                     objAuthenticationBO.ErrorMessage = "";
                 }

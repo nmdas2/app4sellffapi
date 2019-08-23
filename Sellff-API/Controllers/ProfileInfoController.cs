@@ -84,7 +84,7 @@ namespace Sellff_API.Controllers
         /// This method will get user About info and gallery info based on UserId
         ///</summary>
         /// <param name="UserId"></param>
-        [HttpGet, Route("api/ProfileInfo/GetUserAboutNGalleryInfo/{UserId}/{SectionId}")]
+        [HttpGet, Route("api/ProfileInfo/GetUserAboutNGalleryInfo/{UserId}")]
         public IHttpActionResult GetUserAboutNGalleryInfo(int UserId)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserAboutNGalleryInfo(UserId)));
@@ -212,10 +212,10 @@ namespace Sellff_API.Controllers
         /// This method will get all users Messages info based on UserId
         ///</summary>
         /// <param name="objUserLocalStorageBO"></param>
-        [HttpPost, Route("api/ProfileInfo/GetUserReviewsByUser")]
-        public IHttpActionResult GetAllUserReviewsByUser([FromBody]UserLocalStorageBO objUserLocalStorageBO)
+        [HttpGet, Route("api/ProfileInfo/GetUserReviewsByUser/{Infoval}")]
+        public IHttpActionResult GetAllUserReviewsByUser(int Infoval)
         {
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetAllUserReviewsByUser(objUserLocalStorageBO)));
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetAllUserReviewsByUser(Infoval)));
         }
 
         ///summary

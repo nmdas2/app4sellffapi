@@ -81,8 +81,8 @@ export class ProfileinfoService {
   SaveReview(data: Review): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/SaveReviewForUsers`, data);
   }
-  GetUserReviewsById(Infoval: User): Observable<Review[]>{
-    return this.http.post<Review[]>(`${consts.DomainURL}ProfileInfo/GetUserReviewsByUser`, Infoval);
+  GetUserReviewsById(Infoval: number): Observable<any>{
+    return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserReviewsByUser/${Infoval}`);
   }
   GetCurrentUserRatingById(Infoval: number): Observable<any>{
     return this.http.get(`${consts.DomainURL}ProfileInfo/GetCurrentUserRatingById/${Infoval}`);

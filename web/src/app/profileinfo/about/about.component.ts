@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { userAboutInfo, ProfileInfo } from 'src/app/_models/profileinfo';
 import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
-import { User } from 'src/app/_models/user';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { UploadType, ProfileSection, UserSocialLinksInfo } from 'src/app/constants';
 import { constants as consts } from '../../constants';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { ReadOnlyInfo } from 'src/app/_models/readonlyinfo';
 import { CommonService } from 'src/app/_services/common.service';
 import { Subscription } from 'rxjs';
 
@@ -19,19 +17,18 @@ export class AboutComponent implements OnInit, OnDestroy {
   userAboutInfoList: userAboutInfo[]; textValue: string = ''; isAboutInEditMode: boolean = false;
   AllowImageUpload: boolean = false; loggedInUserInfo: ProfileInfo; altrPath: string; fileData: File = null;
   previewUrl: any = null; fileUploadProgress: string = null; uploadedFilePath: string = null;
-  dynamicImg: string = ""; modalRef: BsModalRef; imgGallery = []; userProfileInfo: ProfileInfo; UserProfileViews: number;
-  UserIdForGallery: number; readonlyUserInfo: ReadOnlyInfo;
+  dynamicImg: string = ""; modalRef: BsModalRef; imgGallery = []; userProfileInfo: ProfileInfo;
+  dataDisplayProfile: ProfileInfo; readonlyUserInfo: ProfileInfo;
   profileSubscription: Subscription;
   isEditbale: boolean = false;
   html: string = `<span class="btn btn-danger">Never trust not sanitized HTML!!!</span>`;
+
   constructor(
     private profileInfoService: ProfileinfoService,
     private http: HttpClient,
     private modalService: BsModalService,
     private commonService: CommonService
-  ) {
-    
-  }
+  ) {  }
   ngOnInit() {
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
       this.isEditbale = true;
@@ -41,48 +38,35 @@ export class AboutComponent implements OnInit, OnDestroy {
     })
     this.userAboutInfoList = [];
     if (localStorage.getItem('currentUser') != null) {
-      this.profileInfoService = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
-      console.log(this.loggedInUserInfo);
+      this.dataDisplayProfile =  this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));      
       this.textValue = this.loggedInUserInfo.ProfileSummary;
-      this.UserProfileViews = this.loggedInUserInfo.views;
-      if (this.loggedInUserInfo.userId == this.loggedInUserInfo.userRefId) {
-        this.isAboutInEditMode = true;
-      }
-      if (this.loggedInUserInfo.userRefId == 0) {
-        this.UserIdForGallery = this.loggedInUserInfo.userId;
-      } else { this.UserIdForGallery = this.loggedInUserInfo.userRefId; }
+      //this.isAboutInEditMode = true;
     }
     if (localStorage.getItem('profileviewUser') != null) {
-      this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
+      this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
       this.isAboutInEditMode = false;
-      this.UserIdForGallery = this.readonlyUserInfo.roUserId;
+      this.updateProfileViewsCount();
     }
-    // this.profileInfoService.UpdateUserViewsCount(this.loggedInUserInfo)
-    //   .subscribe(res => {
-    //   }, error => {
-    //     console.log(error);
-    //   })
-    //this.getUserAboutText();
-    // if (this.loggedInUserInfo) {
-    //   this.profileInfoService.GetUserProfileInfoByUserId(this.loggedInUserInfo.userId)
-    //     .subscribe(res => {
-    //       this.userProfileInfo = res;
-    //       console.log(this.userProfileInfo);
-    //     }, error => {
-    //       console.log(error);
-    //     })
-    // }
-
+    this.getUserAboutText();
+  }
+  updateProfileViewsCount()
+  {
+    this.profileInfoService.UpdateUserViewsCount(this.dataDisplayProfile)
+      .subscribe(res => {
+      }, error => {
+        console.log(error);
+      })
   }
   logText(): void {
     this.isAboutInEditMode = true;
   }
   saveupdatedabout(): void {
+    console.log(this.dataDisplayProfile.UserId);
     this.isAboutInEditMode = false;
     if (this.textValue) {
       let userAboutInfoBO = <userAboutInfo>{};
       userAboutInfoBO.About = this.textValue;
-      userAboutInfoBO.UserId = this.loggedInUserInfo.userId;
+      userAboutInfoBO.UserId = this.dataDisplayProfile.UserId;
       this.profileInfoService.postUserAboutText(userAboutInfoBO)
         .subscribe(res => {
           this.getUserAboutText();
@@ -92,9 +76,9 @@ export class AboutComponent implements OnInit, OnDestroy {
     }
   }
 
-  getUserAboutText(): void {
+  getUserAboutText() {
     this.userAboutInfoList = [];
-    this.profileInfoService.getUsersAboutNGalleryInfo(this.UserIdForGallery)
+    this.profileInfoService.getUsersAboutNGalleryInfo(this.dataDisplayProfile.UserId)
       .subscribe(res => {
         if (res && res.length)
           this.userAboutInfoList = res;
@@ -112,18 +96,9 @@ export class AboutComponent implements OnInit, OnDestroy {
           };
           this.imgGallery.push(image);
         }
-        // if (typeof this.userAboutInfoList[0].About != 'undefined' && this.userAboutInfoList[0].About && this.userAboutInfoList[0].About != null) {
-        //   this.textValue = this.userAboutInfoList[0].About;
-        // }
-        // if (typeof this.userAboutInfoList[0].Views != 'undefined' && this.userAboutInfoList[0].Views) {
-        //   this.UserProfileViews = this.userAboutInfoList[0].Views;
-        // }
       }, error => {
         console.log(error);
       })
-    //Updating views in case of if viewing other profile
-    //this.transferDatafromUsertoProfile(this.loggedInUserInfo,this.userProfileInfo);
-    
   }
 
   transferDatafromUsertoProfile(uInfo, pInfo) {
@@ -173,7 +148,7 @@ export class AboutComponent implements OnInit, OnDestroy {
   saveimagedocdetails(flname: string): void {
     let userAboutInfoBO = <userAboutInfo>{};
     userAboutInfoBO.About = this.textValue;
-    userAboutInfoBO.UserId = this.loggedInUserInfo.userId;
+    userAboutInfoBO.UserId = this.loggedInUserInfo.UserId;
     userAboutInfoBO.Type = UploadType.Image;
     userAboutInfoBO.Section = ProfileSection.About;
     userAboutInfoBO.ImagePath = consts.ImagesPath + flname
@@ -206,69 +181,68 @@ export class AboutComponent implements OnInit, OnDestroy {
   postLayoutType: string = "";
   socialLink: string = "";
   showSocialLayout(type: string) {
-
-    if (!this.isEditbale) {
-      this.showSocialLayoutForOthers(type);
-      return;
-    }
+    // if (!this.isEditbale) {
+    //   this.showSocialLayoutForOthers(type);
+    //   return;
+    // }
     this.socialLink = "";
     this.postLayoutType = type;
     switch (type) {
       case "g":
-        this.socialLink = this.userProfileInfo.LinkedInLink;
+        this.socialLink = this.dataDisplayProfile.WebsiteLink;
         break;
       case "tw":
-        this.socialLink = this.userProfileInfo.TwitterLink;
+        this.socialLink = this.dataDisplayProfile.TwitterLink;
         break;
       case "em":
-        this.socialLink = this.userProfileInfo.email;
+        this.socialLink = this.dataDisplayProfile.SocialEmail;
         break;
       case "fb":
-        this.socialLink = this.userProfileInfo.FacebookLink;
+        this.socialLink = this.dataDisplayProfile.FacebookLink;
         break;
       case "gp":
-        this.socialLink = this.userProfileInfo.TwitterLink;
+        this.socialLink = this.dataDisplayProfile.LinkedInLink;
         break;
       case "sem":
-        this.socialLink = this.userProfileInfo.TwitterLink;
+        this.socialLink = this.dataDisplayProfile.YouTubeLink;
         break;
       case "ig":
-        this.socialLink = this.userProfileInfo.InstagramLink;
+        this.socialLink = this.dataDisplayProfile.InstagramLink;
         break;
       default:
         break;
     }
   }
 
-  showSocialLayoutForOthers(type: string) { //readonlyinfo object
-    this.socialLink = "";
-    this.postLayoutType = type;
-    switch (type) {
-      case "g":
-        this.socialLink = this.userProfileInfo.LinkedInLink;
-        break;
-      case "tw":
-        this.socialLink = this.userProfileInfo.TwitterLink;
-        break;
-      case "em":
-        this.socialLink = this.userProfileInfo.email;
-        break;
-      case "fb":
-        this.socialLink = this.userProfileInfo.FacebookLink;
-        break;
-      case "gp":
-        this.socialLink = this.userProfileInfo.TwitterLink;
-        break;
-      case "sem":
-        this.socialLink = this.userProfileInfo.TwitterLink;
-        break;
-      case "ig":
-        this.socialLink = this.userProfileInfo.InstagramLink;
-        break;
-      default:
-        break;
-    }
-  }
+  // showSocialLayoutForOthers(type: string) { //readonlyinfo object
+  //   this.socialLink = "";
+  //   this.postLayoutType = type;
+  //   switch (type) {
+  //     case "g":
+  //       this.socialLink = this.userProfileInfo.LinkedInLink;
+  //       break;
+  //     case "tw":
+  //       this.socialLink = this.userProfileInfo.TwitterLink;
+  //       break;
+  //     case "em":
+  //       this.socialLink = this.userProfileInfo.email;
+  //       break;
+  //     case "fb":
+  //       this.socialLink = this.userProfileInfo.FacebookLink;
+  //       break;
+  //     case "gp":
+  //       this.socialLink = this.userProfileInfo.TwitterLink;
+  //       break;
+  //     case "sem":
+  //       this.socialLink = this.userProfileInfo.TwitterLink;
+  //       break;
+  //     case "ig":
+  //       this.socialLink = this.userProfileInfo.InstagramLink;
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
 
   mapSocialLinkLegends(type: string): number {
     let postLayoutType = 0;
@@ -302,7 +276,7 @@ export class AboutComponent implements OnInit, OnDestroy {
   }
   SubmitSocialLink() {
     //this.userProfileInfo = <ProfileInfo>{};    
-    this.userProfileInfo.userId = this.loggedInUserInfo.userId;
+    this.userProfileInfo.UserId = this.loggedInUserInfo.UserId;
     this.userProfileInfo.socialLink = this.socialLink;
     this.userProfileInfo.socialLinkType = this.mapSocialLinkLegends(this.postLayoutType);
     this.profileInfoService.UpdateUserSocialLinkInfo(this.userProfileInfo)

@@ -77,9 +77,9 @@ namespace Sellff_API.Services
             return objProfileInfoDAO.GetUserMessagesBetween2Users(userId, recepId);
         }
 
-        public List<UserReviewBO> GetAllUserReviewsByUser(UserLocalStorageBO objUserLocalStorageBO)
+        public List<UserReviewBO> GetAllUserReviewsByUser(int Infoval)
         {
-            return objProfileInfoDAO.GetAllUserReviewsByUser(objUserLocalStorageBO.UserId);
+            return objProfileInfoDAO.GetAllUserReviewsByUser(Infoval);
         }
         public bool UpdateUsersReviewAsHelpful(UserReviewBO objUserReviewBO)
         {

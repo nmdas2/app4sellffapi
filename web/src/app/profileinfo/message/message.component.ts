@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
 import { ProfileInfo } from 'src/app/_models/profileinfo';
-import { User } from 'src/app/_models/user';
 import { Router } from '@angular/router';
 import { constants as consts } from '../../constants';
-import { ReadOnlyInfo } from 'src/app/_models/readonlyinfo';
+import { CommonService } from 'src/app/_services/common.service';
 
 @Component({
   selector: 'app-message',
@@ -12,39 +11,31 @@ import { ReadOnlyInfo } from 'src/app/_models/readonlyinfo';
   styleUrls: ['./message.component.scss']
 })
 export class MessageComponent implements OnInit {
-  userMessages: ProfileInfo[];  userMsg: string;  isSubmitted: boolean = false; loggedInUserInfo: User; isAboutInEditMode: boolean = false;
-  UserIdForGallery: number; MainUserId: number; usersCommMessages: ProfileInfo[]; readonlyUserInfo: ReadOnlyInfo;
+  userMessages: ProfileInfo[];  userMsg: string;  isSubmitted: boolean = false; loggedInUserInfo: ProfileInfo; 
+  isAboutInEditMode: boolean = false; usersCommMessages: ProfileInfo[]; readonlyUserInfo: ProfileInfo;
   showcommunicationbox: boolean = false; guestIdToSendMessage: number=0; messageDisplayName: string="";
-  constructor(private profileInfoService: ProfileinfoService, private router: Router)
-  {
+  dataDisplayProfile: ProfileInfo;
+  constructor(private profileInfoService: ProfileinfoService, 
+    private router: Router,
+    private commonService: CommonService)
+  {  }
+
+  ngOnInit() {   
     if(localStorage.getItem('currentUser') != null){
-      this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
-      this.MainUserId = this.loggedInUserInfo.UserId;
-      if(this.loggedInUserInfo.UserId == this.loggedInUserInfo.UserRefProfileId){
-        this.isAboutInEditMode = true;
-      }
-      if(this.loggedInUserInfo.UserRefProfileId == 0)
-      {
-        this.UserIdForGallery = this.loggedInUserInfo.UserId;
-        this.isAboutInEditMode = true;
-      }else{this.UserIdForGallery = this.loggedInUserInfo.UserRefProfileId;}
+      this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
+      this.isAboutInEditMode = true;
     }
     if(localStorage.getItem('profileviewUser') != null){
-      this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
-        this.isAboutInEditMode = false;
-        this.UserIdForGallery = this.readonlyUserInfo.roUserId;
+      this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
+      this.isAboutInEditMode = false;
     }
-    console.log(this.UserIdForGallery);
-    this.getAllUserMessages();
-  }
-
-  ngOnInit() {    
+    this.getAllUserMessages(); 
   }
 
   getAllUserMessages(){
     this.userMessages = [];
     if(this.isAboutInEditMode){
-      this.profileInfoService.getAllUsersMessages(this.UserIdForGallery)
+      this.profileInfoService.getAllUsersMessages(this.dataDisplayProfile.UserId)
       .subscribe(res =>{
         if(res && res.length)
           this.userMessages = res;
@@ -53,7 +44,7 @@ export class MessageComponent implements OnInit {
       })
     }
     else{
-      this.profileInfoService.GetUserMessagesBetween2Users(this.readonlyUserInfo.roUserId,this.loggedInUserInfo.UserId)
+      this.profileInfoService.GetUserMessagesBetween2Users(this.dataDisplayProfile.UserId,this.loggedInUserInfo.UserId)
     .subscribe(res =>{
       if(res && res.length)
         this.userMessages = res;
@@ -68,12 +59,12 @@ export class MessageComponent implements OnInit {
       let messageInfo = <ProfileInfo>{};
       messageInfo.Message = this.userMsg;
       messageInfo.MessageSentTime = new Date().toDateString();
-      messageInfo.userId = this.MainUserId;
+      messageInfo.UserId = this.loggedInUserInfo.UserId;
       if(this.guestIdToSendMessage > 0){
         messageInfo.userRefId = this.guestIdToSendMessage;
         this.guestIdToSendMessage = 0;
       }
-      else{messageInfo.userRefId = this.UserIdForGallery;}
+      else{messageInfo.userRefId = this.dataDisplayProfile.UserId}
       this.profileInfoService.postUserMessage(messageInfo)
       .subscribe(res => {
         this.isSubmitted = false;
@@ -86,10 +77,16 @@ export class MessageComponent implements OnInit {
   }
   openotherprofile(RefsearchUserIdBo){    
     localStorage.removeItem('profileviewUser');
-    RefsearchUserIdBo.UserRefProfileId = RefsearchUserIdBo.MessageFrom;
-    RefsearchUserIdBo.ViewingSearchProfile = true;
-    localStorage.setItem('profileviewUser', JSON.stringify(RefsearchUserIdBo));
+    this.readonlyUserInfo = <ProfileInfo>{};
+    this.profileInfoService.GetUserProfileInfoByUserId(RefsearchUserIdBo.MessageFrom)
+    .subscribe(res => {
+      localStorage.setItem('profileviewUser', JSON.stringify(res));
+      console.log(res);
+    }, error => {
+      console.log(error);
+    })    
     this.router.navigate([consts.AboutPath]);
+    this.commonService.isProfileSelected.next(true);
   }
   showcommunication(messageFromId: number,messageToId: number, mdisName: string)
   {
@@ -98,13 +95,5 @@ export class MessageComponent implements OnInit {
     this.messageDisplayName = mdisName;
     }
     this.guestIdToSendMessage = messageFromId;
-    // this.usersCommMessages = [];
-    // this.profileInfoService.GetUserMessagesBetween2Users(messageToId,messageFromId)
-    // .subscribe(res =>{
-    //   if(res && res.length)
-    //     this.usersCommMessages = res;
-    // }, error =>{
-    //   console.log(error);
-    // })
   }
 }
