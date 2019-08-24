@@ -10,4 +10,8 @@ export class CommonService{
     get isProfileSelected$(){
         return this.isProfileSelected.asObservable();
     }
+    isSummaryPage = new BehaviorSubject<boolean>(false);
+    get isSummaryPage$(){
+        return this.isSummaryPage.asObservable();
+    }
 }
