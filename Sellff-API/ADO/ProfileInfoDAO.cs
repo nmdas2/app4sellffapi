@@ -34,12 +34,21 @@ namespace Sellff_API.ADO
                         objProfileInfoBO.Email = Convert.ToString(objDataRow["Email"]);
                         objProfileInfoBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
                         objProfileInfoBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                        objProfileInfoBO.UserRefProfileId = 0;
                         objProfileInfoBO.City = Convert.ToString(objDataRow["City"]);
-                        objProfileInfoBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
-                        objProfileInfoBO.UserRefProfileId = 0;// Convert.ToInt32(objDataRow["UserId"]);
+                        objProfileInfoBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
                         objProfileInfoBO.Views = Convert.ToInt32(objDataRow["Views"]);
                         objProfileInfoBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
                         objProfileInfoBO.Rank = Convert.ToInt32(objDataRow["Rank"]);
+                        objProfileInfoBO.ProfileSummary = Convert.ToString(objDataRow["ProfileSummary"]);
+                        objProfileInfoBO.FacebookLink = Convert.ToString(objDataRow["FacebookLink"]);
+                        objProfileInfoBO.LinkedInLink = Convert.ToString(objDataRow["LinkedInLink"]);
+                        objProfileInfoBO.InstagramLink = Convert.ToString(objDataRow["InstagramLink"]);
+                        objProfileInfoBO.TwitterLink = Convert.ToString(objDataRow["TwitterLink"]);
+                        objProfileInfoBO.YouTubeLink = Convert.ToString(objDataRow["YouTubeLink"]);
+                        objProfileInfoBO.WebsiteLink = Convert.ToString(objDataRow["WebsiteLink"]);
+                        objProfileInfoBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
+                        objProfileInfoBO.ErrorMessage = "";
                         objProfilesList.Add(objProfileInfoBO);
                     }
                 }
@@ -176,30 +185,28 @@ namespace Sellff_API.ADO
                 if (_objDataSet.Tables[0].Rows.Count > 0)
                 {
                     var objDataRow = _objDataSet.Tables[0].Rows[0];
+
                     objResponseBO.UserId = Convert.ToInt32(objDataRow["UserId"]);
                     objResponseBO.Email = Convert.ToString(objDataRow["Email"]);
                     objResponseBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
-                    //objResponseBO.Age = Convert.ToInt32(objDataRow["UserId"]);
-                    objResponseBO.City = Convert.ToString(objDataRow["City"]);
                     objResponseBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                    objResponseBO.UserRefProfileId = 0;
+                    objResponseBO.City = Convert.ToString(objDataRow["City"]);
+                    objResponseBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
+                    objResponseBO.Views = Convert.ToInt32(objDataRow["Views"]);
+                    objResponseBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
+                    objResponseBO.Rank = Convert.ToInt32(objDataRow["Rank"]);
                     objResponseBO.ProfileSummary = Convert.ToString(objDataRow["ProfileSummary"]);
-                    //objResponseBO.SellffVirtualCash = Convert.ToString(objDataRow["UserId"]);
-                    //objResponseBO.About = Convert.ToString(objDataRow["UserId"]);
                     objResponseBO.FacebookLink = Convert.ToString(objDataRow["FacebookLink"]);
                     objResponseBO.LinkedInLink = Convert.ToString(objDataRow["LinkedInLink"]);
                     objResponseBO.InstagramLink = Convert.ToString(objDataRow["InstagramLink"]);
                     objResponseBO.TwitterLink = Convert.ToString(objDataRow["TwitterLink"]);
                     objResponseBO.YouTubeLink = Convert.ToString(objDataRow["YouTubeLink"]);
                     objResponseBO.WebsiteLink = Convert.ToString(objDataRow["WebsiteLink"]);
-                    //objResponseBO.IsActive = Convert.ToBoolean(objDataRow["UserId"]);
-                    //objResponseBO.IsVerifiedUser = Convert.ToInt32(objDataRow["UserId"]);
+                    objResponseBO.GooglePlusLink = Convert.ToString(objDataRow["GooglePlusLink"]);
+                    //objResponseBO.SocialEmail = Convert.ToString(objDataRow["SocialEmail"]);
                     objResponseBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
-                    //objResponseBO.Resume = Convert.ToString(objDataRow["Resume"]);
-                    //objResponseBO.UniqueId = Convert.ToString(objDataRow["UniqueId"]);
-                    objResponseBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
-                    objResponseBO.Views = Convert.ToInt32(objDataRow["Views"]);
-                    objResponseBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
-                    objResponseBO.Rank = Convert.ToInt32(objDataRow["Rank"]);
+                    objResponseBO.ErrorMessage = "";
                 }
             }
             catch (Exception ex)
@@ -242,14 +249,13 @@ namespace Sellff_API.ADO
             }
             return objPostsList;
         }
-        public List<UserAboutBO> GetUserAboutNGalleryInfo(int UserId, int SectionId)
+        public List<UserAboutBO> GetUserAboutNGalleryInfo(int UserId)
         {
             List<UserAboutBO> objAboutList = new List<UserAboutBO>();
             try
             {
-                var sqlParams = new SqlParameter[2];
+                var sqlParams = new SqlParameter[1];
                 sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = UserId };
-                sqlParams[1] = new SqlParameter("@SectionId", SqlDbType.Int) { Value = SectionId };
 
                 DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetAboutNGalleryInfo", sqlParams);
                 if (_objDataSet.Tables[0].Rows.Count > 0)
@@ -353,7 +359,7 @@ namespace Sellff_API.ADO
             try
             {
                 var sqlParams = new SqlParameter[1];
-                sqlParams[0] = new SqlParameter("@UserRefId", SqlDbType.Int) { Value = objProfileInfoBO.UserRefProfileId };
+                sqlParams[0] = new SqlParameter("@UserRefId", SqlDbType.Int) { Value = objProfileInfoBO.UserId };
 
                 if (SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "UpdateUserViewsCount", sqlParams) > 0)
                     result = true;

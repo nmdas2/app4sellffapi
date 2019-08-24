@@ -55,6 +55,10 @@ namespace Sellff_API.Models
         [DataMember]
         public string YouTubeLink { get; set; }
         [DataMember]
+        public string GooglePlusLink { get; set; }
+        [DataMember]
+        public string SocialEmail { get; set; }
+        [DataMember]
         public int Views { get; set; }
         [DataMember]
         public int Posts { get; set; }
@@ -74,6 +78,8 @@ namespace Sellff_API.Models
         public int Rank { get; set; }
         [DataMember]
         public string CreatedOn { get; set; }
+        [DataMember]
+        public string ErrorMessage { get; set; } = "";
     }
 
     public class PromotionsBO

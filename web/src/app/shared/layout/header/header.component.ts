@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Router } from '@angular/router';
-import { User } from 'src/app/_models/user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
-import { ReadOnlyInfo } from 'src/app/_models/readonlyinfo';
 import { CommonService } from 'src/app/_services/common.service';
 import { Subscription } from 'rxjs';
+import { ProfileInfo } from 'src/app/_models/profileinfo';
 
 @Component({
   selector: 'app-header',
@@ -15,14 +14,13 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   returnUrl: string = "/home";
-  loggedInUserInfo: User;
-  loggedInUserId: number;
-  loggedInUserName: string; loggedInUserRank: number; LoggedInUserProfilePic: string;
+  loggedInUserInfo: ProfileInfo;
   hasActiveSession: boolean = false;
-  searchForm: FormGroup; readonlyUserInfo: ReadOnlyInfo;
+  searchForm: FormGroup; readonlyUserInfo: ProfileInfo;
   profileSubscription: Subscription
   submitted = false;
   showheadsection: boolean = false;
+  dataDisplayProfile: ProfileInfo;
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -36,34 +34,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
       this.hasActiveSession = false;
-      this.loggedInUserInfo = <User>{};
-      this.loggedInUserId = 0;
-      this.loggedInUserName = "";
-      this.loggedInUserRank = 0;
-      this.LoggedInUserProfilePic = "";
-      if(localStorage.getItem('currentUser')){
-        this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
+      this.showheadsection = false;
+      this.loggedInUserInfo = <ProfileInfo>{};
+      if (localStorage.getItem('currentUser')) {
+        this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
         this.showheadsection = true;
         this.hasActiveSession = true;
       }
       if (!status) {
         if (localStorage.getItem('currentUser')) {
-          
-          this.loggedInUserId = this.loggedInUserInfo.UserId;
-          this.loggedInUserName = this.loggedInUserInfo.DisplayName;
-          this.loggedInUserRank = this.loggedInUserInfo.Rank;
-          this.LoggedInUserProfilePic = this.loggedInUserInfo.ProfilePicPath;
+          // this.loggedInUserId = this.loggedInUserInfo.UserId;
+          // this.loggedInUserName = this.loggedInUserInfo.DisplayName;
+          // this.loggedInUserRank = this.loggedInUserInfo.Rank;
+          // this.LoggedInUserProfilePic = this.loggedInUserInfo.ProfilePicPath;
           this.hasActiveSession = true;
         }
       }
-
       else {
         if (localStorage.getItem('profileviewUser')) {
-          this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
-          this.loggedInUserId = this.readonlyUserInfo.roUserId;
-          this.loggedInUserName = this.readonlyUserInfo.roDisplayName;
-          this.loggedInUserRank = this.readonlyUserInfo.roRank;
-          this.LoggedInUserProfilePic = this.readonlyUserInfo.roProfilePicPath;
+          this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
           this.showheadsection = true;
         }
       }
@@ -104,7 +93,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   taketoActualProfile() {
     localStorage.removeItem('profileviewUser');
-    this.loggedInUserInfo.UserRefProfileId = 0;
+    this.loggedInUserInfo.userRefId = 0;
     this.commonService.isProfileSelected.next(false);
     this.router.navigate(['/home']);
   }
@@ -113,13 +102,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.profileSubscription.unsubscribe();
   }
 
-  gotoregister()
-  {
+  gotoregister() {
     this.router.navigate(['/register']);
   }
-  
-  gotologin()
-  {
+
+  gotologin() {
     this.router.navigate(['/login']);
   }
 

@@ -4,9 +4,8 @@ import { Subscription } from 'rxjs';
 import { User } from 'src/app/_models/user';
 import { Router, ActivatedRoute } from '@angular/router';
 import { constants as consts } from '../../constants';
-import { switchMap } from 'rxjs/operators';
-import { ReadOnlyInfo } from 'src/app/_models/readonlyinfo';
 import { CommonService } from 'src/app/_services/common.service';
+import { ProfileInfo } from 'src/app/_models/profileinfo';
 
 @Component({
   selector: 'app-searchsummary',
@@ -22,7 +21,7 @@ export class SearchsummaryComponent implements OnInit {
   searchProfileId: number;
   srchParam: string;
   hasSession: boolean = false;
-  readonlyUserInfo: ReadOnlyInfo;
+  readonlyUserInfo: ProfileInfo;
   
   constructor(private pfrlsrvs: ProfileinfoService,
     private router: Router,
@@ -50,12 +49,8 @@ export class SearchsummaryComponent implements OnInit {
     this.userTrackerSub.unsubscribe();
   }
   openotherprofile(RefsearchUserIdBo){  
-    this.readonlyUserInfo = <ReadOnlyInfo>{};
-    this.readonlyUserInfo.roUserId = RefsearchUserIdBo.UserId;
-    this.readonlyUserInfo.roProfilePicPath = RefsearchUserIdBo.ProfilePicPath;
-    this.readonlyUserInfo.roRank = RefsearchUserIdBo.Rank;
-    this.readonlyUserInfo.roDisplayName = RefsearchUserIdBo.DisplayName;
-    RefsearchUserIdBo.ViewingSearchProfile = true;
+    this.readonlyUserInfo = <ProfileInfo>{};
+    this.readonlyUserInfo = RefsearchUserIdBo;
     localStorage.setItem('profileviewUser', JSON.stringify(this.readonlyUserInfo));
     this.router.navigate([consts.AboutPath]);
     this.commonService.isProfileSelected.next(true);
