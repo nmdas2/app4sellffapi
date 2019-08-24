@@ -1228,12 +1228,31 @@ a:focus {
     border-bottom-left-radius: 4px
 }
 
-.navbar-nav>.user-menu>.dropdown-menu>li.user-header {
-    height: 175px;
-    padding: 10px;
-    text-align: center
+.navbar-nav>.user-menu>.dropdown-menu>li{
+    text-align: left;
+    background-color: transparent;
+    border-bottom: 1px solid #e0e0e0;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -ms-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+    width: 100%;
 }
-
+.navbar-nav>.user-menu>.dropdown-menu>li a{
+    color: #333333;
+    font-size: 14px;
+    padding: 12px 15px;
+    margin: 0px;
+    letter-spacing: 0.3px;
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+}
+.navbar-nav>.user-menu>.dropdown-menu>li a:hover{
+    background: none repeat scroll 0 0 #fafafa;
+    cursor: pointer;
+}
 .navbar-nav>.user-menu>.dropdown-menu>li.user-header>img {
     z-index: 5;
     height: 90px;
@@ -1245,10 +1264,13 @@ a:focus {
 
 .navbar-nav>.user-menu>.dropdown-menu>li.user-header>p {
     z-index: 5;
-    color: #fff;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 17px;
-    margin-top: 10px
+    font-weight: 100;
+    text-align: left;
+    margin: 0px;
+    color: #333333;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    width: 100%;
 }
 
 .navbar-nav>.user-menu>.dropdown-menu>li.user-header>p>small {
@@ -1378,13 +1400,26 @@ a:focus {
 }
 
 .navbar-custom-menu>.navbar-nav>li {
-    position: relative
+    position: relative;
+    display: flex;
 }
 
 .navbar-custom-menu>.navbar-nav>li>.dropdown-menu {
     position: absolute;
     right: 0;
-    left: auto
+    left: auto;
+    border: 1px solid #e0e0e0;
+    float: left;
+    border-radius: 4px;
+    min-height: 71px;
+    padding: 0;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -ms-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+    width: 200px;
+    background-color: #FFF;
 }
 
 @media (max-width:991px) {

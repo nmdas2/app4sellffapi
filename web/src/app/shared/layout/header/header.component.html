@@ -1,78 +1,91 @@
 <header class="main-header">
     <!-- Logo -->
 
-    <a routerLink="/login" class="logo" href="javscript:void(0)">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini" (click)="homePageRedirection()">Sellff</span>
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg" (click)="homePageRedirection()">Sellff</span>
-    </a>
-    <nav class="navbar navbar-static-top">
-        <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button" *ngIf="hasActiveSession">
-            <span class="sr-only">Toggle navigation</span>
-        </a>
-        <div class="navbar-custom-menu pull-left col-md-9 navmobile" style="margin-top:7px;">
-            <form [formGroup]=searchForm class="pull-left col-md-9" (ngSubmit)="onSubmit()">
-                <div class="input-group">
-                    <input type="text" formControlName="searchprofiles" class="form-control control1" placeholder="Search..." [ngClass]="{ 'is-invalid': submitted && f.searchprofiles.errors }">
-                    <div *ngIf="submitted && f.searchprofiles.errors" class="invalid-feedback">
-                        <div *ngIf="f.searchprofiles.errors.required">Search text is required</div>
-                    </div>
-                    <span class="input-group-btn">
-          <button type="submit" name="search" id="search-btn " class="btn btn-flat sbtn">
-            <i class="fa fa-search"></i>
-          </button>
-        </span>
-                </div>
-            </form>
-        </div>
-        <div class="navbar-custom-menu pull-right" *ngIf="hasActiveSession">
-            <ul class="nav navbar-nav">
-                <li class="dropdown user user-menu">
-                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src='{{loggedInUserInfo.ProfilePicPath}}' class="user-image" alt="User Image">
-                        <span class="hidden-xs">{{loggedInUserInfo.DisplayName}}</span>
+    <div class="header">
+        <div class="row">
+            <div class="col-md-9">
+                <a routerLink="/login" class="logo" href="javscript:void(0)">
+                        <!-- mini logo for sidebar mini 50x50 pixels -->
+                        <span class="logo-mini" (click)="homePageRedirection()">Sellff</span>
+                        <!-- logo for regular state and mobile devices -->
+                        <span class="logo-lg" (click)="homePageRedirection()">Sellff</span>
+                </a>
+                <nav class="navbar navbar-static-top">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button" *ngIf="hasActiveSession">
+                        <span class="sr-only">Toggle navigation</span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <li class="user-header">
-                            <img src='{{loggedInUserInfo.ProfilePicPath}}' class="img-circle" alt="User Image">
-                            <p>
-                                {{loggedInUserInfo.DisplayName}} - {{loggedInUserInfo.Occupation}}
-                                <!-- <small>Member since Nov. 2012</small> -->
-                            </p>
-                        </li>
-                        <!-- Menu Body -->
-                        <!-- <li class="user-body">
-          <div class="row">
-            <div class="col-xs-4 text-center">
-              <a href="#">Followers</a>
-            </div>
-            <div class="col-xs-4 text-center">
-              <a href="#">Sales</a>
-            </div>
-            <div class="col-xs-4 text-center">
-              <a href="#">Friends</a>
-            </div>
-          </div>
-           //.row 
-        </li> -->
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a (click)="taketoActualProfile()" class="btn btn-default btn-flat">Profile</a>
+                    <div class="navbar-custom-menu pull-left col-md-9 navmobile">
+                        <form [formGroup]=searchForm class="pull-left col-md-9" (ngSubmit)="onSubmit()">
+                            <div class="input-group">
+                                <input type="text" formControlName="searchprofiles" class="form-control control1" placeholder="Search..." [ngClass]="{ 'is-invalid': submitted && f.searchprofiles.errors }">
+                                <div *ngIf="submitted && f.searchprofiles.errors" class="invalid-feedback">
+                                    <div *ngIf="f.searchprofiles.errors.required">Search text is required</div>
+                                </div>
+                                <span class="input-group-btn">
+                      <button type="submit" name="search" id="search-btn " class="btn btn-flat sbtn">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </span>
                             </div>
-                            <div class="pull-right">
-                                <a routerLink="" class="btn btn-default btn-flat" (click)=signoutplz()>Sign out</a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
+                        </form>
+                    </div>
+                    
+                </nav>
+            </div>
+            <div class="col-md-3">
+                <!-- <ul class="login-links">
+                    <li><a href=""><i class="fa fa-user"></i> Sign In</a></li>
+                    <li><a href=""><i class="fa fa-user-plus"></i> Regester</a></li>
+                </ul> -->
+                <div class="navbar-custom-menu" *ngIf="hasActiveSession">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown user user-menu">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src='{{loggedInUserInfo.ProfilePicPath}}' class="user-image" alt="User Image">
+                                    <span class="hidden-xs">
+                                    {{loggedInUserInfo.DisplayName}}
+                                    <span>{{loggedInUserInfo.Occupation}}</span>
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a (click)="taketoActualProfile()"><i class="fa fa-cog" aria-hidden="true"></i> Profile</a>
+                                    </li>
+                                    <li >
+                                        <a routerLink="" (click)=signoutplz()><i class="fa fa-sign-out" aria-hidden="true"></i> Sign out</a>
+                                    </li>
+                                    <!-- Menu Body -->
+                                    <!-- <li class="user-body">
+                      <div class="row">
+                        <div class="col-xs-4 text-center">
+                          <a href="#">Followers</a>
+                        </div>
+                        <div class="col-xs-4 text-center">
+                          <a href="#">Sales</a>
+                        </div>
+                        <div class="col-xs-4 text-center">
+                          <a href="#">Friends</a>
+                        </div>
+                      </div>
+                       //.row 
+                    </li> -->
+                                    <!-- Menu Footer-->
+                                    
+                                </ul>
+                            </li>
 
-            </ul>
+                        </ul>
+                    </div>
+            </div>
         </div>
-    </nav>
+    </div>
+
+
+
+    
+    
+    
 
 </header>
 <div class="banner" *ngIf="showheadsection && !isSummaryPage">
