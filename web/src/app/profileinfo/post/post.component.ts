@@ -19,8 +19,13 @@ export class PostComponent implements OnInit {
   monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
-  userPosts: any;  PostsByGroups:PostByGroup[]=[];  loggedInUserInfo: ProfileInfo; isAboutInEditMode: boolean = false;
-  readonlyUserInfo: ProfileInfo; fileData: File = null;  dataDisplayProfile: ProfileInfo; 
+  userPosts: any;  
+  PostsByGroups:PostByGroup[]=[];  
+  loggedInUserInfo: ProfileInfo; 
+  isAboutInEditMode: boolean = false;
+  readonlyUserInfo: ProfileInfo; 
+  fileData: File = null;  
+  dataDisplayProfile: ProfileInfo; 
   constructor(
     private profileInfoService: ProfileinfoService,
     private modalService: BsModalService,
@@ -154,9 +159,11 @@ export class PostComponent implements OnInit {
     })
   }
   userContent: string;
+  userTitle: string;
   contentModalRef: BsModalRef;  
-  getUserContent(content, contentTemplate){
+  getUserContent(content, title, contentTemplate){
     this.userContent = content;
+    this.userTitle = title;
     this.contentModalRef = this.modalService.show(contentTemplate,
       Object.assign({}, this.config, { class: 'gray modal-small' })
     );

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
 import { CommonService } from 'src/app/_services/common.service';
@@ -17,25 +17,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
   loggedInUserInfo: ProfileInfo;
   hasActiveSession: boolean = false;
   searchForm: FormGroup; readonlyUserInfo: ProfileInfo;
-  profileSubscription: Subscription
+  profileSubscription: Subscription;
+  isSummarySub: Subscription
   submitted = false;
   showheadsection: boolean = false;
   dataDisplayProfile: ProfileInfo;
+  isSummaryPage: boolean = false;
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
-    private profileService: ProfileinfoService,
-    private commonService: CommonService,
+    private commonService: CommonService
   ) {
 
   }
 
   ngOnInit() {
+    this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
+      this.isSummaryPage = status;
+    })
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
       this.hasActiveSession = false;
       this.showheadsection = false;
       this.loggedInUserInfo = <ProfileInfo>{};
+      
       if (localStorage.getItem('currentUser')) {
         this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
         this.showheadsection = true;
@@ -100,6 +105,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.profileSubscription)
       this.profileSubscription.unsubscribe();
+    if(this.isSummarySub)
+      this.isSummarySub.unsubscribe();
   }
 
   gotoregister() {
@@ -108,6 +115,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   gotologin() {
     this.router.navigate(['/login']);
+  }
+
+  homePageRedirection(){
+    this.router.navigate(['/']);
   }
 
 }

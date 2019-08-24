@@ -136,8 +136,7 @@
                                 <div class="form-group row justify-content-center">
                                     <div class="col-md-12">
                                         <label>Upload Photo from web</label>
-                                        <input type="text" class="form-control" formControlName="webUrl"
-                                            placeholder="Place text here" />
+                                        <input type="text" class="form-control" formControlName="webUrl" placeholder="Place text here" />
 
                                     </div>
                                 </div>
@@ -146,10 +145,8 @@
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <button class="blue-rnd-btn sm-btn mx-auto btn-primary" type="submit"
-                                    [disabled]="postGalleryForm.invalid">Submit</button> |
-                                <button class="blue-rnd-btn sm-btn mx-auto btn-warning" type="button"
-                                    (click)="resetPostGalleryForm()">Reset</button>
+                                <button class="blue-rnd-btn sm-btn mx-auto btn-primary" type="submit" [disabled]="postGalleryForm.invalid">Submit</button> |
+                                <button class="blue-rnd-btn sm-btn mx-auto btn-warning" type="button" (click)="resetPostGalleryForm()">Reset</button>
                             </div>
                         </div>
 
@@ -171,11 +168,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row justify-content-center">
                                     <div class="col-md-12">
-                                        <input type="text" class="form-control" formControlName="title"
-                                            placeholder="Title" />
-                                        <span
-                                            *ngIf="postTextForm.controls['title'].touched && postTextForm.controls['title'].invalid"
-                                            class="form-error">Title required</span>
+                                        <input type="text" class="form-control" formControlName="title" placeholder="Title" />
+                                        <span *ngIf="postTextForm.controls['title'].touched && postTextForm.controls['title'].invalid" class="form-error">Title required</span>
                                     </div>
                                 </div>
                             </div>
@@ -185,11 +179,8 @@
                             <div class="col-md-12">
                                 <div class="form-group row justify-content-center">
                                     <div class="col-md-12">
-                                        <textarea class="form-control" formControlName="text"
-                                            placeholder="Place text here" rows="4" cols="50"></textarea>
-                                        <span
-                                            *ngIf="postTextForm.controls['text'].touched && postTextForm.controls['text'].invalid"
-                                            class="form-error">Text
+                                        <textarea class="form-control" formControlName="text" placeholder="Place text here" rows="4" cols="50"></textarea>
+                                        <span *ngIf="postTextForm.controls['text'].touched && postTextForm.controls['text'].invalid" class="form-error">Text
                                             required</span>
                                     </div>
                                 </div>
@@ -198,10 +189,8 @@
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <button class="blue-rnd-btn sm-btn mx-auto btn-primary" type="submit"
-                                    [disabled]="postTextForm.invalid">Submit</button> |
-                                <button class="blue-rnd-btn sm-btn mx-auto btn-warning" type="button"
-                                    (click)="resetPostTextForm()">Reset</button>
+                                <button class="blue-rnd-btn sm-btn mx-auto btn-primary" type="submit" [disabled]="postTextForm.invalid">Submit</button> |
+                                <button class="blue-rnd-btn sm-btn mx-auto btn-warning" type="button" (click)="resetPostTextForm()">Reset</button>
                             </div>
                         </div>
 
@@ -209,8 +198,7 @@
                 </div>
             </ng-template>
             <div *ngIf="isAboutInEditMode">
-                <a (click)="popupPostTextModel(template)">Create Text Post</a> | <a
-                    (click)="popupPostGalleryModel(templateForPostGallary)">Create Image Post</a>
+                <a (click)="popupPostTextModel(template)">Create Text Post</a> | <a (click)="popupPostGalleryModel(templateForPostGallary)">Create Image Post</a>
             </div>
             <div class="container" *ngIf="PostsByGroups">
                 <div class="row" *ngFor="let posts of PostsByGroups">
@@ -219,13 +207,11 @@
                     </div>
                     <div class="col-md-2" *ngFor="let post of posts.objPostsList">
                         <div *ngIf="post.ContentType==1">
-                            <a href="javascript:void(0)"
-                                (click)="getUserContent(post.UserContent, contentTemplate)"><img
-                                    src="../../../assets/selfprflimages/doc_icon.png" style="width: 100%"></a>
+                            <a href="javascript:void(0)" (click)="getUserContent(post.UserContent, post.Title, contentTemplate)"><img src="../../../assets/selfprflimages/doc_icon.png" style="width: 100%"></a>
                         </div>
                         <div *ngIf="post.ContentType==2">
                             <a data-toggle="modal" data-target="#1" (click)="setModelImage(post.ImagePath)">
-                                <img src={{post.ImagePath}} style="width: 100%"/>
+                                <img src={{post.ImagePath}} style="width: 100%" />
                             </a>
                         </div>
                     </div>
@@ -266,7 +252,7 @@
 
             <ng-template #contentTemplate>
                 <div class="modal-header">
-                    <h4 class="modal-title pull-left">User Post</h4>
+                    <h4 class="modal-title pull-left">{{userTitle}}</h4>
                     <button type="button" class="close pull-right" aria-label="Close" (click)="contentModalRef.hide()">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -293,8 +279,7 @@
                                                 <div class="modal fade" id="1" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="images/11.png">
@@ -313,8 +298,7 @@
                                                 <div class="modal fade" id="16" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="./././assets/images/22.png">
@@ -338,8 +322,7 @@
                                                 <div class="modal fade" id="1" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="images/11.png">
@@ -358,8 +341,7 @@
                                                 <div class="modal fade" id="16" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="./././assets/images/22.png">
@@ -378,8 +360,7 @@
                                                 <div class="modal fade" id="3" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="images/33.png">
@@ -398,8 +379,7 @@
                                                 <div class="modal fade" id="4" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="images/44.png">
@@ -418,8 +398,7 @@
                                                 <div class="modal fade" id="6" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="images/66.png">
@@ -442,8 +421,7 @@
                                                 <div class="modal fade" id="1" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="images/11.png">
@@ -462,8 +440,7 @@
                                                 <div class="modal fade" id="16" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="./././assets/images/22.png">
@@ -482,8 +459,7 @@
                                                 <div class="modal fade" id="3" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="images/33.png">
@@ -502,8 +478,7 @@
                                                 <div class="modal fade" id="4" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="images/44.png">
@@ -522,8 +497,7 @@
                                                 <div class="modal fade" id="6" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="images/66.png">
@@ -545,8 +519,7 @@
                                                 <div class="modal fade" id="1" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="images/11.png">
@@ -565,8 +538,7 @@
                                                 <div class="modal fade" id="16" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="./././assets/images/22.png">
@@ -585,8 +557,7 @@
                                                 <div class="modal fade" id="3" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="images/33.png">
@@ -605,8 +576,7 @@
                                                 <div class="modal fade" id="4" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="images/44.png">
@@ -625,8 +595,7 @@
                                                 <div class="modal fade" id="6" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                                     aria-hidden="true">×</span></button>
                                                             <div class="modal-body">
                                                                 <img src="images/66.png">

@@ -291,6 +291,9 @@ export class AboutComponent implements OnInit, OnDestroy {
   onCancel(){
     this.isAboutInEditMode = false;
   }
+  onCancelSocial(){
+    this.postLayoutType = '';
+  }
 
   ngOnDestroy() {
     if (this.profileSubscription)
