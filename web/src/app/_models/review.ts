@@ -19,4 +19,5 @@ export class Review {
     Starts3?: number = 0;
     Starts2?: number = 0;
     Starts1?: number = 0;
+    ReviewAlreadyGiven?: boolean = false;
 }

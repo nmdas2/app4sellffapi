@@ -246,6 +246,8 @@ namespace Sellff_API.Models
         public int Starts2 { get; set; } = 0;
         [DataMember]
         public int Starts1 { get; set; } = 0;
+        [DataMember]
+        public bool ReviewAlreadyGiven { get; set; }
     }
 
     public class UserLocalStorageBO

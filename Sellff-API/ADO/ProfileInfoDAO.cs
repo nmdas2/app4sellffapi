@@ -440,15 +440,22 @@ namespace Sellff_API.ADO
             }
             return result;
         }
-        public List<UserReviewBO> GetAllUserReviewsByUser(int UserId)
+        public List<UserReviewBO> GetAllUserReviewsByUser(int UserId, int loggedInUserId)
         {
             List<UserReviewBO> objResponseList = new List<UserReviewBO>();
+            bool reviewAlreadyGiven = false;
             try
             {
-                var sqlParams = new SqlParameter[1];
+                var sqlParams = new SqlParameter[2];
                 sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = UserId };
+                sqlParams[1] = new SqlParameter("@loggedInUserId", SqlDbType.Int) { Value = loggedInUserId };
 
                 DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetAllUserReviewsByUser", sqlParams);
+                if (_objDataSet.Tables[1].Rows.Count > 0)
+                {
+                    if ((Convert.ToInt32(_objDataSet.Tables[1].Rows[0]["AutoId"]) > 0))
+                        reviewAlreadyGiven = true;
+                }
                 if (_objDataSet.Tables[0].Rows.Count > 0)
                 {
                     for (int i = 0; i < _objDataSet.Tables[0].Rows.Count; i++)
@@ -468,6 +475,7 @@ namespace Sellff_API.ADO
                         objResponseBO.Performance = Convert.ToInt32(objDataRow["Performance"]);
                         objResponseBO.Communication = Convert.ToInt32(objDataRow["Communication"]);
                         objResponseBO.QOW = Convert.ToInt32(objDataRow["QOW"]);
+                        objResponseBO.ReviewAlreadyGiven = reviewAlreadyGiven;
                         objResponseList.Add(objResponseBO);
                     }
                 }

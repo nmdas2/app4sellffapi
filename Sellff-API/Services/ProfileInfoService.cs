@@ -77,9 +77,9 @@ namespace Sellff_API.Services
             return objProfileInfoDAO.GetUserMessagesBetween2Users(userId, recepId);
         }
 
-        public List<UserReviewBO> GetAllUserReviewsByUser(int Infoval)
+        public List<UserReviewBO> GetAllUserReviewsByUser(int Infoval, int loggedInUserId)
         {
-            return objProfileInfoDAO.GetAllUserReviewsByUser(Infoval);
+            return objProfileInfoDAO.GetAllUserReviewsByUser(Infoval, loggedInUserId);
         }
         public bool UpdateUsersReviewAsHelpful(UserReviewBO objUserReviewBO)
         {
@@ -89,7 +89,7 @@ namespace Sellff_API.Services
         public UserReviewBO GetCurrentUserRatingById(int currentUserId)
         {
             UserReviewBO objFinalResponse = new UserReviewBO();
-            List<UserReviewBO> resultlist = objProfileInfoDAO.GetAllUserReviewsByUser(currentUserId);
+            List<UserReviewBO> resultlist = objProfileInfoDAO.GetAllUserReviewsByUser(currentUserId, 0);
             resultlist = (List<UserReviewBO>)resultlist.Where(o => o.RatingGivenTo == currentUserId).ToList();
             if (resultlist.Count > 0)
             {

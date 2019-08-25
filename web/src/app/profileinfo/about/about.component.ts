@@ -38,15 +38,14 @@ export class AboutComponent implements OnInit, OnDestroy {
     })
     this.userAboutInfoList = [];
     if (localStorage.getItem('currentUser') != null) {
-      this.dataDisplayProfile =  this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));      
-      this.textValue = this.loggedInUserInfo.ProfileSummary;
-      //this.isAboutInEditMode = true;
+      this.dataDisplayProfile =  this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));  
     }
     if (localStorage.getItem('profileviewUser') != null) {
       this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
       this.isAboutInEditMode = false;
       this.updateProfileViewsCount();
     }
+    this.textValue = this.dataDisplayProfile.ProfileSummary;
     this.getUserAboutText();
   }
   updateProfileViewsCount()

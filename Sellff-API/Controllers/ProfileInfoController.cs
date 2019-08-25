@@ -212,10 +212,10 @@ namespace Sellff_API.Controllers
         /// This method will get all users Messages info based on UserId
         ///</summary>
         /// <param name="objUserLocalStorageBO"></param>
-        [HttpGet, Route("api/ProfileInfo/GetUserReviewsByUser/{Infoval}")]
-        public IHttpActionResult GetAllUserReviewsByUser(int Infoval)
+        [HttpGet, Route("api/ProfileInfo/GetUserReviewsByUser/{Infoval}/{loggedInUserId}")]
+        public IHttpActionResult GetAllUserReviewsByUser(int Infoval,int loggedInUserId)
         {
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetAllUserReviewsByUser(Infoval)));
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetAllUserReviewsByUser(Infoval, loggedInUserId)));
         }
 
         ///summary
