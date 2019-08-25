@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -18,11 +18,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   hasActiveSession: boolean = false;
   searchForm: FormGroup; readonlyUserInfo: ProfileInfo;
   profileSubscription: Subscription;
-  isSummarySub: Subscription
   submitted = false;
   showheadsection: boolean = false;
   dataDisplayProfile: ProfileInfo;
-  isSummaryPage: boolean = false;
+  toggler: boolean = false;
+  @Output() closeSideNav = new EventEmitter<boolean>();
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -33,9 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
-      this.isSummaryPage = status;
-    })
+    
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
       this.hasActiveSession = false;
       this.showheadsection = false;
@@ -105,8 +103,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.profileSubscription)
       this.profileSubscription.unsubscribe();
-    if(this.isSummarySub)
-      this.isSummarySub.unsubscribe();
   }
 
   gotoregister() {
@@ -119,6 +115,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   homePageRedirection(){
     this.router.navigate(['/']);
+  }
+
+  toggleSideNav(){
+    this.toggler = !this.toggler;
+    this.closeSideNav.emit(this.toggler);
   }
 
 }

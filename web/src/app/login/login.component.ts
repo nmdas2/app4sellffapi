@@ -51,15 +51,18 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-        this.authenticationService.isLogin.next(true);
         //this.authenticationService.login(this.f.username.value, this.f.password.value)
+        this.commonService.loadingShow();
         this.authenticationService.login(this.loginForm.value)
             .pipe(first())
             .subscribe(
                 (data: User) => {
+                    this.commonService.loadingHide();
+                    this.authenticationService.isLogin.next(true);
                     this.router.navigate(['/home']);
                 },
                 error => {
+                    this.commonService.loadingHide();
                     console.log(error);
                     this.alertService.error(error);
                     this.loading = false;
