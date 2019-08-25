@@ -45,7 +45,7 @@ export class MessageComponent implements OnInit {
         })
     }
     else {
-      this.profileInfoService.GetUserMessagesBetween2Users(this.dataDisplayProfile.UserId, this.loggedInUserInfo.UserId)
+      this.profileInfoService.GetUserMessagesBetween2Users(this.dataDisplayProfile.UserId, (this.loggedInUserInfo)?this.loggedInUserInfo.UserId:0)
         .subscribe(res => {
           if (res && res.length)
             this.userMessages = res;
