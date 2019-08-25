@@ -1,0 +1,14 @@
+.table thead {
+    background: none repeat scroll 0 0 #3c8dbc;
+    cursor: pointer;
+}
+.table tr td label{
+	font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0.03em;
+    color: #525252;
+    padding: 8px 15px;
+}
+.table tr td label span{
+	margin-right:10px;
+}

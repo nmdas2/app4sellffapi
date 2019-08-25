@@ -5,59 +5,60 @@
 </div>
 
 <app-header (closeSideNav)="closeSideNav($event)"></app-header>
-<div id="mySidenav" class="sidenav" [hidden]="!isLogin">
-    <!-- <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a> -->
-    <div class="nav-profile" *ngIf="showSideNav">
-        <div class="cover-img"><img src='{{dataDisplayProfile.ProfilePicPath}}' class="img-responsive"></div>
-        <i>Welcome</i>
-        <h3>{{dataDisplayProfile.DisplayName}}</h3>
-        <h6 class="status online"><i></i> Online</h6>
-        <ul>
-            <li>
-                <a href="#/mail/inbox" title="Inbox" data-toggle="tooltip" data-placement="bottom"><i
-                        class="fa fa-globe"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#/personal/profile" title="Profile" data-toggle="tooltip" data-placement="bottom"><i
-                        class="fa fa-twitter-square"></i>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:void(0)" onclick="javascript:toggleFullScreen()" title="Full Screen" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-bell"></i>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div *ngIf="showSideNav">
+<div id="mySidenav" class="sidenav sidebar" [hidden]="!isLogin">
+    <div class="">
+        <!-- <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a> -->
+        <div class="nav-profile" *ngIf="showSideNav">
+            <div class="cover-img"><img src='{{dataDisplayProfile.ProfilePicPath}}' class="img-responsive"></div>
+            <i>Welcome</i>
+            <h3>{{dataDisplayProfile.DisplayName}}</h3>
+            <h6 class="status online"><i></i> Online</h6>
+            <ul>
+                <li>
+                    <a href="#/mail/inbox" title="Inbox" data-toggle="tooltip" data-placement="bottom"><i
+                            class="fa fa-globe"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/personal/profile" title="Profile" data-toggle="tooltip" data-placement="bottom"><i
+                            class="fa fa-twitter-square"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" onclick="javascript:toggleFullScreen()" title="Full Screen" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-bell"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="sidebar-menu" *ngIf="showSideNav">
 
-        <ul>
-            <li><a routerLink="/profileinfo/about">About</a></li>
-            <li><a routerLink="/profileinfo/post">Posts</a></li>
-            <li><a routerLink="/profileinfo/message">Message</a></li>
-            <li><a routerLink="/profileinfo/promote">Promote</a></li>
-            <li><a routerLink="/profileinfo/review">Review</a></li>
-            <li><a routerLink="/profileinfo/invest">Invest</a></li>
-            <li><a routerLink="/profileinfo/consult">Consult</a></li>
-            <li><a routerLink="/profileinfo/refer">Refer</a></li>
-        </ul>
-    </div>
-    <div *ngIf="!showSideNav">
-        <ul>
-            <li><a routerLink="/profileinfo/about"><i class="fa fa-user"></i></a></li>
-            <li><a routerLink="/profileinfo/post"><i class="fa fa-sticky-note-o"></i></a></li>
-            <li><a routerLink="/profileinfo/message"><i class="fa fa-envelope-o"></i></a></li>
-            <li><a routerLink="/profileinfo/promote"><i class="fa fa-bullhorn"></i></a></li>
-            <li><a routerLink="/profileinfo/review"><i class="fa fa-star"></i></a></li>
-            <li><a routerLink="/profileinfo/invest"><i class="fa fa-money"></i></a></li>
-            <li><a routerLink="/profileinfo/consult"><i class="fa fa-handshake-o"></i></a></li>
-            <li><a routerLink="/profileinfo/refer"><i class="fa fa fa-user-plus"></i></a></li>
-        </ul>
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="active treeview menu-open"><a routerLink="/profileinfo/about">About</a></li>
+                <li><a routerLink="/profileinfo/post">Posts</a></li>
+                <li><a routerLink="/profileinfo/message">Message</a></li>
+                <li><a routerLink="/profileinfo/promote">Promote</a></li>
+                <li><a routerLink="/profileinfo/review">Review</a></li>
+                <li><a routerLink="/profileinfo/invest">Invest</a></li>
+                <li><a routerLink="/profileinfo/consult">Consult</a></li>
+                <li><a routerLink="/profileinfo/refer">Refer</a></li>
+            </ul>
+        </div>
+        <div class="sidebar-menu" *ngIf="!showSideNav">
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="active treeview menu-open"><a routerLink="/profileinfo/about"><i class="fa fa-user"></i></a></li>
+                <li><a routerLink="/profileinfo/post"><i class="fa fa-sticky-note-o"></i></a></li>
+                <li><a routerLink="/profileinfo/message"><i class="fa fa-envelope-o"></i></a></li>
+                <li><a routerLink="/profileinfo/promote"><i class="fa fa-bullhorn"></i></a></li>
+                <li><a routerLink="/profileinfo/review"><i class="fa fa-star"></i></a></li>
+                <li><a routerLink="/profileinfo/invest"><i class="fa fa-money"></i></a></li>
+                <li><a routerLink="/profileinfo/consult"><i class="fa fa-handshake-o"></i></a></li>
+                <li><a routerLink="/profileinfo/refer"><i class="fa fa fa-user-plus"></i></a></li>
+            </ul>
 
-        <!-- <i
-                                        class="fa fa fa-user-plus"></i> -->
+            <!-- <i
+                                            class="fa fa fa-user-plus"></i> -->
+        </div>
     </div>
-
 </div>
 <alert></alert>
 <div class="main" id="main">
@@ -80,7 +81,7 @@
         <!-- <div class="col-md-2"></div> -->
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-2  col-xs-12 views">
+                <div class="col-sm-2  col-xs-12 views">
                     <div class="info-box">
                         <span class="info-box-icon bg-red"><i class="fa fa-street-view"></i></span>
                         <div class="info-box-content">
@@ -89,7 +90,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-xs-12 views">
+                <div class="col-sm-2 col-xs-12 views">
                     <div class="info-box">
                         <span class="info-box-icon bg-green"><i class="fa fa-sticky-note-o"
                                 aria-hidden="true"></i></span>
@@ -99,7 +100,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2  col-xs-12 views">
+                <div class="col-sm-2  col-xs-12 views">
                     <div class="info-box">
                         <span class="info-box-icon bg-aqua"><i class="fa fa-star"></i></span>
 
@@ -111,7 +112,7 @@
                     </div>
                     <!-- /.info-box -->
                 </div>
-                <div class="col-md-2 col-xs-12 views">
+                <div class="col-sm-2 col-xs-12 views">
                     <div class="info-box">
                         <span class="info-box-icon bg-yellow"><i class="fa fa-user"></i></span>
 
@@ -123,7 +124,7 @@
                     </div>
                     <!-- /.info-box -->
                 </div>
-                <div class="col-md-2  col-xs-12 views">
+                <div class="col-sm-2  col-xs-12 views">
                     <div class="info-box">
                         <span class="info-box-icon bg-aqua"><i class="fa fa-money"></i></span>
 

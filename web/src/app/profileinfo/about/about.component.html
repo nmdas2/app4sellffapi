@@ -3,42 +3,42 @@
     <div class="content-wrapper">
         <section class="content">
             
-            <div class="text-center pull-right">
+            <div class="socail-links text-center pull-right">
                 <div *ngIf="isEditbale">
-                    <a (click)="showSocialLayout('g')"><i id="social-gp" style="padding-right: 4px;"
+                    <a (click)="showSocialLayout('g')"><i id="social-gp" 
                             class="fa fa-globe fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('tw')"><i id="social-tw" style="padding-right: 4px;"
+                    <a (click)="showSocialLayout('tw')"><i id="social-tw" 
                             class="fa fa-twitter-square fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('em')"><i id="social-em" style="padding-right: 4px;"
+                    <a (click)="showSocialLayout('em')"><i id="social-em" 
                             class="fa fa-bell fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('fb')"><i id="social-fb" style="padding-right: 4px;"
+                    <a (click)="showSocialLayout('fb')"><i id="social-fb" 
                             class="fa fa-facebook-square fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('gp')"><i id="social-gp" style="padding-right: 4px;"
+                    <a (click)="showSocialLayout('gp')"><i id="social-gp" 
                             class="fa fa-google-plus-square fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('sem')"><i id="social-em" style="padding-right: 4px;"
+                    <a (click)="showSocialLayout('sem')"><i id="social-em" 
                             class="fa fa-envelope-square fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('ig')"><i id="social-ig" style="padding-right: 4px;"
+                    <a (click)="showSocialLayout('ig')"><i id="social-ig" 
                             class="fa fa-instagram-square fa-2x social"></i></a>
                 </div>
                 <div *ngIf="!isEditbale && dataDisplayProfile">
                     <a *ngIf="dataDisplayProfile.LinkedInLink" href="{{dataDisplayProfile.LinkedInLink}}" target="_blank"><i
-                            id="social-gp" style="padding-right: 4px;" class="fa fa-globe fa-2x social"></i></a>
+                            id="social-gp" class="fa fa-globe fa-2x social"></i></a>
                     <a *ngIf="dataDisplayProfile.TwitterLink" href="{{dataDisplayProfile.TwitterLink}}" target="_blank"><i
-                            id="social-tw" style="padding-right: 4px;"
+                            id="social-tw" 
                             class="fa fa-twitter-square fa-2x social"></i></a>
                     <a *ngIf="dataDisplayProfile.SocialEmail" href="{{dataDisplayProfile.SocialEmail}}" target="_blank"><i
-                            id="social-em" style="padding-right: 4px;" class="fa fa-bell fa-2x social"></i></a>
+                            id="social-em" class="fa fa-bell fa-2x social"></i></a>
                     <a *ngIf="dataDisplayProfile.FacebookLink" href="{{dataDisplayProfile.FacebookLink}}" target="_blank"><i
-                            id="social-fb" style="padding-right: 4px;"
+                            id="social-fb" 
                             class="fa fa-facebook-square fa-2x social"></i></a>
                     <a *ngIf="dataDisplayProfile.TwitterLink" href="{{dataDisplayProfile.TwitterLink}}" target="_blank"><i
-                            id="social-gp" style="padding-right: 4px;"
+                            id="social-gp" 
                             class="fa fa-google-plus-square fa-2x social"></i></a>
                     <a *ngIf="dataDisplayProfile.TwitterLink" href="{{dataDisplayProfile.TwitterLink}}" target="_blank"><i
-                            id="social-em" style="padding-right: 4px;"
+                            id="social-em" 
                             class="fa fa-envelope-square fa-2x social"></i></a>
                     <a *ngIf="dataDisplayProfile.InstagramLink" href="{{dataDisplayProfile.InstagramLink}}" target="_blank"><i
-                            id="social-ig" style="padding-right: 4px;"
+                            id="social-ig" 
                             class="fa fa-instagram-square fa-2x social"></i></a>
                 </div>
 

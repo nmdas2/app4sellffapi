@@ -543,8 +543,13 @@ p {
     border: 1px solid #cecece;
     margin-bottom: 15px;
     height: 150px;
+    outline: none;
+    padding: 15px;
 }
-
+.new-mg-box h4{
+    float: left;
+    margin-right: 15px;
+}
 // Dashboard CSS Ending Here
 //Buttons CSS
 .post-btns {
@@ -577,6 +582,240 @@ p {
 .post-btns Ul li:last-child:after {
     display: none;
 }
+
+//Social Icons
+.content .socail-links a{
+    padding-right: 10px;
+}
+.content .socail-links a:last-child{
+    padding-right: 0px;
+}
+.socail-links .input-group .input-group-append .btn{
+    border-radius: 2px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid #3c8dbc;
+    background-color: #3c8dbc;
+    color: #FFF;
+    margin-right: 3px;
+    padding: 2px 7px;
+}
+.socail-links .input-group .input-group-append .btn:last-child{
+    margin-right:0px;
+}
+.socail-links .input-group input{
+    background-color: #FFF;
+    font-size: 12px;
+    border: 1px solid #e2e2e2;
+    padding: 5px 10px;
+    height: auto;
+    margin-bottom: 4px;
+    letter-spacing: 0.03em;
+}
+.form-horizontal {
+    margin-top: 20px;
+}
+.form-horizontal .form-group{
+    margin:0px;
+    padding:0px;
+} 
+.form-horizontal .form-group label{
+    border: 1px solid #f1f1f1;
+    color: #7b7b7b;
+    margin: 0px;
+    text-align: left;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    padding: 10px 15px;
+}
+.invest-graph img{
+    width:100%;
+    height:auto;
+}
+.box-center{
+    text-align:center;
+}
+.box-center h4:after{
+    content: "";
+    background-color: #222222;
+    height: 2px;
+    width: 30px;
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    right: auto;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+.box-center .margin-top-30{
+    margin-top:30px;
+}
+.box-center .btn{
+    width:100%;
+    font-size: 16px;
+    padding:30px 15px;
+}
+.status-open{
+    margin-top: 30px;
+    background-color: #47a500;
+    color: #FFF;
+    padding: 10px 15px;
+}
+.status-open p{
+    color: #FFF;
+    margin: 0px;
+    font-size: 20px;
+    padding: 10px 0px;
+}
+
+
+
+//Messege Box CSS
+.msg-box{
+    border-bottom: 1px solid #ededed;
+    color: #333333;
+    font-weight: normal;
+    letter-spacing: 0.3px;
+    padding: 16px 15px;
+    width: 100%;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -ms-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+.msg-box:hover {
+    background: #FFF;
+    color: #fff;
+    padding-left: 15px;
+}
+.msg-box:hover li label{
+    color:#000;
+}
+.msg-box:hover a{
+    color: #3c8dbc;
+}
+.msg-box ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    display:flex;
+}
+.msg-box ul li{
+    display: inline-block;
+    width: 33.33%;
+    box-sizing: border-box;
+    text-align: center;
+}
+.msg-box ul li:first-child{
+    text-align: left;
+}
+.msg-box ul li a:first-child{
+    color: #777777;
+    letter-spacing: 0.03em;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    margin: 0;
+
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.msg-box ul li:last-child{
+    text-align: right;
+}
+.msg-box:hover ul li a *, .msg-box:hover ul li a label *{
+    cursor: pointer !important;
+    color: #3c8dbc;
+}
+.msg-box ul li label{
+    color: #777777;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    line-height: 21px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.msg-box p{
+    font-size: 14px;
+    margin: 0;
+}
+
+
+//Table CSS
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+.table thead {
+    background: none repeat scroll 0 0 #e8ecec;
+    cursor: pointer;
+}
+.table thead tr th.pro{
+    background-color: #4dc0ef;  
+}
+.table thead tr th.exp{
+    background-color: #f00;
+}
+.table thead tr th.rew{
+    background-color: #f39c3f;
+}
+.table thead tr th.sta{
+    background-color: green;
+}
+.table tbody tr td label .open{
+    color:green;
+}
+.table tbody tr td label .close{
+    color:#f00;
+}
+.table thead tr th {
+    color: #FFF;
+    font-weight: bold;
+    letter-spacing: 0.4px;
+    padding: 12px 15px;
+}
+.table thead tr th span {
+    padding-right: 20px;
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+}
+.table tbody tr {
+    border-bottom: 1px solid #e8ecec;
+    color: #555;
+}
+.table tbody tr td label i{
+    font-size: 16px;
+    color: #3c8dbc;
+}
+.table tbody tr table tr{
+    border:none;
+}
+.table tbody tr td {
+    color: #868686;
+    letter-spacing: 0.3px;
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 200;
+}
+table tbody tr td.lalign {
+    text-align: left;
+}
+.table tr td img {
+    width: 75px;
+    height: 75px;
+    border-bottom:none;
+}
+
+
+
+
+
+
 
 // Responsive CSS Starting Here
 @media only screen and (max-width: 1366px) {

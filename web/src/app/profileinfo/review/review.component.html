@@ -16,77 +16,79 @@
     <div class="content-wrapper">
         <section class="content">
 
-            <div class="text-center pull-right">
-                <a href="#"><i id="social-gp" style="padding-right: 4px;" class="fa fa-globe fa-2x social"></i></a>
-                <a href="#"><i id="social-tw" style="padding-right: 4px;" class="fa fa-twitter-square fa-2x social"></i></a>
-                <a href="#"><i id="social-em" style="padding-right: 4px;" class="fa fa-bell fa-2x social"></i></a>
-                <a href="#"><i id="social-fb" style="padding-right: 4px;" class="fa fa-facebook-square fa-2x social"></i></a>
-                <a href="#"><i id="social-tw" style="padding-right: 4px;" class="fa fa-twitter-square fa-2x social"></i></a>
-                <a href="#"><i id="social-gp" style="padding-right: 4px;" class="fa fa-google-plus-square fa-2x social"></i></a>
-                <a href="#"><i id="social-em" style="padding-right: 4px;" class="fa fa-envelope-square fa-2x social"></i></a>
+            <div class="socail-links text-center pull-right">
+                <a href="#"><i id="social-gp" class="fa fa-globe fa-2x social"></i></a>
+                <a href="#"><i id="social-tw"  class="fa fa-twitter-square fa-2x social"></i></a>
+                <a href="#"><i id="social-em"  class="fa fa-bell fa-2x social"></i></a>
+                <a href="#"><i id="social-fb"  class="fa fa-facebook-square fa-2x social"></i></a>
+                <a href="#"><i id="social-tw"  class="fa fa-twitter-square fa-2x social"></i></a>
+                <a href="#"><i id="social-gp"  class="fa fa-google-plus-square fa-2x social"></i></a>
+                <a href="#"><i id="social-em"  class="fa fa-envelope-square fa-2x social"></i></a>
             </div>
             <div class="row">
                 <div class="col-md-6"></div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="box message-box" *ngIf="currentRating">
-                        <div class="row" style="font-weight: bold;">
-                            {{totalRatings}} Customer Reviews
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="mb-2">
-                                    5 Star
-                                    <progressbar max="{{totalRatings}}" [value]=currentRating.Starts5 type="warning" [striped]="true">{{currentRating.Starts5}}</progressbar>
+                    <div *ngIf="currentRating">
+                        <div class="box message-box">
+                            <h4>{{totalRatings}} Customer Reviews</h4>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="mb-2">
+                                        5 Star
+                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts5 type="warning" [striped]="true">{{currentRating.Starts5}}</progressbar>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="mb-2">
+                                        4 Star
+                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts4 type="warning" [striped]="true">{{currentRating.Starts4}}</progressbar>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="mb-2">
+                                        3 Star
+                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts3 type="warning" [striped]="true">{{currentRating.Starts3}}</progressbar>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="mb-2">
+                                        2 Star
+                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts2 type="warning" [striped]="true">{{currentRating.Starts2}}</progressbar>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="mb-2">
+                                        1 Star
+                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts1 type="warning" [striped]="true">{{currentRating.Starts1}}</progressbar>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="mb-2">
-                                    4 Star
-                                    <progressbar max="{{totalRatings}}" [value]=currentRating.Starts4 type="warning" [striped]="true">{{currentRating.Starts4}}</progressbar>
-                                </div>
+                        <div class="box message-box">
+                            <div class="row">
+                                <h4 class="aria-label padding-right">Performance</h4>
+                                <rating [ngModel]=currentRating.Performance [max]="max" [readonly]="true"></rating>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="mb-2">
-                                    3 Star
-                                    <progressbar max="{{totalRatings}}" [value]=currentRating.Starts3 type="warning" [striped]="true">{{currentRating.Starts3}}</progressbar>
-                                </div>
+                            <div class="row" style="margin-top: 30px">
+                                <h4 class="aria-label padding-right">Communication</h4>
+                                <rating [ngModel]=currentRating.Communication [max]="max" [readonly]="true"></rating>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="mb-2">
-                                    2 Star
-                                    <progressbar max="{{totalRatings}}" [value]=currentRating.Starts2 type="warning" [striped]="true">{{currentRating.Starts2}}</progressbar>
-                                </div>
+                            <div class="row" style="margin-top: 30px">
+                                <h4 class="aria-label padding-right">QOW</h4>
+                                <rating [ngModel]=currentRating.QOW [max]="max" [readonly]="true"></rating>
                             </div>
+                            <button *ngIf="canReview && !reviewAlreadyGiven" type="button" class="btn btn-primary" (click)="openModal(template)">Write a Member Review</button>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="mb-2">
-                                    1 Star
-                                    <progressbar max="{{totalRatings}}" [value]=currentRating.Starts1 type="warning" [striped]="true">{{currentRating.Starts1}}</progressbar>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <label class="aria-label padding-right">Performance</label>
-                            <rating [ngModel]=currentRating.Performance [max]="max" [readonly]="true"></rating>
-                        </div>
-                        <div class="row">
-                            <label class="aria-label padding-right">Communication</label>
-                            <rating [ngModel]=currentRating.Communication [max]="max" [readonly]="true"></rating>
-                        </div>
-                        <div class="row">
-                            <label class="aria-label padding-right">QOW</label>
-                            <rating [ngModel]=currentRating.QOW [max]="max" [readonly]="true"></rating>
-                        </div>
-                        <button *ngIf="canReview && !reviewAlreadyGiven" type="button" class="btn btn-primary" (click)="openModal(template)">Write a Member Review</button>
                     </div>
                 </div>
                 <div class="col-md-8">
