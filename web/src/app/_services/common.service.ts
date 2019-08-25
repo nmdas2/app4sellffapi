@@ -14,4 +14,11 @@ export class CommonService{
     get isSummaryPage$(){
         return this.isSummaryPage.asObservable();
     }
+
+    loadingShow(){
+        document.getElementById('_loading').style.display = "block";
+    }
+    loadingHide(){
+        document.getElementById('_loading').style.display = "none"; 
+    }
 }
