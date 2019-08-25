@@ -41,5 +41,11 @@ namespace Sellff_API.Models
         public int UniqueId { get; set; }
         [DataMember]
         public int Rank { get; set; }
+        [DataMember]
+        public string Age { get; set; }
+        [DataMember]
+        public string City { get; set; }
+        [DataMember]
+        public string InviteUniqueId { get; set; }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using log4net;
 using Sellff_API.Models;
 using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 
 namespace Sellff_API.ADO
@@ -10,6 +12,7 @@ namespace Sellff_API.ADO
     public class SellffDefaultDAO
     {
         public static readonly ILog log4netlogger = log4net.LogManager.GetLogger("File");
+        private static Random random = new Random();
         public SellffDefaultDAO()
         {
 
@@ -65,14 +68,16 @@ namespace Sellff_API.ADO
         {
             try
             {
-                byte[] theBytes = Encoding.UTF8.GetBytes(objAuthenticationBO.Password);
-                var sqlParams = new SqlParameter[3];
-                sqlParams[0] = new SqlParameter("@DisplayName", SqlDbType.VarChar) { Value = objAuthenticationBO.DisplayName };
-                sqlParams[1] = new SqlParameter("@Email", SqlDbType.VarChar) { Value = objAuthenticationBO.Email };
-                sqlParams[2] = new SqlParameter("@Password", SqlDbType.VarBinary) { Value = theBytes };
+                objAuthenticationBO.InviteUniqueId = RandomString(Convert.ToInt32(ConfigurationManager.AppSettings["RandomStringLength"]));
+                var sqlParams = new SqlParameter[6];                
+                sqlParams[0] = new SqlParameter("@Email", SqlDbType.VarChar) { Value = objAuthenticationBO.Email };
+                sqlParams[1] = new SqlParameter("@Password", SqlDbType.VarChar) { Value = objAuthenticationBO.Password };
+                sqlParams[2] = new SqlParameter("@DisplayName", SqlDbType.VarChar) { Value = objAuthenticationBO.DisplayName };
+                sqlParams[3] = new SqlParameter("@Age", SqlDbType.VarChar) { Value = objAuthenticationBO.Age };
+                sqlParams[4] = new SqlParameter("@City", SqlDbType.VarChar) { Value = objAuthenticationBO.City };
+                sqlParams[5] = new SqlParameter("@InviteUniqueId", SqlDbType.VarChar) { Value = objAuthenticationBO.InviteUniqueId };
 
-
-                int ResultId = Convert.ToInt32(SqlHelper.SqlHelper.ExecuteScalar(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_RegisterSellffUserInfo", sqlParams));
+                int ResultId = Convert.ToInt32(SqlHelper.SqlHelper.ExecuteScalar(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "SaveUserDetails", sqlParams));
                 if (ResultId > 0)
                 {
                     objAuthenticationBO.UserId = ResultId;
@@ -83,6 +88,13 @@ namespace Sellff_API.ADO
                 log4netlogger.Error(ex);
             }
             return objAuthenticationBO;
+        }
+
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }
