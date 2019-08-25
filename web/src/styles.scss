@@ -5,8 +5,28 @@ html,
 body {
     width: 100%;
     height: 100% !important;
+    font-family: 'Lato', sans-serif !important;
 }
-
+p {
+    font-size: 13px;
+    font-weight: normal;
+    margin: 0;
+    color: #585858;
+    letter-spacing: 0.03em;
+    line-height: 24px;
+    margin-bottom: 20px;
+}
+.maring-bottom-30{
+    margin-bottom:30px;
+}
+.modal-title {
+    color: #333333;
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 0.3px;
+    line-height: 22px;
+    margin: 0;
+}
 //Header CSS
 .login-links{
     float: right;
@@ -405,14 +425,15 @@ text-align: left;
     letter-spacing: 0.03em;
     vertical-align: middle;
     background-color: #367fa9;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.upload-btn button span{
+    font-family: 'Lato', sans-serif;
 }
 
 .upload-btn button:before {
     position: relative;
     top: 0px;
     display: inline-block;
-    font-family: "Glyphicons Halflings";
     font-style: normal;
     font-weight: 400;
     line-height: 1;
@@ -424,11 +445,11 @@ text-align: left;
 
 .upload-file input[type=file] {
     display: flex;
-    color: #FFF;
-    border: 1px solid #26678d;
+    color: #000;
+    border: 1px solid #ccc;
     padding: 10px 25px;
     width: auto;
-    background-color: #367fa9;
+    background-color: #eee;
     margin-bottom: 20px;
     border-radius: 0px;
     border-top-left-radius: 4px;
@@ -439,26 +460,47 @@ text-align: left;
     display: flex;
 }
 
-.upload-img .btn.btn-primary {
-    height: 45px;
+.upload-img .btn.btn-primary, .upload-img .btn.btn-danger {
+    height: 40px;
     border-radius: 0px;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
 }
 
-.edit-box {
-    margin: 20px;
-}
-
 .edit-box textarea {
-    width: 100%;
-    border: 1px solid #cecece;
-    box-shadow: 0px 6px 7px #ddd;
+    padding: 15px;
+    border: 1px solid #ececec;
+    box-shadow: 0px 6px 7px #f7f7f7;
+    font-size: 14px;
+    font-weight: normal;
+    color: #585858;
+    letter-spacing: 0.03em;
+    line-height: 24px;
     margin-bottom: 20px;
+    height:100px
 }
-
+.text-edit-footer {
+    margin-bottom: 20px;
+    text-align: right;
+}
 .box h4 {
-    margin-top: 0px;
+    color: #222222;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    margin: 0;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 5px;
+}
+.box h4:after{
+    content: "";
+    background-color: #222222;
+    height: 2px;
+    width: 30px;
+    position: absolute;
+    left: 0;
+    top: 100%;
 }
 
 .message-box textarea {
@@ -469,6 +511,34 @@ text-align: left;
 }
 
 // Dashboard CSS Ending Here
+//Buttons CSS
+.post-btns{
+    text-align: right;
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.post-btns ul{
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    text-align: right;
+    width: 100%;
+    display: inline-block;
+}
+.post-btns ul li{
+    display: inline-block;
+}
+.post-btns ul li a{
+
+}
+.post-btns ul li:after{
+    content: "|";
+    padding:0px 15px;
+}
+.post-btns Ul li:last-child:after{
+    display:none;
+}
 // Responsive CSS Starting Here
 @media only screen and (max-width: 1366px) {
     .home-screen {
