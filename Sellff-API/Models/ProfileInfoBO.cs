@@ -31,6 +31,8 @@ namespace Sellff_API.Models
         [DataMember]
         public int UserRefProfileId { get; set; }
         [DataMember]
+        public int userRefId { get; set; }
+        [DataMember]
         public string Message { get; set; }
         [DataMember]
         public string UserIP { get; set; }
@@ -40,6 +42,8 @@ namespace Sellff_API.Models
         public string ProfilePicPath { get; set; }
         [DataMember]
         public string ProfileSummary { get; set; }
+        [DataMember]
+        public string WebsiteLink { get; set; }
         [DataMember]
         public string FacebookLink { get; set; }
         [DataMember]
@@ -51,6 +55,10 @@ namespace Sellff_API.Models
         [DataMember]
         public string YouTubeLink { get; set; }
         [DataMember]
+        public string GooglePlusLink { get; set; }
+        [DataMember]
+        public string SocialEmail { get; set; }
+        [DataMember]
         public int Views { get; set; }
         [DataMember]
         public int Posts { get; set; }
@@ -58,6 +66,20 @@ namespace Sellff_API.Models
         public string City { get; set; }
         [DataMember]
         public string Occupation { get; set; }
+        [DataMember]
+        public int SocialLinkType { get; set; }
+        [DataMember]
+        public string SocialLink { get; set; }
+        [DataMember]
+        public int MessageTo { get; set; }
+        [DataMember]
+        public int MessageFrom { get; set; }
+        [DataMember]
+        public int Rank { get; set; }
+        [DataMember]
+        public string CreatedOn { get; set; }
+        [DataMember]
+        public string ErrorMessage { get; set; } = "";
     }
 
     public class PromotionsBO
@@ -118,8 +140,21 @@ namespace Sellff_API.Models
         public int CreatedBy { get; set; }
         [DataMember]
         public string CreatedIP { get; set; }
+        [DataMember]
+        public string MonthYear { get; set; }
     }
 
+    public class PostGroups
+    {        
+        public PostGroups()
+        {
+            objPostsList = new List<PostsBO>();
+        }
+        [DataMember]
+        public List<PostsBO> objPostsList;
+        [DataMember]
+        public string MonthYear { get; set; }
+    }
     public class UserAboutBO
     {
         [DataMember]
@@ -140,5 +175,105 @@ namespace Sellff_API.Models
         public string CreatedIP { get; set; }
         [DataMember]
         public int Section { get; set; }
+        [DataMember]
+        public int Views { get; set; }
+        [DataMember]
+        public string ProfilePicPath { get; set; }
+        [DataMember]
+        public int Posts { get; set; }
     }
+
+    public class UserPostBO
+    {
+        [DataMember]
+        public int ContentType { get; set; }
+        [DataMember]
+        public int UserId { get; set; }
+        [DataMember]
+        public string Title { get; set; }
+        [DataMember]
+        public string UserContent { get; set; }
+        [DataMember]
+        public string ImagePath { get; set; }
+        public string CreatedOn { get; set; }
+        [DataMember]
+        public int CreatedBy { get; set; }
+        [DataMember]
+        public string CreatedIP { get; set; }
+    }
+
+    public class UserReviewBO
+    {
+        [DataMember]
+        public int ReviewId { get; set; }
+        [DataMember]
+        public int UserId { get; set; }
+        [DataMember]
+        public string ReviewTitle { get; set; }
+        [DataMember]
+        public string ReviewContent { get; set; }
+        [DataMember]
+        public string CreatedOn { get; set; }
+        [DataMember]
+        public int CreatedBy { get; set; }
+        [DataMember]
+        public string CreatedIP { get; set; }
+        [DataMember]
+        public int Rating { get; set; }
+        [DataMember]
+        public int RatingGivenTo { get; set; }
+        [DataMember]
+        public int helpful { get; set; }
+        [DataMember]
+        public int IdForDataRequest { get; set; } = 0;
+        [DataMember]
+        public string ProfilePicPath { get; set; }
+        [DataMember]
+        public string DisplayName { get; set; }
+        [DataMember]
+        public int Performance { get; set; }
+        [DataMember]
+        public int Communication { get; set; }
+        [DataMember]
+        public int QOW { get; set; }
+        [DataMember]
+        public int Starts5 { get; set; } = 0;
+        [DataMember]
+        public int Starts4 { get; set; } = 0;
+        [DataMember]
+        public int Starts3 { get; set; } = 0;
+        [DataMember]
+        public int Starts2 { get; set; } = 0;
+        [DataMember]
+        public int Starts1 { get; set; } = 0;
+        [DataMember]
+        public bool ReviewAlreadyGiven { get; set; }
+    }
+
+    public class UserLocalStorageBO
+    {
+        [DataMember]
+        public int UserId { get; set; }
+        [DataMember]
+        public string email { get; set; }
+        [DataMember]
+        public string password { get; set; }
+        [DataMember]
+        public string DisplayName { get; set; }
+        [DataMember]
+        public string token { get; set; }
+        [DataMember]
+        public int UserRefProfileId { get; set; }
+        [DataMember]
+        public int userRefId { get; set; }
+        [DataMember]
+        public bool ViewingSearchProfile { get; set; }
+        [DataMember]
+        public int SocialLinkType { get; set; }
+        [DataMember]
+        public string SocialLink { get; set; }
+        [DataMember]
+        public string Occupation { get; set; }
+    }
+
 }

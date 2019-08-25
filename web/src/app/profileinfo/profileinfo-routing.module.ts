@@ -17,7 +17,7 @@ import { UploadComponent } from './upload/upload.component';
 
 export const routes: Routes = [
   { path: 'about', component: AboutComponent },
-  { path: 'searchsummary', component: SearchsummaryComponent },
+  { path: 'searchsummary/:shashval', component: SearchsummaryComponent },
   { path: 'userprofile', component: UserprofileComponent },
   { path: 'post', component: PostComponent },
   { path: 'message', component: MessageComponent },

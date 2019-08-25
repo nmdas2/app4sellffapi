@@ -17,17 +17,37 @@ import { MytestingComponent } from './mytesting/mytesting.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { UploadComponent } from './upload/upload.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RatingModule, ProgressbarModule, PopoverModule } from 'ngx-bootstrap';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 
 @NgModule({
-  declarations: [AboutComponent, SearchsummaryComponent, UserprofileComponent, PostComponent, MessageComponent, PromoteComponent, ReviewComponent, InvestComponent, ConsultComponent, BumpComponent, ReferComponent, MytestingComponent, UploadComponent],
+  declarations: [
+    AboutComponent, 
+    SearchsummaryComponent, 
+    UserprofileComponent, 
+    PostComponent, 
+    MessageComponent, 
+    PromoteComponent, 
+    ReviewComponent, 
+    InvestComponent, 
+    ConsultComponent, 
+    BumpComponent, 
+    ReferComponent, 
+    MytestingComponent, 
+    UploadComponent
+  ],
   imports: [
     CommonModule,
     ProfileinfoRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    RatingModule.forRoot(),
+    ProgressbarModule.forRoot(),
+    PopoverModule.forRoot(),
+    AlertModule.forRoot()
   ]
 })
 export class ProfileinfoModule { }

@@ -14,7 +14,7 @@ namespace Sellff_API.ADO
         {
 
         }
-        public AuthenticationBO AuthenticateSellffUserInfo(AuthenticationBO objAuthenticationBO)
+        public ProfileInfoBO AuthenticateSellffUserInfo(ProfileInfoBO objAuthenticationBO)
         {
             SqlParameter[] objSqlParam = new SqlParameter[2];
             try
@@ -29,6 +29,28 @@ namespace Sellff_API.ADO
                     objAuthenticationBO.UserId = Convert.ToInt32(objDataRow["UserId"]);
                     objAuthenticationBO.Email = Convert.ToString(objDataRow["Email"]);
                     objAuthenticationBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
+                    objAuthenticationBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                    objAuthenticationBO.UserRefProfileId = 0;
+                    objAuthenticationBO.City = Convert.ToString(objDataRow["City"]);
+                    objAuthenticationBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
+                    objAuthenticationBO.Views = Convert.ToInt32(objDataRow["Views"]);
+                    objAuthenticationBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
+                    objAuthenticationBO.Rank = Convert.ToInt32(objDataRow["Rank"]);
+                    objAuthenticationBO.ProfileSummary = Convert.ToString(objDataRow["ProfileSummary"]);
+                    objAuthenticationBO.FacebookLink = Convert.ToString(objDataRow["FacebookLink"]);
+                    objAuthenticationBO.LinkedInLink = Convert.ToString(objDataRow["LinkedInLink"]);
+                    objAuthenticationBO.InstagramLink = Convert.ToString(objDataRow["InstagramLink"]);
+                    objAuthenticationBO.TwitterLink = Convert.ToString(objDataRow["TwitterLink"]);
+                    objAuthenticationBO.YouTubeLink = Convert.ToString(objDataRow["YouTubeLink"]);
+                    objAuthenticationBO.WebsiteLink = Convert.ToString(objDataRow["WebsiteLink"]);
+                    objAuthenticationBO.GooglePlusLink = Convert.ToString(objDataRow["GooglePlusLink"]);
+                    //objAuthenticationBO.SocialEmail = Convert.ToString(objDataRow["SocialEmail"]);
+                    objAuthenticationBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
+                    objAuthenticationBO.ErrorMessage = "";
+                }
+                else
+                {
+                    objAuthenticationBO.ErrorMessage = "Invalid user name / password";
                 }
             }
             catch (Exception ex)

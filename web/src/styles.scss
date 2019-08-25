@@ -1,1 +1,646 @@
 /* You can add global styles to this file, and also import other style files */
+
+// Home Screen CSS Starting Here
+html,
+body {
+    width: 100%;
+    height: 100% !important;
+    font-family: 'Lato', sans-serif !important;
+}
+p {
+    font-size: 13px;
+    font-weight: normal;
+    margin: 0;
+    color: #585858;
+    letter-spacing: 0.03em;
+    line-height: 24px;
+    margin-bottom: 20px;
+}
+.maring-bottom-30{
+    margin-bottom:30px;
+}
+.modal-title {
+    color: #333333;
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 0.3px;
+    line-height: 22px;
+    margin: 0;
+}
+//Header CSS
+.login-links{
+    float: right;
+    display: flex;
+    padding: 12px 0px;
+    margin: 0px;
+        margin-right: 15px;
+    list-style-type: none;
+}
+.login-links li{
+text-align: left;
+}
+.login-links li:after{
+    content: "|";
+    padding: 0px 20px;
+    color: #62aad4;
+}
+.login-links li:last-child:after{
+    display:none;
+}
+.login-links li a{
+    color: rgba(255, 255, 255, 0.8);
+}
+.login-links li a{
+    color: #FFF;
+}
+.login-links li a i{
+    border: 1px solid #FFF;
+    border-radius: 100%;
+    padding: 3px 6px;
+    font-size: 16px;
+}
+.login-links li a i.fa-user-plus{
+    padding: 3px 3px;
+}
+.login-links li a:hover i{
+    border: 1px solid #3c8dbc;
+    background-color: #FFF;
+    color: #3c8dbc;
+}
+.navbar-custom-menu .navbar-nav>.user-menu .user-image {
+    float: left;
+    width: 35px;
+    height: 35px;
+    border-radius: 4px;
+    margin-right: 10px;
+    margin-top: 0;
+}
+.navbar-custom-menu .dropdown-menu{
+    position: relative;
+}
+.navbar-custom-menu .dropdown-menu:before {
+    background: none repeat scroll 0 0 #fff;
+    border-left: 1px solid #e0e0e0;
+    border-top: 1px solid #e0e0e0;
+    content: "";
+    height: 12px;
+    right: 36px;
+    position: absolute;
+    top: -7px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 12px;
+}
+.navbar-custom-menu .navbar-nav>li>a{ 
+    padding: 0;
+    margin: 0;
+    color: #FFF;
+    background-color: transparent;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+}
+.navbar-custom-menu .navbar-nav > li > a:hover,
+.navbar-custom-menu .navbar-nav > li > a:focus,
+.navbar-custom-menu .navbar-nav > li > a:active,
+.navbar-custom-menu .navbar-nav > li > a:visited{
+    background-color: transparent;  
+}
+.navbar-custom-menu{
+    padding-top: 7px;
+    margin-right: 20px;
+}
+.navbar-custom-menu .navbar-nav>.user-menu span{
+    padding-top: 0;
+    display: inline-block;
+}
+.navbar-custom-menu .navbar-nav > .user-menu span span {
+    display: block;
+    width: 100%;
+    font-size: 12px;
+    text-transform: capitalize;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    margin: 0px;
+    padding: 0px;
+}
+.navbar-custom-menu .navbar-nav li li:after {
+    display:none;
+}
+.navbar-custom-menu .navbar-nav li:after {
+    content: "\f0d7";
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    color: #FFF;
+}
+
+
+.home-body {
+    background-repeat: no-repeat;
+    background-size: 100%;
+    overflow: visible;
+    display: inline-block;
+    background-position: center top;
+}
+
+.home-screen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #FFF;
+    padding: 0;
+    width: 60%;
+}
+
+.home-screen h1 {
+    margin-top: 0px;
+    font-size: 35px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+}
+
+.home-screen p {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+    letter-spacing: 0.03em;
+}
+.companyCaption{
+    padding: 40px 50px 70px;
+}
+.companydetails{
+    padding: 30px 50px 50px;
+    background-color: #3c8dbc;
+}
+.companydetails * {
+    color: #FFF;
+}
+.buy h2 {
+    font-size: 23px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-shadow: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25882352941176473);
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.buy p {
+    text-align: left;
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-left: 27px;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    line-height: 25px;
+}
+
+.buy p i {
+    font-size: 17px;
+    margin-left: -34px;
+    margin-right: 0;
+    vertical-align: middle;
+    text-align: center;
+    width: 30px;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.buy img {
+    width: 100%;
+    margin-top: 60px;
+    opacity: 0.8;
+}
+
+.home-search {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.home-search input {
+    padding: 10px;
+    height: 45px;
+}
+
+.home-search .input-group-btn button {
+    height: 45px;
+}
+
+// Home Screen CSS Ending Here
+// Login and Regester Screen CSS Starting Here
+.login-screen {
+    max-width: 450px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 6px;
+    -webkit-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1);
+}
+
+.login-screen .auth-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    padding-left: 25px;
+    text-transform: uppercase;
+}
+
+.login-screen .auth-header:after {
+    content: "";
+    background-color: #3c8dbc;
+    width: 32px;
+    height: 5px;
+    border-radius: 2px;
+    display: block;
+    position: absolute;
+    bottom: -3px;
+    left: 25px;
+}
+
+.login-screen form {
+    padding: 20px 80px;
+    padding-bottom: 60px;
+}
+
+.login-screen form .form-group {
+    position: relative;
+}
+
+.login-screen label {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    margin-bottom: 8px;
+    color: #868686;
+    text-transform: uppercase;
+}
+
+.login-screen input {
+    height: 45px;
+    padding: 0px 10px;
+    font-size: 16px;
+    color: #000;
+    letter-spacing: 1px;
+}
+
+.login-screen form .form-group .pre-icon {
+    position: absolute;
+    bottom: 5px;
+    font-size: 24px;
+    color: #3c8dbc;
+    left: -38px;
+}
+
+.login-screen .buttons-w {
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.login-screen .btn, .login-screen .btn-link {
+    color: #fff;
+    background-color: #3c8dbc;
+    border-color: #3c8dbc;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid #3c8dbc;
+    padding: 8px 30px;
+    font-size: 16px;
+    padding-bottom: 7px;
+    line-height: normal;
+    border-radius: 4px;
+    -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+}
+
+.login-screen .btn:hover, .login-screen .btn-link:hover  {
+    background-color: #185578;
+    border-color: #185578;
+    cursor: pointer;
+    text-decoration: none;
+}
+.login-screen .btn-link, .login-screen .btn-link:hover{
+        float: right;
+    background-color: transparent;
+    border: none;
+    padding: 8px 0px;
+    color: #7d7d7d;
+    font-weight: 100;
+}
+.login-screen .btn-link{
+    text-decoration: underline;
+}
+.login-screen .btn-danger {
+    background-color: red;
+    border-color: red;
+    cursor: pointer;
+    color: #FFF;
+    border: 2px solid transparent;
+    padding: 7px 20px;
+    padding-top: 3px;
+    text-decoration: none;
+    line-height: normal;
+    border-radius: 4px;
+}
+
+.login-screen .btn-danger:hover {
+    background-color: #d70000;
+    border-color: #d70000;
+    padding-top: 3px;
+}
+
+
+// Login and Regester Screen CSS Ending Here
+// Dashboard CSS Starting Here
+.wrapper {
+    margin-top: 0;
+}
+
+.content-wrapper {
+    padding-top: 20px;
+}
+
+.skin-blue .sidebar-menu>li:hover>a,
+.skin-blue .sidebar-menu>li.active>a,
+.skin-blue .sidebar-menu>li.menu-open>a {
+    color: #fff;
+    background: #000000;
+}
+
+.content-wrapper .text-center.pull-right {
+    margin-bottom: 10px;
+}
+
+.box {
+    display: inline-block;
+}
+
+.edit-btn button {
+    background-color: #367fa9;
+    border: none;
+    padding: 6px 10px;
+    color: #FFF;
+}
+
+.edit-btn button:hover,
+.upload-btn button:hover {
+    background-color: #185578;
+}
+
+.upload-btn button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    color: #FFF;
+    letter-spacing: 0.03em;
+    vertical-align: middle;
+    background-color: #367fa9;
+}
+.upload-btn button span{
+    font-family: 'Lato', sans-serif;
+}
+
+.upload-btn button:before {
+    position: relative;
+    top: 0px;
+    display: inline-block;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding-right: 10px;
+    vertical-align: text-bottom;
+}
+
+.upload-file input[type=file] {
+    display: flex;
+    color: #000;
+    border: 1px solid #ccc;
+    padding: 10px 25px;
+    width: auto;
+    background-color: #eee;
+    margin-bottom: 20px;
+    border-radius: 0px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.upload-img {
+    display: flex;
+}
+
+.upload-img .btn.btn-primary, .upload-img .btn.btn-danger {
+    height: 40px;
+    border-radius: 0px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.edit-box textarea {
+    padding: 15px;
+    border: 1px solid #ececec;
+    box-shadow: 0px 6px 7px #f7f7f7;
+    font-size: 14px;
+    font-weight: normal;
+    color: #585858;
+    letter-spacing: 0.03em;
+    line-height: 24px;
+    margin-bottom: 20px;
+    height:100px
+}
+.text-edit-footer {
+    margin-bottom: 20px;
+    text-align: right;
+}
+.box h4 {
+    color: #222222;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    margin: 0;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 5px;
+}
+.box h4:after{
+    content: "";
+    background-color: #222222;
+    height: 2px;
+    width: 30px;
+    position: absolute;
+    left: 0;
+    top: 100%;
+}
+
+.message-box textarea {
+    width: 100%;
+    border: 1px solid #cecece;
+    margin-bottom: 15px;
+    height: 150px;
+}
+
+// Dashboard CSS Ending Here
+//Buttons CSS
+.post-btns{
+    text-align: right;
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.post-btns ul{
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    text-align: right;
+    width: 100%;
+    display: inline-block;
+}
+.post-btns ul li{
+    display: inline-block;
+}
+.post-btns ul li a{
+
+}
+.post-btns ul li:after{
+    content: "|";
+    padding:0px 15px;
+}
+.post-btns Ul li:last-child:after{
+    display:none;
+}
+// Responsive CSS Starting Here
+@media only screen and (max-width: 1366px) {
+    .home-screen {
+        width: 65%;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .home-screen {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .home-screen {
+        width: 100%;
+        transform: scale(0.8);
+        position: relative;
+        left: 0px;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .home-body .container {
+        width: 100% !important;
+    }
+    .mobile-hide {
+        display: none;
+    }
+    .home-ssearch {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 800px) {}
+
+@media only screen and (max-width: 768px) {
+    .home-screen {
+        -webkit-transform: scale(0.8);
+        transform: scale(0.8);
+        padding: 25px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .home-screen {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .home-screen h1 {
+        font-size: 24px;
+    }
+    .home-screen p {
+        font-size: 16px;
+    }
+    .buy h2 {
+        font-size: 18px;
+    }
+    .companyCaption, .companydetails {
+        padding: 25px 15px;
+    }
+    .home-search {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .home-search  .btn-primary {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+    .home-screen {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        padding: 0px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .home-screen h1 {
+        font-size: 18px;
+    }
+    .home-screen p {
+        font-size: 14px;
+    }
+    .login-screen form .form-group .pre-icon {
+        display: none;
+    }
+    .login-screen form {
+        padding: 15px;
+        padding-bottom: 15px;
+    }
+}
+
+.invalid-feedback {
+    color: red;
+}
+
+@media only screen and (max-width: 375px) {}
+
+@media only screen and (max-width: 340px) {}
+
+@media only screen and (max-width: 320px) {}

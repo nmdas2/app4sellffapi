@@ -15,7 +15,7 @@ namespace Sellff_API.Services
         {
             objSellffDefaultDAO = new SellffDefaultDAO();
         }
-        public AuthenticationBO AuthenticateSellffUser(AuthenticationBO objAuthenticationBO)
+        public ProfileInfoBO AuthenticateSellffUser(ProfileInfoBO objAuthenticationBO)
         {
             return objSellffDefaultDAO.AuthenticateSellffUserInfo(objAuthenticationBO);
         }

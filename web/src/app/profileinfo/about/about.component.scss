@@ -4,10 +4,20 @@ input#txtAboutUser {
     text-align: left;
     margin-right: 10px;
 }
+
 .col-xs-12.my-img {
     width: 14%;
 }
+
 img.rounded {
     width: 100%;
     /* height: 101%; */
+}
+
+.ml-3 {
+    margin-left: 10px;
+}
+
+.upload-img .btn.btn-danger {
+    border-radius: 4px;
 }

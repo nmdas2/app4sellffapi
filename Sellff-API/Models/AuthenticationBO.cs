@@ -31,5 +31,15 @@ namespace Sellff_API.Models
         public string DisplayName { get; set; }
         [DataMember]
         public string ErrorMessage { get; set; }
+        [DataMember]
+        public string ProfilePicPath { get; set; }
+        [DataMember]
+        public int UserRefProfileId { get; set; }
+        [DataMember]
+        public string Occupation { get; set; }
+        [DataMember]
+        public int UniqueId { get; set; }
+        [DataMember]
+        public int Rank { get; set; }
     }
 }

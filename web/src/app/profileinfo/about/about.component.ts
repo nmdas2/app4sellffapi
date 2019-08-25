@@ -1,56 +1,71 @@
-import { Component, OnInit } from '@angular/core';
-import { userAboutInfo } from 'src/app/_models/profileinfo';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { userAboutInfo, ProfileInfo } from 'src/app/_models/profileinfo';
 import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
-import { User } from 'src/app/_models/user';
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import { UploadType, ProfileSection } from 'src/app/constants';
+import { UploadType, ProfileSection, UserSocialLinksInfo } from 'src/app/constants';
 import { constants as consts } from '../../constants';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { CommonService } from 'src/app/_services/common.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })
-export class AboutComponent implements OnInit {
-  userAboutInfoList: userAboutInfo[];
-  textValue: string = '';
-  isAboutInEditMode: boolean = false;
-  AllowImageUpload: boolean = false;
-  loggedInUserInfo: User;
-  altrPath: string;
-  fileData: File = null;
-  previewUrl: any = null;
-  fileUploadProgress: string = null;
-  uploadedFilePath: string = null;
-  dynamicImg: string = "";
-  modalRef: BsModalRef;
-  imgGallery = [];
+export class AboutComponent implements OnInit, OnDestroy {
+  userAboutInfoList: userAboutInfo[]; textValue: string = ''; isAboutInEditMode: boolean = false;
+  AllowImageUpload: boolean = false; loggedInUserInfo: ProfileInfo; altrPath: string; fileData: File = null;
+  previewUrl: any = null; fileUploadProgress: string = null; uploadedFilePath: string = null;
+  dynamicImg: string = ""; modalRef: BsModalRef; imgGallery = []; userProfileInfo: ProfileInfo;
+  dataDisplayProfile: ProfileInfo; readonlyUserInfo: ProfileInfo;
+  profileSubscription: Subscription;
+  isEditbale: boolean = false;
+  html: string = `<span class="btn btn-danger">Never trust not sanitized HTML!!!</span>`;
 
   constructor(
     private profileInfoService: ProfileinfoService,
     private http: HttpClient,
-    private modalService: BsModalService
-  ) {
+    private modalService: BsModalService,
+    private commonService: CommonService
+  ) {  }
+  ngOnInit() {
+    this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
+      this.isEditbale = true;
+      if (localStorage.getItem('profileviewUser') && status) {
+        this.isEditbale = false;
+      }
+    })
     this.userAboutInfoList = [];
-    this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
+    if (localStorage.getItem('currentUser') != null) {
+      this.dataDisplayProfile =  this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));  
+    }
+    if (localStorage.getItem('profileviewUser') != null) {
+      this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
+      this.isAboutInEditMode = false;
+      this.updateProfileViewsCount();
+    }
+    this.textValue = this.dataDisplayProfile.ProfileSummary;
     this.getUserAboutText();
   }
-
-  ngOnInit() {
+  updateProfileViewsCount()
+  {
+    this.profileInfoService.UpdateUserViewsCount(this.dataDisplayProfile)
+      .subscribe(res => {
+      }, error => {
+        console.log(error);
+      })
   }
-
-  logText(value: string): void {
+  logText(): void {
     this.isAboutInEditMode = true;
   }
-
-  saveupdatedabout(value: string): void {
+  saveupdatedabout(): void {
+    console.log(this.dataDisplayProfile.UserId);
     this.isAboutInEditMode = false;
-
     if (this.textValue) {
       let userAboutInfoBO = <userAboutInfo>{};
       userAboutInfoBO.About = this.textValue;
-      userAboutInfoBO.UserId = this.loggedInUserInfo.UserId;
+      userAboutInfoBO.UserId = this.dataDisplayProfile.UserId;
       this.profileInfoService.postUserAboutText(userAboutInfoBO)
         .subscribe(res => {
           this.getUserAboutText();
@@ -60,9 +75,9 @@ export class AboutComponent implements OnInit {
     }
   }
 
-  getUserAboutText(): void {
+  getUserAboutText() {
     this.userAboutInfoList = [];
-    this.profileInfoService.getUsersAboutNGalleryInfo(this.loggedInUserInfo.UserRefProfileId, ProfileSection.About)
+    this.profileInfoService.getUsersAboutNGalleryInfo(this.dataDisplayProfile.UserId)
       .subscribe(res => {
         if (res && res.length)
           this.userAboutInfoList = res;
@@ -80,12 +95,14 @@ export class AboutComponent implements OnInit {
           };
           this.imgGallery.push(image);
         }
-        if(typeof this.userAboutInfoList[0].About !='undefined' && this.userAboutInfoList[0].About){
-          this.textValue = this.userAboutInfoList[0].About;
-       }
       }, error => {
         console.log(error);
       })
+  }
+
+  transferDatafromUsertoProfile(uInfo, pInfo) {
+    pInfo.UserId = uInfo.UserId;
+    pInfo.UserRefProfileId = uInfo.UserRefProfileId;
   }
 
   fileProgress(fileInput: any) {
@@ -110,7 +127,6 @@ export class AboutComponent implements OnInit {
   onSubmit() {
     const formData = new FormData();
     formData.append('files', this.fileData);
-    console.log(this.fileData.name)
     this.fileUploadProgress = '0%';
     this.http.post('http://localhost:50517/api/ProfileInfo/SaveImagesForGallery', formData, {
       reportProgress: true,
@@ -119,10 +135,8 @@ export class AboutComponent implements OnInit {
       .subscribe(events => {
         if (events.type === HttpEventType.UploadProgress) {
           this.fileUploadProgress = Math.round(events.loaded / events.total * 100) + '%';
-          console.log(this.fileUploadProgress);
         } else if (events.type === HttpEventType.Response) {
           this.fileUploadProgress = '';
-          console.log(events.body);
           //alert('SUCCESS !!');
         }
       })
@@ -158,20 +172,130 @@ export class AboutComponent implements OnInit {
     //window.location.href = response.altUrl;
   }
 
-  ShowGalUpPop(value: string): void {
+  ShowGalUpPop(): void {
     this.AllowImageUpload = true;
   }
 
   //social link section
   postLayoutType: string = "";
-  socialLink:string="";
+  socialLink: string = "";
   showSocialLayout(type: string) {
-    this.socialLink="";
+    // if (!this.isEditbale) {
+    //   this.showSocialLayoutForOthers(type);
+    //   return;
+    // }
+    this.socialLink = "";
     this.postLayoutType = type;
+    switch (type) {
+      case "g":
+        this.socialLink = this.dataDisplayProfile.WebsiteLink;
+        break;
+      case "tw":
+        this.socialLink = this.dataDisplayProfile.TwitterLink;
+        break;
+      case "em":
+        this.socialLink = this.dataDisplayProfile.SocialEmail;
+        break;
+      case "fb":
+        this.socialLink = this.dataDisplayProfile.FacebookLink;
+        break;
+      case "gp":
+        this.socialLink = this.dataDisplayProfile.LinkedInLink;
+        break;
+      case "sem":
+        this.socialLink = this.dataDisplayProfile.YouTubeLink;
+        break;
+      case "ig":
+        this.socialLink = this.dataDisplayProfile.InstagramLink;
+        break;
+      default:
+        break;
+    }
+  }
+
+  // showSocialLayoutForOthers(type: string) { //readonlyinfo object
+  //   this.socialLink = "";
+  //   this.postLayoutType = type;
+  //   switch (type) {
+  //     case "g":
+  //       this.socialLink = this.userProfileInfo.LinkedInLink;
+  //       break;
+  //     case "tw":
+  //       this.socialLink = this.userProfileInfo.TwitterLink;
+  //       break;
+  //     case "em":
+  //       this.socialLink = this.userProfileInfo.email;
+  //       break;
+  //     case "fb":
+  //       this.socialLink = this.userProfileInfo.FacebookLink;
+  //       break;
+  //     case "gp":
+  //       this.socialLink = this.userProfileInfo.TwitterLink;
+  //       break;
+  //     case "sem":
+  //       this.socialLink = this.userProfileInfo.TwitterLink;
+  //       break;
+  //     case "ig":
+  //       this.socialLink = this.userProfileInfo.InstagramLink;
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
+
+  mapSocialLinkLegends(type: string): number {
+    let postLayoutType = 0;
+    switch (type) {
+      case "g":
+        postLayoutType = 1;
+        break;
+      case "tw":
+        postLayoutType = 2;
+        break;
+      case "em":
+        postLayoutType = 3;
+        break;
+      case "fb":
+        postLayoutType = 4;
+        break;
+      case "gp":
+        postLayoutType = 5;
+        break;
+      case "sem":
+        postLayoutType = 6;
+        break;
+      case "ig":
+        postLayoutType = 7;
+        break;
+      default:
+        break;
+    }
+
+    return postLayoutType;
   }
   SubmitSocialLink() {
-    console.log(this.socialLink);
-    this.postLayoutType="";
+    //this.userProfileInfo = <ProfileInfo>{};    
+    this.userProfileInfo.UserId = this.loggedInUserInfo.UserId;
+    this.userProfileInfo.socialLink = this.socialLink;
+    this.userProfileInfo.socialLinkType = this.mapSocialLinkLegends(this.postLayoutType);
+    this.profileInfoService.UpdateUserSocialLinkInfo(this.userProfileInfo)
+      .subscribe(res => {
+      }, error => {
+        console.log(error);
+      })
+    //this.postLayoutType = 1;
   }
   //end social link section
+
+  onCancel(){
+    this.isAboutInEditMode = false;
+  }
+  onCancelSocial(){
+    this.postLayoutType = '';
+  }
+
+  ngOnDestroy() {
+    if (this.profileSubscription)
+      this.profileSubscription.unsubscribe();
+  }
 }

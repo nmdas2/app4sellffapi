@@ -1,60 +1,89 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { Router } from '@angular/router';
-import { User } from 'src/app/_models/user';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
+import { CommonService } from 'src/app/_services/common.service';
+import { Subscription } from 'rxjs';
+import { ProfileInfo } from 'src/app/_models/profileinfo';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   returnUrl: string = "/home";
-  loggedInUserInfo: User;
-  loggedInUserId: number;
-  loggedInUserName: string;
+  loggedInUserInfo: ProfileInfo;
   hasActiveSession: boolean = false;
-  searchForm: FormGroup;
-  
+  searchForm: FormGroup; readonlyUserInfo: ProfileInfo;
+  profileSubscription: Subscription;
+  isSummarySub: Subscription
+  submitted = false;
+  showheadsection: boolean = false;
+  dataDisplayProfile: ProfileInfo;
+  isSummaryPage: boolean = false;
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
-    private profileService: ProfileinfoService
-    ) { 
-      if(localStorage.getItem('currentUser') != null){
-        this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
-        this.loggedInUserId = this.loggedInUserInfo.UserId;
-        this.loggedInUserName = this.loggedInUserInfo.displayName;
-        this.hasActiveSession = true;
-      }
-      else{
-        this.router.navigate([this.returnUrl]);
-        this.hasActiveSession = false;
-      }
-    }
+    private commonService: CommonService
+  ) {
+
+  }
 
   ngOnInit() {
+    this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
+      this.isSummaryPage = status;
+    })
+    this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
+      this.hasActiveSession = false;
+      this.showheadsection = false;
+      this.loggedInUserInfo = <ProfileInfo>{};
+      
+      if (localStorage.getItem('currentUser')) {
+        this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
+        this.showheadsection = true;
+        this.hasActiveSession = true;
+      }
+      if (!status) {
+        if (localStorage.getItem('currentUser')) {
+          // this.loggedInUserId = this.loggedInUserInfo.UserId;
+          // this.loggedInUserName = this.loggedInUserInfo.DisplayName;
+          // this.loggedInUserRank = this.loggedInUserInfo.Rank;
+          // this.LoggedInUserProfilePic = this.loggedInUserInfo.ProfilePicPath;
+          this.hasActiveSession = true;
+        }
+      }
+      else {
+        if (localStorage.getItem('profileviewUser')) {
+          this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
+          this.showheadsection = true;
+        }
+      }
+
+    })
     this.searchForm = this.formBuilder.group({
-      searchprofiles: ['', [Validators.required,Validators.maxLength(25),Validators.pattern('^[a-zA-Z \-\']+')]]
-  });
+      searchprofiles: ['', [Validators.required, Validators.maxLength(25), Validators.pattern('^[a-zA-Z \-\']+')]]
+    });
   }
 
   get f() { return this.searchForm.controls; }
 
-  signoutplz(){
+  signoutplz() {
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('profileviewUser');
     this.authenticationService.logout();
+    this.hasActiveSession = false;
     this.router.navigate([this.returnUrl]);
   }
 
   onSubmit() {
     if (this.searchForm.invalid) {
       return;
-    }    
-    console.log(this.searchForm.value["searchprofiles"]);
-    this.router.navigate(['/profileinfo/searchsummary/',{shashval: this.searchForm.value["searchprofiles"]}]);
+    }
+    var sparam = this.searchForm.value["searchprofiles"];
+    this.router.navigate(['/profileinfo/searchsummary/' + sparam]);
     // this.profileService.getUsersBySearchTerm(this.searchForm.value)
     // .subscribe(
     //     data => {
@@ -65,6 +94,31 @@ export class HeaderComponent implements OnInit {
     //         // this.alertService.error(error);
     //         // this.loading = false;
     //     });
+  }
+
+  taketoActualProfile() {
+    localStorage.removeItem('profileviewUser');
+    this.loggedInUserInfo.userRefId = 0;
+    this.commonService.isProfileSelected.next(false);
+    this.router.navigate(['/home']);
+  }
+  ngOnDestroy() {
+    if (this.profileSubscription)
+      this.profileSubscription.unsubscribe();
+    if(this.isSummarySub)
+      this.isSummarySub.unsubscribe();
+  }
+
+  gotoregister() {
+    this.router.navigate(['/register']);
+  }
+
+  gotologin() {
+    this.router.navigate(['/login']);
+  }
+
+  homePageRedirection(){
+    this.router.navigate(['/']);
   }
 
 }

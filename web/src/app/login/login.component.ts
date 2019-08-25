@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../_services/authentication.service';
 import { AlertService } from '../_services/alert.service';
+import { User } from '../_models/user';
+import { CommonService } from '../_services/common.service';
 
 
 @Component({ templateUrl: 'login.component.html' })
@@ -18,13 +20,9 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private commonService: CommonService
     ) {
-        // redirect to home if already logged in
-        // if (this.authenticationService.currentUserValue) {
-        //     //console.log(this.authenticationService.currentUserValue);
-        //     this.router.navigate(['/profileinfo/about']);
-        // }
     }
 
     ngOnInit() {
@@ -32,9 +30,10 @@ export class LoginComponent implements OnInit {
             username: ['', Validators.required],
             password: ['', Validators.required]
         });
-
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/profileinfo/about';
+        localStorage.removeItem('profileviewUser');
+        this.commonService.isProfileSelected.next(false);
     }
 
     // convenience getter for easy access to form fields
@@ -57,11 +56,11 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.loginForm.value)
             .pipe(first())
             .subscribe(
-                data => {
-                    console.log(data);
-                    this.router.navigate([this.returnUrl]);
+                (data: User) => {
+                    this.router.navigate(['/home']);
                 },
                 error => {
+                    console.log(error);
                     this.alertService.error(error);
                     this.loading = false;
                 });

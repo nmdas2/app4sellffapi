@@ -4,7 +4,10 @@ import { User } from 'src/app/_models/user';
 import { PostByGroup, Post } from 'src/app/_models/post';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { ReadOnlyInfo } from 'src/app/_models/readonlyinfo';
+import { HttpClient, HttpEventType } from '@angular/common/http';
+import { constants as consts } from '../../constants';
+import { ProfileInfo } from 'src/app/_models/profileinfo';
 
 @Component({
   selector: 'app-post',
@@ -16,60 +19,46 @@ export class PostComponent implements OnInit {
   monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
-
-  userPosts: any;
-  PostsByGroups:PostByGroup[]=[];
-  loggedInUserInfo: User;
+  userPosts: any;  
+  PostsByGroups:PostByGroup[]=[];  
+  loggedInUserInfo: ProfileInfo; 
+  isAboutInEditMode: boolean = false;
+  readonlyUserInfo: ProfileInfo; 
+  fileData: File = null;  
+  dataDisplayProfile: ProfileInfo; 
   constructor(
     private profileInfoService: ProfileinfoService,
     private modalService: BsModalService,
     private fb: FormBuilder,
-  ) { 
-    this.userPosts = [];
-    this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
-  }
+    private http: HttpClient,
+  ) { }
 
   ngOnInit() {
+    this.userPosts = [];
+    if(localStorage.getItem('currentUser') != null){
+      this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
+      this.isAboutInEditMode = true;
+    }
+    if(localStorage.getItem('profileviewUser') != null){
+      this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
+        this.isAboutInEditMode = false;
+    }
     this.createPostTextForm();
     this.createPostGallryForm();
-    this.getUserPosts();
-    
+    this.getUserPosts();    
   }
 
   //get user posts
   getUserPosts(){
     this.userPosts = [];
-    this.profileInfoService.getUserPosts(this.loggedInUserInfo.UserId)
-    .subscribe((posts: Post[]) => {
-      this.PostsByGroups=[];
-      for(let post of posts){
-        let key=this.getPostGroupKey(post);
-        let isExist= this.PostsByGroups.filter(pg=>pg.key==key)[0];
-        if(isExist){
-          isExist.value.push(post);
-        }
-        if(!isExist){
-          let newPostGroup:PostByGroup={
-             key:key,
-             value:[]
-          };
-          newPostGroup.value.push(post);
-          this.PostsByGroups.push(newPostGroup);
-        }
-
-      }       
+    this.profileInfoService.getUserPostsByGroups(this.dataDisplayProfile.UserId)
+    .subscribe((posts: any) => {
+      this.PostsByGroups = posts; 
     }, error => {
       console.log(error);
     })
   }
 
-  getPostGroupKey(post:Post):string{
-    var dateSplit=post.CreatedOn.split('/');
-    const d = new Date(+dateSplit[2],+dateSplit[0]-1,+dateSplit[1]);
-    let month= this.monthNames[d.getMonth()];
-    let key= month+" "+ dateSplit[2];
-    return key;
-  }
   selectedModelImgPath="";
   setModelImage(imgPath:string){
     this.selectedModelImgPath=imgPath;
@@ -116,9 +105,6 @@ export class PostComponent implements OnInit {
       console.log(error);
     })
   }
-  //end create text post
-
-  //start gallery post upload
   modalRefForGallery: BsModalRef;
   popupPostGalleryModel(template) {
     this.modalRefForGallery = this.modalService.show(template,
@@ -136,24 +122,35 @@ export class PostComponent implements OnInit {
       webUrl: ['', []]
     });
   }
-
   attachToFormControl(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
+      this.fileData = <File>event.target.files[0];
       this.postGalleryForm.get('image').setValue(file);
     }
   }
-
   saveGalleryPost(postData){
-    const formData = new FormData();
+    const formData = new FormData();    
     formData.append('file', this.postGalleryForm.get('image').value);
-
-    let galleryPost={
+    formData.append('files', this.fileData);    
+    let galleryPost:Post={
       image:formData,
-      webUrl:postData.webUrl,
-      UserId:this.loggedInUserInfo.UserId
+      ImagePath:consts.ImagesPath + this.fileData.name,
+      UserId:this.loggedInUserInfo.UserId,
+      ContentType:2
     };
-    this.profileInfoService.postGallery(galleryPost)
+    this.http.post('http://apollostage2.quad1test.com/practice/api/ProfileInfo/SaveImagesForPost', formData, {
+      reportProgress: true,
+      observe: 'events'
+    })
+      .subscribe(events => {
+        if (events.type === HttpEventType.UploadProgress) {
+        } else if (events.type === HttpEventType.Response) {
+          
+        }
+      })
+      
+    this.profileInfoService.postText(galleryPost)
     .subscribe((res: any) => {
       this.getUserPosts();
       this.resetPostGalleryForm();
@@ -161,5 +158,14 @@ export class PostComponent implements OnInit {
       console.log(error);
     })
   }
-  //end gallery post upload
+  userContent: string;
+  userTitle: string;
+  contentModalRef: BsModalRef;  
+  getUserContent(content, title, contentTemplate){
+    this.userContent = content;
+    this.userTitle = title;
+    this.contentModalRef = this.modalService.show(contentTemplate,
+      Object.assign({}, this.config, { class: 'gray modal-small' })
+    );
+  }
 }

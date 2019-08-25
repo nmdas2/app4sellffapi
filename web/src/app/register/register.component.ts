@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { first, max } from 'rxjs/operators';
 import { AuthenticationService } from '../_services/authentication.service';
 import { UserService } from '../_services/user.service';
 import { AlertService } from '../_services/alert.service';
@@ -20,17 +20,19 @@ export class RegisterComponent implements OnInit {
         private userService: UserService,
         private alertService: AlertService
     ) {
-        // redirect to home if already logged in
-        // if (this.authenticationService.currentUserValue) {
-        //     this.router.navigate(['/']);
-        // }
+        //redirect to home if already logged in
+        if (this.authenticationService.currentUserValue) {
+            this.router.navigate(['/profileinfo/about']);
+        }
     }
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
             displayName: ['', Validators.required],
             email: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6)]]
+            password: ['', [Validators.required, Validators.minLength(6)]],
+            age: ['', [Validators.required, Validators.min(1), Validators.max(130)]],
+            city: ['', [Validators.required]]
         });
     }
 

@@ -9,6 +9,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
+import { CommonService } from './_services/common.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { SharedModule } from './shared/shared.module';
     HomeComponent,
     AlertComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,9 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     SharedModule
   ],
-  providers: [],
+  providers: [
+    CommonService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

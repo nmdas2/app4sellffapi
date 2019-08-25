@@ -51,6 +51,16 @@ namespace Sellff_API.Controllers
         }
 
         ///summary
+        /// This method will get all users Messages info based on UserId
+        ///</summary>
+        /// <param name="UserId"></param>
+        [HttpGet, Route("api/ProfileInfo/GetUserMessagesBetween2Users/{UserId}/{RecepId}")]
+        public IHttpActionResult GetUserMessagesBetween2Users(int UserId, int RecepId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserMessagesBetween2Users(UserId, RecepId)));
+        }
+
+        ///summary
         /// This method will get all users promotions info based on UserId
         ///</summary>
         /// <param name="UserId"></param>
@@ -74,12 +84,11 @@ namespace Sellff_API.Controllers
         /// This method will get user About info and gallery info based on UserId
         ///</summary>
         /// <param name="UserId"></param>
-        [HttpGet, Route("api/ProfileInfo/GetUserAboutNGalleryInfo/{UserId}/{SectionId}")]
-        public IHttpActionResult GetUserAboutNGalleryInfo(int UserId,int SectionId)
+        [HttpGet, Route("api/ProfileInfo/GetUserAboutNGalleryInfo/{UserId}")]
+        public IHttpActionResult GetUserAboutNGalleryInfo(int UserId)
         {
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserAboutNGalleryInfo(UserId, SectionId)));
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserAboutNGalleryInfo(UserId)));
         }
-
 
         ///summary
         /// This method will Save user About info  based on UserId
@@ -90,7 +99,6 @@ namespace Sellff_API.Controllers
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.SaveUserAboutText(objUserAboutBO)));
         }
-
 
         ///summary
         /// This method will Save user gallery info based on UserId
@@ -113,13 +121,31 @@ namespace Sellff_API.Controllers
                 {
                     var postedFile = httpRequest.Files[file];
                     //var filePath = HttpContext.Current.Server.MapPath("~/GalleryImages/" + postedFile.FileName);
-                    var filePath = "F:/Projects/Ron/Sellff/Sellff-App/src/assets/selfprflimages/" + postedFile.FileName;
+                    //var filePath = "F:/Projects/Ron/Das/web/src/assets/selfprflimages/" + postedFile.FileName;
+                    var filePath = "C:/www/dev-sellff/assets/selfprflimages/" + postedFile.FileName;
                     postedFile.SaveAs(filePath);
                 }
             }
             return response;
         }
 
+        [HttpPost, Route("api/ProfileInfo/SaveImagesForPost")]
+        public HttpResponseMessage UploadPostJsonFile()
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            var httpRequest = HttpContext.Current.Request;
+            if (httpRequest.Files.Count > 0)
+            {
+                foreach (string file in httpRequest.Files)
+                {
+                    var postedFile = httpRequest.Files[file];
+                    //var filePath = "F:/Projects/Ron/Das/web/src/assets/selfprflimages/postimages/" + postedFile.FileName;
+                    var filePath = "C:/www/dev-sellff/assets/selfprflimages/postimages/" + postedFile.FileName;
+                    postedFile.SaveAs(filePath);
+                }
+            }
+            return response;
+        }
 
         ///summary
         /// This method will get all users Messages info based on UserId
@@ -129,6 +155,107 @@ namespace Sellff_API.Controllers
         public IHttpActionResult GetSummaryResults(string parttext)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUsersInfoBySearchTerm(parttext)));
+        }
+
+        ///summary
+        /// This method will Save user Post section text messgaes info  based on UserId
+        ///</summary>
+        /// <param name="objUserAboutBO"></param>
+        [HttpPost, Route("api/ProfileInfo/SaveUserPostTextMessages")]
+        public IHttpActionResult SaveUserPostTextMessages([FromBody]UserPostBO objUserPostBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.SaveUserPostTextMessages(objUserPostBO)));
+        }
+
+        ///summary
+        /// This method will Save user Post section images info  based on UserId
+        ///</summary>
+        /// <param name="objUserAboutBO"></param>
+        //[HttpPost, Route("api/ProfileInfo/SaveUserPostImages")]
+        //public IHttpActionResult SaveUserPostImages([FromBody]UserPostBO objUserPostBO)
+        //{
+        //    return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.SaveUserPostImages(objUserPostBO)));
+        //}
+
+        ///summary
+        /// This method will Save user Views number info  based on UserId
+        ///</summary>
+        /// <param name="objUserAboutBO"></param>
+        [HttpPost, Route("api/ProfileInfo/UpdateUsersViewCount")]
+        public IHttpActionResult UpdateUsersViewCount([FromBody]ProfileInfoBO objProfileInfoBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.UpdateUsersViewCount(objProfileInfoBO)));
+        }
+
+        ///summary
+        /// This method will Save user Views number info  based on UserId
+        ///</summary>
+        /// <param name="objUserAboutBO"></param>
+        [HttpPost, Route("api/ProfileInfo/UpdateUsersSocialInfo")]
+        public IHttpActionResult UpdateUsersSocialInfo([FromBody]ProfileInfoBO objProfileInfoBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.UpdateUsersSocialInfo(objProfileInfoBO)));
+        }
+
+
+        ///summary
+        /// This method will Save user About info  based on UserId
+        ///</summary>
+        /// <param name="objUserAboutBO"></param>
+        [HttpPost, Route("api/ProfileInfo/SaveReviewForUsers")]
+        public IHttpActionResult SaveReviewForUsers([FromBody]UserReviewBO objUserReviewBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.SaveReviewForUsers(objUserReviewBO)));
+        }
+
+        ///summary
+        /// This method will get all users Messages info based on UserId
+        ///</summary>
+        /// <param name="objUserLocalStorageBO"></param>
+        [HttpGet, Route("api/ProfileInfo/GetUserReviewsByUser/{Infoval}/{loggedInUserId}")]
+        public IHttpActionResult GetAllUserReviewsByUser(int Infoval,int loggedInUserId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetAllUserReviewsByUser(Infoval, loggedInUserId)));
+        }
+
+        ///summary
+        /// This method will get all users Messages info based on UserId
+        ///</summary>
+        /// <param name="objUserReviewBO"></param>
+        [HttpPost, Route("api/ProfileInfo/UpdateUsersReviewAsHelpful")]
+        public IHttpActionResult UpdateUsersReviewAsHelpful([FromBody]UserReviewBO objUserReviewBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.UpdateUsersReviewAsHelpful(objUserReviewBO)));
+        }
+
+        ///summary
+        /// This method will get all users Messages info based on UserId
+        ///</summary>
+        /// <param name="objUserLocalStorageBO"></param>
+        [HttpGet, Route("api/ProfileInfo/GetCurrentUserRatingById/{Infoval}")]
+        public IHttpActionResult GetCurrentUserRatingById(int Infoval)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetCurrentUserRatingById(Infoval)));
+        }
+
+        ///summary
+        /// This method will get all users info based on search term
+        ///</summary>
+        /// <param name="searchTerm"></param>
+        [HttpGet, Route("api/ProfileInfo/GetUserProfileInfoByUserId/{loginUser}")]
+        public IHttpActionResult GetUserProfileInfoByUserId(int loginUser)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserProfileInfoByUserId(loginUser)));
+        }
+
+        ///summary
+        /// This method will get all users Posts info based on UserId
+        ///</summary>
+        /// <param name="UserId"></param>
+        [HttpGet, Route("api/ProfileInfo/GetUserPostsAsGroups/{UserId}")]
+        public IHttpActionResult GetUserPostsAsGroups(int UserId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserPostsAsGroups(UserId)));
         }
 
     }

@@ -1,5 +1,21 @@
 
 <div class="wrapper">
+        <aside class="main-sidebar" *ngIf="hasSession">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <ul class="sidebar-menu" data-widget="tree">
+                        <li class="active treeview menu-open"><a style="cursor: pointer;" routerLink="/profileinfo/about"><i class="fa fa-user"></i> <span>About</span><span class="pull-right-container"></span></a></li>
+                        <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/post"><i class="fa fa-sticky-note-o"></i> <span>Posts</span><span class="pull-right-container"></span></a></li>
+                        <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/message"><i class="fa fa-envelope-o"></i> <span>Message</span><span class="pull-right-container"></span></a></li>
+                        <li class=""><a routerLink="/profileinfo/promote"><i class="fa fa-bullhorn"></i> <span>Promote</span><span class="pull-right-container"></span></a> </li>
+                        <li class=""><a routerLink="/profileinfo/review"><i class="fa fa-star"></i> <span>Review</span><span class="pull-right-container"></span></a> </li>
+                        <li class=""><a routerLink="/profileinfo/invest"><i class="fa fa-money"></i> <span>Invest</span><span class="pull-right-container"></span></a> </li>
+                        <li class=""><a routerLink="/profileinfo/consult"><i class="fa fa-handshake-o"></i> <span>Consult</span><span class="pull-right-container"></span></a> </li>
+                        <li class=""><a routerLink="/profileinfo/refer"><i class="fa fa fa-user-plus"></i> <span>Refer</span><span class="pull-right-container"></span></a> </li>
+                    </ul>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
     <div class="content-wrapper">
         <div class="row">
             <div class="col-md-12">
@@ -11,20 +27,18 @@
                                 <th>Name</th>
                                 <th>Location</th>
                                 <th>Occupation</th>
-                                <th>Tru Id</th>
                                 <th>Reviews</th>
                                 <th>Values</th>
                             </tr>
                         </thead>
                         <tbody>  
                             <tr *ngFor="let reslt of searchResults">  
-                                <td><img src="{{reslt.ProfilePicPath}}"></td>
-                                <td><a class="active" (click)=openotherprofile(reslt.UserId)>{{reslt.DisplayName}}</a></td>
+                                <td style="width: 10%;"><img src="{{reslt.ProfilePicPath}}" width="85%" ></td>
+                                <td><a style="cursor: pointer;" (click)=openotherprofile(reslt)>{{reslt.DisplayName}}</a></td>
                                 <td>{{reslt.City}}</td>
                                 <td>{{reslt.Occupation}}</td>
-                                <td><button class="btn btn-primary btn-xs">Yes</button></td>
                                 <td>{{reslt.Views}}</td>
-                                <td>{{reslt.Views}}</td>
+                                <td>{{reslt.Rank}}</td>
                             </tr>  
                         </tbody>
                     </table>
