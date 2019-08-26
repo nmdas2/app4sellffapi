@@ -10,7 +10,7 @@
                         <div class="box-header with-border">
                             <p class="edit-btn" *ngIf="!isAboutInEditMode; else elseBlock" style="text-justify: distribute-all-lines;">
                                 {{textValue}}
-                                <span class="text-edit" *ngIf="isEditbale" (click)="logText()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+                                <span class="text-edit btn btn-default" *ngIf="isEditbale" (click)="logText()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</span>
                             </p>
                             <ng-template #elseBlock>
                                 <div class="edit-box">

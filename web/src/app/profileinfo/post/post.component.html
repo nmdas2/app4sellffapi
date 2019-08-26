@@ -22,31 +22,30 @@
                     <form [formGroup]="postGalleryForm" (ngSubmit)="saveGalleryPost(postGalleryForm.value)">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group row justify-content-center">
-                                    <label>Upload Photo</label>
-                                    <div class="col-md-12">
-                                        <input type="file" name="image" (change)="attachToFormControl($event)" />
-                                    </div>
+                                <label>Upload Photo</label>
+                                <div class="form-group file-upload-wrapper justify-content-center" data-text="Select your file!">
+                                    
+                                    
+                                        <input type="file" name="image" (change)="attachToFormControl($event)" value=""/>
+                                    
                                 </div>
                             </div>
 
 
 
                             <div class="col-md-6">
-                                <div class="form-group row justify-content-center">
-                                    <div class="col-md-12">
-                                        <label>Upload Photo from web</label>
+                                <label>Upload Photo from web</label>
+                                <div class="form-group justify-content-center">
+                                        
                                         <input type="text" class="form-control" formControlName="webUrl" placeholder="Place text here" />
-
-                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <button class="blue-rnd-btn sm-btn mx-auto btn-primary" type="submit" [disabled]="postGalleryForm.invalid">Submit</button> |
-                                <button class="blue-rnd-btn sm-btn mx-auto btn-warning" type="button" (click)="resetPostGalleryForm()">Reset</button>
+                                <button class="btn btn-primary" type="submit" [disabled]="postGalleryForm.invalid">Submit</button> |
+                                <button class="btn btn-danger" type="button" (click)="resetPostGalleryForm()">Close</button>
                             </div>
                         </div>
 
@@ -89,22 +88,22 @@
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <button class="blue-rnd-btn sm-btn mx-auto btn-primary" type="submit" [disabled]="postTextForm.invalid">Submit</button> |
-                                <button class="blue-rnd-btn sm-btn mx-auto btn-warning" type="button" (click)="resetPostTextForm()">Reset</button>
+                                <button class="btn btn-primary" type="submit" [disabled]="postTextForm.invalid">Submit</button> |
+                                <button class="btn btn-danger" type="button" (click)="resetPostTextForm()">Close</button>
                             </div>
                         </div>
 
                     </form>
                 </div>
             </ng-template>
-            <div *ngIf="isAboutInEditMode" class="post-btns">
-                <ul>
-                    <li><a (click)="popupPostTextModel(template)" class="btn btn-default">Create Text Post</a></li>
-                    <li><a class="btn btn-default" (click)="popupPostGalleryModel(templateForPostGallary)">Create Image Post</a></li>
-                </ul>
 
-            </div>
             <div class="box">
+                <div *ngIf="isAboutInEditMode" class="post-btns">
+                    <ul>
+                        <li><a (click)="popupPostTextModel(template)" class="btn btn-default">Create Text Post</a></li>
+                        <li><a class="btn btn-default" (click)="popupPostGalleryModel(templateForPostGallary)">Create Image Post</a></li>
+                    </ul>
+                </div>
                 <div class="" *ngIf="PostsByGroups">
                     <div *ngFor="let posts of PostsByGroups">
                         <div class="row">

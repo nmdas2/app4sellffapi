@@ -31,50 +31,50 @@
             <div class="row">
                 <div class="col-md-4">
                     <div *ngIf="currentRating">
-                        <div class="box message-box">
+                        <div class="box message-box progress-box" >
                             <h4>{{totalRatings}} Customer Reviews</h4>
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="mb-2">
-                                        5 Star
+                                <div class="col-sm-12">
+                                    <div class="p-box">
+                                        <span>5 Star</span>
                                         <progressbar max="{{totalRatings}}" [value]=currentRating.Starts5 type="warning" [striped]="true">{{currentRating.Starts5}}</progressbar>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="mb-2">
-                                        4 Star
+                                <div class="col-sm-12">
+                                    <div class="p-box">
+                                        <span>4 Star</span>
                                         <progressbar max="{{totalRatings}}" [value]=currentRating.Starts4 type="warning" [striped]="true">{{currentRating.Starts4}}</progressbar>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="mb-2">
-                                        3 Star
+                                <div class="col-sm-12">
+                                    <div class="p-box">
+                                        <span>3 Star</span>
                                         <progressbar max="{{totalRatings}}" [value]=currentRating.Starts3 type="warning" [striped]="true">{{currentRating.Starts3}}</progressbar>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="mb-2">
-                                        2 Star
+                                <div class="col-sm-12">
+                                    <div class="p-box">
+                                        <span>2 Star</span>
                                         <progressbar max="{{totalRatings}}" [value]=currentRating.Starts2 type="warning" [striped]="true">{{currentRating.Starts2}}</progressbar>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="mb-2">
-                                        1 Star
+                                <div class="col-sm-12">
+                                    <div class="p-box">
+                                        <span>1 Star</span>
                                         <progressbar max="{{totalRatings}}" [value]=currentRating.Starts1 type="warning" [striped]="true">{{currentRating.Starts1}}</progressbar>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="box message-box">
+                        <div class="box message-box review-box">
                             <div class="row">
                                 <h4 class="aria-label padding-right">Performance</h4>
                                 <rating [ngModel]=currentRating.Performance [max]="max" [readonly]="true"></rating>
@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <div class="box message-box">
+                    <div class="box message-box ">
                         <div class="table table-responsive ">
                             <table id="datatable" class="table table-responsive-sm table-hover table-outline mb-0" cellspacing="0" width="100%">
                                 <tbody>
@@ -101,7 +101,7 @@
                                             <table style="width: 100%;">
                                                 <tr>
                                                     <td><img src="{{review.ProfilePicPath}}" width="85%" class="reviewsmallpic"></td>
-                                                    <td><a style="cursor: pointer;" (click)=openotherprofile(review)>{{review.DisplayName}}</a></td>
+                                                    <td><a class="reviewname" (click)=openotherprofile(review)>{{review.DisplayName}}</a></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -116,7 +116,9 @@
                                                     <td colspan="2">{{review.ReviewContent}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><button class="btn btn-primary btn-xs" (click)="sayhelpful()">Helpful</button></td>
+                                                    <td><button class="btn btn-primary btn-xs" (click)="sayhelpful()"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+                                                        <span><i class="fa fa-comments-o" aria-hidden="true"></i> 4</span>
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -133,7 +135,7 @@
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body ">
                         <label class="aria-label padding-right">Performance</label>
                         <rating [(ngModel)]="rate" [max]="max" [readonly]="isReadonly" (onHover)="hoveringOver($event)" (onLeave)="resetStar()" [titles]="['one','two','three']"></rating>
                         <!-- <span class="label"

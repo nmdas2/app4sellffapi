@@ -127,10 +127,8 @@
                         <div class="msg-box" *ngFor="let message of userMessages">
                             <ul>
                                 <li>
-                                    <a (click)=openotherprofile(message)><span *ngIf="message.DisplayName">{{message.DisplayName}}</span></a>
-                                </li>
-                                <li>
-                                    <a *ngIf="isAboutInEditMode" (click)="showcommunication(message.MessageFrom,message.MessageTo,message.DisplayName)">
+                                    <a (click)=openotherprofile(message) style="    margin-right: 15px;"><span *ngIf="message.DisplayName">{{message.DisplayName}}</span></a>
+                                     <a *ngIf="isAboutInEditMode" (click)="showcommunication(message.MessageFrom,message.MessageTo,message.DisplayName)">
                                         <span class="fa fa-list-alt"></span></a>
                                 </li>
                                 <li>

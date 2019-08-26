@@ -16,8 +16,8 @@
 
                 <nav class="navbar navbar-static-top">
 
-                    <div class="navbar-custom-menu pull-left col-md-9 navmobile">
-                        <form [formGroup]=searchForm class="pull-left col-md-9" (ngSubmit)="onSubmit()">
+                    <div class="navbar-custom-menu pull-left navmobile">
+                        <form [formGroup]=searchForm class="pull-left" (ngSubmit)="onSubmit()">
                             <div class="input-group">
                                 <input type="text" formControlName="searchprofiles" class="form-control control1" placeholder="Search..." [ngClass]="{ 'is-invalid': submitted && f.searchprofiles.errors }">
                                 <div *ngIf="submitted && f.searchprofiles.errors" class="invalid-feedback">
@@ -36,8 +36,8 @@
             </div>
             <div class="col-md-3">
                 <!-- <ul class="login-links">
-                    <li><a href=""><i class="fa fa-user"></i> Sign In</a></li>
-                    <li><a href=""><i class="fa fa-user-plus"></i> Regester</a></li>
+                    <li><a href="">Sign In</a></li>
+                    <li><a href="">Regester</a></li>
                 </ul> -->
                 <div class="navbar-custom-menu" *ngIf="hasActiveSession">
                     <ul class="nav navbar-nav">
