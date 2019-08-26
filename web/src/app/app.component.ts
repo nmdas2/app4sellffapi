@@ -64,8 +64,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authenticationService.isLogin$.subscribe(status => {
       this.isLogin = status;
       if (this.isLogin) {
-        document.getElementById("mySidenav").style.width = "85px";
-        document.getElementById("main").style.marginLeft = "85px";
+        document.getElementById("mySidenav").style.width = "55px";
+        document.getElementById("main").style.marginLeft = "55px";
       }
       else {
         document.getElementById("mySidenav").style.width = "0";
@@ -89,12 +89,12 @@ export class AppComponent implements OnInit, OnDestroy {
   closeSideNav(status) {
     this.showSideNav = status;
     if (this.showSideNav) {
-      document.getElementById("mySidenav").style.width = "250px";
-      document.getElementById("main").style.marginLeft = "250px";
+      document.getElementById("mySidenav").style.width = "228px";
+      document.getElementById("main").style.marginLeft = "228px";
     }
     else {
-      document.getElementById("mySidenav").style.width = "85px";
-      document.getElementById("main").style.marginLeft = "85px";
+      document.getElementById("mySidenav").style.width = "55px";
+      document.getElementById("main").style.marginLeft = "55px";
     }
 
   }

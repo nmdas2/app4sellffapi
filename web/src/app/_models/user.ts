@@ -13,4 +13,6 @@ export class User {
     Rank?: number = 0;
     ProfilePicPath?: string;
     ErrorMessage?: String;
+    Age?:number;
+    City?:string;
 }
