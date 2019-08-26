@@ -353,32 +353,10 @@ p {
     margin-top: 0.5rem;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
-
-.login-screen .btn,
-.login-screen .btn-link {
-    color: #fff;
-    background-color: #3c8dbc;
-    border-color: #3c8dbc;
-    display: inline-block;
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border: 1px solid #3c8dbc;
-    padding: 8px 30px;
-    font-size: 16px;
-    padding-bottom: 7px;
-    line-height: normal;
-    border-radius: 4px;
-    -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+.login-screen .btn.btn-warning{
+    float:right;
 }
+
 
 .login-screen .btn:hover,
 .login-screen .btn-link:hover {
@@ -415,11 +393,6 @@ p {
     border-radius: 4px;
 }
 
-.login-screen .btn-danger:hover {
-    background-color: #d70000;
-    border-color: #d70000;
-    padding-top: 3px;
-}
 
 // Login and Regester Screen CSS Ending Here
 // Dashboard CSS Starting Here
