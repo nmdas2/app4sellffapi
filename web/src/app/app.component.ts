@@ -41,13 +41,6 @@ export class AppComponent implements OnInit, OnDestroy {
     else {
       this.authenticationService.isLogin.next(false);
     }
-
-    this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
-      setTimeout(() => {
-        this.isSummaryPage = status;
-      }, 500)
-
-    })
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
       setTimeout(() => {
         this.showheadsection = false;
@@ -60,7 +53,13 @@ export class AppComponent implements OnInit, OnDestroy {
           this.dataDisplayProfile = JSON.parse(localStorage.getItem('profileviewUser'));
           this.showheadsection = true;
         }
-      }, 500)
+        this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
+          setTimeout(() => {
+            this.isSummaryPage = status;
+          }, 3)
+    
+        })
+      }, 1)
     });
     this.authenticationService.isLogin$.subscribe(status => {
       this.isLogin = status;
