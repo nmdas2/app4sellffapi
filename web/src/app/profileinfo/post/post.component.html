@@ -1,7 +1,7 @@
 <div class="wrapper">
     <div class="content-wrapper">
         <section class="content">
-            <div class="socail-links text-center pull-right">
+            <!-- <div class="socail-links text-center pull-right">
                 <a href="#"><i id="social-gp" class="fa fa-globe fa-2x social"></i></a>
                 <a href="#"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
                 <a href="#"><i id="social-em" class="fa fa-bell fa-2x social"></i></a>
@@ -9,7 +9,7 @@
                 <a href="#"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
                 <a href="#"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
                 <a href="#"><i id="social-em" class="fa fa-envelope-square fa-2x social"></i></a>
-            </div>
+            </div> -->
             <ng-template #templateForPostGallary>
                 <div class="modal-header">
                     <h4 class="modal-title pull-left">Create Post</h4>
@@ -102,12 +102,12 @@
                     <li><a (click)="popupPostTextModel(template)" class="btn btn-default">Create Text Post</a></li>
                     <li><a class="btn btn-default" (click)="popupPostGalleryModel(templateForPostGallary)">Create Image Post</a></li>
                 </ul>
-                
+
             </div>
-             <div class="box">
+            <div class="box">
                 <div class="" *ngIf="PostsByGroups">
                     <div *ngFor="let posts of PostsByGroups">
-                        <div class="row" >
+                        <div class="row">
                             <div class="col-md-12">
                                 <h4>{{posts.MonthYear}}</h4>
                             </div>

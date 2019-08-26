@@ -8,10 +8,10 @@
 <div id="mySidenav" class="sidenav sidebar" [hidden]="!isLogin">
     <div class="">
         <!-- <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a> -->
-        <div class="nav-profile" *ngIf="showSideNav">
-            <div class="cover-img"><img src='{{dataDisplayProfile.ProfilePicPath}}' class="img-responsive"></div>
+        <div class="nav-profile" *ngIf="!showSideNav">
+            <div class="cover-img" *ngIf="dataDisplayProfile"><img src='{{dataDisplayProfile.ProfilePicPath}}' class="img-responsive"></div>
             <i>Welcome</i>
-            <h3>{{dataDisplayProfile.DisplayName}}</h3>
+            <h3 *ngIf="dataDisplayProfile">{{dataDisplayProfile.DisplayName}}</h3>
             <h6 class="status online"><i></i> Online</h6>
             <ul>
                 <li>
@@ -30,29 +30,32 @@
                 </li>
             </ul>
         </div>
-        <div class="sidebar-menu" *ngIf="showSideNav">
+        <div class="sidebar-menu" *ngIf="!showSideNav">
 
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="active treeview menu-open"><a routerLink="/profileinfo/about">About</a></li>
                 <li><a routerLink="/profileinfo/post">Posts</a></li>
                 <li><a routerLink="/profileinfo/message">Message</a></li>
-                <li><a routerLink="/profileinfo/promote">Promote</a></li>
+                <!-- <li><a routerLink="/profileinfo/promote">Promote</a></li> -->
                 <li><a routerLink="/profileinfo/review">Review</a></li>
                 <li><a routerLink="/profileinfo/invest">Invest</a></li>
-                <li><a routerLink="/profileinfo/consult">Consult</a></li>
-                <li><a routerLink="/profileinfo/refer">Refer</a></li>
+                <li><a routerLink="/profileinfo/invite">Invite</a></li>
+                <!-- <li><a routerLink="/profileinfo/consult">Consult</a></li>
+                <li><a routerLink="/profileinfo/refer">Refer</a></li> -->
             </ul>
         </div>
-        <div class="sidebar-menu" *ngIf="!showSideNav">
+        <div class="sidebar-menu" *ngIf="showSideNav">
             <ul class="sidebar-menu" data-widget="tree">
-                <li class="active treeview menu-open"><a routerLink="/profileinfo/about"><i class="fa fa-user"></i></a></li>
+                <li class="active treeview menu-open"><a routerLink="/profileinfo/about"><i class="fa fa-user"></i></a>
+                </li>
                 <li><a routerLink="/profileinfo/post"><i class="fa fa-sticky-note-o"></i></a></li>
                 <li><a routerLink="/profileinfo/message"><i class="fa fa-envelope-o"></i></a></li>
-                <li><a routerLink="/profileinfo/promote"><i class="fa fa-bullhorn"></i></a></li>
+                <!-- <li><a routerLink="/profileinfo/promote"><i class="fa fa-bullhorn"></i></a></li> -->
                 <li><a routerLink="/profileinfo/review"><i class="fa fa-star"></i></a></li>
                 <li><a routerLink="/profileinfo/invest"><i class="fa fa-money"></i></a></li>
-                <li><a routerLink="/profileinfo/consult"><i class="fa fa-handshake-o"></i></a></li>
-                <li><a routerLink="/profileinfo/refer"><i class="fa fa fa-user-plus"></i></a></li>
+                <li><a routerLink="/profileinfo/invite"><i class="fa fa-user-plus"></i></a></li>
+                <!-- <li><a routerLink="/profileinfo/consult"><i class="fa fa-handshake-o"></i></a></li>
+                <li><a routerLink="/profileinfo/refer"><i class="fa fa fa-user-plus"></i></a></li> -->
             </ul>
 
             <!-- <i
@@ -136,6 +139,50 @@
                     </div>
                     <!-- /.info-box -->
                 </div>
+            </div>
+        </div>
+        <div class="col-md-12" *ngIf="dataDisplayProfile">
+            <div class="socail-links text-center pull-right">
+                <div *ngIf="isEditbale">
+                    <a (click)="showSocialLayout('g')"><i id="social-gp" class="fa fa-globe fa-2x social"></i></a>
+                    <a (click)="showSocialLayout('tw')"><i id="social-tw"
+                            class="fa fa-twitter-square fa-2x social"></i></a>
+                    <a (click)="showSocialLayout('em')"><i id="social-em" class="fa fa-bell fa-2x social"></i></a>
+                    <a (click)="showSocialLayout('fb')"><i id="social-fb"
+                            class="fa fa-facebook-square fa-2x social"></i></a>
+                    <a (click)="showSocialLayout('gp')"><i id="social-gp"
+                            class="fa fa-google-plus-square fa-2x social"></i></a>
+                    <a (click)="showSocialLayout('sem')"><i id="social-em"
+                            class="fa fa-envelope-square fa-2x social"></i></a>
+                    <a (click)="showSocialLayout('ig')"><i id="social-ig"
+                            class="fa fa-instagram-square fa-2x social"></i></a>
+                </div>
+                <div *ngIf="!isEditbale && dataDisplayProfile">
+                    <a *ngIf="dataDisplayProfile.LinkedInLink" href="{{dataDisplayProfile.LinkedInLink}}" target="_blank"><i id="social-gp" class="fa fa-globe fa-2x social"></i></a>
+                    <a *ngIf="dataDisplayProfile.TwitterLink" href="{{dataDisplayProfile.TwitterLink}}" target="_blank"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
+                    <a *ngIf="dataDisplayProfile.SocialEmail" href="{{dataDisplayProfile.SocialEmail}}" target="_blank"><i id="social-em" class="fa fa-bell fa-2x social"></i></a>
+                    <a *ngIf="dataDisplayProfile.FacebookLink" href="{{dataDisplayProfile.FacebookLink}}" target="_blank"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
+                    <a *ngIf="dataDisplayProfile.TwitterLink" href="{{dataDisplayProfile.TwitterLink}}" target="_blank"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
+                    <a *ngIf="dataDisplayProfile.TwitterLink" href="{{dataDisplayProfile.TwitterLink}}" target="_blank"><i id="social-em" class="fa fa-envelope-square fa-2x social"></i></a>
+                    <a *ngIf="dataDisplayProfile.InstagramLink" href="{{dataDisplayProfile.InstagramLink}}" target="_blank"><i id="social-ig" class="fa fa-instagram-square fa-2x social"></i></a>
+                </div>
+
+                <div *ngIf="postLayoutType!='' && isEditbale">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="link.." name="link" [(ngModel)]="socialLink" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit" (click)="SubmitSocialLink()"><i
+                                    class="fa fa-address-book"></i></button>
+                            <button class="btn btn-outline-secondary" type="button" (click)="onCancelSocial()"><i
+                                    class="fa fa-remove"></i></button>
+                        </div>
+                    </div>
+                    <!-- <input type="search" placeholder="link.." name="link" [(ngModel)]="socialLink" />
+                            <button type="submit" (click)="SubmitSocialLink()"><i class="fa fa-address-book"></i></button> -->
+                </div>
+                <!-- <div *ngIf="postLayoutType!='' && !isEditbale">
+                            <p>{{socialLink}},<a [href]="socialLink" (click)="postLayoutType = ''">Close</a> </p>
+                        </div> -->
             </div>
         </div>
     </div>

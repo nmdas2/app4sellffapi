@@ -97,7 +97,7 @@
                
             </div> -->
 
-            <div class="socail-links text-center pull-right">
+            <!-- <div class="socail-links text-center pull-right">
                 <a href="#"><i id="social-gp" class="fa fa-globe fa-2x social"></i></a>
                 <a href="#"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
                 <a href="#"><i id="social-em" class="fa fa-bell fa-2x social"></i></a>
@@ -105,7 +105,7 @@
                 <a href="#"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
                 <a href="#"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
                 <a href="#"><i id="social-em" class="fa fa-envelope-square fa-2x social"></i></a>
-            </div>
+            </div> -->
             <div class="row">
                 <div class="col-md-6"></div>
             </div>
@@ -127,15 +127,15 @@
                         <div class="msg-box" *ngFor="let message of userMessages">
                             <ul>
                                 <li>
-                                 <a (click)=openotherprofile(message)><span *ngIf="message.DisplayName">{{message.DisplayName}}</span></a>
+                                    <a (click)=openotherprofile(message)><span *ngIf="message.DisplayName">{{message.DisplayName}}</span></a>
                                 </li>
                                 <li>
-                                <a *ngIf="isAboutInEditMode" (click)="showcommunication(message.MessageFrom,message.MessageTo,message.DisplayName)">
-                                    <span class="fa fa-list-alt"></span></a>
+                                    <a *ngIf="isAboutInEditMode" (click)="showcommunication(message.MessageFrom,message.MessageTo,message.DisplayName)">
+                                        <span class="fa fa-list-alt"></span></a>
                                 </li>
                                 <li>
-                                 <label class="text-right" *ngIf="message.MessageSentTime">{{message.MessageSentTime}}</label>
-                             </li>
+                                    <label class="text-right" *ngIf="message.MessageSentTime">{{message.MessageSentTime}}</label>
+                                </li>
                             </ul>
                             <p *ngIf="message.Message">{{message.Message}}</p>
                         </div>
@@ -146,7 +146,7 @@
                         <div>
                             <h4>New Message</h4> <span *ngIf="showcommunicationbox"> - {{messageDisplayName}}</span>
                         </div>
-                        
+
                         <textarea [(ngModel)]="userMsg"></textarea>
                         <span *ngIf="isSubmitted && !userMsg" style="color: red">Please enter the message</span>
                         <button type="button" (click)="sendMessage()" class="btn btn-primary pull-right">Send

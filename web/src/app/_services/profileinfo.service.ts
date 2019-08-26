@@ -89,9 +89,7 @@ export class ProfileinfoService {
   GetUserProfileInfoByUserId(loginUser: number): Observable<any>{
     return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserProfileInfoByUserId/${loginUser}`);
   }
-  UpdateUserSocialLinkInfo(data: ProfileInfo): Observable<any>{
-    return this.http.post(`${consts.DomainURL}ProfileInfo/UpdateUsersSocialInfo`, data);
-  }  
+  
   getUserPostsByGroups(userId: number): Observable<any>{
     return this.http.get<any>(`${consts.DomainURL}ProfileInfo/GetUserPostsAsGroups/${userId}`);
   }

@@ -177,41 +177,7 @@ export class AboutComponent implements OnInit, OnDestroy {
   }
 
   //social link section
-  postLayoutType: string = "";
-  socialLink: string = "";
-  showSocialLayout(type: string) {
-    // if (!this.isEditbale) {
-    //   this.showSocialLayoutForOthers(type);
-    //   return;
-    // }
-    this.socialLink = "";
-    this.postLayoutType = type;
-    switch (type) {
-      case "g":
-        this.socialLink = this.dataDisplayProfile.WebsiteLink;
-        break;
-      case "tw":
-        this.socialLink = this.dataDisplayProfile.TwitterLink;
-        break;
-      case "em":
-        this.socialLink = this.dataDisplayProfile.SocialEmail;
-        break;
-      case "fb":
-        this.socialLink = this.dataDisplayProfile.FacebookLink;
-        break;
-      case "gp":
-        this.socialLink = this.dataDisplayProfile.LinkedInLink;
-        break;
-      case "sem":
-        this.socialLink = this.dataDisplayProfile.YouTubeLink;
-        break;
-      case "ig":
-        this.socialLink = this.dataDisplayProfile.InstagramLink;
-        break;
-      default:
-        break;
-    }
-  }
+  
 
   // showSocialLayoutForOthers(type: string) { //readonlyinfo object
   //   this.socialLink = "";
@@ -243,57 +209,13 @@ export class AboutComponent implements OnInit, OnDestroy {
   //   }
   // }
 
-  mapSocialLinkLegends(type: string): number {
-    let postLayoutType = 0;
-    switch (type) {
-      case "g":
-        postLayoutType = 1;
-        break;
-      case "tw":
-        postLayoutType = 2;
-        break;
-      case "em":
-        postLayoutType = 3;
-        break;
-      case "fb":
-        postLayoutType = 4;
-        break;
-      case "gp":
-        postLayoutType = 5;
-        break;
-      case "sem":
-        postLayoutType = 6;
-        break;
-      case "ig":
-        postLayoutType = 7;
-        break;
-      default:
-        break;
-    }
-
-    return postLayoutType;
-  }
-  SubmitSocialLink() {
-    //this.userProfileInfo = <ProfileInfo>{};    
-    this.userProfileInfo.UserId = this.loggedInUserInfo.UserId;
-    this.userProfileInfo.socialLink = this.socialLink;
-    this.userProfileInfo.socialLinkType = this.mapSocialLinkLegends(this.postLayoutType);
-    this.profileInfoService.UpdateUserSocialLinkInfo(this.userProfileInfo)
-      .subscribe(res => {
-      }, error => {
-        console.log(error);
-      })
-    //this.postLayoutType = 1;
-  }
-  //end social link section
+  
+  
 
   onCancel(){
     this.isAboutInEditMode = false;
   }
-  onCancelSocial(){
-    this.postLayoutType = '';
-  }
-
+  
   ngOnDestroy() {
     if (this.profileSubscription)
       this.profileSubscription.unsubscribe();

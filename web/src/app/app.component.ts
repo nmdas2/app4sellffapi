@@ -25,6 +25,9 @@ export class AppComponent implements OnInit, OnDestroy {
   profileSubscription: Subscription;
   showheadsection: boolean;
   dataDisplayProfile: ProfileInfo;
+  isEditbale: boolean;
+  userProfileInfo: ProfileInfo;
+  loggedInUserInfo: ProfileInfo
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -43,9 +46,14 @@ export class AppComponent implements OnInit, OnDestroy {
     }
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
       setTimeout(() => {
+        this.isEditbale = true;
+        if (localStorage.getItem('profileviewUser') && status) {
+          this.isEditbale = false;
+        }
         this.showheadsection = false;
         if (localStorage.getItem('currentUser')) {
           this.dataDisplayProfile = JSON.parse(localStorage.getItem('currentUser'));
+          this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
           this.showheadsection = true;
         }
 
@@ -57,15 +65,15 @@ export class AppComponent implements OnInit, OnDestroy {
           setTimeout(() => {
             this.isSummaryPage = status;
           }, 3)
-    
+
         })
       }, 1)
     });
     this.authenticationService.isLogin$.subscribe(status => {
       this.isLogin = status;
       if (this.isLogin) {
-        document.getElementById("mySidenav").style.width = "55px";
-        document.getElementById("main").style.marginLeft = "55px";
+        document.getElementById("mySidenav").style.width = "228px";
+        document.getElementById("main").style.marginLeft = "228px";
       }
       else {
         document.getElementById("mySidenav").style.width = "0";
@@ -89,18 +97,18 @@ export class AppComponent implements OnInit, OnDestroy {
   closeSideNav(status) {
     this.showSideNav = status;
     if (this.showSideNav) {
-      document.getElementById("mySidenav").style.width = "228px";
-      document.getElementById("main").style.marginLeft = "228px";
-    }
-    else {
       document.getElementById("mySidenav").style.width = "55px";
       document.getElementById("main").style.marginLeft = "55px";
+    }
+    else {
+      document.getElementById("mySidenav").style.width = "228px";
+      document.getElementById("main").style.marginLeft = "228px";
     }
 
   }
 
   ngAfterViewInit() {
-    
+
 
   }
   ngOnDestroy() {
@@ -108,6 +116,86 @@ export class AppComponent implements OnInit, OnDestroy {
       this.isSummarySub.unsubscribe();
     if (this.profileSubscription)
       this.profileSubscription.unsubscribe();
+  }
+
+  postLayoutType: string = "";
+  socialLink: string = "";
+  showSocialLayout(type: string) {
+    this.socialLink = "";
+    this.postLayoutType = type;
+    switch (type) {
+      case "g":
+        this.socialLink = this.dataDisplayProfile.WebsiteLink;
+        break;
+      case "tw":
+        this.socialLink = this.dataDisplayProfile.TwitterLink;
+        break;
+      case "em":
+        this.socialLink = this.dataDisplayProfile.SocialEmail;
+        break;
+      case "fb":
+        this.socialLink = this.dataDisplayProfile.FacebookLink;
+        break;
+      case "gp":
+        this.socialLink = this.dataDisplayProfile.LinkedInLink;
+        break;
+      case "sem":
+        this.socialLink = this.dataDisplayProfile.YouTubeLink;
+        break;
+      case "ig":
+        this.socialLink = this.dataDisplayProfile.InstagramLink;
+        break;
+      default:
+        break;
+    }
+  }
+
+  onCancelSocial(){
+    this.postLayoutType = '';
+  }
+  SubmitSocialLink() {
+    this.userProfileInfo = <ProfileInfo>{};    
+    this.userProfileInfo.UserId = this.loggedInUserInfo.UserId;
+    this.userProfileInfo.socialLink = this.socialLink;
+    this.userProfileInfo.socialLinkType = this.mapSocialLinkLegends(this.postLayoutType);
+    this.commonService.UpdateUserSocialLinkInfo(this.userProfileInfo)
+      .subscribe(res => {
+      }, error => {
+        console.log(error);
+      })
+    //this.postLayoutType = 1;
+  }
+  //end social link section
+
+  mapSocialLinkLegends(type: string): number {
+    let postLayoutType = 0;
+    switch (type) {
+      case "g":
+        postLayoutType = 1;
+        break;
+      case "tw":
+        postLayoutType = 2;
+        break;
+      case "em":
+        postLayoutType = 3;
+        break;
+      case "fb":
+        postLayoutType = 4;
+        break;
+      case "gp":
+        postLayoutType = 5;
+        break;
+      case "sem":
+        postLayoutType = 6;
+        break;
+      case "ig":
+        postLayoutType = 7;
+        break;
+      default:
+        break;
+    }
+
+    return postLayoutType;
   }
 
 }

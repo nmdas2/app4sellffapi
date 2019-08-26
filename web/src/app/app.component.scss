@@ -7,15 +7,17 @@
     min-height: 100% !important;
     left: 0;
     background-color: #111;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
     margin-bottom: -9999px;
     padding-bottom: 9999px;
     overflow-x: auto;
 }
-.sidenav::-webkit-scrollbar { 
-    display: none; 
+
+.sidenav::-webkit-scrollbar {
+    display: none;
 }
+
 .sidenav .closebtn {
     position: absolute;
     top: 0;
@@ -83,4 +85,8 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+.socail-links a {
+    padding-right: 10px;
 }

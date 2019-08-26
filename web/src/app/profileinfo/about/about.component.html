@@ -1,62 +1,9 @@
 <div class="wrapper">
-    
+
     <div class="content-wrapper">
         <section class="content">
-            
-            <div class="socail-links text-center pull-right">
-                <div *ngIf="isEditbale">
-                    <a (click)="showSocialLayout('g')"><i id="social-gp" 
-                            class="fa fa-globe fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('tw')"><i id="social-tw" 
-                            class="fa fa-twitter-square fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('em')"><i id="social-em" 
-                            class="fa fa-bell fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('fb')"><i id="social-fb" 
-                            class="fa fa-facebook-square fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('gp')"><i id="social-gp" 
-                            class="fa fa-google-plus-square fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('sem')"><i id="social-em" 
-                            class="fa fa-envelope-square fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('ig')"><i id="social-ig" 
-                            class="fa fa-instagram-square fa-2x social"></i></a>
-                </div>
-                <div *ngIf="!isEditbale && dataDisplayProfile">
-                    <a *ngIf="dataDisplayProfile.LinkedInLink" href="{{dataDisplayProfile.LinkedInLink}}" target="_blank"><i
-                            id="social-gp" class="fa fa-globe fa-2x social"></i></a>
-                    <a *ngIf="dataDisplayProfile.TwitterLink" href="{{dataDisplayProfile.TwitterLink}}" target="_blank"><i
-                            id="social-tw" 
-                            class="fa fa-twitter-square fa-2x social"></i></a>
-                    <a *ngIf="dataDisplayProfile.SocialEmail" href="{{dataDisplayProfile.SocialEmail}}" target="_blank"><i
-                            id="social-em" class="fa fa-bell fa-2x social"></i></a>
-                    <a *ngIf="dataDisplayProfile.FacebookLink" href="{{dataDisplayProfile.FacebookLink}}" target="_blank"><i
-                            id="social-fb" 
-                            class="fa fa-facebook-square fa-2x social"></i></a>
-                    <a *ngIf="dataDisplayProfile.TwitterLink" href="{{dataDisplayProfile.TwitterLink}}" target="_blank"><i
-                            id="social-gp" 
-                            class="fa fa-google-plus-square fa-2x social"></i></a>
-                    <a *ngIf="dataDisplayProfile.TwitterLink" href="{{dataDisplayProfile.TwitterLink}}" target="_blank"><i
-                            id="social-em" 
-                            class="fa fa-envelope-square fa-2x social"></i></a>
-                    <a *ngIf="dataDisplayProfile.InstagramLink" href="{{dataDisplayProfile.InstagramLink}}" target="_blank"><i
-                            id="social-ig" 
-                            class="fa fa-instagram-square fa-2x social"></i></a>
-                </div>
 
-                <div *ngIf="postLayoutType!='' && isEditbale">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="link.." name="link" [(ngModel)]="socialLink" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="submit" (click)="SubmitSocialLink()"><i class="fa fa-address-book"></i></button>
-                            <button class="btn btn-outline-secondary" type="button" (click)="onCancelSocial()"><i class="fa fa-remove"></i></button>
-                        </div>
-                    </div>
-                    <!-- <input type="search" placeholder="link.." name="link" [(ngModel)]="socialLink" />
-                    <button type="submit" (click)="SubmitSocialLink()"><i class="fa fa-address-book"></i></button> -->
-                </div>
-                <!-- <div *ngIf="postLayoutType!='' && !isEditbale">
-                    <p>{{socialLink}},<a [href]="socialLink" (click)="postLayoutType = ''">Close</a> </p>
-                </div> -->
-            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="box">
@@ -105,7 +52,7 @@
                             </div>
                         </div>
                     </div>
-                <div class="box">
+                    <div class="box">
                         <section class="upload-img-section">
                             <div class="">
                                 <div class="col-md-12">

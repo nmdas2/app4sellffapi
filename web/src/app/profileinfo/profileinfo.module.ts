@@ -19,6 +19,7 @@ import { UploadComponent } from './upload/upload.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RatingModule, ProgressbarModule, PopoverModule } from 'ngx-bootstrap';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { InviteComponent } from './invite/invite.component';
 
 
 @NgModule({
@@ -35,7 +36,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
     BumpComponent, 
     ReferComponent, 
     MytestingComponent, 
-    UploadComponent
+    UploadComponent, InviteComponent
   ],
   imports: [
     CommonModule,
