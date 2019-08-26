@@ -6,15 +6,19 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { AlertService } from '../_services/alert.service';
 import { User } from '../_models/user';
 import { CommonService } from '../_services/common.service';
+import { AlertComponent } from 'ngx-bootstrap';
 
 
-@Component({ templateUrl: 'login.component.html' })
+@Component({ 
+    templateUrl: 'login.component.html',
+    styleUrls:[ './login.component.scss' ]
+})
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     loading = false;
     submitted = false;
     returnUrl: string;
-
+    invalidLogin: boolean = false;
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
@@ -59,12 +63,17 @@ export class LoginComponent implements OnInit {
                 (data: User) => {
                     this.commonService.loadingHide();
                     this.authenticationService.isLogin.next(true);
+
                     this.router.navigate(['/home']);
                 },
                 error => {
                     this.commonService.loadingHide();
                     console.log(error);
-                    this.alertService.error(error);
+                    //this.alertService.error(error);
+                    this.invalidLogin = true;
+                    setTimeout(() => {
+                        this.invalidLogin = false;
+                    }, 10000)
                     this.loading = false;
                 });
     }

@@ -5,20 +5,26 @@ import { first, max } from 'rxjs/operators';
 import { AuthenticationService } from '../_services/authentication.service';
 import { UserService } from '../_services/user.service';
 import { AlertService } from '../_services/alert.service';
+import { CommonService } from '../_services/common.service';
 
 
-@Component({ templateUrl: 'register.component.html' })
+@Component({ 
+    templateUrl: 'register.component.html',
+    styleUrls: ['./register.component.scss']
+})
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
-
+    successMsg: string = '';
+    errorMsg: string = '';
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
         private authenticationService: AuthenticationService,
         private userService: UserService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private commonService: CommonService
     ) {
         //redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
@@ -50,30 +56,45 @@ export class RegisterComponent implements OnInit {
             return;
         }
         this.userService.CheckIfUserExists(this.registerForm.value.email)
-        .subscribe(
-            data => {
-                if(data>0){                    
-                    this.alertService.success('This user already registered with Sellff.', true);
-                    return;
-                }
-                else{
-                    this.loading = true;
-                    this.userService.register(this.registerForm.value)
-                    .pipe(first())
-                    .subscribe(
-                        data => {
-                            this.alertService.success('Registration successful', true);
-                            this.router.navigate(['/login']);
-                        },
-                        error => {
-                            this.alertService.error(error);
-                            this.loading = false;
-                        });
-                }
-            },
-            error => {
-                this.alertService.error(error);
-                this.loading = false;
-            });        
+            .subscribe(
+                data => {
+                    if (data > 0) {
+                        this.errorMsg = 'This user already registered with Sellff.';
+                        setTimeout(() => {
+                            this.errorMsg = "";
+                        }, 10000)
+                        this.alertService.success('This user already registered with Sellff.', true);
+                        return;
+                    }
+                    else {
+                        this.loading = true;
+                        this.commonService.loadingShow();
+                        this.userService.register(this.registerForm.value)
+                            .pipe(first())
+                            .subscribe(
+                                data => {
+                                    this.commonService.loadingHide();
+                                    // this.successMsg = 'Registration successful';
+                                    // setTimeout(() => {
+                                    //     this.successMsg = "";
+                                    // }, 10000)
+                                    this.alertService.success('Registration successful', true, 10000);
+                                    this.router.navigate(['/login']);
+                                },
+                                error => {
+                                    this.commonService.loadingHide();
+                                    this.errorMsg = 'Something went wrong. Please try after some time';
+                                    setTimeout(() => {
+                                        this.errorMsg = "";
+                                    }, 10000)
+                                    this.alertService.error(error);
+                                    this.loading = false;
+                                });
+                    }
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
     }
 }

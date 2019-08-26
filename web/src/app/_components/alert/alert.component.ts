@@ -26,6 +26,13 @@ export class AlertComponent implements OnInit {
             }
 
             this.message = message;
+
+            if(message && message.timeOut){
+                let timeOut = message.timeOut
+                setTimeout(() => {
+                    this.alertService.clear();
+                }, timeOut)
+            }
         });
 }
 
