@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { constants as consts } from '../constants';
 import { ProfileInfo, userAboutInfo } from '../_models/profileinfo';
 import { Post } from 'src/app/_models/post';
-import { User } from '../_models/user';
 import { Review } from '../_models/review';
 
 export interface searchRes {

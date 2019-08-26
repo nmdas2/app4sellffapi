@@ -11,6 +11,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { CommonService } from './_services/common.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ConfirmuseraccComponent } from './confirmuseracc/confirmuseracc.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AlertComponent,
     LoginComponent,
     RegisterComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ConfirmuseraccComponent
   ],
   imports: [
     BrowserModule,

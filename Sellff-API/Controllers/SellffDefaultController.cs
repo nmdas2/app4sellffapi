@@ -44,5 +44,25 @@ namespace Sellff_API.Controllers
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.RegisterSellffUserInfo(objAuthenticationBO)));
         }
+        
+        ///summary
+        /// This method will Activate users account
+        ///</summary>
+        /// <param name="searchTerm"></param>
+        [HttpGet, Route("api/SellffDefault/ActivateUserAccunt/{keystring}")]
+        public IHttpActionResult ActivateUserAccunt(string keystring)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.ActivateUserAccunt(keystring)));
+        }
+
+        ///summary
+        /// This method will Activate users account
+        ///</summary>
+        /// <param name="searchTerm"></param>
+        [HttpGet, Route("api/SellffDefault/CheckIfUserAlreadyEsists/{keystring}/{hashky}")]
+        public IHttpActionResult CheckIfUserAlreadyEsists(string keystring)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.CheckIfUserAlreadyEsists(keystring)));
+        }
     }
 }

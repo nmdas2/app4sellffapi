@@ -24,25 +24,30 @@ namespace Sellff_API.Services
         public AuthenticationBO RegisterSellffUserInfo(AuthenticationBO objAuthenticationBO)
         {
             AuthenticationBO objResponseBO = objSellffDefaultDAO.RegisterSellffUserInfo(objAuthenticationBO);
-            SendEmail("1", objResponseBO.Email, "");
+            EmailTemplatesBO objEmailTemplatesBO = objSellffDefaultDAO.GetEmailTemplate(ConfigurationManager.AppSettings["RegEmail"].ToString());
+            try
+            {
+                SendEmail(objResponseBO, objEmailTemplatesBO);
+            }
+            catch (Exception ex)
+            {
+                
+            }            
             return objResponseBO;
-
         }
 
-        public bool SendEmail(string EmailType, string ToEmail, string BODY)
+        public bool SendEmail(AuthenticationBO objAuthenticationBO, EmailTemplatesBO objEmailTemplatesBO)
         {
-            bool IsResult = false;
             String FROM = ConfigurationManager.AppSettings["FROMEmail"].ToString();  // Replace with your "From" address. This address must be verified.
-            String TO = ToEmail;
-            String SUBJECT = "";
-            if (EmailType == "1")
-            {
-                SUBJECT = ConfigurationManager.AppSettings["UserRegisterSubject"].ToString();
-            }
-            else
-            {
-                SUBJECT = ConfigurationManager.AppSettings["UserInviteSubject"].ToString();
-            }
+            String TO = objAuthenticationBO.Email;
+            String SUBJECT = objEmailTemplatesBO.EmailSubject;
+            string emailBody = objEmailTemplatesBO.EmailTemplate;
+            emailBody = emailBody.Replace("[UserName]", objAuthenticationBO.DisplayName);
+            emailBody = emailBody.Replace("[ActivateURL]", ConfigurationManager.AppSettings["ActivateAppDomain"].ToString()+ objAuthenticationBO.InviteUniqueId); 
+            objEmailTemplatesBO.SentTo = TO;
+            objEmailTemplatesBO.EmailTemplate = emailBody;
+            objEmailTemplatesBO.SentFrom = FROM;
+            objEmailTemplatesBO.BCC = ConfigurationManager.AppSettings["BCCEmail"].ToString();
             // Supply your SMTP credentials below. Note that your SMTP credentials are different from your AWS credentials.
             String SMTP_USERNAME = ConfigurationManager.AppSettings["SMTPUsername"].ToString();  // Replace with your SMTP username. 
             String SMTP_PASSWORD = ConfigurationManager.AppSettings["SMTPPassword"].ToString();  // Replace with your SMTP password.
@@ -64,9 +69,9 @@ namespace Sellff_API.Services
                 // the client will issue a STARTTLS command to upgrade to an encrypted connection using SSL.
                 client.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["ISSMTPSSL"].ToString());
 
-                System.Net.Mail.MailMessage Message = new System.Net.Mail.MailMessage(FROM, ToEmail);
+                System.Net.Mail.MailMessage Message = new System.Net.Mail.MailMessage(FROM, TO);
                 Message.Subject = SUBJECT;
-                Message.Body = BODY;
+                Message.Body = emailBody;
                 Message.IsBodyHtml = true;
 
                 System.Net.Mail.MailAddress bcc = new System.Net.Mail.MailAddress(Convert.ToString(ConfigurationManager.AppSettings["BCCEmail"].ToString()));
@@ -78,15 +83,29 @@ namespace Sellff_API.Services
                 try
                 {
                     client.Send(Message);
-                    IsResult = true;
-                }
+                    objEmailTemplatesBO.IsSent = true;
+                }                
                 catch (Exception ex)
                 {
-                    throw ex;
+                    objEmailTemplatesBO.IsSent = false;
+                    objEmailTemplatesBO.StatusMessage = ex.Message;
+                }
+                finally
+                {
+                    objSellffDefaultDAO.SaveEmailLogDetails(objEmailTemplatesBO);
                 }
             }
-            return IsResult;
+            return true;
         }
 
+        public int CheckIfUserAlreadyEsists(string keystring)
+        {
+            return objSellffDefaultDAO.CheckIfUserAlreadyEsists(keystring);
+        }
+
+        public bool ActivateUserAccunt(string keystring)
+        {
+            return objSellffDefaultDAO.ActivateUserAccunt(keystring);
+        }
     }
 }

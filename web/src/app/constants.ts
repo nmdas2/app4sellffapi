@@ -1,10 +1,11 @@
 const isProduction = false;
 export const constants = {
     AppName: "Sellff",
-    //DomainURL: 'http://localhost:50517/api/',
-    DomainURL: 'http://apollostage2.quad1test.com/practice/api/',
+    DomainURL: 'http://localhost:50517/api/',
+    //DomainURL: 'http://apollostage2.quad1test.com/practice/api/',
     ImagesPath: './././assets/selfprflimages/',
-    AboutPath: '/profileinfo/about'
+    AboutPath: '/profileinfo/about',
+    AppDomain:'http://localhost:50517/'
 };
 export const enum UploadType {
     Image = 1,

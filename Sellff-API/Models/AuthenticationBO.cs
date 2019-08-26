@@ -48,4 +48,29 @@ namespace Sellff_API.Models
         [DataMember]
         public string InviteUniqueId { get; set; }
     }
+
+    [DataContract]
+    public class EmailTemplatesBO
+    {
+        [DataMember]
+        public int UserId { get; set; }
+        [DataMember]
+        public string EmailTemplate { get; set; }
+        [DataMember]
+        public int TemplateId { get; set; }
+        [DataMember]
+        public string EmailSubject { get; set; }
+        [DataMember]
+        public string SentTo { get; set; }
+        [DataMember]
+        public string SentFrom { get; set; }
+        [DataMember]
+        public string CC { get; set; }
+        [DataMember]
+        public string BCC { get; set; }
+        [DataMember]
+        public string StatusMessage { get; set; }
+        [DataMember]
+        public bool IsSent { get; set; }
+    }
 }

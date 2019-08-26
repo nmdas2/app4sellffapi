@@ -64,6 +64,30 @@ namespace Sellff_API.ADO
             return objAuthenticationBO;
         }
 
+        public EmailTemplatesBO GetEmailTemplate(string emailTemplateId)
+        {
+            EmailTemplatesBO objEmailTemplatesBO = new EmailTemplatesBO();
+            try
+            {
+                var sqlParams = new SqlParameter[1];
+                sqlParams[0] = new SqlParameter("@TemplateId", SqlDbType.Int) { Value = emailTemplateId };
+
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetEmailTemplateById", sqlParams);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    var objDataRow = _objDataSet.Tables[0].Rows[0];
+                    objEmailTemplatesBO.EmailTemplate = Convert.ToString(objDataRow["EmailTemplate"]);
+                    objEmailTemplatesBO.EmailSubject = Convert.ToString(objDataRow["EmailSubject"]);
+                    objEmailTemplatesBO.TemplateId = Convert.ToInt32(objDataRow["TemplateId"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objEmailTemplatesBO;
+        }
+
         public AuthenticationBO RegisterSellffUserInfo(AuthenticationBO objAuthenticationBO)
         {
             try
@@ -77,10 +101,10 @@ namespace Sellff_API.ADO
                 sqlParams[4] = new SqlParameter("@City", SqlDbType.VarChar) { Value = objAuthenticationBO.City };
                 sqlParams[5] = new SqlParameter("@InviteUniqueId", SqlDbType.VarChar) { Value = objAuthenticationBO.InviteUniqueId };
 
-                int ResultId = Convert.ToInt32(SqlHelper.SqlHelper.ExecuteScalar(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "SaveUserDetails", sqlParams));
-                if (ResultId > 0)
+                string ResultId = Convert.ToString(SqlHelper.SqlHelper.ExecuteScalar(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "SaveUserDetails", sqlParams));
+                if (ResultId != "")
                 {
-                    objAuthenticationBO.UserId = ResultId;
+                    objAuthenticationBO.InviteUniqueId = ResultId;
                 }
             }
             catch (Exception ex)
@@ -90,11 +114,68 @@ namespace Sellff_API.ADO
             return objAuthenticationBO;
         }
 
+        public int CheckIfUserAlreadyEsists(string keystring)
+        {
+            int result = 0;
+            try
+            {
+                var sqlParams = new SqlParameter[1];
+                sqlParams[0] = new SqlParameter("@Email", SqlDbType.VarChar) { Value = keystring };
+
+                result = Convert.ToInt32(SqlHelper.SqlHelper.ExecuteScalar(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "CheckIfEmailExists", sqlParams));
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return result;
+        }
+
+        public bool ActivateUserAccunt(string keystring)
+        {
+            try
+            {
+                var sqlParams = new SqlParameter[1];
+                sqlParams[0] = new SqlParameter("@Key", SqlDbType.VarChar) { Value = keystring };
+
+                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_ActivateUserAccount", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return true;
+        }
+
         public static string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        public void SaveEmailLogDetails(EmailTemplatesBO objEmailTemplatesBO)
+        {
+            try
+            {
+                var sqlParams = new SqlParameter[10];
+                sqlParams[0] = new SqlParameter("@TemplateId", SqlDbType.Int) { Value = objEmailTemplatesBO.TemplateId };
+                sqlParams[1] = new SqlParameter("@EmailSubject", SqlDbType.VarChar) { Value = objEmailTemplatesBO.EmailSubject };
+                sqlParams[2] = new SqlParameter("@EmailTemplate", SqlDbType.VarChar) { Value = objEmailTemplatesBO.EmailTemplate };
+                sqlParams[3] = new SqlParameter("@SentFrom", SqlDbType.VarChar) { Value = objEmailTemplatesBO.SentFrom };
+                sqlParams[4] = new SqlParameter("@SentTo", SqlDbType.VarChar) { Value = objEmailTemplatesBO.SentTo };
+                sqlParams[5] = new SqlParameter("@CC", SqlDbType.VarChar) { Value = objEmailTemplatesBO.CC };
+                sqlParams[6] = new SqlParameter("@BCC", SqlDbType.VarChar) { Value = objEmailTemplatesBO.BCC };
+                sqlParams[7] = new SqlParameter("@UserId", SqlDbType.Int) { Value = objEmailTemplatesBO.UserId };
+                sqlParams[8] = new SqlParameter("@StatusMessage", SqlDbType.VarChar) { Value = objEmailTemplatesBO.StatusMessage };
+                sqlParams[9] = new SqlParameter("@IsSent", SqlDbType.Bit) { Value = objEmailTemplatesBO.IsSent };
+
+                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_SaveEmailLog", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
         }
     }
 }

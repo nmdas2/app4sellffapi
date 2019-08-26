@@ -49,18 +49,31 @@ export class RegisterComponent implements OnInit {
         if (this.registerForm.invalid) {
             return;
         }
-
-        this.loading = true;
-        this.userService.register(this.registerForm.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/login']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+        this.userService.CheckIfUserExists(this.registerForm.value.email)
+        .subscribe(
+            data => {
+                if(data>0){                    
+                    this.alertService.success('This user already registered with Sellff.', true);
+                    return;
+                }
+                else{
+                    this.loading = true;
+                    this.userService.register(this.registerForm.value)
+                    .pipe(first())
+                    .subscribe(
+                        data => {
+                            this.alertService.success('Registration successful', true);
+                            this.router.navigate(['/login']);
+                        },
+                        error => {
+                            this.alertService.error(error);
+                            this.loading = false;
+                        });
+                }
+            },
+            error => {
+                this.alertService.error(error);
+                this.loading = false;
+            });        
     }
 }
