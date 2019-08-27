@@ -73,4 +73,29 @@ namespace Sellff_API.Models
         [DataMember]
         public bool IsSent { get; set; }
     }
+
+    [DataContract]
+    public class InviteUsersBO
+    {
+        [DataMember]
+        public int UserId { get; set; }
+        [DataMember]
+        public string Name { get; set; }
+        [DataMember]
+        public string EmailId { get; set; }
+        [DataMember]
+        public string Phone { get; set; }
+        [DataMember]
+        public string InvitationSentDate { get; set; }
+        [DataMember]
+        public bool IsUserRegistered { get; set; }
+        [DataMember]
+        public int InvitedBy { get; set; }
+        [DataMember]
+        public string CreatedOn { get; set; }
+        [DataMember]
+        public string InviteGuid { get; set; }
+        [DataMember]
+        public string ErrorMessage { get; set; }
+    }
 }

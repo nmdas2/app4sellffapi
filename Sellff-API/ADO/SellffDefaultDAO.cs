@@ -1,6 +1,7 @@
 ﻿using log4net;
 using Sellff_API.Models;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -112,6 +113,134 @@ namespace Sellff_API.ADO
                 log4netlogger.Error(ex);
             }
             return objAuthenticationBO;
+        }
+
+        public List<InviteUsersBO> GetInvitedUsersByUserId(int keystring)
+        {
+            List<InviteUsersBO> objResultList = new List<InviteUsersBO>();
+            try
+            {
+                var sqlParams = new SqlParameter[1];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = keystring };
+
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetInvitationsSentByUserId", sqlParams);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    for (int i = 0; i < _objDataSet.Tables[0].Rows.Count; i++)
+                    {
+                        InviteUsersBO objResponseBO = new InviteUsersBO();
+                        var objDataRow = _objDataSet.Tables[0].Rows[i];
+                        objResponseBO.Name = Convert.ToString(objDataRow["Name"]);
+                        objResponseBO.EmailId = Convert.ToString(objDataRow["EmailId"]);
+                        objResponseBO.Phone = Convert.ToString(objDataRow["Phone"]);
+                        objResponseBO.InvitationSentDate = Convert.ToString(objDataRow["InvitationSentDate"]);
+                        objResponseBO.IsUserRegistered = Convert.ToBoolean(objDataRow["IsUserRegistered"]);
+                        objResponseBO.InvitedBy = Convert.ToInt32(objDataRow["InvitedBy"]);
+                        objResponseBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
+                        objResponseBO.InviteGuid = Convert.ToString(objDataRow["InviteGuid"]);
+                        objResultList.Add(objResponseBO);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objResultList;
+        }
+
+        public InviteUsersBO SaveUserInviteDetails(InviteUsersBO objInviteUsersBO)
+        {
+            try
+            {
+                var sqlParams = new SqlParameter[4];
+                sqlParams[0] = new SqlParameter("@Name", SqlDbType.VarChar) { Value = objInviteUsersBO.Name };
+                sqlParams[1] = new SqlParameter("@EmailId", SqlDbType.VarChar) { Value = objInviteUsersBO.EmailId };
+                sqlParams[2] = new SqlParameter("@Phone", SqlDbType.VarChar) { Value = objInviteUsersBO.Phone };
+                sqlParams[3] = new SqlParameter("@UserId", SqlDbType.VarChar) { Value = objInviteUsersBO.UserId };
+
+                objInviteUsersBO.InviteGuid = Convert.ToString(SqlHelper.SqlHelper.ExecuteScalar(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_SaveInvitationDetails", sqlParams));
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objInviteUsersBO;
+        }
+
+        public bool UpdateUserRegisteredByInvitation(string keystring)
+        {
+            bool response = true;
+            try
+            {
+                var sqlParams = new SqlParameter[1];
+                sqlParams[0] = new SqlParameter("@InviteKey", SqlDbType.VarChar) { Value = keystring };
+
+                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_UpdateRegistrationByInvitation", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return response;
+        }
+        public bool UpdateUserInvitationSentDate(string keystring)
+        {
+            bool response = true;
+            try
+            {
+                var sqlParams = new SqlParameter[1];
+                sqlParams[0] = new SqlParameter("@InviteKey", SqlDbType.VarChar) { Value = keystring };
+
+                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_UpdateInvitationSentDateByInviteGUID", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return response;
+        }
+
+        public string CheckIfUserAlreadyInvited(string keystring, int hashky)
+        {
+            string result = "";
+            try
+            {
+                var sqlParams = new SqlParameter[2];
+                sqlParams[0] = new SqlParameter("@EmailId", SqlDbType.VarChar) { Value = keystring };
+                sqlParams[1] = new SqlParameter("@UserId", SqlDbType.Int) { Value = hashky };
+
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_CheckIfUserAlreadyInvited", sqlParams);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    if (Convert.ToInt32(_objDataSet.Tables[0].Rows[0]["RegisteredCount"]) > 0)
+                    {
+                        result = "This user is already registered.";
+                        return result;
+                    }
+                }
+                if (_objDataSet.Tables[1].Rows.Count > 0)
+                {
+                    if (Convert.ToInt32(_objDataSet.Tables[1].Rows[0]["InvitedCountByMe"]) > 0)
+                    {
+                        result = "This user is already invited by you.";
+                        return result;
+                    }
+                }
+                if (_objDataSet.Tables[2].Rows.Count > 0)
+                {
+                    if (Convert.ToInt32(_objDataSet.Tables[2].Rows[0]["InvitedCount"]) > 0)
+                    {
+                        result = "This user is already invited by another user.";
+                        return result;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return result;
         }
 
         public int CheckIfUserAlreadyEsists(string keystring)

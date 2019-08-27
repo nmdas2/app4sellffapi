@@ -27,23 +27,22 @@ namespace Sellff_API.Services
             EmailTemplatesBO objEmailTemplatesBO = objSellffDefaultDAO.GetEmailTemplate(ConfigurationManager.AppSettings["RegEmail"].ToString());
             try
             {
-                SendEmail(objResponseBO, objEmailTemplatesBO);
+                SendEmail(objResponseBO.Email, objResponseBO.DisplayName, objResponseBO.InviteUniqueId, objEmailTemplatesBO);
             }
             catch (Exception ex)
-            {
-                
+            {                
             }            
             return objResponseBO;
         }
 
-        public bool SendEmail(AuthenticationBO objAuthenticationBO, EmailTemplatesBO objEmailTemplatesBO)
+        public bool SendEmail(string Email, string DisplayName, string InviteUniqueId, EmailTemplatesBO objEmailTemplatesBO)
         {
-            String FROM = ConfigurationManager.AppSettings["FROMEmail"].ToString();  // Replace with your "From" address. This address must be verified.
-            String TO = objAuthenticationBO.Email;
+            String FROM = ConfigurationManager.AppSettings["FROMEmail"].ToString();
+            String TO = Email;
             String SUBJECT = objEmailTemplatesBO.EmailSubject;
             string emailBody = objEmailTemplatesBO.EmailTemplate;
-            emailBody = emailBody.Replace("[UserName]", objAuthenticationBO.DisplayName);
-            emailBody = emailBody.Replace("[ActivateURL]", ConfigurationManager.AppSettings["ActivateAppDomain"].ToString()+ objAuthenticationBO.InviteUniqueId); 
+            emailBody = emailBody.Replace("[UserName]", DisplayName);
+            emailBody = emailBody.Replace("[ActivateURL]", ConfigurationManager.AppSettings["ActivateAppDomain"].ToString()+ InviteUniqueId);
             objEmailTemplatesBO.SentTo = TO;
             objEmailTemplatesBO.EmailTemplate = emailBody;
             objEmailTemplatesBO.SentFrom = FROM;
@@ -96,6 +95,38 @@ namespace Sellff_API.Services
                 }
             }
             return true;
+        }
+
+        public bool SaveUserInviteDetails(InviteUsersBO objInviteUsersBO)
+        {
+            InviteUsersBO objResponseBO = objSellffDefaultDAO.SaveUserInviteDetails(objInviteUsersBO);
+            EmailTemplatesBO objEmailTemplatesBO = objSellffDefaultDAO.GetEmailTemplate(ConfigurationManager.AppSettings["InvEmail"].ToString());
+            try
+            {
+                SendEmail(objResponseBO.EmailId, objResponseBO.Name, objResponseBO.InviteGuid, objEmailTemplatesBO);
+            }
+            catch (Exception ex)
+            {
+            }
+            return true;
+        }
+
+        public List<InviteUsersBO> GetInvitedUsersByUserId(int keystring)
+        {
+            return objSellffDefaultDAO.GetInvitedUsersByUserId(keystring);
+        }
+
+        public bool UpdateUserRegisteredByInvitation(string keystring)
+        {
+            return objSellffDefaultDAO.UpdateUserRegisteredByInvitation(keystring);
+        }
+        public bool UpdateUserInvitationSentDate(string keystring)
+        {
+            return objSellffDefaultDAO.UpdateUserInvitationSentDate(keystring);
+        }
+        public string CheckIfUserAlreadyInvited(string keystring, int hashky)
+        {
+            return objSellffDefaultDAO.CheckIfUserAlreadyInvited(keystring, hashky);
         }
 
         public int CheckIfUserAlreadyEsists(string keystring)
