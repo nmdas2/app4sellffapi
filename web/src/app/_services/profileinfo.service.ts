@@ -5,6 +5,7 @@ import { constants as consts } from '../constants';
 import { ProfileInfo, userAboutInfo } from '../_models/profileinfo';
 import { Post } from 'src/app/_models/post';
 import { Review } from '../_models/review';
+import { InviteUsers } from '../_models/inviteusers';
 
 export interface searchRes {
   DisplayName: string;
@@ -92,6 +93,18 @@ export class ProfileinfoService {
   
   getUserPostsByGroups(userId: number): Observable<any>{
     return this.http.get<any>(`${consts.DomainURL}ProfileInfo/GetUserPostsAsGroups/${userId}`);
+  }
+  checkUserAlreadyInvited(emailId: string, userId: number): Observable<any>{
+    return this.http.get(`${consts.DomainURL}SellffDefault/CheckIfUserAlreadyInvited/${emailId}/${userId}`)
+  }
+  saveUserInviteDetails(inviteUser: InviteUsers): Observable<any>{
+    return this.http.post(`${consts.DomainURL}SellffDefault/SaveUserInviteDetails`, inviteUser)
+  }
+  getInvitedUsersByUserId(userId: number): Observable<InviteUsers[]>{
+    return this.http.get<InviteUsers[]>(`${consts.DomainURL}SellffDefault/GetInvitedUsersByUserId/${userId}`)
+  }
+  updateUserInvitationSentDate(inviteGuid: string):Observable<any>{
+    return this.http.get(`${consts.DomainURL}SellffDefault/UpdateUserInvitationSentDate/${inviteGuid}`)
   }
 }
 

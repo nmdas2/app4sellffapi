@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RatingModule, ProgressbarModule, PopoverModule } from 'ngx-bootstrap';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { InviteComponent } from './invite/invite.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { InviteComponent } from './invite/invite.component';
     RatingModule.forRoot(),
     ProgressbarModule.forRoot(),
     PopoverModule.forRoot(),
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    PaginationModule.forRoot()
   ]
 })
 export class ProfileinfoModule { }

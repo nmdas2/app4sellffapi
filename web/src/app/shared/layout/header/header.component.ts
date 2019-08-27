@@ -122,4 +122,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.closeSideNav.emit(this.toggler);
   }
 
+  navigateTo(url){
+    this.router.navigate([url]);
+  }
+
 }

@@ -36,8 +36,8 @@
             </div>
             <div class="col-md-3">
                 <ul class="login-links" *ngIf="!hasActiveSession">
-                    <li><a href="/login">Sign In</a></li>
-                    <li><a href="/register">Regester</a></li>
+                    <li><a href="javascript:void(0);" (click)="navigateTo('/login')">Sign In</a></li>
+                    <li><a href="javascript:void(0);" (click)="navigateTo('/register')">Register</a></li>
                 </ul>
                 <div class="navbar-custom-menu" *ngIf="hasActiveSession">
                     <ul class="nav navbar-nav">

@@ -1,1 +1,100 @@
-<p>invite works!</p>
+<div class="wrapper">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="box">
+                <button type="button" (click)="popupInviteUser(template)" class="btn btn-default pull-right mb-3">Invite
+                    User
+                </button>
+                <div *ngIf="successMsg" class="mb-3 mt-3">
+                    <alert type="success">
+                        {{successMsg}}
+                    </alert>
+
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Invitation Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of inviteUsersList">
+                            <td>{{user.Name}}</td>
+                            <td>{{user.EmailId}}</td>
+                            <td>{{user.Phone}}</td>
+                            <td>{{user.InvitationSentDate}}</td>
+                            <td>
+                                <span *ngIf="!user.InvitationSentDate && !user.IsUserRegistered"><a
+                                        href="javascript:void(0)" (click)="sendInvitation(user)"
+                                        class="btn btn-info">Send Invitation</a> </span>
+                                <span *ngIf="user.InvitationSentDate && user.IsUserRegistered" class="text-success">Joined</span>
+                                <span *ngIf="user.InvitationSentDate && !user.IsUserRegistered" class="text-warning">No
+                                    Response</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination [boundaryLinks]="true" [totalItems]="inviteUsersList.length" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [maxSize]="maxSize">
+
+                </pagination>
+            </div>
+            <ng-template #template>
+                <div class="modal-header">
+                    <h4 class="modal-title pull-left">Invite User</h4>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p *ngIf="errorMsg" class="error-msg">{{errorMsg}}</p>
+                    <form [formGroup]="inviteForm" (ngSubmit)="inviteUser(inviteForm.value)">
+                        <div class="form-group">
+                            <input type="text" placeholder="Name" formControlName="Name" class="form-control" />
+                            <div *ngIf="inviteForm.get('Name').errors" class="invalid-feedback">
+                                <div *ngIf="(submitted || inviteForm.get('Name').dirty || inviteForm.get('Name').touched) && inviteForm.get('Name').errors.required">
+                                    Name is required</div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Email" formControlName="Email" class="form-control" />
+                            <div *ngIf="inviteForm.get('Email').errors" class="invalid-feedback">
+                                <div *ngIf="(submitted || inviteForm.get('Email').dirty || inviteForm.get('Email').touched) && inviteForm.get('Email').errors.required">
+                                    Email is required</div>
+                                <div *ngIf="(submitted || inviteForm.get('Email').dirty || inviteForm.get('Email').touched) && inviteForm.get('Email').errors.email">
+                                    Email is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" formControlName="Phone" placeholder="phone" class="form-control" />
+                            <div *ngIf="inviteForm.get('Phone').errors" class="invalid-feedback">
+                                <div *ngIf="(submitted || inviteForm.get('Phone').dirty || inviteForm.get('Phone').touched) && inviteForm.get('Phone').errors.required">
+                                    Phone is required</div>
+                                <div *ngIf="(submitted || inviteForm.get('Phone').dirty || inviteForm.get('Phone').touched) && inviteForm.get('Phone').errors.minlength">
+                                    Phone is required</div>
+                                <div *ngIf="(submitted || inviteForm.get('Phone').dirty || inviteForm.get('Phone').touched) && inviteForm.get('Phone').errors.maxlength">
+                                    Phone is required</div>
+                            </div>
+
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-default btn-lg" style="margin: 2px;">Invite</button>
+                            <button type="button" class="btn btn-danger btn-lg" style="margin: 2px;" (click)="resetForm()">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </ng-template>
+        </section>
+    </div>
+
+    <footer class="main-footer">
+        <div class="pull-right ">
+            <a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Site map</a>
+        </div>
+        Copyright 2019 All Right Reserved
+    </footer>
+</div>
