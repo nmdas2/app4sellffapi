@@ -76,16 +76,22 @@
                         </div>
                         <div class="box message-box review-box">
                             <div class="row">
+                                <div class="col-md-12">
                                 <h4 class="aria-label padding-right">Performance</h4>
                                 <rating [ngModel]=currentRating.Performance [max]="max" [readonly]="true"></rating>
+                                </div>
                             </div>
-                            <div class="row" style="margin-top: 30px">
+                            <div class="row">
+                                <div class="col-md-12">
                                 <h4 class="aria-label padding-right">Communication</h4>
                                 <rating [ngModel]=currentRating.Communication [max]="max" [readonly]="true"></rating>
+                                </div>
                             </div>
-                            <div class="row" style="margin-top: 30px">
+                            <div class="row">
+                                <div class="col-md-12">
                                 <h4 class="aria-label padding-right">QOW</h4>
                                 <rating [ngModel]=currentRating.QOW [max]="max" [readonly]="true"></rating>
+                                </div>
                             </div>
                             <button *ngIf="canReview && !reviewAlreadyGiven" type="button" class="btn btn-primary" (click)="openModal(template)">Write a Member Review</button>
                         </div>
@@ -93,44 +99,38 @@
                 </div>
                 <div class="col-md-8">
                     <div class="box message-box ">
-                        <div class="table table-responsive ">
-                            <table id="datatable" class="table table-responsive-sm table-hover table-outline mb-0" cellspacing="0" width="100%">
-                                <tbody>
-                                    <tr *ngFor="let review of userReviews">
-                                        <td>
-                                            <table style="width: 100%;">
-                                                <tr>
-                                                    <td><img src="{{review.ProfilePicPath}}" width="85%" class="reviewsmallpic"><br>
-                                                    <a class="reviewname" (click)=openotherprofile(review)>{{review.DisplayName}}</a>
-                                                    <rating [ngModel]=review.Rating [max]="max" [readonly]="true"></rating>
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
-                                                 <tr>
-                                                    <td>{{review.CreatedOn}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2">{{review.ReviewContent}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
-                                               
-                                                <tr class="review-comments">
-                                                    <td><button class="btn btn-primary btn-xs" (click)="sayhelpful()"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
-                                                        <span><i class="fa fa-comments-o" aria-hidden="true"></i> 
-                                                        {{review.ReviewTitle}}</span>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="c-review-box" *ngFor="let review of userReviews">
+                            <div class="row">
+                               <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="review-title"><rating [ngModel]=review.Rating [max]="max" [readonly]="true"></rating> <h2>{{review.ReviewTitle}}</h2></div>
+                                    </div>
+                                     <div class="col-md-4"><div class="review-date">{{review.CreatedOn}}</div></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="review-details">
+                                        <img src="{{review.ProfilePicPath}}" width="85%" class="reviewsmallpic"><br>
+                                        <a class="reviewname" (click)=openotherprofile(review)>{{review.DisplayName}}</a>
+                                       
+                                    </div>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="review-content">
+                                        
+                                        <p>{{review.ReviewContent}}</p>
+                                        <div class="review-comments">
+                                            <button class="btn btn-primary btn-xs" (click)="sayhelpful()"><i class="fa fa-thumbs-up" aria-hidden="true"></i>(4)</button>
+                                            
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
+
+                        
                     </div>
                 </div>
                 <ng-template #template>

@@ -111,17 +111,25 @@
                                 <h4>{{posts.MonthYear}}</h4>
                             </div>
                         </div>
-                        <div class="row maring-bottom-30">
-                            <div class="col-md-2" *ngFor="let post of posts.objPostsList">
-                                <div *ngIf="post.ContentType==1">
-                                    <a href="javascript:void(0)" (click)="getUserContent(post.UserContent, post.Title, contentTemplate)"><img src="../../../assets/selfprflimages/doc_icon.png"></a>
-                                </div>
-                                <div *ngIf="post.ContentType==2">
-                                    <a data-toggle="modal" data-target="#1" (click)="setModelImage(post.ImagePath)">
-                                        <img src={{post.ImagePath}} />
-                                    </a>
-                                </div>
+                        <div class="maring-bottom-30">
+                            <div class="post-list-view">
+                                <ul>
+                                    <li>
+                                        <div class="post-img-box" *ngFor="let post of posts.objPostsList">
+                                            <div *ngIf="post.ContentType==1">
+                                                <a href="javascript:void(0)" (click)="getUserContent(post.UserContent, post.Title, contentTemplate)"><img src="../../../assets/selfprflimages/doc_icon.png"></a>
+                                            </div>
+                                            <div *ngIf="post.ContentType==2">
+                                                <a data-toggle="modal" data-target="#1" (click)="setModelImage(post.ImagePath)">
+                                                    <img src={{post.ImagePath}} />
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
+                            
+                            
                         </div>
                     </div>
                 </div>
