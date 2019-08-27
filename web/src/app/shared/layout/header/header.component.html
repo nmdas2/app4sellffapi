@@ -35,9 +35,9 @@
                 </nav>
             </div>
             <div class="col-md-3">
-                <ul class="login-links">
-                    <li><a href="">Sign In</a></li>
-                    <li><a href="">Regester</a></li>
+                <ul class="login-links" *ngIf="!hasActiveSession">
+                    <li><a href="/login">Sign In</a></li>
+                    <li><a href="/register">Regester</a></li>
                 </ul>
                 <div class="navbar-custom-menu" *ngIf="hasActiveSession">
                     <ul class="nav navbar-nav">
