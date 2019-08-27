@@ -27,7 +27,7 @@ namespace Sellff_API.Services
             EmailTemplatesBO objEmailTemplatesBO = objSellffDefaultDAO.GetEmailTemplate(ConfigurationManager.AppSettings["RegEmail"].ToString());
             try
             {
-                SendEmail(objResponseBO.Email, objResponseBO.DisplayName, objResponseBO.InviteUniqueId, objEmailTemplatesBO);
+                SendEmail(objResponseBO.Email, objResponseBO.DisplayName, objResponseBO.InviteUniqueId, ConfigurationManager.AppSettings["ActivateAppDomain"].ToString(), objEmailTemplatesBO);
             }
             catch (Exception ex)
             {                
@@ -35,14 +35,14 @@ namespace Sellff_API.Services
             return objResponseBO;
         }
 
-        public bool SendEmail(string Email, string DisplayName, string InviteUniqueId, EmailTemplatesBO objEmailTemplatesBO)
+        public bool SendEmail(string Email, string DisplayName, string InviteUniqueId,string replaceURL, EmailTemplatesBO objEmailTemplatesBO)
         {
             String FROM = ConfigurationManager.AppSettings["FROMEmail"].ToString();
             String TO = Email;
             String SUBJECT = objEmailTemplatesBO.EmailSubject;
             string emailBody = objEmailTemplatesBO.EmailTemplate;
             emailBody = emailBody.Replace("[UserName]", DisplayName);
-            emailBody = emailBody.Replace("[ActivateURL]", ConfigurationManager.AppSettings["ActivateAppDomain"].ToString()+ InviteUniqueId);
+            emailBody = emailBody.Replace("[ActivateURL]", replaceURL + InviteUniqueId);
             objEmailTemplatesBO.SentTo = TO;
             objEmailTemplatesBO.EmailTemplate = emailBody;
             objEmailTemplatesBO.SentFrom = FROM;
@@ -99,16 +99,7 @@ namespace Sellff_API.Services
 
         public bool SaveUserInviteDetails(InviteUsersBO objInviteUsersBO)
         {
-            InviteUsersBO objResponseBO = objSellffDefaultDAO.SaveUserInviteDetails(objInviteUsersBO);
-            EmailTemplatesBO objEmailTemplatesBO = objSellffDefaultDAO.GetEmailTemplate(ConfigurationManager.AppSettings["InvEmail"].ToString());
-            try
-            {
-                SendEmail(objResponseBO.EmailId, objResponseBO.Name, objResponseBO.InviteGuid, objEmailTemplatesBO);
-            }
-            catch (Exception ex)
-            {
-            }
-            return true;
+            return objSellffDefaultDAO.SaveUserInviteDetails(objInviteUsersBO);
         }
 
         public List<InviteUsersBO> GetInvitedUsersByUserId(int keystring)
@@ -122,7 +113,16 @@ namespace Sellff_API.Services
         }
         public bool UpdateUserInvitationSentDate(string keystring)
         {
-            return objSellffDefaultDAO.UpdateUserInvitationSentDate(keystring);
+            InviteUsersBO objResponseBO = objSellffDefaultDAO.UpdateUserInvitationSentDate(keystring);
+            EmailTemplatesBO objEmailTemplatesBO = objSellffDefaultDAO.GetEmailTemplate(ConfigurationManager.AppSettings["InviteEmail"].ToString());
+            try
+            {
+                SendEmail(objResponseBO.EmailId, objResponseBO.Name, objResponseBO.InviteGuid, ConfigurationManager.AppSettings["InitationURL"].ToString(), objEmailTemplatesBO);
+            }
+            catch (Exception ex)
+            {
+            }
+            return true;
         }
         public string CheckIfUserAlreadyInvited(string keystring, int hashky)
         {

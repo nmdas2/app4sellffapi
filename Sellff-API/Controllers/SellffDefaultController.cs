@@ -71,7 +71,7 @@ namespace Sellff_API.Controllers
         ///</summary>
         /// <param name="keystring"></param>
         /// <param name="hashky"></param>
-        [HttpGet, Route("api/SellffDefault/CheckIfUserAlreadyInvited/{keystring}/{hashky}")]
+        [HttpGet, Route("api/SellffDefault/CheckIfUserAlreadyInvited/{EmailId}/{UserId}")]
         public IHttpActionResult CheckIfUserAlreadyInvited(string keystring, int hashky)
         {
             string response = objSellffDefaultService.CheckIfUserAlreadyInvited(keystring, hashky);
@@ -85,7 +85,7 @@ namespace Sellff_API.Controllers
         /// This method will update if users regisrers with invitation link shared
         ///</summary>
         /// <param name="keystring"></param>
-        [HttpGet, Route("api/SellffDefault/UpdateUserRegisteredByInvitation/{keystring}")]
+        [HttpGet, Route("api/SellffDefault/UpdateUserRegisteredByInvitation/{InviteGuid}")]
         public IHttpActionResult UpdateUserRegisteredByInvitation(string keystring)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.UpdateUserRegisteredByInvitation(keystring)));
@@ -95,7 +95,7 @@ namespace Sellff_API.Controllers
         /// This method will update if users regisrers with invitation link shared
         ///</summary>
         /// <param name="keystring"></param>
-        [HttpGet, Route("api/SellffDefault/UpdateUserInvitationSentDate/{keystring}")]
+        [HttpGet, Route("api/SellffDefault/UpdateUserInvitationSentDate/{InviteGuid}")]
         public IHttpActionResult UpdateUserInvitationSentDate(string keystring)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.UpdateUserInvitationSentDate(keystring)));
@@ -115,7 +115,7 @@ namespace Sellff_API.Controllers
         /// This method will Get all the users invited by UserId
         ///</summary>
         /// <param name="keystring"></param>
-        [HttpGet, Route("api/SellffDefault/GetInvitedUsersByUserId/{keystring}")]
+        [HttpGet, Route("api/SellffDefault/GetInvitedUsersByUserId/{UserId}")]
         public IHttpActionResult GetInvitedUsersByUserId(int keystring)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.GetInvitedUsersByUserId(keystring)));

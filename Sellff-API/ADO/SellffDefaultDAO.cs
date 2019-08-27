@@ -149,7 +149,7 @@ namespace Sellff_API.ADO
             return objResultList;
         }
 
-        public InviteUsersBO SaveUserInviteDetails(InviteUsersBO objInviteUsersBO)
+        public bool SaveUserInviteDetails(InviteUsersBO objInviteUsersBO)
         {
             try
             {
@@ -159,13 +159,13 @@ namespace Sellff_API.ADO
                 sqlParams[2] = new SqlParameter("@Phone", SqlDbType.VarChar) { Value = objInviteUsersBO.Phone };
                 sqlParams[3] = new SqlParameter("@UserId", SqlDbType.VarChar) { Value = objInviteUsersBO.UserId };
 
-                objInviteUsersBO.InviteGuid = Convert.ToString(SqlHelper.SqlHelper.ExecuteScalar(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_SaveInvitationDetails", sqlParams));
+                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_SaveInvitationDetails", sqlParams);
             }
             catch (Exception ex)
             {
                 log4netlogger.Error(ex);
             }
-            return objInviteUsersBO;
+            return true;
         }
 
         public bool UpdateUserRegisteredByInvitation(string keystring)
@@ -184,21 +184,32 @@ namespace Sellff_API.ADO
             }
             return response;
         }
-        public bool UpdateUserInvitationSentDate(string keystring)
+        public InviteUsersBO UpdateUserInvitationSentDate(string keystring)
         {
-            bool response = true;
+            InviteUsersBO objResponseBO = new InviteUsersBO();
             try
             {
                 var sqlParams = new SqlParameter[1];
                 sqlParams[0] = new SqlParameter("@InviteKey", SqlDbType.VarChar) { Value = keystring };
-
-                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_UpdateInvitationSentDateByInviteGUID", sqlParams);
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_UpdateInvitationSentDateByInviteGUID", sqlParams);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    var objDataRow = _objDataSet.Tables[0].Rows[0];
+                    objResponseBO.Name = Convert.ToString(objDataRow["Name"]);
+                    objResponseBO.EmailId = Convert.ToString(objDataRow["EmailId"]);
+                    objResponseBO.Phone = Convert.ToString(objDataRow["Phone"]);
+                    objResponseBO.InvitationSentDate = Convert.ToString(objDataRow["InvitationSentDate"]);
+                    objResponseBO.IsUserRegistered = Convert.ToBoolean(objDataRow["IsUserRegistered"]);
+                    objResponseBO.InvitedBy = Convert.ToInt32(objDataRow["InvitedBy"]);
+                    objResponseBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
+                    objResponseBO.InviteGuid = Convert.ToString(objDataRow["InviteGuid"]);
+                }
             }
             catch (Exception ex)
             {
                 log4netlogger.Error(ex);
             }
-            return response;
+            return objResponseBO;
         }
 
         public string CheckIfUserAlreadyInvited(string keystring, int hashky)
