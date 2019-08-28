@@ -25,13 +25,16 @@
     font-size: 36px;
     margin-left: 50px;
 }
+.header-banner{
+    padding-top: 50px;
+}
 
 #main {
     transition: margin-left .2s;
     padding: 0;
-    padding-top: 50px;
-    padding-left: 0;
-    padding-right: 0;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #mySidenav ul {
