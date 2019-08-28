@@ -94,13 +94,14 @@ namespace Sellff_API.ADO
             try
             {
                 objAuthenticationBO.InviteUniqueId = RandomString(Convert.ToInt32(ConfigurationManager.AppSettings["RandomStringLength"]));
-                var sqlParams = new SqlParameter[6];                
+                var sqlParams = new SqlParameter[7];                
                 sqlParams[0] = new SqlParameter("@Email", SqlDbType.VarChar) { Value = objAuthenticationBO.Email };
                 sqlParams[1] = new SqlParameter("@Password", SqlDbType.VarChar) { Value = objAuthenticationBO.Password };
                 sqlParams[2] = new SqlParameter("@DisplayName", SqlDbType.VarChar) { Value = objAuthenticationBO.DisplayName };
                 sqlParams[3] = new SqlParameter("@Age", SqlDbType.VarChar) { Value = objAuthenticationBO.Age };
                 sqlParams[4] = new SqlParameter("@City", SqlDbType.VarChar) { Value = objAuthenticationBO.City };
                 sqlParams[5] = new SqlParameter("@InviteUniqueId", SqlDbType.VarChar) { Value = objAuthenticationBO.InviteUniqueId };
+                sqlParams[6] = new SqlParameter("@InviteGuid", SqlDbType.VarChar) { Value = objAuthenticationBO.InviteGuid };
 
                 string ResultId = Convert.ToString(SqlHelper.SqlHelper.ExecuteScalar(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "SaveUserDetails", sqlParams));
                 if (ResultId != "")

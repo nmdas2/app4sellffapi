@@ -47,6 +47,8 @@ namespace Sellff_API.Models
         public string City { get; set; }
         [DataMember]
         public string InviteUniqueId { get; set; }
+        [DataMember]
+        public string InviteGuid { get; set; } = "";
     }
 
     [DataContract]
