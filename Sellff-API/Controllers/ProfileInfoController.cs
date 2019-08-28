@@ -258,5 +258,15 @@ namespace Sellff_API.Controllers
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserPostsAsGroups(UserId)));
         }
 
+        ///summary
+        /// This method will Save user About info  based on UserId
+        ///</summary>
+        /// <param name="objUserTransactionBO"></param>
+        [HttpPost, Route("api/ProfileInfo/SaveUserBuySellTransactions")]
+        public IHttpActionResult SaveUserBuySellTransactions([FromBody]UserTransactionBO objUserTransactionBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.SaveUserBuySellTransactions(objUserTransactionBO)));
+        }
+
     }
 }

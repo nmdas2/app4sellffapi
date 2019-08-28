@@ -178,5 +178,10 @@ namespace Sellff_API.Services
         {
             return objProfileInfoDAO.GetUserPostsAsGroups(UserId);
         }
+
+        public bool SaveUserBuySellTransactions(UserTransactionBO objUserTransactionBO)
+        {
+            return objProfileInfoDAO.SaveUserBuySellTransactions(objUserTransactionBO);
+        }
     }
 }

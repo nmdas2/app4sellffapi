@@ -173,6 +173,26 @@ namespace Sellff_API.ADO
             return objProotionsList;
         }
 
+        public bool SaveUserBuySellTransactions(UserTransactionBO objUserTransactionBO)
+        {
+            bool result = true;
+            try
+            {
+                var sqlParams = new SqlParameter[4];
+                sqlParams[0] = new SqlParameter("@ProfileId", SqlDbType.Int) { Value = objUserTransactionBO.UserRefProfileId };
+                sqlParams[1] = new SqlParameter("@UserId", SqlDbType.Int) { Value = objUserTransactionBO.UserId };
+                sqlParams[2] = new SqlParameter("@Qty", SqlDbType.Int) { Value = objUserTransactionBO.Quantity };
+                sqlParams[3] = new SqlParameter("@ActionType", SqlDbType.Int) { Value = objUserTransactionBO.ActionType };
+                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "SaveUserTransactionDetails", sqlParams);               
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                log4netlogger.Error(ex);
+            }
+            return result;
+        }
+
         public ProfileInfoBO GetUserProfileInfoByUserId(int loginUser)
         {
             ProfileInfoBO objResponseBO = new ProfileInfoBO();

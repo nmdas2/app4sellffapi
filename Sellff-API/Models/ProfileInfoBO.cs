@@ -249,7 +249,6 @@ namespace Sellff_API.Models
         [DataMember]
         public bool ReviewAlreadyGiven { get; set; }
     }
-
     public class UserLocalStorageBO
     {
         [DataMember]
@@ -274,6 +273,17 @@ namespace Sellff_API.Models
         public string SocialLink { get; set; }
         [DataMember]
         public string Occupation { get; set; }
+    }
+    public class UserTransactionBO
+    {
+        [DataMember]
+        public int UserId { get; set; }
+        [DataMember]
+        public int UserRefProfileId { get; set; }
+        [DataMember]
+        public int Quantity { get; set; }
+        [DataMember]
+        public int ActionType { get; set; }
     }
 
 }
