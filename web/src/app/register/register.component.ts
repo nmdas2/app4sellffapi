@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first, max } from 'rxjs/operators';
 import { AuthenticationService } from '../_services/authentication.service';
 import { UserService } from '../_services/user.service';
 import { AlertService } from '../_services/alert.service';
 import { CommonService } from '../_services/common.service';
+import { User } from '../_models/user';
 
 
-@Component({ 
+@Component({
     templateUrl: 'register.component.html',
     styleUrls: ['./register.component.scss']
 })
@@ -18,18 +19,31 @@ export class RegisterComponent implements OnInit {
     submitted = false;
     successMsg: string = '';
     errorMsg: string = '';
+    inviteGuid: string;
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
         private authenticationService: AuthenticationService,
         private userService: UserService,
         private alertService: AlertService,
-        private commonService: CommonService
+        private commonService: CommonService,
+        private route: ActivatedRoute
     ) {
         //redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) {
-            this.router.navigate(['/profileinfo/about']);
-        }
+        this.route.queryParams.subscribe(params => {
+            console.log(params);
+            if (params && params.InviteGuid) {
+                this.authenticationService.logout();
+                this.inviteGuid = params.InviteGuid;
+            }
+            else {
+                this.inviteGuid  = "";
+                if (this.authenticationService.currentUserValue) {
+                    this.router.navigate(['/profileinfo/about']);
+                }
+            }
+        })
+
     }
 
     ngOnInit() {
@@ -69,7 +83,14 @@ export class RegisterComponent implements OnInit {
                     else {
                         this.loading = true;
                         this.commonService.loadingShow();
-                        this.userService.register(this.registerForm.value)
+                        let userInfo = <User>{};
+                        userInfo.DisplayName = this.registerForm.value.displayName;
+                        userInfo.email = this.registerForm.value.email;
+                        userInfo.password = this.registerForm.value.password;
+                        userInfo.Age = this.registerForm.value.age;
+                        userInfo.City = this.registerForm.value.city;
+                        userInfo.InviteGuid = this.inviteGuid;
+                        this.userService.register(userInfo)
                             .pipe(first())
                             .subscribe(
                                 data => {

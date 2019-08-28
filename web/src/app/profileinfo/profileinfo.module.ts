@@ -21,6 +21,7 @@ import { RatingModule, ProgressbarModule, PopoverModule } from 'ngx-bootstrap';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { InviteComponent } from './invite/invite.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     ProgressbarModule.forRoot(),
     PopoverModule.forRoot(),
     AlertModule.forRoot(),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    DataTablesModule
   ]
 })
 export class ProfileinfoModule { }
