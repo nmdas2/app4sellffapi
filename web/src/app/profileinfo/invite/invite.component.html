@@ -11,7 +11,7 @@
                     </alert>
 
                 </div>
-                <table class="table">
+                <table class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -38,7 +38,6 @@
                         </tr>
                     </tbody>
                 </table>
-                <pagination [boundaryLinks]="true" [totalItems]="inviteUsersList.length" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [maxSize]="maxSize"></pagination>
             </div>
             <ng-template #template>
                 <div class="modal-header">
