@@ -102,18 +102,18 @@ namespace Sellff_API.Services
             return objSellffDefaultDAO.SaveUserInviteDetails(objInviteUsersBO);
         }
 
-        public List<InviteUsersBO> GetInvitedUsersByUserId(int keystring)
+        public List<InviteUsersBO> GetInvitedUsersByUserId(int UserId)
         {
-            return objSellffDefaultDAO.GetInvitedUsersByUserId(keystring);
+            return objSellffDefaultDAO.GetInvitedUsersByUserId(UserId);
         }
 
-        public bool UpdateUserRegisteredByInvitation(string keystring)
+        public bool UpdateUserRegisteredByInvitation(string InviteGuid)
         {
-            return objSellffDefaultDAO.UpdateUserRegisteredByInvitation(keystring);
+            return objSellffDefaultDAO.UpdateUserRegisteredByInvitation(InviteGuid);
         }
-        public bool UpdateUserInvitationSentDate(string keystring)
+        public bool UpdateUserInvitationSentDate(string InviteGuid)
         {
-            InviteUsersBO objResponseBO = objSellffDefaultDAO.UpdateUserInvitationSentDate(keystring);
+            InviteUsersBO objResponseBO = objSellffDefaultDAO.UpdateUserInvitationSentDate(InviteGuid);
             EmailTemplatesBO objEmailTemplatesBO = objSellffDefaultDAO.GetEmailTemplate(ConfigurationManager.AppSettings["InviteEmail"].ToString());
             try
             {
@@ -124,9 +124,9 @@ namespace Sellff_API.Services
             }
             return true;
         }
-        public string CheckIfUserAlreadyInvited(string keystring, int hashky)
+        public string CheckIfUserAlreadyInvited(string EmailId, int UserId)
         {
-            return objSellffDefaultDAO.CheckIfUserAlreadyInvited(keystring, hashky);
+            return objSellffDefaultDAO.CheckIfUserAlreadyInvited(EmailId, UserId);
         }
 
         public int CheckIfUserAlreadyEsists(string keystring)
