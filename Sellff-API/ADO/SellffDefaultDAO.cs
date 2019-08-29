@@ -116,6 +116,35 @@ namespace Sellff_API.ADO
             return objAuthenticationBO;
         }
 
+        public InviteUsersBO GetInvitedUsersDetailsByGuidForReg(string inviteGuid)
+        {
+            InviteUsersBO objResponseBO = new InviteUsersBO();
+            try
+            {
+                var sqlParams = new SqlParameter[1];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = inviteGuid };
+
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetInvitationDetailsByGuid", sqlParams);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    var objDataRow = _objDataSet.Tables[0].Rows[0];
+                    objResponseBO.Name = Convert.ToString(objDataRow["Name"]);
+                    objResponseBO.EmailId = Convert.ToString(objDataRow["EmailId"]);
+                    objResponseBO.Phone = Convert.ToString(objDataRow["Phone"]);
+                    objResponseBO.InvitationSentDate = Convert.ToString(objDataRow["InvitationSentDate"]);
+                    objResponseBO.IsUserRegistered = Convert.ToBoolean(objDataRow["IsUserRegistered"]);
+                    objResponseBO.InvitedBy = Convert.ToInt32(objDataRow["InvitedBy"]);
+                    objResponseBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
+                    objResponseBO.InviteGuid = Convert.ToString(objDataRow["InviteGuid"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objResponseBO;
+        }
+
         public List<InviteUsersBO> GetInvitedUsersByUserId(int keystring)
         {
             List<InviteUsersBO> objResultList = new List<InviteUsersBO>();

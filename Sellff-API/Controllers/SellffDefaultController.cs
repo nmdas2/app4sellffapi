@@ -121,5 +121,15 @@ namespace Sellff_API.Controllers
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.GetInvitedUsersByUserId(UserId)));
         }
 
+        ///summary
+        /// This method will Get all the users invited by UserId
+        ///</summary>
+        /// <param name="InviteGuid"></param>
+        [HttpGet, Route("api/SellffDefault/GetInvitedUsersDetailsByGuidForReg/{InviteGuid}")]
+        public IHttpActionResult GetInvitedUsersDetailsByGuidForReg(string InviteGuid)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.GetInvitedUsersDetailsByGuidForReg(InviteGuid)));
+        }
+
     }
 }

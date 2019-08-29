@@ -127,6 +127,12 @@ namespace Sellff_API.Services
             }
             return true;
         }
+
+        public InviteUsersBO GetInvitedUsersDetailsByGuidForReg(string inviteGuid)
+        {
+            return objSellffDefaultDAO.GetInvitedUsersDetailsByGuidForReg(inviteGuid);
+        }
+
         public string CheckIfUserAlreadyInvited(string EmailId, int UserId)
         {
             return objSellffDefaultDAO.CheckIfUserAlreadyInvited(EmailId, UserId);
