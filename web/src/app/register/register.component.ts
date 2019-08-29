@@ -31,7 +31,6 @@ export class RegisterComponent implements OnInit {
     ) {
         //redirect to home if already logged in
         this.route.queryParams.subscribe(params => {
-            console.log(params);
             if (params && params.InviteGuid) {
                 this.authenticationService.logout();
                 this.inviteGuid = params.InviteGuid;
@@ -117,5 +116,22 @@ export class RegisterComponent implements OnInit {
                     this.alertService.error(error);
                     this.loading = false;
                 });
+    }
+
+    ngAfterViewInit(){
+        if(this.inviteGuid){
+           // http://localhost:4200/register?InviteGuid=782A0DCD-5456-44F6-90EE-1A6EFC00F834
+            this.getInvitedUserInfo();
+        }
+    }
+
+    getInvitedUserInfo(){
+        this.userService.getInvitedUserByGuid(this.inviteGuid)
+        .subscribe(res => {
+            if(res && res.Name && res.EmailId){
+                this.registerForm.get('displayName').setValue(res.Name);
+                this.registerForm.get('email').setValue(res.EmailId);
+            }
+        })
     }
 }

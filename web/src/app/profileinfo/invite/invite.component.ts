@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProfileInfo } from 'src/app/_models/profileinfo';
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { InviteUsers } from 'src/app/_models/inviteusers';
 import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
 import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-invite',
@@ -22,6 +23,8 @@ export class InviteComponent implements OnInit {
   maxSize: number = 2;
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
   constructor(
     private modalService: BsModalService,
     private fb: FormBuilder,
@@ -76,6 +79,7 @@ export class InviteComponent implements OnInit {
           this.profileService.saveUserInviteDetails(inviteUserObj)
             .subscribe(res => {
               this.successMsg = 'User has been invited successfully';
+              this.rerender();
               this.getInvitedUsersList();
               this.closeModal();
               setTimeout(() => {
@@ -123,11 +127,12 @@ export class InviteComponent implements OnInit {
     this.submitted = false;
   }
   getInvitedUsersList() {
-    this.inviteUsersList = [];
     this.profileService.getInvitedUsersByUserId(this.loggedInUser.UserId)
       .subscribe(res => {
         if (res && res.length > 0)
           this.inviteUsersList = res;
+        else
+          this.inviteUsersList = [];
         this.dtTrigger.next();
       }, error => {
         console.log(error);
@@ -138,6 +143,7 @@ export class InviteComponent implements OnInit {
     this.profileService.updateUserInvitationSentDate(inviteUser.InviteGuid)
       .subscribe(res => {
         this.successMsg = 'Invitation sent successfully';
+        this.rerender();
         this.getInvitedUsersList();
         setTimeout(() => {
           this.successMsg = '';
@@ -149,6 +155,14 @@ export class InviteComponent implements OnInit {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 }
 
