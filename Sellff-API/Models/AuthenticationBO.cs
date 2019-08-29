@@ -99,5 +99,7 @@ namespace Sellff_API.Models
         public string InviteGuid { get; set; }
         [DataMember]
         public string ErrorMessage { get; set; }
+        [DataMember]
+        public string RefereUserName { get; set; }
     }
 }

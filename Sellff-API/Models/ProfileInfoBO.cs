@@ -285,5 +285,18 @@ namespace Sellff_API.Models
         [DataMember]
         public int ActionType { get; set; }
     }
+    public class UserServiceTypesBO
+    {
+        [DataMember]
+        public int UserId { get; set; }
+        [DataMember]
+        public string ServiceName { get; set; }
+        [DataMember]
+        public int ServiceType { get; set; }
+        [DataMember]
+        public int ServiceMatchCount { get; set; }
+        [DataMember]
+        public string UserIP { get; set; }
+    }
 
 }

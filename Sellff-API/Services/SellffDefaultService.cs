@@ -29,7 +29,7 @@ namespace Sellff_API.Services
                 EmailTemplatesBO objEmailTemplatesBO = objSellffDefaultDAO.GetEmailTemplate(ConfigurationManager.AppSettings["RegEmail"].ToString());
                 try
                 {
-                    SendEmail(objResponseBO.Email, objResponseBO.DisplayName, objResponseBO.InviteUniqueId, ConfigurationManager.AppSettings["ActivateAppDomain"].ToString(), objEmailTemplatesBO);
+                    SendEmail(objResponseBO.Email, objResponseBO.DisplayName, objResponseBO.InviteUniqueId, ConfigurationManager.AppSettings["ActivateAppDomain"].ToString(), objEmailTemplatesBO,"");
                 }
                 catch (Exception ex)
                 {
@@ -38,7 +38,7 @@ namespace Sellff_API.Services
             return objResponseBO;
         }
 
-        public bool SendEmail(string Email, string DisplayName, string InviteUniqueId,string replaceURL, EmailTemplatesBO objEmailTemplatesBO)
+        public bool SendEmail(string Email, string DisplayName, string InviteUniqueId,string replaceURL, EmailTemplatesBO objEmailTemplatesBO, string RefereUserName)
         {
             String FROM = ConfigurationManager.AppSettings["FROMEmail"].ToString();
             String TO = Email;
@@ -46,6 +46,8 @@ namespace Sellff_API.Services
             string emailBody = objEmailTemplatesBO.EmailTemplate;
             emailBody = emailBody.Replace("[UserName]", DisplayName);
             emailBody = emailBody.Replace("[ActivateURL]", replaceURL + InviteUniqueId);
+            if(!string.IsNullOrEmpty(RefereUserName))
+                emailBody = emailBody.Replace("[RefereUserName]", RefereUserName);
             objEmailTemplatesBO.SentTo = TO;
             objEmailTemplatesBO.EmailTemplate = emailBody;
             objEmailTemplatesBO.SentFrom = FROM;
@@ -120,7 +122,7 @@ namespace Sellff_API.Services
             EmailTemplatesBO objEmailTemplatesBO = objSellffDefaultDAO.GetEmailTemplate(ConfigurationManager.AppSettings["InviteEmail"].ToString());
             try
             {
-                SendEmail(objResponseBO.EmailId, objResponseBO.Name, objResponseBO.InviteGuid, ConfigurationManager.AppSettings["InitationURL"].ToString(), objEmailTemplatesBO);
+                SendEmail(objResponseBO.EmailId, objResponseBO.Name, objResponseBO.InviteGuid, ConfigurationManager.AppSettings["InitationURL"].ToString(), objEmailTemplatesBO, objResponseBO.RefereUserName);
             }
             catch (Exception ex)
             {

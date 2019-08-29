@@ -268,5 +268,47 @@ namespace Sellff_API.Controllers
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.SaveUserBuySellTransactions(objUserTransactionBO)));
         }
 
+
+        ///summary
+        /// This method will Save Services to db by type
+        ///</summary>
+        /// <param name="objUserServiceTypesBO"></param>
+        [HttpPost, Route("api/ProfileInfo/SaveUserServiceTypes")]
+        public IHttpActionResult SaveUserServiceTypes([FromBody]UserServiceTypesBO objUserServiceTypesBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.SaveUserServiceTypes(objUserServiceTypesBO)));
+        }
+
+        ///summary
+        /// This method will get all users Posts info based on UserId
+        ///</summary>
+        /// <param></param>
+        [HttpGet, Route("api/ProfileInfo/GetAllUserServiceTypes")]
+        public IHttpActionResult GetAllUserServiceTypes()
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetAllUserServiceTypes()));
+        }
+
+        ///summary
+        /// This method will get all users Posts info based on UserId
+        ///</summary>
+        /// <param name="UserId"></param>
+        [HttpGet, Route("api/ProfileInfo/GetUserServiceTypesByUserId/{UserId}")]
+        public IHttpActionResult GetUserServiceTypesByUserId(int UserId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserServiceTypesByUserId(UserId)));
+        }
+
+        ///summary
+        /// This method will get all users Posts info based on UserId
+        ///</summary>
+        /// <param name="UserId"></param>
+        /// <param name="TypeId"></param>
+        [HttpGet, Route("api/ProfileInfo/GetUserServiceTypesByUserIdNTypeId/{UserId}/{TypeId}")]
+        public IHttpActionResult GetUserServiceTypesByUserIdNTypeId(int UserId, int TypeId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserServiceTypesByUserIdNTypeId(UserId, TypeId)));
+        }
+
     }
 }

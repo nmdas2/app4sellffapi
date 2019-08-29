@@ -120,48 +120,7 @@ namespace Sellff_API.Services
                         default:
                             break;
                     }
-                    //switch (item.Communication)
-                    //{
-                    //    case 5:
-                    //        objFinalResponse.Starts5 += 1;
-                    //        break;
-                    //    case 4:
-                    //        objFinalResponse.Starts4 += 1;
-                    //        break;
-                    //    case 3:
-                    //        objFinalResponse.Starts3 += 1;
-                    //        break;
-                    //    case 2:
-                    //        objFinalResponse.Starts2 += 1;
-                    //        break;
-                    //    case 1:
-                    //        objFinalResponse.Starts1 += 1;
-                    //        break;
-                    //    default:
-                    //        break;
-                    //}
-                    //switch (item.QOW)
-                    //{
-                    //    case 5:
-                    //        objFinalResponse.Starts5 += 1;
-                    //        break;
-                    //    case 4:
-                    //        objFinalResponse.Starts4 += 1;
-                    //        break;
-                    //    case 3:
-                    //        objFinalResponse.Starts3 += 1;
-                    //        break;
-                    //    case 2:
-                    //        objFinalResponse.Starts2 += 1;
-                    //        break;
-                    //    case 1:
-                    //        objFinalResponse.Starts1 += 1;
-                    //        break;
-                    //    default:
-                    //        break;
-                    //}
                 }
-
                 objFinalResponse.Performance = Convert.ToInt32(objFinalResponse.Performance / resultlist.Count);
                 objFinalResponse.Communication = Convert.ToInt32(objFinalResponse.Communication / resultlist.Count);
                 objFinalResponse.QOW = Convert.ToInt32(objFinalResponse.QOW / resultlist.Count);
@@ -182,6 +141,27 @@ namespace Sellff_API.Services
         public bool SaveUserBuySellTransactions(UserTransactionBO objUserTransactionBO)
         {
             return objProfileInfoDAO.SaveUserBuySellTransactions(objUserTransactionBO);
+        }
+
+        public bool SaveUserServiceTypes(UserServiceTypesBO objUserServiceTypesBO)
+        {
+            return objProfileInfoDAO.SaveUserServiceTypes(objUserServiceTypesBO);
+        }
+
+        public List<UserServiceTypesBO> GetAllUserServiceTypes()
+        {
+            return objProfileInfoDAO.GetAllUserServiceTypes();
+        }
+
+        public List<UserServiceTypesBO> GetUserServiceTypesByUserId(int userId)
+        {
+            return objProfileInfoDAO.GetUserServiceTypesByUserId(userId);
+        }
+
+        public List<UserServiceTypesBO> GetUserServiceTypesByUserIdNTypeId(int userId, int typeId)
+        {
+            List<UserServiceTypesBO> resultlist = objProfileInfoDAO.GetUserServiceTypesByUserId(userId);
+            return (List<UserServiceTypesBO>)resultlist.Where(o => o.ServiceType == typeId).ToList();
         }
     }
 }

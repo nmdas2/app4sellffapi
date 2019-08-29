@@ -173,6 +173,82 @@ namespace Sellff_API.ADO
             return objProotionsList;
         }
 
+        public List<UserServiceTypesBO> GetUserServiceTypesByUserId(int userId)
+        {
+            List<UserServiceTypesBO> objResponseList = new List<UserServiceTypesBO>();
+            try
+            {
+                var sqlParams = new SqlParameter[1];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = userId };
+
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetAllServicesByUserId", sqlParams);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    for (int i = 0; i < _objDataSet.Tables[0].Rows.Count; i++)
+                    {
+                        UserServiceTypesBO objResponseBO = new UserServiceTypesBO();
+                        var objDataRow = _objDataSet.Tables[0].Rows[i];
+                        objResponseBO.UserId = Convert.ToInt32(objDataRow["UserId"]);
+                        objResponseBO.ServiceName = Convert.ToString(objDataRow["ServiceName"]);
+                        objResponseBO.ServiceType = Convert.ToInt32(objDataRow["ServiceType"]);
+                        objResponseBO.ServiceMatchCount = Convert.ToInt32(objDataRow["NoOfTimesOffered"]);
+                        objResponseList.Add(objResponseBO);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objResponseList;
+        }
+
+        public List<UserServiceTypesBO> GetAllUserServiceTypes()
+        {
+            List<UserServiceTypesBO> objResponseList = new List<UserServiceTypesBO>();
+            try
+            {
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetAllServicesForAutoSuggestion");
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    for (int i = 0; i < _objDataSet.Tables[0].Rows.Count; i++)
+                    {
+                        UserServiceTypesBO objResponseBO = new UserServiceTypesBO();
+                        var objDataRow = _objDataSet.Tables[0].Rows[i];
+                        objResponseBO.ServiceName = Convert.ToString(objDataRow["ServiceName"]);
+                        objResponseBO.ServiceType = Convert.ToInt32(objDataRow["ServiceType"]);
+                        objResponseBO.ServiceMatchCount = Convert.ToInt32(objDataRow["NoOfTimesOffered"]);
+                        objResponseList.Add(objResponseBO);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objResponseList;
+        }
+
+        public bool SaveUserServiceTypes(UserServiceTypesBO objUserServiceTypesBO)
+        {
+            bool result = true;
+            try
+            {
+                var sqlParams = new SqlParameter[4];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = objUserServiceTypesBO.UserId };
+                sqlParams[1] = new SqlParameter("@ServiceName", SqlDbType.VarChar) { Value = objUserServiceTypesBO.ServiceName };
+                sqlParams[2] = new SqlParameter("@ServiceType", SqlDbType.Int) { Value = objUserServiceTypesBO.ServiceType };
+                sqlParams[3] = new SqlParameter("@UserIP", SqlDbType.VarChar) { Value = objUserServiceTypesBO.UserIP };
+                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_SaveServicesInterests", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                log4netlogger.Error(ex);
+            }
+            return result;
+        }
+
         public bool SaveUserBuySellTransactions(UserTransactionBO objUserTransactionBO)
         {
             bool result = true;
