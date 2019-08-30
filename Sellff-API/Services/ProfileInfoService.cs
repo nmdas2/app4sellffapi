@@ -138,7 +138,7 @@ namespace Sellff_API.Services
             return objProfileInfoDAO.GetUserPostsAsGroups(UserId);
         }
 
-        public bool SaveUserBuySellTransactions(UserTransactionBO objUserTransactionBO)
+        public bool SaveUserBuySellTransactions(UserTransactionsBO objUserTransactionBO)
         {
             return objProfileInfoDAO.SaveUserBuySellTransactions(objUserTransactionBO);
         }
@@ -162,6 +162,26 @@ namespace Sellff_API.Services
         {
             List<UserServiceTypesBO> resultlist = objProfileInfoDAO.GetUserServiceTypesByUserId(userId);
             return (List<UserServiceTypesBO>)resultlist.Where(o => o.ServiceType == typeId).ToList();
+        }
+
+        public bool RemoveUserServiceByType(UserServiceTypesBO objUserServiceTypesBO)
+        {
+            return objProfileInfoDAO.RemoveUserServiceByType(objUserServiceTypesBO);
+        }
+
+        public bool SaveUserBuySellTransactionDetails(UserTransactionsBO objUserTransactionsBO)
+        {
+            return objProfileInfoDAO.SaveUserBuySellTransactionDetails(objUserTransactionsBO);
+        }
+
+        public UserTransactionsBO GetUserProfileDetailsByUserIdNUserProfileId(int userId, int userProfileId)
+        {
+            return objProfileInfoDAO.GetUserProfileDetailsByUserIdNUserProfileId(userId, userProfileId);
+        }
+
+        public UserTransactionsBO GetUserInvestimentDetailsByUserId(int userId)
+        {
+            return objProfileInfoDAO.GetUserInvestimentDetailsByUserId(userId);
         }
     }
 }

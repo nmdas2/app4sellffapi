@@ -173,6 +173,110 @@ namespace Sellff_API.ADO
             return objProotionsList;
         }
 
+        public UserTransactionsBO GetUserInvestimentDetailsByUserId(int userId)
+        {
+            UserTransactionsBO objResponseBO = new UserTransactionsBO();
+            try
+            {
+                var sqlParams = new SqlParameter[1];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = userId };
+
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "GetUserInvestmentDetails", sqlParams);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    var objDataRow = _objDataSet.Tables[0].Rows[0];
+                    objResponseBO.ShareOwnerId = Convert.ToInt32(objDataRow["ShareOwnerId"]);
+                    objResponseBO.ShareSymbol = Convert.ToString(objDataRow["ShareSymbol"]);
+                    objResponseBO.PurchasedShareQty = Convert.ToInt32(objDataRow["PurchasedShareQty"]);
+                    objResponseBO.LastTradeSharePrice = Convert.ToDecimal(objDataRow["LastTradeSharePrice"]);
+                    objResponseBO.ChangedPrice = Convert.ToDecimal(objDataRow["ChangedPrice"]);
+                    objResponseBO.TotalValueAtPurchasedPrice = Convert.ToDecimal(objDataRow["TotalValueAtPurchasedPrice"]);
+                    objResponseBO.TotalMarketValue = Convert.ToDecimal(objDataRow["TotalMarketValue"]);
+                    objResponseBO.ErrorMessage = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objResponseBO;
+        }
+
+        public UserTransactionsBO GetUserProfileDetailsByUserIdNUserProfileId(int userId, int userProfileId)
+        {
+            UserTransactionsBO objResponseBO = new UserTransactionsBO();
+            try
+            {
+                var sqlParams = new SqlParameter[2];
+                sqlParams[0] = new SqlParameter("@ProfileId", SqlDbType.Int) { Value = userProfileId };
+                sqlParams[1] = new SqlParameter("@UserId", SqlDbType.Int) { Value = userId };
+
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "GetProfileDetailsByProfileIdAndLoginUserId", sqlParams);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    var objDataRow = _objDataSet.Tables[0].Rows[0];
+                    objResponseBO.UserId = Convert.ToInt32(objDataRow["UserId"]);
+                    objResponseBO.DisplayName = Convert.ToString(objDataRow["Displayname"]);
+                    objResponseBO.Age = Convert.ToInt32(objDataRow["Age"]);
+                    objResponseBO.City = Convert.ToString(objDataRow["City"]);
+                    objResponseBO.ShareSymbol = Convert.ToString(objDataRow["ShareSymbol"]);
+                    objResponseBO.AvailableShareQty = Convert.ToInt32(objDataRow["AvailableShareQty"]);
+                    objResponseBO.LastTradeSharePrice = Convert.ToDecimal(objDataRow["LastTradeSharePrice"]);
+                    objResponseBO.AskPrice = Convert.ToDecimal(objDataRow["AskPrice"]);
+                    objResponseBO.BuyPrice = Convert.ToDecimal(objDataRow["BuyPrice"]);
+                    objResponseBO.PurchasedShareQty = Convert.ToInt32(objDataRow["PurchasedShareQty"]);
+                    objResponseBO.TotalValueAtCurrentPrice = Convert.ToDecimal(objDataRow["TotalValueAtCurrentPrice"]);
+                    objResponseBO.TotalValueAtPurchasedPrice = Convert.ToDecimal(objDataRow["TotalValueAtPurchasedPrice"]);
+                    objResponseBO.ErrorMessage = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objResponseBO;
+        }
+
+        public bool SaveUserBuySellTransactionDetails(UserTransactionsBO objUserTransactionsBO)
+        {
+            bool result = true;
+            try
+            {
+                var sqlParams = new SqlParameter[4];
+                sqlParams[0] = new SqlParameter("@ProfileId", SqlDbType.Int) { Value = objUserTransactionsBO.UserProfileId };
+                sqlParams[1] = new SqlParameter("@UserId", SqlDbType.Int) { Value = objUserTransactionsBO.UserId };
+                sqlParams[2] = new SqlParameter("@Qty", SqlDbType.Int) { Value = objUserTransactionsBO.BuySellQty };
+                sqlParams[3] = new SqlParameter("@ActionType", SqlDbType.Int) { Value = objUserTransactionsBO.BuySellActionType };
+                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "SaveUserTransactionDetails", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                log4netlogger.Error(ex);
+            }
+            return result;
+        }
+
+        public bool RemoveUserServiceByType(UserServiceTypesBO objUserServiceTypesBO)
+        {
+            bool result = true;
+            try
+            {
+                var sqlParams = new SqlParameter[4];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = objUserServiceTypesBO.UserId };
+                sqlParams[1] = new SqlParameter("@ServiceName", SqlDbType.VarChar) { Value = objUserServiceTypesBO.ServiceName };
+                sqlParams[2] = new SqlParameter("@ServiceType", SqlDbType.Int) { Value = objUserServiceTypesBO.ServiceType };
+                sqlParams[3] = new SqlParameter("@UserIP", SqlDbType.VarChar) { Value = objUserServiceTypesBO.UserIP };
+                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_RemoveUserServiceByType", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                log4netlogger.Error(ex);
+            }
+            return result;
+        }
+
         public List<UserServiceTypesBO> GetUserServiceTypesByUserId(int userId)
         {
             List<UserServiceTypesBO> objResponseList = new List<UserServiceTypesBO>();
@@ -249,16 +353,16 @@ namespace Sellff_API.ADO
             return result;
         }
 
-        public bool SaveUserBuySellTransactions(UserTransactionBO objUserTransactionBO)
+        public bool SaveUserBuySellTransactions(UserTransactionsBO objUserTransactionBO)
         {
             bool result = true;
             try
             {
                 var sqlParams = new SqlParameter[4];
-                sqlParams[0] = new SqlParameter("@ProfileId", SqlDbType.Int) { Value = objUserTransactionBO.UserRefProfileId };
+                sqlParams[0] = new SqlParameter("@ProfileId", SqlDbType.Int) { Value = objUserTransactionBO.UserProfileId };
                 sqlParams[1] = new SqlParameter("@UserId", SqlDbType.Int) { Value = objUserTransactionBO.UserId };
-                sqlParams[2] = new SqlParameter("@Qty", SqlDbType.Int) { Value = objUserTransactionBO.Quantity };
-                sqlParams[3] = new SqlParameter("@ActionType", SqlDbType.Int) { Value = objUserTransactionBO.ActionType };
+                sqlParams[2] = new SqlParameter("@Qty", SqlDbType.Int) { Value = objUserTransactionBO.BuySellQty };
+                sqlParams[3] = new SqlParameter("@ActionType", SqlDbType.Int) { Value = objUserTransactionBO.BuySellActionType };
                 SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "SaveUserTransactionDetails", sqlParams);               
             }
             catch (Exception ex)

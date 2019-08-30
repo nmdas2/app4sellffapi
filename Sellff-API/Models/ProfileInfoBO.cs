@@ -274,17 +274,6 @@ namespace Sellff_API.Models
         [DataMember]
         public string Occupation { get; set; }
     }
-    public class UserTransactionBO
-    {
-        [DataMember]
-        public int UserId { get; set; }
-        [DataMember]
-        public int UserRefProfileId { get; set; }
-        [DataMember]
-        public int Quantity { get; set; }
-        [DataMember]
-        public int ActionType { get; set; }
-    }
     public class UserServiceTypesBO
     {
         [DataMember]
@@ -297,6 +286,48 @@ namespace Sellff_API.Models
         public int ServiceMatchCount { get; set; }
         [DataMember]
         public string UserIP { get; set; }
+    }
+
+    public class UserTransactionsBO
+    {
+        [DataMember]
+        public int UserId { get; set; }
+        [DataMember]
+        public int ShareOwnerId { get; set; }
+        [DataMember]
+        public int UserProfileId { get; set; }
+        [DataMember]
+        public string DisplayName { get; set; }
+        [DataMember]
+        public int Age { get; set; }
+        [DataMember]
+        public string City { get; set; }
+        [DataMember]
+        public string ShareSymbol { get; set; }
+        [DataMember]
+        public int AvailableShareQty { get; set; }
+        [DataMember]
+        public decimal LastTradeSharePrice { get; set; }
+        [DataMember]
+        public decimal AskPrice { get; set; }
+        [DataMember]
+        public decimal BuyPrice { get; set; }
+        [DataMember]
+        public int PurchasedShareQty { get; set; }
+        [DataMember]
+        public decimal TotalValueAtCurrentPrice { get; set; }
+        [DataMember]
+        public decimal TotalValueAtPurchasedPrice { get; set; }
+        [DataMember]
+        public decimal ChangedPrice { get; set; }
+        [DataMember]
+        public decimal TotalMarketValue { get; set; }
+        [DataMember]
+        public int BuySellQty { get; set; }
+        [DataMember]
+        public int BuySellActionType { get; set; }
+        [DataMember]
+        public string ErrorMessage { get; set; }
     }
 
 }
