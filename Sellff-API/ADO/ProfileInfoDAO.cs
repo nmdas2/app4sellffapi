@@ -173,6 +173,34 @@ namespace Sellff_API.ADO
             return objProotionsList;
         }
 
+        public UserTransactionsBO GetUserProfileChangeValsForPercentageCalc(int userId,decimal currentLastTradePrice)
+        {
+            UserTransactionsBO objResponseBO = new UserTransactionsBO();
+            try
+            {
+                var sqlParams = new SqlParameter[1];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = userId };
+
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "GetUserProfileChangeValues", sqlParams);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    var objDataRow = _objDataSet.Tables[0].Rows[0];
+                    objResponseBO.UserId = Convert.ToInt32(objDataRow["UserId"]);
+                    objResponseBO.DisplayName = Convert.ToString(objDataRow["Displayname"]);
+                    objResponseBO.LastTradeSharePrice = Convert.ToDecimal(objDataRow["LastTradePrice"]);
+                    objResponseBO.AskPrice = Convert.ToDecimal(objDataRow["AskPrice"]);
+                    objResponseBO.BuyPrice = Convert.ToDecimal(objDataRow["BuyPrice"]);
+                    objResponseBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
+                    objResponseBO.CreatedTicks = Convert.ToInt64(objDataRow["CreeatedTicks"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objResponseBO;
+        }
+
         public UserTransactionsBO GetUserInvestimentDetailsByUserId(int userId)
         {
             UserTransactionsBO objResponseBO = new UserTransactionsBO();

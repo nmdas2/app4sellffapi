@@ -183,5 +183,9 @@ namespace Sellff_API.Services
         {
             return objProfileInfoDAO.GetUserInvestimentDetailsByUserId(userId);
         }
+        public UserTransactionsBO GetUserProfileChangeValsForPercentageCalc(int userId, decimal currentLastTradePrice)
+        {
+            return objProfileInfoDAO.GetUserProfileChangeValsForPercentageCalc(userId, currentLastTradePrice);
+        }
     }
 }

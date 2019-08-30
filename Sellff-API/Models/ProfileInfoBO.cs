@@ -328,6 +328,12 @@ namespace Sellff_API.Models
         public int BuySellActionType { get; set; }
         [DataMember]
         public string ErrorMessage { get; set; }
+        [DataMember]
+        public decimal PercentageValue { get; set; }
+        [DataMember]
+        public Int64 CreatedTicks { get; set; }
+        [DataMember]
+        public string CreatedOn { get; set; }
     }
 
 }
