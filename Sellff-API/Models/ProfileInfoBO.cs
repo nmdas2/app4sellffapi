@@ -307,7 +307,7 @@ namespace Sellff_API.Models
         [DataMember]
         public int AvailableShareQty { get; set; }
         [DataMember]
-        public decimal LastTradeSharePrice { get; set; }
+        public decimal LastTradeSharePrice { get; set; } = 0;
         [DataMember]
         public decimal AskPrice { get; set; }
         [DataMember]
@@ -334,6 +334,8 @@ namespace Sellff_API.Models
         public Int64 CreatedTicks { get; set; }
         [DataMember]
         public string CreatedOn { get; set; }
+        [DataMember]
+        public string color { get; set; }
     }
 
 }

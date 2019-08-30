@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
     successMsg: string = '';
     errorMsg: string = '';
     inviteGuid: string;
+    captchaSuccess: boolean = false;
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
@@ -51,7 +52,8 @@ export class RegisterComponent implements OnInit {
             email: ['', Validators.required],
             password: ['', [Validators.required, Validators.minLength(6)]],
             age: ['', [Validators.required, Validators.min(1), Validators.max(130)]],
-            city: ['', [Validators.required]]
+            city: ['', [Validators.required]],
+            recaptchaReactive: [null, Validators.required]
         });
     }
 
@@ -133,5 +135,8 @@ export class RegisterComponent implements OnInit {
                 this.registerForm.get('email').setValue(res.EmailId);
             }
         })
+    }
+    resolved(captchaResponse: string) {
+        this.captchaSuccess = true;
     }
 }
