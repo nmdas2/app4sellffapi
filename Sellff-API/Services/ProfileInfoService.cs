@@ -181,7 +181,18 @@ namespace Sellff_API.Services
 
         public UserTransactionsBO GetUserInvestimentDetailsByUserId(int userId)
         {
-            return objProfileInfoDAO.GetUserInvestimentDetailsByUserId(userId);
+            UserTransactionsBO objResponseBO = objProfileInfoDAO.GetUserInvestimentDetailsByUserId(userId);
+            UserTransactionsBO objPartialResponseBO = GetUserProfileChangeValsForPercentageCalc(userId, objResponseBO.LastTradeSharePrice);
+            if (objResponseBO.LastTradeSharePrice >0)
+            {
+                decimal previousdayLastTradePrice = objPartialResponseBO.LastTradeSharePrice;
+                decimal currentLastTradePrice = Convert.ToDecimal(objResponseBO.LastTradeSharePrice);
+                objResponseBO.PercentageValue = ((currentLastTradePrice - previousdayLastTradePrice) / previousdayLastTradePrice) * 100;
+                objResponseBO.color = "red";
+                if (currentLastTradePrice >= previousdayLastTradePrice)
+                    objResponseBO.color = "green";
+            }
+            return objResponseBO;
         }
         public UserTransactionsBO GetUserProfileChangeValsForPercentageCalc(int userId, decimal currentLastTradePrice)
         {
