@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div *ngIf="currentRating">
-                        <div class="box message-box progress-box" >
+                        <div class="box message-box progress-box">
                             <h4>{{totalRatings}} Customer Reviews</h4>
                             <div class="row">
                                 <div class="col-sm-12">
@@ -77,20 +77,20 @@
                         <div class="box message-box review-box">
                             <div class="row">
                                 <div class="col-md-12">
-                                <h4 class="aria-label padding-right">Performance</h4>
-                                <rating [ngModel]=currentRating.Performance [max]="max" [readonly]="true"></rating>
+                                    <h4 class="aria-label padding-right">Performance</h4>
+                                    <rating [ngModel]=currentRating.Performance [max]="max" [readonly]="true"></rating>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                <h4 class="aria-label padding-right">Communication</h4>
-                                <rating [ngModel]=currentRating.Communication [max]="max" [readonly]="true"></rating>
+                                    <h4 class="aria-label padding-right">Communication</h4>
+                                    <rating [ngModel]=currentRating.Communication [max]="max" [readonly]="true"></rating>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                <h4 class="aria-label padding-right">QOW</h4>
-                                <rating [ngModel]=currentRating.QOW [max]="max" [readonly]="true"></rating>
+                                    <h4 class="aria-label padding-right">QOW</h4>
+                                    <rating [ngModel]=currentRating.QOW [max]="max" [readonly]="true"></rating>
                                 </div>
                             </div>
                             <button *ngIf="canReview && !reviewAlreadyGiven" type="button" class="btn btn-primary" (click)="openModal(template)">Write a Member Review</button>
@@ -101,28 +101,33 @@
                     <div class="box message-box ">
                         <div class="c-review-box" *ngFor="let review of userReviews">
                             <div class="row">
-                               <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="review-title"><rating [ngModel]=review.Rating [max]="max" [readonly]="true"></rating> <h2>{{review.ReviewTitle}}</h2></div>
-                                    </div>
-                                     <div class="col-md-4"><div class="review-date">{{review.CreatedOn}}</div></div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="review-title">
+                                                <rating [ngModel]=review.Rating [max]="max" [readonly]="true"></rating>
+                                                <h2>{{review.ReviewTitle}}</h2>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="review-date">{{review.CreatedOn}}</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="review-details">
                                         <img src="{{review.ProfilePicPath}}" width="85%" class="reviewsmallpic"><br>
                                         <a class="reviewname" (click)=openotherprofile(review)>{{review.DisplayName}}</a>
-                                       
+
                                     </div>
                                 </div>
                                 <div class="col-md-10">
                                     <div class="review-content">
-                                        
+
                                         <p>{{review.ReviewContent}}</p>
                                         <div class="review-comments">
-                                            <button class="btn btn-primary btn-xs" (click)="sayhelpful()"><i class="fa fa-thumbs-up" aria-hidden="true"></i>(4)</button>
-                                            
+                                            <button class="btn btn-primary btn-xs" (click)="sayhelpful(review)"><i class="fa fa-thumbs-up" aria-hidden="true"></i> <span *ngIf = "review.helpful" style="margin-left: 5px;"> ({{ review.helpful }})</span></button>
+
                                         </div>
                                     </div>
 
@@ -130,7 +135,7 @@
                             </div>
                         </div>
 
-                        
+
                     </div>
                 </div>
                 <ng-template #template>

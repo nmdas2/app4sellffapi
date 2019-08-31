@@ -30,9 +30,7 @@ export class InvestComponent implements OnInit {
   ngOnInit() {
     if (localStorage.getItem('currentUser')) {
       this.loggedInUser = JSON.parse(localStorage.getItem('currentUser'));
-      this.showBuySell = false;
       if (localStorage.getItem('profileviewUser')) {
-        this.showBuySell = true;
         this.profileInfo = JSON.parse(localStorage.getItem('profileviewUser'));
       }
 
@@ -71,7 +69,7 @@ export class InvestComponent implements OnInit {
   getLoggedInUserTranctions() {
     this.profileService.getUserInvestimentDetailsByUserId(this.loggedInUser.UserId)
       .subscribe(res => {
-        console.log(res);
+        //console.log(res);
       })
   }
 

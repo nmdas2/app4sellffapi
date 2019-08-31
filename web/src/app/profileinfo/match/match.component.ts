@@ -26,6 +26,8 @@ export class MatchComponent implements OnInit {
   allServicesN: Observable<UserServiceTypes[]>;
   allServicesI: Observable<UserServiceTypes[]>;
 
+  successMsg: string;
+  errorMsg: string;
   constructor(
     private router: Router,
     private profileInfoService: ProfileinfoService,
@@ -134,6 +136,16 @@ export class MatchComponent implements OnInit {
     if (event && event.item) {
       this.saveService(event.item.ServiceName, event.item.ServiceType);
     }
-    console.log(event.item);
+  }
+  removeServices(service: UserServiceTypes){
+    this.commonService.loadingShow();
+    this.profileInfoService.removeUserServiceByType(service)
+    .subscribe(res => {
+      this.commonService.loadingHide();
+      this.getServiceTypesByUserId();
+      //this.successMsg = `${service.ServiceName} has been removed success`
+    }, error => {
+      this.commonService.loadingHide();
+    })
   }
 }

@@ -15,10 +15,10 @@ import { CommonService } from 'src/app/_services/common.service';
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.scss']
 })
-export class ReviewComponent implements OnInit {  
-  max = 5;   rate = 0; communicationRate=0;  QOWRate=0; isReadonly = false;   overStar: number | undefined; percent: number; 
-  ViewUserInfo: User;  modalRef: BsModalRef; loggedInUserInfo: ProfileInfo;  ratingGivenTo: number;  reviewUserForm: FormGroup
-  canReview: boolean = false;  idToGetReviews:number; userReviews: Review[]; searchProfileUserId: number = 0; currentRating: Review;
+export class ReviewComponent implements OnInit {
+  max = 5; rate = 0; communicationRate = 0; QOWRate = 0; isReadonly = false; overStar: number | undefined; percent: number;
+  ViewUserInfo: User; modalRef: BsModalRef; loggedInUserInfo: ProfileInfo; ratingGivenTo: number; reviewUserForm: FormGroup
+  canReview: boolean = false; idToGetReviews: number; userReviews: Review[]; searchProfileUserId: number = 0; currentRating: Review;
   readonlyUserInfo: ProfileInfo; submitted = false; totalRatings: number = 0; dataDisplayProfile: ProfileInfo; reviewAlreadyGiven: boolean = false;
   loggedInUserId: number = 0;
   constructor(
@@ -27,27 +27,26 @@ export class ReviewComponent implements OnInit {
     private modalService: BsModalService,
     private router: Router,
     private commonService: CommonService,
-    ) {  }
+  ) { }
 
   ngOnInit() {
     this.SetLocalStorageInfo();
-      this.reviewUserForm = this.formBuilder.group({
-        reviewTitle: ['', Validators.required],
-        reviewContent: ['', Validators.required]
+    this.reviewUserForm = this.formBuilder.group({
+      reviewTitle: ['', Validators.required],
+      reviewContent: ['', Validators.required]
     });
-    if(this.loggedInUserInfo)
-    {this.loggedInUserId = this.loggedInUserInfo.UserId}
-    this.getUserReviews(this.dataDisplayProfile.UserId,this.loggedInUserId);
+    if (this.loggedInUserInfo) { this.loggedInUserId = this.loggedInUserInfo.UserId }
+    this.getUserReviews(this.dataDisplayProfile.UserId, this.loggedInUserId);
     this.FilterListForCurrentuserRating(this.dataDisplayProfile.UserId);
   }
   FilterListForCurrentuserRating(idToGetReviews: number) {
     this.profileInfoService.GetCurrentUserRatingById(idToGetReviews)
-    .subscribe((res: any) => {
-      this.currentRating = res;
-      this.totalRatings = this.currentRating.Starts5 + this.currentRating.Starts4 + this.currentRating.Starts3 + this.currentRating.Starts2 + this.currentRating.Starts1
-    }, error => {
-      console.log(error);
-    })
+      .subscribe((res: any) => {
+        this.currentRating = res;
+        this.totalRatings = this.currentRating.Starts5 + this.currentRating.Starts4 + this.currentRating.Starts3 + this.currentRating.Starts2 + this.currentRating.Starts1
+      }, error => {
+        console.log(error);
+      })
   }
   // convenience getter for easy access to form fields
   get f() { return this.reviewUserForm.controls; }
@@ -57,18 +56,18 @@ export class ReviewComponent implements OnInit {
   hoveringOver(value: number): void {
     this.overStar = value;
     this.percent = (value / this.max) * 100;
-  } 
+  }
   resetStar(): void {
     this.overStar = void 0;
   }
   onSubmit() {
     if (this.reviewUserForm.invalid) {
-        return;
+      return;
     }
-    let postReview:Review={
-      ReviewTitle:this.reviewUserForm.value.reviewTitle,
-      ReviewContent:this.reviewUserForm.value.reviewContent,
-      UserId:this.loggedInUserInfo.UserId,
+    let postReview: Review = {
+      ReviewTitle: this.reviewUserForm.value.reviewTitle,
+      ReviewContent: this.reviewUserForm.value.reviewContent,
+      UserId: this.loggedInUserInfo.UserId,
       Rating: this.rate,
       RatingGivenTo: this.searchProfileUserId,
       Performance: this.rate,
@@ -76,50 +75,61 @@ export class ReviewComponent implements OnInit {
       QOW: this.QOWRate,
     };
     this.profileInfoService.SaveReview(postReview)
-    .subscribe((res: any) => {
-      this.getUserReviews(this.dataDisplayProfile.UserId,this.loggedInUserId);
-      this.onReset();
-    }, error => {
-      console.log(error);
-    })
-}
-  getUserReviews(idToGetReviews: number,loggedInUserId: number) {
-    this.profileInfoService.GetUserReviewsById(idToGetReviews,this.loggedInUserId)
-    .subscribe((res: any) => {
-      if(res && res.length)
-        this.userReviews = res;
-        this.reviewAlreadyGiven = this.userReviews[0].ReviewAlreadyGiven;
-    }, error => {
-      console.log(error);
-    })
+      .subscribe((res: any) => {
+        this.getUserReviews(this.dataDisplayProfile.UserId, this.loggedInUserId);
+        this.onReset();
+      }, error => {
+        console.log(error);
+      })
   }
-  onReset(){
+  getUserReviews(idToGetReviews: number, loggedInUserId: number) {
+    this.profileInfoService.GetUserReviewsById(idToGetReviews, this.loggedInUserId)
+      .subscribe((res: any) => {
+        if (res && res.length)
+          this.userReviews = res;
+        this.reviewAlreadyGiven = this.userReviews[0].ReviewAlreadyGiven;
+      }, error => {
+        console.log(error);
+      })
+  }
+  onReset() {
     this.modalRef.hide();
     this.reviewUserForm.reset();
   }
   SetLocalStorageInfo() {
-    if(localStorage.getItem('currentUser') != null){
+    if (localStorage.getItem('currentUser') != null) {
       this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
     }
-    if(localStorage.getItem('profileviewUser') != null){
-      this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));      
+    if (localStorage.getItem('profileviewUser') != null) {
+      this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
     }
-    if(this.loggedInUserInfo && this.readonlyUserInfo)
-    {this.canReview = true;}
+    if (this.loggedInUserInfo && this.readonlyUserInfo) { this.canReview = true; }
   }
 
-  openotherprofile(RefsearchUserIdBo){
+  openotherprofile(RefsearchUserIdBo) {
     localStorage.removeItem('profileviewUser');
     this.readonlyUserInfo = <ProfileInfo>{};
     this.profileInfoService.GetUserProfileInfoByUserId(this.dataDisplayProfile.UserId)
-    .subscribe(res => {
-      localStorage.setItem('profileviewUser', JSON.stringify(res));
-    }, error => {
-      console.log(error);
-    })
+      .subscribe(res => {
+        localStorage.setItem('profileviewUser', JSON.stringify(res));
+      }, error => {
+        console.log(error);
+      })
     this.router.navigate([consts.AboutPath]);
     this.commonService.isProfileSelected.next(true);
   }
-  sayhelpful()  {  }
-  resetPostTextForm(){  }
+  sayhelpful(review: Review) { 
+    console.log(review);
+    this.commonService.loadingShow();
+    let reviewObj = review;
+    reviewObj.CreatedIP = '127.0.0.1';
+    this.profileInfoService.updateHelpfulCount(reviewObj)
+    .subscribe(res => {
+      this.commonService.loadingHide();
+      this.getUserReviews(this.dataDisplayProfile.UserId, this.loggedInUserId);
+    }, error => {
+      this.commonService.loadingHide();
+    })
+  }
+  resetPostTextForm() { }
 }

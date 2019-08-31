@@ -465,6 +465,12 @@
     <div class="content-wrapper">
         <section class="content">
             <div class="box">
+                <!-- <div>
+                    <p class="success-msg"></p>
+                </div>
+                <div>
+                    <p class="error-msg"></p>
+                </div> -->
                 <div class="row">
                     <div class="col-md-3">
                         Services Offered
@@ -477,7 +483,8 @@
                             <li *ngFor="let service of servicesOffered">
                                 <a class="btn btn-default" routerLink='/profileinfo/searchsummary/{{service.ServiceName}}'>
                                     {{service.ServiceName}} ({{service.ServiceMatchCount}})
-                                </a>
+                                </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                        class="fa fa-remove" style="font-size:24px"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -494,8 +501,9 @@
                             </li>
                             <li *ngFor="let service of servicesNeeded">
                                 <a class="btn btn-default" routerLink='/profileinfo/searchsummary/{{service.ServiceName}}'>
-                                        {{service.ServiceName}} ({{service.ServiceMatchCount}})
-                                    </a>
+                                    {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                        class="fa fa-remove" style="font-size:24px"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -512,8 +520,9 @@
                             </li>
                             <li *ngFor="let service of servicesInterested">
                                 <a class="btn btn-default" routerLink='/profileinfo/searchsummary/{{service.ServiceName}}'>
-                                        {{service.ServiceName}} ({{service.ServiceMatchCount}})
-                                    </a>
+                                    {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                        class="fa fa-remove" style="font-size:24px"></i></a>
                             </li>
                         </ul>
                     </div>

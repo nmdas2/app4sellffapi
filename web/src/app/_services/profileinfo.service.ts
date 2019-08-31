@@ -130,5 +130,12 @@ export class ProfileinfoService {
   saveUserBuySellTransactionDetails(data: UserTransaction): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/SaveUserBuySellTransactionDetails`, data)
   }
+  removeUserServiceByType(service: UserServiceTypes): Observable<any>{
+    return this.http.post(`${consts.DomainURL}ProfileInfo/RemoveUserServiceByType`, service)
+  }
+
+  updateHelpfulCount(data: Review): Observable<any>{
+    return this.http.post(`${consts.DomainURL}ProfileInfo/UpdateUsersReviewAsHelpful`, data)
+  }
   
 }
