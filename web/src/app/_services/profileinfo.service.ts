@@ -7,6 +7,7 @@ import { Post } from 'src/app/_models/post';
 import { Review } from '../_models/review';
 import { InviteUsers } from '../_models/inviteusers';
 import { UserServiceTypes } from '../_models/userservicetypes';
+import { UserTransaction } from '../_models/usertransaction';
 
 export interface searchRes {
   DisplayName: string;
@@ -120,5 +121,14 @@ export class ProfileinfoService {
   getUserServiceTypesByUserIdServiceId(userId: number, serviceId: number): Observable<UserServiceTypes[]>{
     return this.http.get<UserServiceTypes[]>(`${consts.DomainURL}ProfileInfo/GetUserServiceTypesByUserIdNTypeId/${userId}/${serviceId}`)
   }
+  getUserProfileDetailsByUserIdNUserProfileId(userId: number, profileId: number): Observable<any>{
+    return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserProfileDetailsByUserIdNUserProfileId/${userId}/${profileId}`)
+  }
+  getUserInvestimentDetailsByUserId(userId: number): Observable<any>{
+    return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserInvestimentDetailsByUserId/${userId}`)
+  }
+  saveUserBuySellTransactionDetails(data: UserTransaction): Observable<any>{
+    return this.http.post(`${consts.DomainURL}ProfileInfo/SaveUserBuySellTransactionDetails`, data)
+  }
+  
 }
-

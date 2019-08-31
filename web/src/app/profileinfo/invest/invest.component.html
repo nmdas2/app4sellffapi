@@ -17,13 +17,24 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="box">
+                        <div *ngIf="successMsg" class="mb-3 mt-3">
+                            <alert type="success">
+                                {{successMsg}}
+                            </alert>
+
+                        </div>
+                        <div *ngIf="errorMsg" class="mb-3 mt-3">
+                            <alert type="danger">
+                                {{errorMsg}}
+                            </alert>
+                        </div>
                         <div class="box-header">
                             <h4>Sellff market exchange open 24X7</h4>
                             <p>New trading day starts @12am pacific time</p>
                             <form class="form-horizontal">
-                                <div class="form-group">
+                                <div class="form-group" *ngIf="userTransactionDetails && userTransactionDetails.ShareSymbol">
                                     <label class="text-left col-sm-5">Symbol</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">Tom Clarke</label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">{{userTransactionDetails.ShareSymbol}}</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">Current Price</label>
@@ -31,11 +42,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">Open Price</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">Los Angeles, CA</label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">Los
+                                        Angeles, CA</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">%Change</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">21st Sep</label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">21st
+                                        Sep</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">Shares Traded</label>
@@ -43,7 +56,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">Market Cap</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">IT Engineer</label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">IT
+                                        Engineer</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">#Investers</label>
@@ -84,16 +98,16 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <div class="box">
+                    <div class="box" *ngIf="showBuySell">
                         <div class="box-center">
-                            <h4>Select buy or cell to make a trade</h4>
+                            <h4>Select buy or sell to make a trade</h4>
                             <div class="row">
                                 <div class="col-sm-2"></div>
                                 <div class="col-sm-4">
-                                    <button class="btn btn-default">1.215<br> buy 1,000 shares</button>
+                                    <button class="btn btn-default" (click)="saveUserBuySellTransactionDetails(2)">1.215<br> Buy {{buySharesStr}} shares</button>
                                 </div>
                                 <div class="col-sm-4">
-                                    <button class="btn btn-danger">1.213<br> cell 1,000 shares</button>
+                                    <button class="btn btn-danger" (click)="saveUserBuySellTransactionDetails(1)">1.213<br> Sell {{sellSharesStr}} shares</button>
                                 </div>
                                 <div class="col-sm-2"></div>
                             </div>

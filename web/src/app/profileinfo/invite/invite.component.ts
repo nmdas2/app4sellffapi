@@ -156,8 +156,7 @@ export class InviteComponent implements OnInit {
   pageChanged(event){
     this.currentPage = event.page - 1
     let itemsPerPage = event.itemsPerPage;
-    this.tempInviteUsersList = this.inviteUsersList.slice((this.currentPage ) * itemsPerPage, (this.currentPage + 1) *  itemsPerPage) 
-    console.log(this.tempInviteUsersList);
+    this.tempInviteUsersList = this.inviteUsersList.slice((this.currentPage ) * itemsPerPage, (this.currentPage + 1) *  itemsPerPage);
   }
   
 }

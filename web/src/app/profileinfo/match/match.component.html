@@ -475,7 +475,9 @@
                                 <input type="text" [(ngModel)]="asyncSelectedO" (keyup)="serviceOfferedKeyUp($event, 1)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="allServicesO" typeaheadOptionField="ServiceName">
                             </li>
                             <li *ngFor="let service of servicesOffered">
-                                {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                <a class="btn btn-default" routerLink='/profileinfo/searchsummary/{{service.ServiceName}}'>
+                                    {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -491,7 +493,9 @@
                                 <input type="text" [(ngModel)]="asyncSelectedN" (keyup)="serviceOfferedKeyUp($event, 2)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="allServicesN" typeaheadOptionField="ServiceName">
                             </li>
                             <li *ngFor="let service of servicesNeeded">
-                                {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                <a class="btn btn-default" routerLink='/profileinfo/searchsummary/{{service.ServiceName}}'>
+                                        {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                    </a>
                             </li>
                         </ul>
                     </div>
@@ -507,7 +511,9 @@
                                 <input type="text" [(ngModel)]="asyncSelectedI" (keyup)="serviceOfferedKeyUp($event, 3)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="allServicesI" typeaheadOptionField="ServiceName">
                             </li>
                             <li *ngFor="let service of servicesInterested">
-                                {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                <a class="btn btn-default" routerLink='/profileinfo/searchsummary/{{service.ServiceName}}'>
+                                        {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                    </a>
                             </li>
                         </ul>
                     </div>
