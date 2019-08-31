@@ -14,6 +14,7 @@ import { ReferComponent } from './refer/refer.component';
 import { MytestingComponent } from './mytesting/mytesting.component';
 import { UploadComponent } from './upload/upload.component';
 import { InviteComponent } from './invite/invite.component';
+import { MatchComponent } from './match/match.component';
 
 
 export const routes: Routes = [
@@ -30,7 +31,8 @@ export const routes: Routes = [
   { path: 'refer', component: ReferComponent },
   { path: 'mytesting', component: MytestingComponent },
   { path: 'upload', component: UploadComponent },
-  { path: 'invite', component: InviteComponent }
+  { path: 'invite', component: InviteComponent },
+  { path: 'match', component: MatchComponent }
 ];
 
 @NgModule({

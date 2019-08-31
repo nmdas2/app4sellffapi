@@ -9,10 +9,10 @@
                     <div class="box">
                         <div class="box-header with-border">
                             <div class="edit-text-box">
-                            <p class="edit-btn" *ngIf="!isAboutInEditMode; else elseBlock" style="text-justify: distribute-all-lines;">
-                                {{textValue}}
-                                <span class="text-edit btn btn-default" *ngIf="isEditbale" (click)="logText()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</span>
-                            </p>
+                                <p class="edit-btn" *ngIf="!isAboutInEditMode; else elseBlock" style="text-justify: distribute-all-lines;">
+                                    {{textValue}}
+                                    <span class="text-edit btn btn-default" *ngIf="isEditbale" (click)="logText()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</span>
+                                </p>
                             </div>
                             <ng-template #elseBlock>
                                 <div class="edit-box">
@@ -27,11 +27,13 @@
                             </ng-template>
                             <!-- /.box-header -->
                             <h4>Services Offered</h4>
-                            <div class="col-md-3 service-offered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">NWare
-                                    Virtualization</button>
+                            <div class="col-md-3 service-offered" *ngFor="let service of serviceOffered">
+                                <button type="button" class="btn btn-block btn-default btn-sm">{{service.ServiceName}}</button>
                             </div>
-                            <div class="col-md-3 service-offered">
+                            <div class="col-md-3 service-offered" *ngIf="serviceOffered.length == 0">
+                                <p>No Services offered</p>
+                            </div>
+                            <!-- <div class="col-md-3 service-offered">
                                 <button type="button" class="btn btn-block btn-default btn-sm">Data Center Architecture</button>
                             </div>
                             <div class="col-md-3 service-offered">
@@ -51,7 +53,7 @@
                             </div>
                             <div class="col-md-3 service-offered">
                                 <button type="button" class="btn btn-block btn-default btn-sm">Real Estate Brokerage and Finacing</button>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="box">

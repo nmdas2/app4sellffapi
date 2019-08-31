@@ -20,11 +20,11 @@ export class InviteComponent implements OnInit {
   loggedInUser: ProfileInfo;
   successMsg: string;
   inviteUsersList: InviteUsers[];
+  tempInviteUsersList: InviteUsers[];
   maxSize: number = 2;
-  dtOptions: DataTables.Settings = {};
-  dtTrigger = new Subject();
-  @ViewChild(DataTableDirective, { static: false })
-  dtElement: DataTableDirective;
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+
   constructor(
     private modalService: BsModalService,
     private fb: FormBuilder,
@@ -32,15 +32,12 @@ export class InviteComponent implements OnInit {
     private profileService: ProfileinfoService
   ) {
     this.inviteUsersList = [];
+    this.tempInviteUsersList = [];
   }
 
   ngOnInit() {
     if (localStorage.getItem('currentUser')) {
       this.loggedInUser = JSON.parse(localStorage.getItem('currentUser'));
-      this.dtOptions = {
-        pagingType: 'full_numbers',
-        pageLength: 10
-      };
       this.getInvitedUsersList();
     }
     else {
@@ -48,7 +45,6 @@ export class InviteComponent implements OnInit {
     }
     this.createForm();
   }
-
   createForm() {
     this.inviteForm = this.fb.group({
       Name: ['', [Validators.required]],
@@ -79,7 +75,6 @@ export class InviteComponent implements OnInit {
           this.profileService.saveUserInviteDetails(inviteUserObj)
             .subscribe(res => {
               this.successMsg = 'User has been invited successfully';
-              this.rerender();
               this.getInvitedUsersList();
               this.closeModal();
               setTimeout(() => {
@@ -129,11 +124,13 @@ export class InviteComponent implements OnInit {
   getInvitedUsersList() {
     this.profileService.getInvitedUsersByUserId(this.loggedInUser.UserId)
       .subscribe(res => {
-        if (res && res.length > 0)
+        if (res && res.length > 0){
           this.inviteUsersList = res;
+          this.pageChanged({page: this.currentPage, itemsPerPage: this.itemsPerPage})
+        }
+          
         else
           this.inviteUsersList = [];
-        this.dtTrigger.next();
       }, error => {
         console.log(error);
       })
@@ -143,7 +140,6 @@ export class InviteComponent implements OnInit {
     this.profileService.updateUserInvitationSentDate(inviteUser.InviteGuid)
       .subscribe(res => {
         this.successMsg = 'Invitation sent successfully';
-        this.rerender();
         this.getInvitedUsersList();
         setTimeout(() => {
           this.successMsg = '';
@@ -154,16 +150,16 @@ export class InviteComponent implements OnInit {
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
+   
   }
-  rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
+
+  pageChanged(event){
+    this.currentPage = event.page - 1
+    let itemsPerPage = event.itemsPerPage;
+    this.tempInviteUsersList = this.inviteUsersList.slice((this.currentPage ) * itemsPerPage, (this.currentPage + 1) *  itemsPerPage) 
+    console.log(this.tempInviteUsersList);
   }
+  
 }
 
 

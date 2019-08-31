@@ -1,0 +1,10 @@
+ul {
+    columns: 3;
+    -webkit-columns: 3;
+    -moz-columns: 3;
+}
+
+ul li {
+    list-style: none;
+    padding: 10px;
+}

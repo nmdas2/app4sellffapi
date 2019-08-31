@@ -12,6 +12,8 @@ import { CommonService } from './_services/common.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ConfirmuseraccComponent } from './confirmuseracc/confirmuseracc.component';
 import { AlertComponent } from './_components/alert/alert.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { AlertComponent } from './_components/alert/alert.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,

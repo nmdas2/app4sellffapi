@@ -6,6 +6,7 @@ import { ProfileInfo, userAboutInfo } from '../_models/profileinfo';
 import { Post } from 'src/app/_models/post';
 import { Review } from '../_models/review';
 import { InviteUsers } from '../_models/inviteusers';
+import { UserServiceTypes } from '../_models/userservicetypes';
 
 export interface searchRes {
   DisplayName: string;
@@ -105,6 +106,19 @@ export class ProfileinfoService {
   }
   updateUserInvitationSentDate(inviteGuid: string):Observable<any>{
     return this.http.get(`${consts.DomainURL}SellffDefault/UpdateUserInvitationSentDate/${inviteGuid}`)
+  }
+  getAllUserServices(): Observable<UserServiceTypes[]>{
+    return this.http.get<UserServiceTypes[]>(`${consts.DomainURL}ProfileInfo/GetAllUserServiceTypes`);
+  }
+  SaveUserServiceType(serviceType: UserServiceTypes): Observable<any>{
+    return this.http.post(`${consts.DomainURL}ProfileInfo/SaveUserServiceTypes`, serviceType);
+  }
+  getUserServiceTypesByUserId(userId : number): Observable<UserServiceTypes[]>{
+    return this.http.get<UserServiceTypes[]>(`${consts.DomainURL}ProfileInfo/GetUserServiceTypesByUserId/${userId}`)
+  }
+
+  getUserServiceTypesByUserIdServiceId(userId: number, serviceId: number): Observable<UserServiceTypes[]>{
+    return this.http.get<UserServiceTypes[]>(`${consts.DomainURL}ProfileInfo/GetUserServiceTypesByUserIdNTypeId/${userId}/${serviceId}`)
   }
 }
 

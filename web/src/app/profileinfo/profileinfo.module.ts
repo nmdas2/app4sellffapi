@@ -22,6 +22,11 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { InviteComponent } from './invite/invite.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { DataTablesModule } from 'angular-datatables';
+import { MatchComponent } from './match/match.component';
+
+
+// RECOMMENDED
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 
 @NgModule({
@@ -38,7 +43,7 @@ import { DataTablesModule } from 'angular-datatables';
     BumpComponent, 
     ReferComponent, 
     MytestingComponent, 
-    UploadComponent, InviteComponent
+    UploadComponent, InviteComponent, MatchComponent
   ],
   imports: [
     CommonModule,
@@ -52,7 +57,8 @@ import { DataTablesModule } from 'angular-datatables';
     PopoverModule.forRoot(),
     AlertModule.forRoot(),
     PaginationModule.forRoot(),
-    DataTablesModule
+    DataTablesModule,
+    TypeaheadModule.forRoot()
   ]
 })
 export class ProfileinfoModule { }
