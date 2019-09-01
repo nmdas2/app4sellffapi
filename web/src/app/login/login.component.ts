@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/profileinfo/about';
         localStorage.removeItem('profileviewUser');
         this.commonService.isProfileSelected.next(false);
+        this.commonService.socialAndHeaderWidgetsTracker.next(false);
     }
 
     // convenience getter for easy access to form fields
@@ -63,7 +64,7 @@ export class LoginComponent implements OnInit {
                 (data: User) => {
                     this.commonService.loadingHide();
                     this.authenticationService.isLogin.next(true);
-
+                    this.commonService.socialAndHeaderWidgetsTracker.next(true);
                     this.router.navigate(['/home']);
                 },
                 error => {

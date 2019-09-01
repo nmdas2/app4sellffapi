@@ -40,9 +40,10 @@ export class SearchsummaryComponent implements OnInit, OnDestroy {
     } else { }
     localStorage.removeItem('profileviewUser');
     this.commonService.isProfileSelected.next(false);
-    this.aroute.params.subscribe(p => {
-      let key = p;
-      this.srchParam = p.shashval;
+    this.commonService.socialAndHeaderWidgetsTracker.next(true);
+    this.aroute.queryParams.subscribe(params => {
+      let key = params;
+      this.srchParam = key && key.searchTerm ? key.searchTerm : '';
       this.searchResults = [];
       this.getSearchResult();
     });
@@ -72,7 +73,7 @@ export class SearchsummaryComponent implements OnInit, OnDestroy {
       this.router.navigate([consts.AboutPath]);
       this.commonService.isProfileSelected.next(true);
     }
-    
+    this.commonService.socialAndHeaderWidgetsTracker.next(true);
   }
 
   getSearchResult() {

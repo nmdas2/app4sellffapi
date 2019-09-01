@@ -7,28 +7,33 @@ import { constants as consts } from '../constants';
 
 
 @Injectable()
-export class CommonService{
+export class CommonService {
 
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
 
     }
 
     isProfileSelected = new BehaviorSubject<boolean>(false);
-    get isProfileSelected$(){
+    get isProfileSelected$() {
         return this.isProfileSelected.asObservable();
     }
     isSummaryPage = new BehaviorSubject<boolean>(false);
-    get isSummaryPage$(){
+    get isSummaryPage$() {
         return this.isSummaryPage.asObservable();
     }
 
-    loadingShow(){
+    socialAndHeaderWidgetsTracker = new BehaviorSubject<boolean>(true)
+    get socialAndHeaderWidgetsTracker$(){
+        return this.socialAndHeaderWidgetsTracker.asObservable();
+    }
+
+    loadingShow() {
         document.getElementById('_loading').style.display = "block";
     }
-    loadingHide(){
-        document.getElementById('_loading').style.display = "none"; 
+    loadingHide() {
+        document.getElementById('_loading').style.display = "none";
     }
-    UpdateUserSocialLinkInfo(data: ProfileInfo): Observable<any>{
+    UpdateUserSocialLinkInfo(data: ProfileInfo): Observable<any> {
         return this.http.post(`${consts.DomainURL}ProfileInfo/UpdateUsersSocialInfo`, data);
-      } 
+    }
 }

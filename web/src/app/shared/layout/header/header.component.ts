@@ -81,7 +81,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       return;
     }
     var sparam = this.searchForm.value["searchprofiles"];
-    this.router.navigate(['/profileinfo/searchsummary/' + sparam]);
+    this.router.navigate(['/profileinfo/searchsummary/'], { queryParams: {searchTerm : sparam}});
     // this.profileService.getUsersBySearchTerm(this.searchForm.value)
     // .subscribe(
     //     data => {
@@ -98,6 +98,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     localStorage.removeItem('profileviewUser');
     this.loggedInUserInfo.userRefId = 0;
     this.commonService.isProfileSelected.next(false);
+    this.commonService.socialAndHeaderWidgetsTracker.next(true);
     this.router.navigate(['/home']);
   }
   ngOnDestroy() {

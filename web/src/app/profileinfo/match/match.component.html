@@ -481,7 +481,7 @@
                                 <input type="text" [(ngModel)]="asyncSelectedO" (keyup)="serviceOfferedKeyUp($event, 1)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="allServicesO" typeaheadOptionField="ServiceName">
                             </li>
                             <li *ngFor="let service of servicesOffered">
-                                <a class="btn btn-default" routerLink='/profileinfo/searchsummary/{{service.ServiceName}}'>
+                                <a class="btn btn-default" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
                                     {{service.ServiceName}} ({{service.ServiceMatchCount}})
                                 </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
                                         class="fa fa-remove" style="font-size:24px"></i></a>
@@ -500,7 +500,7 @@
                                 <input type="text" [(ngModel)]="asyncSelectedN" (keyup)="serviceOfferedKeyUp($event, 2)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="allServicesN" typeaheadOptionField="ServiceName">
                             </li>
                             <li *ngFor="let service of servicesNeeded">
-                                <a class="btn btn-default" routerLink='/profileinfo/searchsummary/{{service.ServiceName}}'>
+                                <a class="btn btn-default" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
                                     {{service.ServiceName}} ({{service.ServiceMatchCount}})
                                 </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
                                         class="fa fa-remove" style="font-size:24px"></i></a>
@@ -519,7 +519,7 @@
                                 <input type="text" [(ngModel)]="asyncSelectedI" (keyup)="serviceOfferedKeyUp($event, 3)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="allServicesI" typeaheadOptionField="ServiceName">
                             </li>
                             <li *ngFor="let service of servicesInterested">
-                                <a class="btn btn-default" routerLink='/profileinfo/searchsummary/{{service.ServiceName}}'>
+                                <a class="btn btn-default" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
                                     {{service.ServiceName}} ({{service.ServiceMatchCount}})
                                 </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
                                         class="fa fa-remove" style="font-size:24px"></i></a>

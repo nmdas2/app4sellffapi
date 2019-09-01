@@ -19,7 +19,7 @@ import { MatchComponent } from './match/match.component';
 
 export const routes: Routes = [
   { path: 'about', component: AboutComponent },
-  { path: 'searchsummary/:shashval', component: SearchsummaryComponent },
+  { path: 'searchsummary', component: SearchsummaryComponent },
   { path: 'userprofile', component: UserprofileComponent },
   { path: 'post', component: PostComponent },
   { path: 'message', component: MessageComponent },

@@ -87,7 +87,8 @@ export class ReviewComponent implements OnInit {
       .subscribe((res: any) => {
         if (res && res.length)
           this.userReviews = res;
-        this.reviewAlreadyGiven = this.userReviews[0].ReviewAlreadyGiven;
+        if(this.userReviews && this.userReviews.length > 0)
+          this.reviewAlreadyGiven = this.userReviews[0].ReviewAlreadyGiven;
       }, error => {
         console.log(error);
       })
@@ -117,6 +118,7 @@ export class ReviewComponent implements OnInit {
       })
     this.router.navigate([consts.AboutPath]);
     this.commonService.isProfileSelected.next(true);
+    this.commonService.socialAndHeaderWidgetsTracker.next(true);
   }
   sayhelpful(review: Review) { 
     console.log(review);

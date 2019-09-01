@@ -92,7 +92,7 @@
                         <span class="info-box-icon bg-red"><i class="fa fa-street-view"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Views</span>
-                            <span class="info-box-number" *ngIf="dataDisplayProfile">{{dataDisplayProfile.Views}}</span>
+                            <span class="info-box-number" *ngIf="headerWidgetsDetails">{{headerWidgetsDetails.Views}}</span>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                                 aria-hidden="true"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Posts</span>
-                            <span class="info-box-number">42</span>
+                            <span class="info-box-number" *ngIf="headerWidgetsDetails">{{headerWidgetsDetails.Posts}}</span>
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text">Reviews</span>
-                            <span class="info-box-number">16</span>
+                            <span class="info-box-number" *ngIf="headerWidgetsDetails">{{headerWidgetsDetails.Reviews}}</span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -124,7 +124,7 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text">Investors</span>
-                            <span class="info-box-number">22</span>
+                            <span class="info-box-number" *ngIf="headerWidgetsDetails"> {{headerWidgetsDetails.Investors}}</span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -136,7 +136,7 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text">Investments</span>
-                            <span class="info-box-number">15</span>
+                            <span class="info-box-number" *ngIf="headerWidgetsDetails">{{headerWidgetsDetails.Investments}}</span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -160,14 +160,14 @@
                     <a (click)="showSocialLayout('ig')"><i id="social-ig"
                             class="fa fa-instagram-square fa-2x social"></i></a>
                 </div>
-                <div *ngIf="!isEditbale && dataDisplayProfile">
-                    <a *ngIf="dataDisplayProfile.LinkedInLink" href="{{dataDisplayProfile.LinkedInLink}}" target="_blank"><i id="social-gp" class="fa fa-globe fa-2x social"></i></a>
-                    <a *ngIf="dataDisplayProfile.TwitterLink" href="{{dataDisplayProfile.TwitterLink}}" target="_blank"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
-                    <a *ngIf="dataDisplayProfile.SocialEmail" href="{{dataDisplayProfile.SocialEmail}}" target="_blank"><i id="social-em" class="fa fa-bell fa-2x social"></i></a>
-                    <a *ngIf="dataDisplayProfile.FacebookLink" href="{{dataDisplayProfile.FacebookLink}}" target="_blank"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
-                    <a *ngIf="dataDisplayProfile.TwitterLink" href="{{dataDisplayProfile.TwitterLink}}" target="_blank"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
-                    <a *ngIf="dataDisplayProfile.TwitterLink" href="{{dataDisplayProfile.TwitterLink}}" target="_blank"><i id="social-em" class="fa fa-envelope-square fa-2x social"></i></a>
-                    <a *ngIf="dataDisplayProfile.InstagramLink" href="{{dataDisplayProfile.InstagramLink}}" target="_blank"><i id="social-ig" class="fa fa-instagram-square fa-2x social"></i></a>
+                <div *ngIf="!isEditbale && socialIconsDetails">
+                    <a *ngIf="socialIconsDetails.LinkedInLink" href="{{socialIconsDetails.LinkedInLink}}" target="_blank"><i id="social-gp" class="fa fa-globe fa-2x social"></i></a>
+                    <a *ngIf="socialIconsDetails.TwitterLink" href="{{socialIconsDetails.TwitterLink}}" target="_blank"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
+                    <a *ngIf="socialIconsDetails.SocialEmail" href="{{socialIconsDetails.SocialEmail}}" target="_blank"><i id="social-em" class="fa fa-bell fa-2x social"></i></a>
+                    <a *ngIf="socialIconsDetails.FacebookLink" href="{{socialIconsDetails.FacebookLink}}" target="_blank"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
+                    <a *ngIf="socialIconsDetails.TwitterLink" href="{{socialIconsDetails.TwitterLink}}" target="_blank"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
+                    <a *ngIf="socialIconsDetails.TwitterLink" href="{{socialIconsDetails.TwitterLink}}" target="_blank"><i id="social-em" class="fa fa-envelope-square fa-2x social"></i></a>
+                    <a *ngIf="socialIconsDetails.InstagramLink" href="{{socialIconsDetails.InstagramLink}}" target="_blank"><i id="social-ig" class="fa fa-instagram-square fa-2x social"></i></a>
                 </div>
 
                 <div *ngIf="postLayoutType!='' && isEditbale">

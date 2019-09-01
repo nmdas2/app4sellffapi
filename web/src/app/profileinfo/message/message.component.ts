@@ -107,6 +107,7 @@ export class MessageComponent implements OnInit {
           this.commonService.isProfileSelected.next(true);
         }
 
+        this.commonService.socialAndHeaderWidgetsTracker.next(true);
         console.log(res);
       }, error => {
         console.log(error);
