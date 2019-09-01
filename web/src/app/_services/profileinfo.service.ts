@@ -38,7 +38,7 @@ export class ProfileinfoService {
   constructor(private http: HttpClient) { }
 
   getUsersBySearchTerm(parttext: string) {
-    return this.http.get<searchRes[]>(`${consts.DomainURL}ProfileInfo/GetSummaryResults/${parttext}`);
+    return this.http.get<searchRes[]>(`${consts.DomainURL}ProfileInfo/GetSummaryResults?parttext=${parttext}`);
   }
 
   getAllUsersMessages(userId: number): Observable<any>{
