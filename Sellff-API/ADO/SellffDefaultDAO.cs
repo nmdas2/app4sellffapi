@@ -34,6 +34,8 @@ namespace Sellff_API.ADO
                     objAuthenticationBO.Email = Convert.ToString(objDataRow["Email"]);
                     objAuthenticationBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
                     objAuthenticationBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                    if (string.IsNullOrEmpty(objAuthenticationBO.ProfilePicPath))
+                        objAuthenticationBO.ProfilePicPath = "./././assets/images/defaultpic.jpg";
                     objAuthenticationBO.UserRefProfileId = 0;
                     objAuthenticationBO.City = Convert.ToString(objDataRow["City"]);
                     objAuthenticationBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
@@ -50,6 +52,9 @@ namespace Sellff_API.ADO
                     objAuthenticationBO.GooglePlusLink = Convert.ToString(objDataRow["GooglePlusLink"]);
                     //objAuthenticationBO.SocialEmail = Convert.ToString(objDataRow["SocialEmail"]);
                     objAuthenticationBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
+                    objAuthenticationBO.Reviews = Convert.ToInt32(objDataRow["Reviews"]);
+                    objAuthenticationBO.Investors = Convert.ToInt32(objDataRow["Investors"]);
+                    objAuthenticationBO.Investments = Convert.ToInt32(objDataRow["Investments"]);
                     objAuthenticationBO.ErrorMessage = "";
                 }
                 else
@@ -122,7 +127,7 @@ namespace Sellff_API.ADO
             try
             {
                 var sqlParams = new SqlParameter[1];
-                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = inviteGuid };
+                sqlParams[0] = new SqlParameter("@inviteGuid", SqlDbType.VarChar) { Value = inviteGuid };
 
                 DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetInvitationDetailsByGuid", sqlParams);
                 if (_objDataSet.Tables[0].Rows.Count > 0)
@@ -346,6 +351,58 @@ namespace Sellff_API.ADO
             {
                 log4netlogger.Error(ex);
             }
+        }
+
+        public ProfileInfoBO SocialLinksByUserId(int UserId)
+        {
+            ProfileInfoBO objAuthenticationBO = new ProfileInfoBO();
+            SqlParameter[] objSqlParam = new SqlParameter[1];
+            try
+            {
+                objSqlParam[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = UserId };
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetSocialLinksForUser", objSqlParam);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {                    
+                    var objDataRow = _objDataSet.Tables[0].Rows[0];
+                    objAuthenticationBO.FacebookLink = Convert.ToString(objDataRow["FacebookLink"]);
+                    objAuthenticationBO.LinkedInLink = Convert.ToString(objDataRow["LinkedInLink"]);
+                    objAuthenticationBO.InstagramLink = Convert.ToString(objDataRow["InstagramLink"]);
+                    objAuthenticationBO.TwitterLink = Convert.ToString(objDataRow["TwitterLink"]);
+                    objAuthenticationBO.YouTubeLink = Convert.ToString(objDataRow["YouTubeLink"]);
+                    objAuthenticationBO.WebsiteLink = Convert.ToString(objDataRow["WebsiteLink"]);
+                    objAuthenticationBO.GooglePlusLink = Convert.ToString(objDataRow["GooglePlusLink"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objAuthenticationBO;
+        }
+
+        public ProfileInfoBO HeaderWidgetsCountByUserId(int UserId)
+        {
+            ProfileInfoBO objAuthenticationBO = new ProfileInfoBO();
+            SqlParameter[] objSqlParam = new SqlParameter[1];
+            try
+            {
+                objSqlParam[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = UserId };
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_HeaderWidgetsCountByUserId", objSqlParam);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    var objDataRow = _objDataSet.Tables[0].Rows[0];
+                    objAuthenticationBO.Views = Convert.ToInt32(objDataRow["Views"]);
+                    objAuthenticationBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
+                    objAuthenticationBO.Reviews = Convert.ToInt32(objDataRow["Reviews"]);
+                    objAuthenticationBO.Investors = Convert.ToInt32(objDataRow["Investors"]);
+                    objAuthenticationBO.Investments = Convert.ToInt32(objDataRow["Investments"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objAuthenticationBO;
         }
     }
 }

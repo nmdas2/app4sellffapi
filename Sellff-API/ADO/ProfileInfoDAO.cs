@@ -34,21 +34,9 @@ namespace Sellff_API.ADO
                         objProfileInfoBO.Email = Convert.ToString(objDataRow["Email"]);
                         objProfileInfoBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
                         objProfileInfoBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
-                        objProfileInfoBO.UserRefProfileId = 0;
-                        objProfileInfoBO.City = Convert.ToString(objDataRow["City"]);
-                        objProfileInfoBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
-                        objProfileInfoBO.Views = Convert.ToInt32(objDataRow["Views"]);
-                        objProfileInfoBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
                         objProfileInfoBO.Rank = Convert.ToInt32(objDataRow["Rank"]);
-                        objProfileInfoBO.ProfileSummary = Convert.ToString(objDataRow["ProfileSummary"]);
-                        objProfileInfoBO.FacebookLink = Convert.ToString(objDataRow["FacebookLink"]);
-                        objProfileInfoBO.LinkedInLink = Convert.ToString(objDataRow["LinkedInLink"]);
-                        objProfileInfoBO.InstagramLink = Convert.ToString(objDataRow["InstagramLink"]);
-                        objProfileInfoBO.TwitterLink = Convert.ToString(objDataRow["TwitterLink"]);
-                        objProfileInfoBO.YouTubeLink = Convert.ToString(objDataRow["YouTubeLink"]);
-                        objProfileInfoBO.WebsiteLink = Convert.ToString(objDataRow["WebsiteLink"]);
                         objProfileInfoBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
-                        objProfileInfoBO.ErrorMessage = "";
+                        objProfileInfoBO.Reviews = Convert.ToInt32(objDataRow["Reviews"]);
                         objProfilesList.Add(objProfileInfoBO);
                     }
                 }
@@ -434,6 +422,9 @@ namespace Sellff_API.ADO
                     objResponseBO.GooglePlusLink = Convert.ToString(objDataRow["GooglePlusLink"]);
                     //objResponseBO.SocialEmail = Convert.ToString(objDataRow["SocialEmail"]);
                     objResponseBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
+                    objResponseBO.Reviews = Convert.ToInt32(objDataRow["Reviews"]);
+                    objResponseBO.Investors = Convert.ToInt32(objDataRow["Investors"]);
+                    objResponseBO.Investments = Convert.ToInt32(objDataRow["Investments"]);
                     objResponseBO.ErrorMessage = "";
                 }
             }

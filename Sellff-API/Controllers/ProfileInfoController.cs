@@ -151,7 +151,7 @@ namespace Sellff_API.Controllers
         /// This method will get all users Messages info based on UserId
         ///</summary>
         /// <param name="UserId"></param>
-        [HttpGet, Route("api/ProfileInfo/GetSummaryResults/{parttext}")]
+        [HttpGet, Route("api/ProfileInfo/GetSummaryResults")]
         public IHttpActionResult GetSummaryResults(string parttext)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUsersInfoBySearchTerm(parttext)));

@@ -63,6 +63,12 @@ namespace Sellff_API.Models
         [DataMember]
         public int Posts { get; set; }
         [DataMember]
+        public int Reviews { get; set; }
+        [DataMember]
+        public int Investors { get; set; }
+        [DataMember]
+        public int Investments { get; set; }
+        [DataMember]
         public string City { get; set; }
         [DataMember]
         public string Occupation { get; set; }
