@@ -350,5 +350,15 @@ namespace Sellff_API.Controllers
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserInvestimentDetailsByUserId(UserId)));
         }
 
+        ///summary
+        /// This method will get all users Posts info based on UserId
+        ///</summary>
+        /// <param name="UserId"></param>
+        [HttpGet, Route("api/ProfileInfo/FindSharePriceValuesByUserId/{UserId}")]
+        public IHttpActionResult FindSharePriceValuesByUserId(int UserId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.FindSharePriceValuesByUserId(UserId)));
+        }
+
     }
 }

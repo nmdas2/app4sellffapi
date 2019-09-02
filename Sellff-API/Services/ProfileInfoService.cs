@@ -94,12 +94,14 @@ namespace Sellff_API.Services
             if (resultlist.Count > 0)
             {
                 objFinalResponse = resultlist[0];
-                objFinalResponse.Performance = objFinalResponse.Communication = objFinalResponse.QOW = 0;
+                int Performance = 0;
+                int Communication = 0;
+                int QOW = 0;
                 foreach (UserReviewBO item in resultlist)
                 {
-                    objFinalResponse.Performance += item.Performance;
-                    objFinalResponse.Communication += item.Communication;
-                    objFinalResponse.QOW += item.QOW;
+                    Performance += item.Performance;
+                    Communication += item.Communication;
+                    QOW += item.QOW;
                     switch (item.Rating)
                     {
                         case 5:
@@ -121,9 +123,9 @@ namespace Sellff_API.Services
                             break;
                     }
                 }
-                objFinalResponse.Performance = Convert.ToInt32(objFinalResponse.Performance / resultlist.Count);
-                objFinalResponse.Communication = Convert.ToInt32(objFinalResponse.Communication / resultlist.Count);
-                objFinalResponse.QOW = Convert.ToInt32(objFinalResponse.QOW / resultlist.Count);
+                objFinalResponse.Performance = Convert.ToInt32(Performance / resultlist.Count);
+                objFinalResponse.Communication = Convert.ToInt32(Communication / resultlist.Count);
+                objFinalResponse.QOW = Convert.ToInt32(QOW / resultlist.Count);
             }
             return objFinalResponse;
         }
@@ -183,11 +185,18 @@ namespace Sellff_API.Services
         {
             UserTransactionsBO objResponseBO = objProfileInfoDAO.GetUserInvestimentDetailsByUserId(userId);
             UserTransactionsBO objPartialResponseBO = GetUserProfileChangeValsForPercentageCalc(userId, objResponseBO.LastTradeSharePrice);
-            if (objResponseBO.LastTradeSharePrice >0)
+            if (objResponseBO.LastTradeSharePrice > 0)
             {
                 decimal previousdayLastTradePrice = objPartialResponseBO.LastTradeSharePrice;
                 decimal currentLastTradePrice = Convert.ToDecimal(objResponseBO.LastTradeSharePrice);
-                objResponseBO.PercentageValue = ((currentLastTradePrice - previousdayLastTradePrice) / previousdayLastTradePrice) * 100;
+                try
+                {
+                    objResponseBO.PercentageValue = ((currentLastTradePrice - previousdayLastTradePrice) / previousdayLastTradePrice) * 100;
+                }
+                catch (Exception)
+                {
+                    objResponseBO.PercentageValue = 0;
+                }
                 objResponseBO.color = "red";
                 if (currentLastTradePrice >= previousdayLastTradePrice)
                     objResponseBO.color = "green";
@@ -197,6 +206,10 @@ namespace Sellff_API.Services
         public UserTransactionsBO GetUserProfileChangeValsForPercentageCalc(int userId, decimal currentLastTradePrice)
         {
             return objProfileInfoDAO.GetUserProfileChangeValsForPercentageCalc(userId, currentLastTradePrice);
+        }
+        public List<UserShareDetailsBO> FindSharePriceValuesByUserId(int UserId)
+        {
+            return objProfileInfoDAO.FindSharePriceValuesByUserId(UserId);
         }
     }
 }

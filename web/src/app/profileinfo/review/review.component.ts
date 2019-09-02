@@ -69,7 +69,7 @@ export class ReviewComponent implements OnInit {
       ReviewContent: this.reviewUserForm.value.reviewContent,
       UserId: this.loggedInUserInfo.UserId,
       Rating: this.rate,
-      RatingGivenTo: this.searchProfileUserId,
+      RatingGivenTo: this.dataDisplayProfile.UserId,
       Performance: this.rate,
       Communication: this.communicationRate,
       QOW: this.QOWRate,

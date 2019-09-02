@@ -787,5 +787,63 @@ namespace Sellff_API.ADO
             return objProfilesList;
         }
 
+        public List<UserShareDetailsBO> FindSharePriceValuesByUserId(int UserId)
+        {
+            List<UserShareDetailsBO> PriceList = new List<UserShareDetailsBO>();
+            try
+            {
+                var sqlParams = new SqlParameter[1];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = UserId };
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "GetPriceChartValues", sqlParams);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    for (int i = 0; i < _objDataSet.Tables[0].Rows.Count; i++)
+                    {
+                        UserShareDetailsBO objPriceValuesBO = new UserShareDetailsBO();
+                        var objDataRow = _objDataSet.Tables[0].Rows[i];
+                        objPriceValuesBO.DayDate = ToJsonTicks(Convert.ToDateTime(objDataRow["dt"])).ToString();
+                        objPriceValuesBO.SharePriceValue = Convert.ToDecimal(objDataRow["SharePrice"]);
+                        PriceList.Add(objPriceValuesBO);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return PriceList;
+        }
+        //public string FindSharePriceValuesByUserId1(int UserId)
+        //{
+        //    string Stockarray = string.Empty;
+        //    string dataarray = string.Empty;
+        //    try
+        //    {
+        //        var sqlParams = new SqlParameter[1];
+        //        sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = UserId };
+        //        DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "GetPriceChartValues", sqlParams);
+        //        if (_objDataSet.Tables[0].Rows.Count > 0)
+        //        {
+        //            for (int i = 0; i < _objDataSet.Tables[0].Rows.Count; i++)
+        //            {
+        //                var objDataRow = _objDataSet.Tables[0].Rows[i];
+        //                dataarray += "[" + ToJsonTicks(Convert.ToDateTime(objDataRow["dt"])).ToString();
+        //                dataarray += ", " + Convert.ToDecimal(objDataRow["SharePrice"]).ToString() + "],";
+        //            }
+        //            Stockarray = "[" + dataarray.Remove(dataarray.Length - 1) + "]";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    return Stockarray;
+        //}
+
+        public long ToJsonTicks(DateTime value)
+        {
+            return (value.ToUniversalTime().Ticks - ((new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).Ticks)) / 10000;
+        }
+
     }
 }

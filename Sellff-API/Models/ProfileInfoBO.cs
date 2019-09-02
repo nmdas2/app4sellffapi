@@ -151,7 +151,7 @@ namespace Sellff_API.Models
     }
 
     public class PostGroups
-    {        
+    {
         public PostGroups()
         {
             objPostsList = new List<PostsBO>();
@@ -342,6 +342,16 @@ namespace Sellff_API.Models
         public string CreatedOn { get; set; }
         [DataMember]
         public string color { get; set; }
+    }
+
+    public class UserShareDetailsBO
+    {
+        [DataMember]
+        public int UserId { get; set; }
+        [DataMember]
+        public string DayDate { get; set; }
+        [DataMember]
+        public decimal SharePriceValue { get; set; }
     }
 
 }
