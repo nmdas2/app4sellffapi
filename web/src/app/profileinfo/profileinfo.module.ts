@@ -23,11 +23,8 @@ import { InviteComponent } from './invite/invite.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { DataTablesModule } from 'angular-datatables';
 import { MatchComponent } from './match/match.component';
-
-
-// RECOMMENDED
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-
+import { HighchartsChartComponent } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -43,7 +40,7 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
     BumpComponent, 
     ReferComponent, 
     MytestingComponent, 
-    UploadComponent, InviteComponent, MatchComponent
+    UploadComponent, InviteComponent, MatchComponent,HighchartsChartComponent
   ],
   imports: [
     CommonModule,

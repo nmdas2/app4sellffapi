@@ -347,9 +347,7 @@ namespace Sellff_API.Models
     public class UserShareDetailsBO
     {
         [DataMember]
-        public int UserId { get; set; }
-        [DataMember]
-        public string DayDate { get; set; }
+        public DateTime DayDate { get; set; }
         [DataMember]
         public decimal SharePriceValue { get; set; }
     }

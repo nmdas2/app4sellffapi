@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ProfileInfo } from 'src/app/_models/profileinfo';
 import { constants as consts } from '../../constants';
 import { UserTransaction } from 'src/app/_models/usertransaction';
+import * as Highcharts from 'highcharts';
 
 @Component({
   selector: 'app-invest',
@@ -11,7 +12,19 @@ import { UserTransaction } from 'src/app/_models/usertransaction';
   styleUrls: ['./invest.component.scss']
 })
 export class InvestComponent implements OnInit {
-
+  highcharts = Highcharts;
+  chartOptions = {   
+    chart: { type: "spline" },
+    title: { text: "" },
+    subtitle: { text: "" },
+    xAxis:{categories:[] },
+    yAxis: { title:{ text:"Share Price" } },
+    tooltip: {valueSuffix:""},
+    series: [{name: 'Day',
+          data: []
+       }
+    ]
+ };
   showBuySell: boolean;
   loggedInUser: ProfileInfo;
   profileInfo: ProfileInfo;
@@ -38,6 +51,7 @@ export class InvestComponent implements OnInit {
       this.sellSharesStr = this.formatNumber(this.sellShares);
       this.getSharesDetails();
       this.getLoggedInUserTranctions();
+      this.getSchedularData();
     }
     else {
       this.router.navigate(['/'])
@@ -48,6 +62,21 @@ export class InvestComponent implements OnInit {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
   }
 
+  getSchedularData(){
+    this.profileService.getSharePriceValuesByUserId(this.loggedInUser.UserId)
+    .subscribe(res => {
+      debugger;
+      this.chartOptions.xAxis.categories=[];
+      this.chartOptions.series[0].data=[];
+      for(let sc of res){
+        this.chartOptions.xAxis.categories.push(sc.DayDate.toString());
+        this.chartOptions.series[0].data.push(sc.SharePriceValue);
+      };
+      alert(JSON.stringify(this.chartOptions));
+    }, error => {
+
+    })
+  }
   getSharesDetails() {
     let profileId = 0;
     if (this.profileInfo && this.profileInfo.UserId) {

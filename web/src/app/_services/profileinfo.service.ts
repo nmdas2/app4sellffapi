@@ -26,6 +26,10 @@ export interface searchRes {
   City: string;
   Occupation: string;
 }
+export interface UserShareDetailsBO{
+  DayDate?: Date;
+  SharePriceValue? : number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -133,9 +137,10 @@ export class ProfileinfoService {
   removeUserServiceByType(service: UserServiceTypes): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/RemoveUserServiceByType`, service)
   }
-
   updateHelpfulCount(data: Review): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/UpdateUsersReviewAsHelpful`, data)
   }
-  
+  getSharePriceValuesByUserId(userId: number): Observable<UserShareDetailsBO[]>{
+    return this.http.get<UserShareDetailsBO[]>(`${consts.DomainURL}ProfileInfo/FindSharePriceValuesByUserId/${userId}`)
+  }
 }
