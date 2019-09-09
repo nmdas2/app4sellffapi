@@ -8,7 +8,6 @@ import { AlertService } from '../_services/alert.service';
 import { CommonService } from '../_services/common.service';
 import { User } from '../_models/user';
 
-
 @Component({
     templateUrl: 'register.component.html',
     styleUrls: ['./register.component.scss']
@@ -51,25 +50,19 @@ export class RegisterComponent implements OnInit {
             displayName: ['', Validators.required],
             email: ['', Validators.required],
             password: ['', [Validators.required, Validators.minLength(6)]],
-            age: ['', [Validators.required, Validators.min(1), Validators.max(130)]],
+            // age: ['', [Validators.required, Validators.min(1), Validators.max(130)]],
+            termsandconditions: ['', [Validators.required]],
             city: ['', [Validators.required]],
             recaptchaReactive: [null, Validators.required]
         });
     }
 
-    // convenience getter for easy access to form fields
     get f() { return this.registerForm.controls; }
 
     onSubmit() {
         this.submitted = true;
-
-        // reset alerts on submit
         this.alertService.clear();
-
-        // stop here if form is invalid
-        if (this.registerForm.invalid) {
-            return;
-        }
+        if (this.registerForm.invalid) { return; }
         this.userService.CheckIfUserExists(this.registerForm.value.email)
             .subscribe(
                 data => {
@@ -88,7 +81,7 @@ export class RegisterComponent implements OnInit {
                         userInfo.DisplayName = this.registerForm.value.displayName;
                         userInfo.email = this.registerForm.value.email;
                         userInfo.password = this.registerForm.value.password;
-                        userInfo.Age = this.registerForm.value.age;
+                        userInfo.Age = 0; //this.registerForm.value.age;
                         userInfo.City = this.registerForm.value.city;
                         userInfo.InviteGuid = this.inviteGuid;
                         this.userService.register(userInfo)
