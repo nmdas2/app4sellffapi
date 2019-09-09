@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../_models/user';
 import { constants as consts } from '../constants'
 import { Observable } from 'rxjs';
+import { InviteUsers } from '../_models/inviteusers';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -26,6 +27,9 @@ export class UserService {
 
     ActivateUserAccunt(keystring: string): Observable<any>{
         return this.http.get<any>(`${consts.DomainURL}SellffDefault/ActivateUserAccunt/${keystring}`);
+    }
+    getInvitedUserByGuid(inviteGuid: string): Observable<InviteUsers>{
+        return this.http.get<InviteUsers>(`${consts.DomainURL}SellffDefault/GetInvitedUsersDetailsByGuidForReg/${inviteGuid}`)
     }
 
 }

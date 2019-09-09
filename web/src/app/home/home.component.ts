@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
     });
     localStorage.removeItem('profileviewUser');
     this.commonService.isProfileSelected.next(false);
+    this.commonService.socialAndHeaderWidgetsTracker.next(false);
   }
 
   get f() { return this.homesearchForm.controls; }
@@ -50,7 +51,7 @@ export class HomeComponent implements OnInit {
     var sparam = this.homesearchForm.value["homesearchprofiles"];
     console.log(sparam);
 
-    this.router.navigate(['/profileinfo/searchsummary/' + sparam]);
+    this.router.navigate(['/profileinfo/searchsummary'], { queryParams: { searchTerm: sparam } });
   }
 
 }

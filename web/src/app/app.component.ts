@@ -27,7 +27,10 @@ export class AppComponent implements OnInit, OnDestroy {
   dataDisplayProfile: ProfileInfo;
   isEditbale: boolean;
   userProfileInfo: ProfileInfo;
-  loggedInUserInfo: ProfileInfo
+  loggedInUserInfo: ProfileInfo;
+  socialIconsDetails: ProfileInfo;
+  headerWidgetsDetails: ProfileInfo;
+  trackerSub: Subscription;
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -87,6 +90,33 @@ export class AppComponent implements OnInit, OnDestroy {
     else {
       this.commonService.isProfileSelected.next(false);
     }
+
+    this.trackerSub = this.commonService.socialAndHeaderWidgetsTracker$.subscribe(status =>{
+      let userId = 0;
+      if(localStorage.getItem('currentUser')){
+        userId = JSON.parse(localStorage.getItem('currentUser')).UserId;
+        
+      }
+      if(localStorage.getItem('profileviewUser')){
+        userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
+        
+      }
+      if(userId > 0){
+        this.authenticationService.socialLinksByUserId(userId)
+        .subscribe(res =>{
+          this.socialIconsDetails = res;
+        }, error =>{
+
+        });
+        this.authenticationService.headerWidgetsCountByUserId(userId)
+        .subscribe(res =>{
+          this.headerWidgetsDetails = res;
+        }, error =>{
+
+        })
+      }
+      
+    })
   }
 
   logout() {
@@ -116,6 +146,8 @@ export class AppComponent implements OnInit, OnDestroy {
       this.isSummarySub.unsubscribe();
     if (this.profileSubscription)
       this.profileSubscription.unsubscribe();
+    if(this.trackerSub)
+      this.trackerSub.unsubscribe();
   }
 
   postLayoutType: string = "";
@@ -125,25 +157,25 @@ export class AppComponent implements OnInit, OnDestroy {
     this.postLayoutType = type;
     switch (type) {
       case "g":
-        this.socialLink = this.dataDisplayProfile.WebsiteLink;
+        this.socialLink = this.socialIconsDetails.WebsiteLink;
         break;
       case "tw":
-        this.socialLink = this.dataDisplayProfile.TwitterLink;
+        this.socialLink = this.socialIconsDetails.TwitterLink;
         break;
       case "em":
-        this.socialLink = this.dataDisplayProfile.SocialEmail;
+        this.socialLink = this.socialIconsDetails.SocialEmail;
         break;
       case "fb":
-        this.socialLink = this.dataDisplayProfile.FacebookLink;
+        this.socialLink = this.socialIconsDetails.FacebookLink;
         break;
       case "gp":
-        this.socialLink = this.dataDisplayProfile.LinkedInLink;
+        this.socialLink = this.socialIconsDetails.LinkedInLink;
         break;
       case "sem":
-        this.socialLink = this.dataDisplayProfile.YouTubeLink;
+        this.socialLink = this.socialIconsDetails.YouTubeLink;
         break;
       case "ig":
-        this.socialLink = this.dataDisplayProfile.InstagramLink;
+        this.socialLink = this.socialIconsDetails.InstagramLink;
         break;
       default:
         break;
@@ -160,6 +192,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.userProfileInfo.socialLinkType = this.mapSocialLinkLegends(this.postLayoutType);
     this.commonService.UpdateUserSocialLinkInfo(this.userProfileInfo)
       .subscribe(res => {
+        this.authenticationService.socialLinksByUserId(this.loggedInUserInfo.UserId)
+        .subscribe(res =>{
+          this.socialIconsDetails = res;
+        })
       }, error => {
         console.log(error);
       })

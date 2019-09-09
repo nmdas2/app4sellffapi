@@ -21,7 +21,10 @@ import { RatingModule, ProgressbarModule, PopoverModule } from 'ngx-bootstrap';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { InviteComponent } from './invite/invite.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-
+import { DataTablesModule } from 'angular-datatables';
+import { MatchComponent } from './match/match.component';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { HighchartsChartComponent } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     BumpComponent, 
     ReferComponent, 
     MytestingComponent, 
-    UploadComponent, InviteComponent
+    UploadComponent, InviteComponent, MatchComponent,HighchartsChartComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +53,9 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     ProgressbarModule.forRoot(),
     PopoverModule.forRoot(),
     AlertModule.forRoot(),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    DataTablesModule,
+    TypeaheadModule.forRoot()
   ]
 })
 export class ProfileinfoModule { }

@@ -69,12 +69,12 @@ namespace Sellff_API.Controllers
         ///summary
         /// This method will check if user is already invited or registered
         ///</summary>
-        /// <param name="keystring"></param>
-        /// <param name="hashky"></param>
+        /// <param name="EmailId"></param>
+        /// <param name="UserId"></param>
         [HttpGet, Route("api/SellffDefault/CheckIfUserAlreadyInvited/{EmailId}/{UserId}")]
-        public IHttpActionResult CheckIfUserAlreadyInvited(string keystring, int hashky)
+        public IHttpActionResult CheckIfUserAlreadyInvited(string EmailId, int UserId)
         {
-            string response = objSellffDefaultService.CheckIfUserAlreadyInvited(keystring, hashky);
+            string response = objSellffDefaultService.CheckIfUserAlreadyInvited(EmailId, UserId);
             if(string.IsNullOrEmpty(response))
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, response));
             else
@@ -84,21 +84,21 @@ namespace Sellff_API.Controllers
         ///summary
         /// This method will update if users regisrers with invitation link shared
         ///</summary>
-        /// <param name="keystring"></param>
+        /// <param name="InviteGuid"></param>
         [HttpGet, Route("api/SellffDefault/UpdateUserRegisteredByInvitation/{InviteGuid}")]
-        public IHttpActionResult UpdateUserRegisteredByInvitation(string keystring)
+        public IHttpActionResult UpdateUserRegisteredByInvitation(string InviteGuid)
         {
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.UpdateUserRegisteredByInvitation(keystring)));
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.UpdateUserRegisteredByInvitation(InviteGuid)));
         }
 
         ///summary
         /// This method will update if users regisrers with invitation link shared
         ///</summary>
-        /// <param name="keystring"></param>
+        /// <param name="InviteGuid"></param>
         [HttpGet, Route("api/SellffDefault/UpdateUserInvitationSentDate/{InviteGuid}")]
-        public IHttpActionResult UpdateUserInvitationSentDate(string keystring)
+        public IHttpActionResult UpdateUserInvitationSentDate(string InviteGuid)
         {
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.UpdateUserInvitationSentDate(keystring)));
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.UpdateUserInvitationSentDate(InviteGuid)));
         }
 
         ///summary
@@ -114,12 +114,41 @@ namespace Sellff_API.Controllers
         ///summary
         /// This method will Get all the users invited by UserId
         ///</summary>
-        /// <param name="keystring"></param>
+        /// <param name="UserId"></param>
         [HttpGet, Route("api/SellffDefault/GetInvitedUsersByUserId/{UserId}")]
-        public IHttpActionResult GetInvitedUsersByUserId(int keystring)
+        public IHttpActionResult GetInvitedUsersByUserId(int UserId)
         {
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.GetInvitedUsersByUserId(keystring)));
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.GetInvitedUsersByUserId(UserId)));
         }
 
+        ///summary
+        /// This method will Get all the users invited by UserId
+        ///</summary>
+        /// <param name="InviteGuid"></param>
+        [HttpGet, Route("api/SellffDefault/GetInvitedUsersDetailsByGuidForReg/{InviteGuid}")]
+        public IHttpActionResult GetInvitedUsersDetailsByGuidForReg(string InviteGuid)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.GetInvitedUsersDetailsByGuidForReg(InviteGuid)));
+        }
+
+        ///summary
+        /// This method will Get all the users invited by UserId
+        ///</summary>
+        /// <param name="UserId"></param>
+        [HttpGet, Route("api/SellffDefault/SocialLinksByUserId/{UserId}")]
+        public IHttpActionResult SocialLinksByUserId(int UserId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.SocialLinksByUserId(UserId)));
+        }
+
+        ///summary
+        /// This method will Get all the users invited by UserId
+        ///</summary>
+        /// <param name="UserId"></param>
+        [HttpGet, Route("api/SellffDefault/HeaderWidgetsCountByUserId/{UserId}")]
+        public IHttpActionResult HeaderWidgetsCountByUserId(int UserId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.HeaderWidgetsCountByUserId(UserId)));
+        }
     }
 }

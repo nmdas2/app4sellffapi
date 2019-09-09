@@ -13,6 +13,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ConfirmuseraccComponent } from './confirmuseracc/confirmuseracc.component';
 import { AlertComponent } from './_components/alert/alert.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,11 +29,14 @@ import { AlertComponent } from './_components/alert/alert.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    RecaptchaModule.forRoot(),
+    RecaptchaFormsModule
   ],
   providers: [
     CommonService

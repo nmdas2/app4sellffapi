@@ -151,7 +151,7 @@ namespace Sellff_API.Controllers
         /// This method will get all users Messages info based on UserId
         ///</summary>
         /// <param name="UserId"></param>
-        [HttpGet, Route("api/ProfileInfo/GetSummaryResults/{parttext}")]
+        [HttpGet, Route("api/ProfileInfo/GetSummaryResults")]
         public IHttpActionResult GetSummaryResults(string parttext)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUsersInfoBySearchTerm(parttext)));
@@ -256,6 +256,108 @@ namespace Sellff_API.Controllers
         public IHttpActionResult GetUserPostsAsGroups(int UserId)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserPostsAsGroups(UserId)));
+        }
+
+        ///summary
+        /// This method will Save user About info  based on UserId
+        ///</summary>
+        /// <param name="objUserTransactionBO"></param>
+        [HttpPost, Route("api/ProfileInfo/SaveUserBuySellTransactions")]
+        public IHttpActionResult SaveUserBuySellTransactions([FromBody]UserTransactionsBO objUserTransactionBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.SaveUserBuySellTransactions(objUserTransactionBO)));
+        }
+
+        ///summary
+        /// This method will Save Services to db by type
+        ///</summary>
+        /// <param name="objUserServiceTypesBO"></param>
+        [HttpPost, Route("api/ProfileInfo/SaveUserServiceTypes")]
+        public IHttpActionResult SaveUserServiceTypes([FromBody]UserServiceTypesBO objUserServiceTypesBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.SaveUserServiceTypes(objUserServiceTypesBO)));
+        }
+
+        ///summary
+        /// This method will get all users Posts info based on UserId
+        ///</summary>
+        /// <param></param>
+        [HttpGet, Route("api/ProfileInfo/GetAllUserServiceTypes")]
+        public IHttpActionResult GetAllUserServiceTypes()
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetAllUserServiceTypes()));
+        }
+
+        ///summary
+        /// This method will get all users Posts info based on UserId
+        ///</summary>
+        /// <param name="UserId"></param>
+        [HttpGet, Route("api/ProfileInfo/GetUserServiceTypesByUserId/{UserId}")]
+        public IHttpActionResult GetUserServiceTypesByUserId(int UserId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserServiceTypesByUserId(UserId)));
+        }
+
+        ///summary
+        /// This method will get all users Posts info based on UserId
+        ///</summary>
+        /// <param name="UserId"></param>
+        /// <param name="TypeId"></param>
+        [HttpGet, Route("api/ProfileInfo/GetUserServiceTypesByUserIdNTypeId/{UserId}/{TypeId}")]
+        public IHttpActionResult GetUserServiceTypesByUserIdNTypeId(int UserId, int TypeId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserServiceTypesByUserIdNTypeId(UserId, TypeId)));
+        }
+
+        ///summary
+        /// This method will Save Services to db by type
+        ///</summary>
+        /// <param name="objUserServiceTypesBO"></param>
+        [HttpPost, Route("api/ProfileInfo/RemoveUserServiceByType")]
+        public IHttpActionResult RemoveUserServiceByType([FromBody]UserServiceTypesBO objUserServiceTypesBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.RemoveUserServiceByType(objUserServiceTypesBO)));
+        }
+
+        ///summary
+        /// This method will Save Services to db by type
+        ///</summary>
+        /// <param name="objUserTransactionsBO"></param>
+        [HttpPost, Route("api/ProfileInfo/SaveUserBuySellTransactionDetails")]
+        public IHttpActionResult SaveUserBuySellTransactionDetails([FromBody]UserTransactionsBO objUserTransactionsBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.SaveUserBuySellTransactionDetails(objUserTransactionsBO)));
+        }
+
+        ///summary
+        /// This method will get user prfile details by UserId and typeid
+        ///</summary>
+        /// <param name="UserId"></param>
+        /// <param name="UserProfileId"></param>
+        [HttpGet, Route("api/ProfileInfo/GetUserProfileDetailsByUserIdNUserProfileId/{UserId}/{UserProfileId}")]
+        public IHttpActionResult GetUserProfileDetailsByUserIdNUserProfileId(int UserId, int UserProfileId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserProfileDetailsByUserIdNUserProfileId(UserId, UserProfileId)));
+        }
+
+        ///summary
+        /// This method will get all users Posts info based on UserId
+        ///</summary>
+        /// <param name="UserId"></param>
+        [HttpGet, Route("api/ProfileInfo/GetUserInvestimentDetailsByUserId/{UserId}")]
+        public IHttpActionResult GetUserInvestimentDetailsByUserId(int UserId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserInvestimentDetailsByUserId(UserId)));
+        }
+
+        ///summary
+        /// This method will get all users Posts info based on UserId
+        ///</summary>
+        /// <param name="UserId"></param>
+        [HttpGet, Route("api/ProfileInfo/FindSharePriceValuesByUserId/{UserId}")]
+        public IHttpActionResult FindSharePriceValuesByUserId(int UserId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.FindSharePriceValuesByUserId(UserId)));
         }
 
     }

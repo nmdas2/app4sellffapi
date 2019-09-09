@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../_services/user.service';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-confirmuseracc',
@@ -13,15 +14,15 @@ export class ConfirmuseraccComponent implements OnInit {
   constructor(
     private router: Router,
     private aroute: ActivatedRoute,
-    private pfrlsrvs: UserService
+    private pfrlsrvs: UserService,
+    private authservice: AuthenticationService
   ) { }
 
   ngOnInit() {
-    console.log('i am here');
+    this.authservice.logout();
     this.aroute.params.subscribe(p => {
       let key = p;
       this.srchParam = p.hashkey;
-      console.log(this.srchParam);
       this.UserWillBeActivated();
     });
   }

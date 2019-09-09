@@ -35,6 +35,9 @@ export interface ProfileInfo{
     Rank?: number;
     ErrorMessage?:string;
     CreatedOn?:string;
+    Reviews?: number;
+    Investors?: number;
+    Investments?: number;
 }
 export interface userAboutInfo{
     AutoId: number;

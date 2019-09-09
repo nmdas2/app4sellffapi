@@ -24,10 +24,10 @@
                             <div class="col-md-6">
                                 <label>Upload Photo</label>
                                 <div class="form-group file-upload-wrapper justify-content-center" data-text="Select your file!">
-                                    
-                                    
-                                        <input type="file" name="image" (change)="attachToFormControl($event)" value=""/>
-                                    
+
+
+                                    <input type="file" name="image" (change)="attachToFormControl($event)" value="" />
+
                                 </div>
                             </div>
 
@@ -36,8 +36,8 @@
                             <div class="col-md-6">
                                 <label>Upload Photo from web</label>
                                 <div class="form-group justify-content-center">
-                                        
-                                        <input type="text" class="form-control" formControlName="webUrl" placeholder="Place text here" />
+
+                                    <input type="text" class="form-control" formControlName="webUrl" placeholder="Place text here" />
                                 </div>
                             </div>
                         </div>
@@ -101,7 +101,8 @@
                 <div *ngIf="isAboutInEditMode" class="post-btns">
                     <ul>
                         <li><a (click)="popupPostTextModel(template)" class="btn btn-default">Create Text Post</a></li>
-                        <li><a class="btn btn-default" (click)="popupPostGalleryModel(templateForPostGallary)">Create Image Post</a></li>
+                        <li><a class="btn btn-default" (click)="popupPostGalleryModel(templateForPostGallary)">Create
+                                Image Post</a></li>
                     </ul>
                 </div>
                 <div class="" *ngIf="PostsByGroups">
@@ -112,24 +113,27 @@
                             </div>
                         </div>
                         <div class="maring-bottom-30">
-                            <div class="post-list-view">
-                                <ul>
-                                    <li>
-                                        <div class="post-img-box" *ngFor="let post of posts.objPostsList">
-                                            <div *ngIf="post.ContentType==1">
-                                                <a href="javascript:void(0)" (click)="getUserContent(post.UserContent, post.Title, contentTemplate)"><img src="../../../assets/selfprflimages/doc_icon.png"></a>
-                                            </div>
-                                            <div *ngIf="post.ContentType==2">
-                                                <a data-toggle="modal" data-target="#1" (click)="setModelImage(post.ImagePath)">
-                                                    <img src={{post.ImagePath}} />
-                                                </a>
-                                            </div>
+                            <div class="post-list-view row">
+                                <!-- <ul>
+                                    <li> -->
+                                <div class="col-md-2" *ngFor="let post of posts.objPostsList">
+                                    <div class="post-img-box">
+                                        <div *ngIf="post.ContentType==1">
+                                            <a href="javascript:void(0)" (click)="getUserContent(post.UserContent, post.Title, contentTemplate)"><img src="../../../assets/selfprflimages/doc_icon.png"></a>
                                         </div>
-                                    </li>
-                                </ul>
+                                        <div *ngIf="post.ContentType==2">
+                                            <a data-toggle="modal" data-target="#1" (click)="setModelImage(post.ImagePath)">
+                                                <img src={{post.ImagePath}} />
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- </li>
+                                </ul> -->
                             </div>
-                            
-                            
+
+
                         </div>
                     </div>
                 </div>

@@ -2,14 +2,14 @@
     <div class="login-screen">
         <div class="row">
             <div class="col-md-12 col-sm-12">
-                <h3 class="auth-header">Login</h3>
+                <h3 class="auth-header">Sign In</h3>
                 <div *ngIf="invalidLogin" class="text-center">
                     <p class="error-msg">Opps! Invalid Login</p>
                 </div>
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
-                        <label for="username">User name</label>
-                        <input type="text" formControlName="username" class="form-control" placeholder="Eg: Jhone" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                        <label for="username">Email</label>
+                        <input type="text" formControlName="username" class="form-control" placeholder="Eg: youremail@domain.com" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
                         <div class="pre-icon">
                             <i class="fa fa-user"></i>
                         </div>

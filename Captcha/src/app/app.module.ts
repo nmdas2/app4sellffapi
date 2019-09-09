@@ -4,10 +4,12 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RecaptchaModule } from 'ng-recaptcha';
+import { HighchartsChartComponent } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HighchartsChartComponent
   ],
   imports: [
     BrowserModule,

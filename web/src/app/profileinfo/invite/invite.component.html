@@ -22,7 +22,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of inviteUsersList">
+                        <tr *ngFor="let user of tempInviteUsersList">
                             <td>{{user.Name}}</td>
                             <td>{{user.EmailId}}</td>
                             <td>{{user.Phone}}</td>
@@ -38,9 +38,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <pagination [boundaryLinks]="true" [totalItems]="inviteUsersList.length" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [maxSize]="maxSize">
-
-                </pagination>
+                <pagination [boundaryLinks]="true" [totalItems]="inviteUsersList.length" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
             </div>
             <ng-template #template>
                 <div class="modal-header">

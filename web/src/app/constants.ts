@@ -5,7 +5,9 @@ export const constants = {
     DomainURL: 'http://apollostage2.quad1test.com/practice/api/',
     ImagesPath: './././assets/selfprflimages/',
     AboutPath: '/profileinfo/about',
-    AppDomain:'http://localhost:50517/'
+    AppDomain:'http://localhost:50517/',
+    BuyShares: 1000,
+    SellShares: 1000
 };
 export const enum UploadType {
     Image = 1,

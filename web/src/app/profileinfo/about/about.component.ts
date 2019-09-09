@@ -7,6 +7,7 @@ import { constants as consts } from '../../constants';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CommonService } from 'src/app/_services/common.service';
 import { Subscription } from 'rxjs';
+import { UserServiceTypes } from 'src/app/_models/userservicetypes';
 
 @Component({
   selector: 'app-about',
@@ -22,6 +23,7 @@ export class AboutComponent implements OnInit, OnDestroy {
   profileSubscription: Subscription;
   isEditbale: boolean = false;
   html: string = `<span class="btn btn-danger">Never trust not sanitized HTML!!!</span>`;
+  serviceOffered: UserServiceTypes[];
 
   constructor(
     private profileInfoService: ProfileinfoService,
@@ -45,6 +47,8 @@ export class AboutComponent implements OnInit, OnDestroy {
       this.isAboutInEditMode = false;
       this.updateProfileViewsCount();
     }
+    if(this.dataDisplayProfile)
+      this.getServiceOffered();
     this.textValue = this.dataDisplayProfile.ProfileSummary;
     this.getUserAboutText();
   }
@@ -58,6 +62,16 @@ export class AboutComponent implements OnInit, OnDestroy {
   }
   logText(): void {
     this.isAboutInEditMode = true;
+  }
+  getServiceOffered(){
+    this.serviceOffered = [];
+    this.profileInfoService.getUserServiceTypesByUserIdServiceId(this.dataDisplayProfile.UserId, 1)
+    .subscribe(res => {
+      if(res && res.length > 0)
+        this.serviceOffered = res;
+    }, error => {
+
+    })
   }
   saveupdatedabout(): void {
     console.log(this.dataDisplayProfile.UserId);

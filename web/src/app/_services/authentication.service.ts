@@ -44,7 +44,16 @@ export class AuthenticationService {
         // remove user from local storage and set current user to null
         localStorage.removeItem('currentUser');
         localStorage.removeItem('profileviewUser');
+        this.commonService.isProfileSelected.next(false);
+        this.commonService.socialAndHeaderWidgetsTracker.next(false);
         this.isLogin.next(false);
         this.currentUserSubject.next(null);
+    }
+
+    socialLinksByUserId(userId: number): Observable<ProfileInfo>{
+        return this.http.get<ProfileInfo>(`${consts.DomainURL}SellffDefault/SocialLinksByUserId/${userId}`);
+    }
+    headerWidgetsCountByUserId(userId: number): Observable<ProfileInfo>{
+        return this.http.get<ProfileInfo>(`${consts.DomainURL}SellffDefault/HeaderWidgetsCountByUserId/${userId}`);
     }
 }

@@ -94,12 +94,14 @@ namespace Sellff_API.Services
             if (resultlist.Count > 0)
             {
                 objFinalResponse = resultlist[0];
-                objFinalResponse.Performance = objFinalResponse.Communication = objFinalResponse.QOW = 0;
+                int Performance = 0;
+                int Communication = 0;
+                int QOW = 0;
                 foreach (UserReviewBO item in resultlist)
                 {
-                    objFinalResponse.Performance += item.Performance;
-                    objFinalResponse.Communication += item.Communication;
-                    objFinalResponse.QOW += item.QOW;
+                    Performance += item.Performance;
+                    Communication += item.Communication;
+                    QOW += item.QOW;
                     switch (item.Rating)
                     {
                         case 5:
@@ -120,51 +122,10 @@ namespace Sellff_API.Services
                         default:
                             break;
                     }
-                    //switch (item.Communication)
-                    //{
-                    //    case 5:
-                    //        objFinalResponse.Starts5 += 1;
-                    //        break;
-                    //    case 4:
-                    //        objFinalResponse.Starts4 += 1;
-                    //        break;
-                    //    case 3:
-                    //        objFinalResponse.Starts3 += 1;
-                    //        break;
-                    //    case 2:
-                    //        objFinalResponse.Starts2 += 1;
-                    //        break;
-                    //    case 1:
-                    //        objFinalResponse.Starts1 += 1;
-                    //        break;
-                    //    default:
-                    //        break;
-                    //}
-                    //switch (item.QOW)
-                    //{
-                    //    case 5:
-                    //        objFinalResponse.Starts5 += 1;
-                    //        break;
-                    //    case 4:
-                    //        objFinalResponse.Starts4 += 1;
-                    //        break;
-                    //    case 3:
-                    //        objFinalResponse.Starts3 += 1;
-                    //        break;
-                    //    case 2:
-                    //        objFinalResponse.Starts2 += 1;
-                    //        break;
-                    //    case 1:
-                    //        objFinalResponse.Starts1 += 1;
-                    //        break;
-                    //    default:
-                    //        break;
-                    //}
                 }
-
-                objFinalResponse.Performance = Convert.ToInt32(objFinalResponse.Performance / resultlist.Count);
-                objFinalResponse.Communication = Convert.ToInt32(objFinalResponse.Communication / resultlist.Count);
-                objFinalResponse.QOW = Convert.ToInt32(objFinalResponse.QOW / resultlist.Count);
+                objFinalResponse.Performance = Convert.ToInt32(Performance / resultlist.Count);
+                objFinalResponse.Communication = Convert.ToInt32(Communication / resultlist.Count);
+                objFinalResponse.QOW = Convert.ToInt32(QOW / resultlist.Count);
             }
             return objFinalResponse;
         }
@@ -177,6 +138,78 @@ namespace Sellff_API.Services
         public List<PostGroups> GetUserPostsAsGroups(int UserId)
         {
             return objProfileInfoDAO.GetUserPostsAsGroups(UserId);
+        }
+
+        public bool SaveUserBuySellTransactions(UserTransactionsBO objUserTransactionBO)
+        {
+            return objProfileInfoDAO.SaveUserBuySellTransactions(objUserTransactionBO);
+        }
+
+        public bool SaveUserServiceTypes(UserServiceTypesBO objUserServiceTypesBO)
+        {
+            return objProfileInfoDAO.SaveUserServiceTypes(objUserServiceTypesBO);
+        }
+
+        public List<UserServiceTypesBO> GetAllUserServiceTypes()
+        {
+            return objProfileInfoDAO.GetAllUserServiceTypes();
+        }
+
+        public List<UserServiceTypesBO> GetUserServiceTypesByUserId(int userId)
+        {
+            return objProfileInfoDAO.GetUserServiceTypesByUserId(userId);
+        }
+
+        public List<UserServiceTypesBO> GetUserServiceTypesByUserIdNTypeId(int userId, int typeId)
+        {
+            List<UserServiceTypesBO> resultlist = objProfileInfoDAO.GetUserServiceTypesByUserId(userId);
+            return (List<UserServiceTypesBO>)resultlist.Where(o => o.ServiceType == typeId).ToList();
+        }
+
+        public bool RemoveUserServiceByType(UserServiceTypesBO objUserServiceTypesBO)
+        {
+            return objProfileInfoDAO.RemoveUserServiceByType(objUserServiceTypesBO);
+        }
+
+        public bool SaveUserBuySellTransactionDetails(UserTransactionsBO objUserTransactionsBO)
+        {
+            return objProfileInfoDAO.SaveUserBuySellTransactionDetails(objUserTransactionsBO);
+        }
+
+        public UserTransactionsBO GetUserProfileDetailsByUserIdNUserProfileId(int userId, int userProfileId)
+        {
+            return objProfileInfoDAO.GetUserProfileDetailsByUserIdNUserProfileId(userId, userProfileId);
+        }
+
+        public UserTransactionsBO GetUserInvestimentDetailsByUserId(int userId)
+        {
+            UserTransactionsBO objResponseBO = objProfileInfoDAO.GetUserInvestimentDetailsByUserId(userId);
+            UserTransactionsBO objPartialResponseBO = GetUserProfileChangeValsForPercentageCalc(userId, objResponseBO.LastTradeSharePrice);
+            if (objResponseBO.LastTradeSharePrice > 0)
+            {
+                decimal previousdayLastTradePrice = objPartialResponseBO.LastTradeSharePrice;
+                decimal currentLastTradePrice = Convert.ToDecimal(objResponseBO.LastTradeSharePrice);
+                try
+                {
+                    objResponseBO.PercentageValue = ((currentLastTradePrice - previousdayLastTradePrice) / previousdayLastTradePrice) * 100;
+                }
+                catch (Exception)
+                {
+                    objResponseBO.PercentageValue = 0;
+                }
+                objResponseBO.color = "red";
+                if (currentLastTradePrice >= previousdayLastTradePrice)
+                    objResponseBO.color = "green";
+            }
+            return objResponseBO;
+        }
+        public UserTransactionsBO GetUserProfileChangeValsForPercentageCalc(int userId, decimal currentLastTradePrice)
+        {
+            return objProfileInfoDAO.GetUserProfileChangeValsForPercentageCalc(userId, currentLastTradePrice);
+        }
+        public List<UserShareDetailsBO> FindSharePriceValuesByUserId(int UserId)
+        {
+            return objProfileInfoDAO.FindSharePriceValuesByUserId(UserId);
         }
     }
 }

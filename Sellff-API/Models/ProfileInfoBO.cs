@@ -63,6 +63,12 @@ namespace Sellff_API.Models
         [DataMember]
         public int Posts { get; set; }
         [DataMember]
+        public int Reviews { get; set; }
+        [DataMember]
+        public int Investors { get; set; }
+        [DataMember]
+        public int Investments { get; set; }
+        [DataMember]
         public string City { get; set; }
         [DataMember]
         public string Occupation { get; set; }
@@ -145,7 +151,7 @@ namespace Sellff_API.Models
     }
 
     public class PostGroups
-    {        
+    {
         public PostGroups()
         {
             objPostsList = new List<PostsBO>();
@@ -249,7 +255,6 @@ namespace Sellff_API.Models
         [DataMember]
         public bool ReviewAlreadyGiven { get; set; }
     }
-
     public class UserLocalStorageBO
     {
         [DataMember]
@@ -274,6 +279,77 @@ namespace Sellff_API.Models
         public string SocialLink { get; set; }
         [DataMember]
         public string Occupation { get; set; }
+    }
+    public class UserServiceTypesBO
+    {
+        [DataMember]
+        public int UserId { get; set; }
+        [DataMember]
+        public string ServiceName { get; set; }
+        [DataMember]
+        public int ServiceType { get; set; }
+        [DataMember]
+        public int ServiceMatchCount { get; set; }
+        [DataMember]
+        public string UserIP { get; set; }
+    }
+
+    public class UserTransactionsBO
+    {
+        [DataMember]
+        public int UserId { get; set; }
+        [DataMember]
+        public int ShareOwnerId { get; set; }
+        [DataMember]
+        public int UserProfileId { get; set; }
+        [DataMember]
+        public string DisplayName { get; set; }
+        [DataMember]
+        public int Age { get; set; }
+        [DataMember]
+        public string City { get; set; }
+        [DataMember]
+        public string ShareSymbol { get; set; }
+        [DataMember]
+        public int AvailableShareQty { get; set; }
+        [DataMember]
+        public decimal LastTradeSharePrice { get; set; } = 0;
+        [DataMember]
+        public decimal AskPrice { get; set; }
+        [DataMember]
+        public decimal BuyPrice { get; set; }
+        [DataMember]
+        public int PurchasedShareQty { get; set; }
+        [DataMember]
+        public decimal TotalValueAtCurrentPrice { get; set; }
+        [DataMember]
+        public decimal TotalValueAtPurchasedPrice { get; set; }
+        [DataMember]
+        public decimal ChangedPrice { get; set; }
+        [DataMember]
+        public decimal TotalMarketValue { get; set; }
+        [DataMember]
+        public int BuySellQty { get; set; }
+        [DataMember]
+        public int BuySellActionType { get; set; }
+        [DataMember]
+        public string ErrorMessage { get; set; }
+        [DataMember]
+        public decimal PercentageValue { get; set; }
+        [DataMember]
+        public Int64 CreatedTicks { get; set; }
+        [DataMember]
+        public string CreatedOn { get; set; }
+        [DataMember]
+        public string color { get; set; }
+    }
+
+    public class UserShareDetailsBO
+    {
+        [DataMember]
+        public DateTime DayDate { get; set; }
+        [DataMember]
+        public decimal SharePriceValue { get; set; }
     }
 
 }
