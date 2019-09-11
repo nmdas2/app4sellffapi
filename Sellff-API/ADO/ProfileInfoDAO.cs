@@ -108,6 +108,43 @@ namespace Sellff_API.ADO
             }
             return objProfilesList;
         }
+
+        public bool RemovePostsByUserIdNPostId(int userId, int postId)
+        {
+            bool result = true;
+            try
+            {
+                var sqlParams = new SqlParameter[2];
+                sqlParams[0] = new SqlParameter("@userId", SqlDbType.Int) { Value = userId };
+                sqlParams[1] = new SqlParameter("@postId", SqlDbType.Int) { Value = postId };
+                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_RemovePostsByPostId", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                log4netlogger.Error(ex);
+            }
+            return result;
+        }
+
+        public bool RemoveAboutImageFromGalleryByUserId(int userId, int galId)
+        {
+            bool result = true;
+            try
+            {
+                var sqlParams = new SqlParameter[2];
+                sqlParams[0] = new SqlParameter("@userId", SqlDbType.Int) { Value = userId };
+                sqlParams[1] = new SqlParameter("@galId", SqlDbType.Int) { Value = galId };
+                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_RemoveImageFromGallery", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                log4netlogger.Error(ex);
+            }
+            return result;
+        }
+
         public List<PromotionsBO> GetAllUserPromotions(int UserId)
         {
             List<PromotionsBO> objProotionsList = new List<PromotionsBO>();
@@ -159,6 +196,22 @@ namespace Sellff_API.ADO
                 log4netlogger.Error(ex);
             }
             return objProotionsList;
+        }
+
+        public int GetUnReadMessagesCountByUserId(int userId)
+        {
+            int result = 0;
+            try
+            {
+                var sqlParams = new SqlParameter[1];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = userId };
+                result = Convert.ToInt32(SqlHelper.SqlHelper.ExecuteScalar(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetUnReadMessagesCount", sqlParams));                    
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return result;
         }
 
         public UserTransactionsBO GetUserProfileChangeValsForPercentageCalc(int userId,decimal currentLastTradePrice)

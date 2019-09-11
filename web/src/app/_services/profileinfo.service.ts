@@ -143,4 +143,7 @@ export class ProfileinfoService {
   getSharePriceValuesByUserId(userId: number): Observable<UserShareDetailsBO[]>{
     return this.http.get<UserShareDetailsBO[]>(`${consts.DomainURL}ProfileInfo/FindSharePriceValuesByUserId/${userId}`)
   }
+  GetUnReadMessagesCountByUserId(UserId: number): Observable<any>{
+    return this.http.get(`${consts.DomainURL}ProfileInfo/GetUnReadMessagesCountByUserId/${UserId}`);
+  }
 }

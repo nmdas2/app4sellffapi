@@ -91,6 +91,28 @@ namespace Sellff_API.Controllers
         }
 
         ///summary
+        /// This method will remove gallery info image based on UserId and imageid
+        ///</summary>
+        /// <param name="UserId"></param>
+        /// <param name="GalId"></param>
+        [HttpGet, Route("api/ProfileInfo/RemoveAboutImageFromGalleryByUserId/{UserId}/{GalId}")]
+        public IHttpActionResult RemoveAboutImageFromGalleryByUserId(int UserId, int GalId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.RemoveAboutImageFromGalleryByUserId(UserId, GalId)));
+        }
+
+        ///summary
+        /// This method will remove gallery info image based on UserId and imageid
+        ///</summary>
+        /// <param name="UserId"></param>
+        /// <param name="PostId"></param>
+        [HttpGet, Route("api/ProfileInfo/RemovePostsByUserIdNPostId/{UserId}/{PostId}")]
+        public IHttpActionResult RemovePostsByUserIdNPostId(int UserId, int PostId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.RemovePostsByUserIdNPostId(UserId, PostId)));
+        }
+
+        ///summary
         /// This method will Save user About info  based on UserId
         ///</summary>
         /// <param name="objUserAboutBO"></param>
@@ -358,6 +380,16 @@ namespace Sellff_API.Controllers
         public IHttpActionResult FindSharePriceValuesByUserId(int UserId)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.FindSharePriceValuesByUserId(UserId)));
+        }
+
+        ///summary
+        /// This method will get all users Messages info based on UserId
+        ///</summary>
+        /// <param name="UserId"></param>
+        [HttpGet, Route("api/ProfileInfo/GetUnReadMessagesCountByUserId/{UserId}")]
+        public IHttpActionResult GetUnReadMessagesCountByUserId(int UserId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUnReadMessagesCountByUserId(UserId)));
         }
 
     }

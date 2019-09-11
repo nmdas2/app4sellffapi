@@ -45,7 +45,7 @@
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src='{{loggedInUserInfo.ProfilePicPath}}' class="user-image" alt="User Image">
                                 <span class="hidden-xs">
-                                    {{loggedInUserInfo.DisplayName}}
+                                    {{loggedInUserInfo.DisplayName}} <span *ngIf="unReadMsgsCount >0">[{{unReadMsgsCount}}]</span>
                                     <span>{{loggedInUserInfo.Occupation}}</span>
                                 </span>
                             </a>

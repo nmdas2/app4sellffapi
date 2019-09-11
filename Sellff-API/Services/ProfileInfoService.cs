@@ -130,6 +130,16 @@ namespace Sellff_API.Services
             return objFinalResponse;
         }
 
+        public bool RemovePostsByUserIdNPostId(int userId, int postId)
+        {
+            return objProfileInfoDAO.RemovePostsByUserIdNPostId(userId, postId);
+        }
+
+        public bool RemoveAboutImageFromGalleryByUserId(int userId, int galId)
+        {
+            return objProfileInfoDAO.RemoveAboutImageFromGalleryByUserId(userId, galId);
+        }
+
         public ProfileInfoBO GetUserProfileInfoByUserId(int loginUser)
         {
             return objProfileInfoDAO.GetUserProfileInfoByUserId(loginUser);
@@ -210,6 +220,11 @@ namespace Sellff_API.Services
         public List<UserShareDetailsBO> FindSharePriceValuesByUserId(int UserId)
         {
             return objProfileInfoDAO.FindSharePriceValuesByUserId(UserId);
+        }
+
+        public int GetUnReadMessagesCountByUserId(int userId)
+        {
+            return objProfileInfoDAO.GetUnReadMessagesCountByUserId(userId);
         }
     }
 }

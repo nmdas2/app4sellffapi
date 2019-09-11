@@ -21,12 +21,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   submitted = false;
   showheadsection: boolean = false;
   dataDisplayProfile: ProfileInfo;
-  toggler: boolean = false;
+  toggler: boolean = false; unReadMsgsCount: number = 0;
   @Output() closeSideNav = new EventEmitter<boolean>();
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
+    private profileInfoService: ProfileinfoService,
     private commonService: CommonService
   ) {
 
@@ -61,10 +62,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
 
     })
+    this.GetUnReadMessagesCount(this.dataDisplayProfile.UserId);
     this.searchForm = this.formBuilder.group({
       searchprofiles: ['', [Validators.required, Validators.maxLength(25), Validators.pattern('^[a-zA-Z \-\']+')]]
     });
   }
+  GetUnReadMessagesCount(userId: number)
+  {
+    this.profileInfoService.GetUnReadMessagesCountByUserId(userId)
+      .subscribe(data => {
+        console.log(data);
+          if(data>0)
+            this.unReadMsgsCount = data;
+        },
+        error => {
+        });
+  } 
 
   get f() { return this.searchForm.controls; }
 

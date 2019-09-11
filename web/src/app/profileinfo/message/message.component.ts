@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
 import { ProfileInfo } from 'src/app/_models/profileinfo';
 import { Router } from '@angular/router';
 import { constants as consts } from '../../constants';
 import { CommonService } from 'src/app/_services/common.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-message',
@@ -14,11 +15,12 @@ export class MessageComponent implements OnInit {
   userMessages: ProfileInfo[]; userMsg: string; isSubmitted: boolean = false; loggedInUserInfo: ProfileInfo;
   isAboutInEditMode: boolean = false; usersCommMessages: ProfileInfo[]; readonlyUserInfo: ProfileInfo;
   showcommunicationbox: boolean = false; guestIdToSendMessage: number = 0; messageDisplayName: string = "";
-  dataDisplayProfile: ProfileInfo;
+  dataDisplayProfile: ProfileInfo; modalRef: BsModalRef;
   successMsg: string;
   errorMsg: string
   constructor(private profileInfoService: ProfileinfoService,
     private router: Router,
+    private modalService: BsModalService,
     private commonService: CommonService) { }
 
   ngOnInit() {
@@ -119,5 +121,17 @@ export class MessageComponent implements OnInit {
       this.messageDisplayName = mdisName;
     }
     this.guestIdToSendMessage = messageFromId;
+  }
+  showpreviousmessages(messageFromId: number, messageToId: number, mdisName: string, template: TemplateRef<any>) {
+    this.profileInfoService.GetUserMessagesBetween2Users(messageToId, messageFromId)
+        .subscribe(res => {
+          if (res && res.length)
+            this.usersCommMessages = res;
+            this.modalRef = this.modalService.show(template);
+        }, error => {
+          console.log(error);
+        })
+    if (messageFromId != messageToId) {      
+    }
   }
 }

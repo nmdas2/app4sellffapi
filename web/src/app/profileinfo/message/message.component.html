@@ -1,112 +1,6 @@
 <div class="wrapper">
-    <!-- <aside class="main-sidebar">
-        <section class="sidebar">
-            <ul class="sidebar-menu" data-widget="tree">
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/about"><i class="fa fa-user"></i>
-                        <span>About</span><span class="pull-right-container"></span></a></li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/post"><i
-                            class="fa fa-sticky-note-o"></i> <span>Posts</span><span
-                            class="pull-right-container"></span></a></li>
-                <li class="active treeview menu-open"><a style="cursor: pointer;" routerLink="/profileinfo/message"><i
-                            class="fa fa-envelope-o"></i> <span>Message</span><span
-                            class="pull-right-container"></span></a></li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/promote"><i
-                            class="fa fa-bullhorn"></i> <span>Promote</span><span
-                            class="pull-right-container"></span></a> </li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/review"><i class="fa fa-star"></i>
-                        <span>Review</span><span class="pull-right-container"></span></a> </li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/invest"><i class="fa fa-money"></i>
-                        <span>Invest</span><span class="pull-right-container"></span></a> </li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/consult"><i
-                            class="fa fa-handshake-o"></i> <span>Consult</span><span
-                            class="pull-right-container"></span></a> </li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/refer"><i
-                            class="fa fa fa-user-plus"></i> <span>Refer</span><span
-                            class="pull-right-container"></span></a> </li>
-            </ul>
-        </section>
-    </aside> -->
     <div class="content-wrapper">
-        <section class="content">
-
-            <!-- <div class="row">
-  
-                <div class="col-md-2  col-xs-12 views">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-red"><i class="fa fa-street-view"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text">Views</span>
-                            <span class="info-box-number">89</span>
-                        </div>
-   
-                    </div>
-   
-                </div>
-       
-                <div class="col-md-2 col-xs-12 views">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-green"><i class="fa fa-sticky-note-o" aria-hidden="true"></i>
-                        </span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text">Posts</span>
-                            <span class="info-box-number">42</span>
-                        </div>
-        
-                    </div>
-    
-                </div>
-           
-                <div class="col-md-2  col-xs-12 views">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-aqua"><i class="fa fa-star"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text">Reviews</span>
-                            <span class="info-box-number">16</span>
-                        </div>
-                 
-                    </div>
-                
-                </div>
-                <div class="col-md-2 col-xs-12 views">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-yellow"><i class="fa fa-money"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text">Investors</span>
-                            <span class="info-box-number">22</span>
-                        </div>
-                     
-                    </div>
-                   
-                </div>
-                <div class="col-md-2  col-xs-12 views">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-aqua"><i class="icon icon-film"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text">Investments</span>
-                            <span class="info-box-number">15</span>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-               
-            </div> -->
-
-            <!-- <div class="socail-links text-center pull-right">
-                <a href="#"><i id="social-gp" class="fa fa-globe fa-2x social"></i></a>
-                <a href="#"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
-                <a href="#"><i id="social-em" class="fa fa-bell fa-2x social"></i></a>
-                <a href="#"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
-                <a href="#"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
-                <a href="#"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
-                <a href="#"><i id="social-em" class="fa fa-envelope-square fa-2x social"></i></a>
-            </div> -->
-            <div class="row">
+        <section class="content">            <div class="row">
                 <div class="col-md-6"></div>
             </div>
             <div *ngIf="successMsg">
@@ -129,6 +23,8 @@
                                 <li>
                                     <a (click)=openotherprofile(message) style="    margin-right: 15px;"><span *ngIf="message.DisplayName">{{message.DisplayName}}</span></a>
                                      <a *ngIf="isAboutInEditMode" (click)="showcommunication(message.MessageFrom,message.MessageTo,message.DisplayName)">
+                                        <span class="fa fa-list-alt"></span></a>
+                                    <a *ngIf="isAboutInEditMode" (click)="showpreviousmessages(message.MessageFrom,message.MessageTo,message.DisplayName,template)">
                                         <span class="fa fa-list-alt"></span></a>
                                 </li>
                                 <li>
@@ -154,37 +50,22 @@
             </div>
         </section>
     </div>
-    <footer class="main-footer">
-        <div class="pull-right ">
-            <a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Site map</a>
-        </div>
-        Copyright 2019 All Right Reserved
-    </footer>
 </div>
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Message History</h4>
-            </div>
-            <div class="modal-body">
-                <div style="border-radius: 10px;" *ngFor="let commmessage of usersCommMessages">
-                    <label class="text-left col-sm-6" *ngIf="commmessage.DisplayName">{{commmessage.DisplayName}}</label>
-                    <label class="text-right col-sm-6" *ngIf="commmessage.MessageSentTime">{{commmessage.MessageSentTime}}</label><br>
-                    <p *ngIf="commmessage.Message">{{commmessage.Message}}</p>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message History</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="border-radius: 10px;" *ngFor="let commmessage of usersCommMessages">
+            <label class="text-left col-sm-6" *ngIf="commmessage.DisplayName">{{commmessage.DisplayName}}</label>
+            <label class="text-right col-sm-6" *ngIf="commmessage.MessageSentTime">{{commmessage.MessageSentTime}}</label><br>
+            <p *ngIf="commmessage.Message">{{commmessage.Message}}</p>
         </div>
-
-    </div>
-</div>
+      </div>
+</ng-template>
 <!-- /.content-wrapper -->
 <div class="control-sidebar-bg"></div>
 <script src="js/jquery.min.js"></script>
