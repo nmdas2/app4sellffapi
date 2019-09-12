@@ -56,6 +56,7 @@ export class PostComponent implements OnInit {
     this.profileInfoService.getUserPostsByGroups(this.dataDisplayProfile.UserId)
     .subscribe((posts: any) => {
       this.PostsByGroups = posts; 
+      console.log(this.PostsByGroups);
     }, error => {
       console.log(error);
     })
@@ -140,19 +141,19 @@ export class PostComponent implements OnInit {
       image:formData,
       ImagePath:consts.ImagesPath + this.fileData.name,
       UserId:this.loggedInUserInfo.UserId,
-      ContentType:2
+      ContentType:2,
+      WebURL:this.postGalleryForm.value.webUrl
     };
+    console.log(galleryPost.WebURL);
     this.http.post('http://apollostage2.quad1test.com/practice/api/ProfileInfo/SaveImagesForPost', formData, {
       reportProgress: true,
       observe: 'events'
     })
       .subscribe(events => {
         if (events.type === HttpEventType.UploadProgress) {
-        } else if (events.type === HttpEventType.Response) {
-          
+        } else if (events.type === HttpEventType.Response) {          
         }
       })
-      
     this.profileInfoService.postText(galleryPost)
     .subscribe((res: any) => {
       this.getUserPosts();
@@ -170,5 +171,10 @@ export class PostComponent implements OnInit {
     this.contentModalRef = this.modalService.show(contentTemplate,
       Object.assign({}, this.config, { class: 'gray modal-small' })
     );
+  }
+  getImageUserContent(imgURL, ImagesTemplate)
+  {
+    this.selectedModelImgPath=imgURL;
+    this.contentModalRef = this.modalService.show(ImagesTemplate);
   }
 }

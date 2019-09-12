@@ -148,6 +148,8 @@ namespace Sellff_API.Models
         public string CreatedIP { get; set; }
         [DataMember]
         public string MonthYear { get; set; }
+        [DataMember]
+        public string WebURL { get; set; }
     }
 
     public class PostGroups
@@ -206,6 +208,8 @@ namespace Sellff_API.Models
         public int CreatedBy { get; set; }
         [DataMember]
         public string CreatedIP { get; set; }
+        [DataMember]
+        public string WebURL { get; set; }
     }
 
     public class UserReviewBO

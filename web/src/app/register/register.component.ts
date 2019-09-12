@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first, max } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { UserService } from '../_services/user.service';
 import { AlertService } from '../_services/alert.service';
 import { CommonService } from '../_services/common.service';
 import { User } from '../_models/user';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
     templateUrl: 'register.component.html',
@@ -20,6 +21,7 @@ export class RegisterComponent implements OnInit {
     errorMsg: string = '';
     inviteGuid: string;
     captchaSuccess: boolean = false;
+    modalRef: BsModalRef;
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
@@ -27,7 +29,8 @@ export class RegisterComponent implements OnInit {
         private userService: UserService,
         private alertService: AlertService,
         private commonService: CommonService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private modalService: BsModalService
     ) {
         //redirect to home if already logged in
         this.route.queryParams.subscribe(params => {
@@ -132,4 +135,7 @@ export class RegisterComponent implements OnInit {
     resolved(captchaResponse: string) {
         this.captchaSuccess = true;
     }
+    openModal(template: TemplateRef<any>) {
+        this.modalRef = this.modalService.show(template);
+      }
 }

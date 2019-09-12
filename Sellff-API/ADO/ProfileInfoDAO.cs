@@ -606,7 +606,7 @@ namespace Sellff_API.ADO
             var result = false;
             try
             {
-                var sqlParams = new SqlParameter[6];
+                var sqlParams = new SqlParameter[7];
                 sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = objUserPostBO.UserId };
                 sqlParams[1] = new SqlParameter("@ImagePath", SqlDbType.VarChar) { Value = objUserPostBO.ImagePath };
                 if (string.IsNullOrEmpty(objUserPostBO.CreatedIP))
@@ -615,6 +615,7 @@ namespace Sellff_API.ADO
                 sqlParams[3] = new SqlParameter("@ContentType", SqlDbType.Int) { Value = objUserPostBO.ContentType };
                 sqlParams[4] = new SqlParameter("@Title", SqlDbType.VarChar) { Value = objUserPostBO.Title };
                 sqlParams[5] = new SqlParameter("@UserContent", SqlDbType.VarChar) { Value = objUserPostBO.UserContent };
+                sqlParams[6] = new SqlParameter("@WebURL", SqlDbType.VarChar) { Value = objUserPostBO.WebURL };
 
                 if (SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "SaveUserPosts", sqlParams) > 0)
                     result = true;
@@ -784,6 +785,7 @@ namespace Sellff_API.ADO
                         objResponseBO.CreatedBy = Convert.ToInt32(objDataRow["CreatedBy"]);
                         objResponseBO.CreatedIP = Convert.ToString(objDataRow["CreatedIP"]);
                         objResponseBO.MonthYear = Convert.ToString(objDataRow["MonthYear"]);
+                        objResponseBO.WebURL = Convert.ToString(objDataRow["WebURL"]);
                         objPostsList.Add(objResponseBO);
                     }
                 }

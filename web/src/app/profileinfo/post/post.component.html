@@ -1,15 +1,6 @@
 <div class="wrapper">
     <div class="content-wrapper">
         <section class="content">
-            <!-- <div class="socail-links text-center pull-right">
-                <a href="#"><i id="social-gp" class="fa fa-globe fa-2x social"></i></a>
-                <a href="#"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
-                <a href="#"><i id="social-em" class="fa fa-bell fa-2x social"></i></a>
-                <a href="#"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
-                <a href="#"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
-                <a href="#"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
-                <a href="#"><i id="social-em" class="fa fa-envelope-square fa-2x social"></i></a>
-            </div> -->
             <ng-template #templateForPostGallary>
                 <div class="modal-header">
                     <h4 class="modal-title pull-left">Create Post</h4>
@@ -18,41 +9,33 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
                     <form [formGroup]="postGalleryForm" (ngSubmit)="saveGalleryPost(postGalleryForm.value)">
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Upload Photo</label>
+                                <label>Select Photo</label>
                                 <div class="form-group file-upload-wrapper justify-content-center" data-text="Select your file!">
-
-
                                     <input type="file" name="image" (change)="attachToFormControl($event)" value="" />
-
                                 </div>
                             </div>
-
-
-
-                            <div class="col-md-6">
-                                <label>Upload Photo from web</label>
+                            <div class="col-md-1">
+                                <b>or</b>
+                            </div>                            
+                            <div class="col-md-5">
+                                <label>Add a photo url from web</label>
                                 <div class="form-group justify-content-center">
-
-                                    <input type="text" class="form-control" formControlName="webUrl" placeholder="Place text here" />
+                                    <input type="text" class="form-control" formControlName="webUrl" placeholder="https://www.google.com/images/branding/googleimage.png" />
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <button class="btn btn-primary" type="submit" [disabled]="postGalleryForm.invalid">Submit</button> |
+                                <button class="btn btn-primary" type="submit" [disabled]="postGalleryForm.invalid">Submit Post</button> |
                                 <button class="btn btn-danger" type="button" (click)="resetPostGalleryForm()">Close</button>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </ng-template>
-
             <ng-template #template>
                 <div class="modal-header">
                     <h4 class="modal-title pull-left">Create Post</h4>
@@ -61,7 +44,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
                     <form [formGroup]="postTextForm" (ngSubmit)="savePost(postTextForm.value)">
                         <div class="row">
                             <div class="col-md-12">
@@ -72,9 +54,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
                             <div class="col-md-12">
                                 <div class="form-group row justify-content-center">
                                     <div class="col-md-12">
@@ -85,18 +64,15 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <button class="btn btn-primary" type="submit" [disabled]="postTextForm.invalid">Submit</button> |
+                                <button class="btn btn-primary" type="submit" [disabled]="postTextForm.invalid">Submit Post</button> |
                                 <button class="btn btn-danger" type="button" (click)="resetPostTextForm()">Close</button>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </ng-template>
-
             <div class="box">
                 <div *ngIf="isAboutInEditMode" class="post-btns">
                     <ul>
@@ -114,50 +90,40 @@
                         </div>
                         <div class="maring-bottom-30">
                             <div class="post-list-view row">
-                                <!-- <ul>
-                                    <li> -->
                                 <div class="col-md-2" *ngFor="let post of posts.objPostsList">
                                     <div class="post-img-box">
                                         <div *ngIf="post.ContentType==1">
                                             <a href="javascript:void(0)" (click)="getUserContent(post.UserContent, post.Title, contentTemplate)"><img src="../../../assets/selfprflimages/doc_icon.png"></a>
                                         </div>
                                         <div *ngIf="post.ContentType==2">
-                                            <a data-toggle="modal" data-target="#1" (click)="setModelImage(post.ImagePath)">
-                                                <img src={{post.ImagePath}} />
-                                            </a>
+                                            <div *ngIf="post.WebURL != ''; else elseBlocklocimg">
+                                                <a (click)="getImageUserContent(post.WebURL,ImagesTemplate)">
+                                                    <img src={{post.WebURL}} />
+                                                </a>
+                                            </div>
+                                            <ng-template #elseBlocklocimg>
+                                                <a (click)="getImageUserContent(post.ImagePath,ImagesTemplate)">
+                                                    <img src={{post.ImagePath}} />
+                                                </a>
+                                            </ng-template>                                            
                                         </div>
                                     </div>
-
                                 </div>
-                                <!-- </li>
-                                </ul> -->
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- <div class="container PostsByGroups">
-                <div class="row box" *ngIf="PostsByGroups.length>0">
-                    <div class="col-sm-12" *ngFor="let postGroup of PostsByGroups;let i = index">
-                        <h4>
-                            {{postGroup.key}}
-                        </h4>
-                        <div class="col-sm-2" *ngFor="let post of postGroup.value; let j = index">
-                            <div *ngIf="post.ContentType==1">
-                                <a href="javascript:void(0)" (click)="getUserContent(post.UserContent, contentTemplate)"><img
-                                        src="../../../assets/selfprflimages/doc_icon.png"></a>
-                            </div>
-                            <div *ngIf="post.ContentType==2">
-                                <a data-toggle="modal" data-target="#1" (click)="setModelImage(post.ImagePath)">
-                                    <img src={{post.ImagePath}} />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+            <ng-template #ImagesTemplate>
+                <div class="modal-header">
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="contentModalRef.hide()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </div> -->
+                <div class="modal-body">
+                    <img src="{{selectedModelImgPath}}" width="100%" />
+                </div>
+            </ng-template>
             <div class="modal fade" id="1" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -170,7 +136,6 @@
                     </div>
                 </div>
             </div>
-
             <ng-template #contentTemplate>
                 <div class="modal-header">
                     <h4 class="modal-title pull-left">{{userTitle}}</h4>
@@ -184,372 +149,6 @@
                     </div>
                 </div>
             </ng-template>
-            <div class="row" style="display: none;">
-                <div class="col-md-12">
-                    <div class="box">
-                        <section>
-                            <div class="container ">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h4>May 2019</h4>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#1">
-                                                    <img src="./././assets/images/11.png">
-                                                </a>
-                                                <div class="modal fade" id="1" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="images/11.png">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#16">
-                                                    <img src="./././assets/images/22.png">
-                                                </a>
-                                                <div class="modal fade" id="16" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="./././assets/images/22.png">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h4>April 2019</h4>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#1">
-                                                    <img src="./././assets/images/textimage.png">
-                                                </a>
-                                                <div class="modal fade" id="1" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="images/11.png">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#16">
-                                                    <img src="./././assets/images/22.png">
-                                                </a>
-                                                <div class="modal fade" id="16" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="./././assets/images/22.png">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#3">
-                                                    <img src="./././assets/images/33.png">
-                                                </a>
-                                                <div class="modal fade" id="3" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="images/33.png">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#4">
-                                                    <img src="./././assets/images/44.png">
-                                                </a>
-                                                <div class="modal fade" id="4" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="images/44.png">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#6">
-                                                    <img src="./././assets/images/66.png">
-                                                </a>
-                                                <div class="modal fade" id="6" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="images/66.png">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h4>March 2019</h4>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#1">
-                                                    <img src="./././assets/images/11.png">
-                                                </a>
-                                                <div class="modal fade" id="1" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="images/11.png">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#16">
-                                                    <img src="./././assets/images/textimage.png">
-                                                </a>
-                                                <div class="modal fade" id="16" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="./././assets/images/22.png">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#3">
-                                                    <img src="./././assets/images/33.png">
-                                                </a>
-                                                <div class="modal fade" id="3" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="images/33.png">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#4">
-                                                    <img src="./././assets/images/textimage.png">
-                                                </a>
-                                                <div class="modal fade" id="4" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="images/44.png">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#6">
-                                                    <img src="./././assets/images/66.png">
-                                                </a>
-                                                <div class="modal fade" id="6" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="images/66.png">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#1">
-                                                    <img src="./././assets/images/11.png">
-                                                </a>
-                                                <div class="modal fade" id="1" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="images/11.png">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#16">
-                                                    <img src="./././assets/images/22.png">
-                                                </a>
-                                                <div class="modal fade" id="16" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="./././assets/images/22.png">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#3">
-                                                    <img src="./././assets/images/33.png">
-                                                </a>
-                                                <div class="modal fade" id="3" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="images/33.png">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#4">
-                                                    <img src="./././assets/images/44.png">
-                                                </a>
-                                                <div class="modal fade" id="4" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="images/44.png">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <a href="#" data-toggle="modal" data-target="#6">
-                                                    <img src="./././assets/images/66.png">
-                                                </a>
-                                                <div class="modal fade" id="6" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                                    aria-hidden="true">×</span></button>
-                                                            <div class="modal-body">
-                                                                <img src="images/66.png">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <!-- /.box-footer -->
-                    </div>
-                </div>
-                <!-- /.box -->
-            </div>
-            <!-- /.col -->
         </section>
     </div>
-    <footer class="main-footer">
-        <div class="pull-right ">
-            <a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Site map</a>
-        </div>
-        Copyright 2019 All Right Reserved
-    </footer>
 </div>
-<!-- /.content-wrapper -->
-<div class="control-sidebar-bg"></div>
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/fastclick.js"></script>
-<script src="js/custom.min.js"></script>
-<script src="js/jquery.sparkline.min.js"></script>
-<script src="js/jquery.slimscroll.min.js"></script>

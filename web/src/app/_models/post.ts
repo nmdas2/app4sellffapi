@@ -6,6 +6,7 @@ export class Post {
     CreatedOn?: string;
     image?: FormData;
     ImagePath?:string;
+    WebURL?:string;
 }
 export class PostByGroup {
     key:string

@@ -66,7 +66,7 @@
                     </div>
                     <div class="form-group">
                         <input type="checkbox" formControlName="termsandconditions" [ngClass]="{ 'is-invalid': submitted && f.termsandconditions.errors }">
-                        I have read, understand and agree to the <b>sellff</b> <a> Terms of Service</a>
+                        I have read, understand and agree to the <b>sellff</b> <a href="javascript:void(0);" (click)="openModal(template)"> Terms of Service</a>
                         <div *ngIf="f.termsandconditions.errors" class="invalid-feedback">
                         <div *ngIf="(submitted || f.termsandconditions.dirty || f.termsandconditions.touched) && f.termsandconditions.errors.required">
                             please accept terms and conditions</div>
@@ -87,6 +87,17 @@
                         </button>
                         <!-- <a routerLink="/login" class="btn btn-warning"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Go Back Login</a> -->
                     </div>
+                    <ng-template #template>
+                        <div class="modal-header">
+                          <h4 class="modal-title pull-left">Modal</h4>
+                          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          This is a modal.
+                        </div>
+                      </ng-template>
                 </form>
             </div>
         </div>
