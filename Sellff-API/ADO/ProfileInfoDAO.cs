@@ -2,6 +2,7 @@
 using Sellff_API.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -196,6 +197,25 @@ namespace Sellff_API.ADO
                 log4netlogger.Error(ex);
             }
             return objProotionsList;
+        }
+
+        public bool UpdateUserProfilePicById(int userId, string Profilefilepath)
+        {
+            bool result = true;
+            Profilefilepath = ConfigurationManager.AppSettings["ProfileimagespathinAngular"].ToString() + Profilefilepath;
+            try
+            {
+                var sqlParams = new SqlParameter[2];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = userId };
+                sqlParams[1] = new SqlParameter("@Profilefilepath", SqlDbType.VarChar) { Value = Profilefilepath };
+                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_UpdateUserProfilePicPath", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                log4netlogger.Error(ex);
+            }
+            return result;
         }
 
         public int GetUnReadMessagesCountByUserId(int userId)

@@ -6,6 +6,8 @@ import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
 import { CommonService } from 'src/app/_services/common.service';
 import { Subscription } from 'rxjs';
 import { ProfileInfo } from 'src/app/_models/profileinfo';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { HttpClient, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-header',
@@ -13,22 +15,22 @@ import { ProfileInfo } from 'src/app/_models/profileinfo';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  returnUrl: string = "/home";
-  loggedInUserInfo: ProfileInfo;
-  hasActiveSession: boolean = false;
-  searchForm: FormGroup; readonlyUserInfo: ProfileInfo;
-  profileSubscription: Subscription;
-  submitted = false;
-  showheadsection: boolean = false;
-  dataDisplayProfile: ProfileInfo;
-  toggler: boolean = false; unReadMsgsCount: number = 0;
+  returnUrl: string = "/home"; loggedInUserInfo: ProfileInfo; hasActiveSession: boolean = false;
+  searchForm: FormGroup; readonlyUserInfo: ProfileInfo; profileSubscription: Subscription;
+  submitted = false; modalRef: BsModalRef; showheadsection: boolean = false; previewUrl: any = null;
+  dataDisplayProfile: ProfileInfo; toggler: boolean = false; unReadMsgsCount: number = 0;
+  fileUploadProgress: string = null; uploadedFilePath: string = null; fileData: File = null; 
+  postGalleryForm: FormGroup; 
   @Output() closeSideNav = new EventEmitter<boolean>();
   constructor(
     private router: Router,
+    private http: HttpClient,
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
     private profileInfoService: ProfileinfoService,
-    private commonService: CommonService
+    private modalService: BsModalService,
+    private commonService: CommonService,
+    private fb: FormBuilder
   ) {
 
   }
@@ -65,6 +67,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.GetUnReadMessagesCount(this.dataDisplayProfile.UserId);
     this.searchForm = this.formBuilder.group({
       searchprofiles: ['', [Validators.required, Validators.maxLength(25), Validators.pattern('^[a-zA-Z \-\']+')]]
+    });
+    
+    this.postGalleryForm = this.fb.group({
+      image: ['', []]
     });
   }
   GetUnReadMessagesCount(userId: number)
@@ -138,6 +144,45 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   navigateTo(url){
     this.router.navigate([url]);
+  }
+  uploadprofilepic(Profilepictemplate) {
+    this.modalRef = this.modalService.show(Profilepictemplate);
+  }
+
+  fileProgress(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview();
+  }
+
+  preview() {
+    // Show preview 
+    var mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    }
+  }
+
+  saveGalleryPost(postData) {
+    const formData = new FormData();
+    formData.append('files', this.fileData);
+    this.fileUploadProgress = '0%';
+    this.http.post('http://localhost:50517/api/ProfileInfo/SaveUserProfilePic/'+this.loggedInUserInfo.UserId, formData, {
+      reportProgress: true,
+      observe: 'events'
+    })
+      .subscribe(events => {
+        if (events.type === HttpEventType.UploadProgress) {
+          this.fileUploadProgress = Math.round(events.loaded / events.total * 100) + '%';
+        } else if (events.type === HttpEventType.Response) {
+          this.fileUploadProgress = '';
+        }
+      })
   }
 
 }

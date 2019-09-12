@@ -226,5 +226,10 @@ namespace Sellff_API.Services
         {
             return objProfileInfoDAO.GetUnReadMessagesCountByUserId(userId);
         }
+
+        public bool UpdateUserProfilePicById(int userId, string Profilefilepath)
+        {
+            return objProfileInfoDAO.UpdateUserProfilePicById(userId, Profilefilepath);
+        }
     }
 }

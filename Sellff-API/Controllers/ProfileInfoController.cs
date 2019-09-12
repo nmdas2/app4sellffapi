@@ -392,5 +392,27 @@ namespace Sellff_API.Controllers
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUnReadMessagesCountByUserId(UserId)));
         }
 
+        [HttpPost, Route("api/ProfileInfo/SaveUserProfilePic/{UserId}")]
+        public HttpResponseMessage UploadJsonFile4ProfilePic(int UserId)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            var httpRequest = HttpContext.Current.Request;
+            string Profilefilepath = "";
+            if (httpRequest.Files.Count > 0)
+            {
+                foreach (string file in httpRequest.Files)
+                {
+                    var postedFile = httpRequest.Files[file];
+                    var filePath = "E:/Projects/Samples/Mysellff/web/src/assets/profilepics/" + postedFile.FileName;
+                    Profilefilepath = postedFile.FileName;
+                    //var filePath = "C:/www/dev-sellff/assets/profilepics/" + postedFile.FileName;
+                    postedFile.SaveAs(filePath);
+                }
+                response = Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.UpdateUserProfilePicById(UserId, Profilefilepath));
+            }
+            return response;
+        }
+
+
     }
 }
