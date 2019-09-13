@@ -38,6 +38,7 @@ export interface ProfileInfo{
     Reviews?: number;
     Investors?: number;
     Investments?: number;
+    BannerPicPath?: string;
 }
 export interface userAboutInfo{
     AutoId: number;

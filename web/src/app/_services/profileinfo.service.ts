@@ -29,6 +29,7 @@ export interface searchRes {
 export interface UserShareDetailsBO{
   DayDate?: Date;
   SharePriceValue? : number;
+  onlyDate?: number;
 }
 
 @Injectable({

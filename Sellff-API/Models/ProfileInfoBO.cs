@@ -86,6 +86,8 @@ namespace Sellff_API.Models
         public string CreatedOn { get; set; }
         [DataMember]
         public string ErrorMessage { get; set; } = "";
+        [DataMember]
+        public string BannerPicPath { get; set; }
     }
 
     public class PromotionsBO
@@ -346,6 +348,12 @@ namespace Sellff_API.Models
         public string CreatedOn { get; set; }
         [DataMember]
         public string color { get; set; }
+        [DataMember]
+        public int TotalPurchasedShareQty { get; set; }
+        [DataMember]
+        public decimal MarketCap { get; set; }
+        [DataMember]
+        public int Investors { get; set; }
     }
 
     public class UserShareDetailsBO
@@ -354,6 +362,8 @@ namespace Sellff_API.Models
         public DateTime DayDate { get; set; }
         [DataMember]
         public decimal SharePriceValue { get; set; }
+        [DataMember]
+        public int onlyDate { get; set; }
     }
 
 }

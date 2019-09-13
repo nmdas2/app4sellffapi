@@ -1,14 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-
-
-
-// import './_content/app.less';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { User } from './_models/user';
 import { AuthenticationService } from './_services/authentication.service';
 import { CommonService } from './_services/common.service';
 import { Subscription } from 'rxjs';
 import { ProfileInfo } from './_models/profileinfo';
+import { HttpClient, HttpEventType } from '@angular/common/http';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -16,16 +15,16 @@ import { ProfileInfo } from './_models/profileinfo';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  currentUser: User;
-  title = 'sellff-app';
-  isLogin: boolean = false;
-  showSideNav: boolean = false;
-  isSummarySub: Subscription;
+  currentUser: User; bannerpicpath: string = '';
+  title = 'sellff-app'; previewUrl: any = null;
+  isLogin: boolean = false; fileData: File = null;
+  showSideNav: boolean = false; fileUploadProgress: string = null; uploadedFilePath: string = null; 
+  isSummarySub: Subscription; postGalleryForm: FormGroup; 
   isSummaryPage: boolean;
   profileSubscription: Subscription;
   showheadsection: boolean;
   dataDisplayProfile: ProfileInfo;
-  isEditbale: boolean;
+  isEditbale: boolean; modalRef: BsModalRef;
   userProfileInfo: ProfileInfo;
   loggedInUserInfo: ProfileInfo;
   socialIconsDetails: ProfileInfo;
@@ -33,8 +32,11 @@ export class AppComponent implements OnInit, OnDestroy {
   trackerSub: Subscription;
   constructor(
     private router: Router,
+    private http: HttpClient,
     private authenticationService: AuthenticationService,
-    private commonService: CommonService
+    private modalService: BsModalService,
+    private commonService: CommonService,
+    private fb: FormBuilder
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
@@ -64,6 +66,7 @@ export class AppComponent implements OnInit, OnDestroy {
           this.dataDisplayProfile = JSON.parse(localStorage.getItem('profileviewUser'));
           this.showheadsection = true;
         }
+        this.bannerpicpath = this.dataDisplayProfile.BannerPicPath;
         this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
           setTimeout(() => {
             this.isSummaryPage = status;
@@ -71,6 +74,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
         })
       }, 1)
+    });
+    this.postGalleryForm = this.fb.group({
+      image: ['', []]
     });
     this.authenticationService.isLogin$.subscribe(status => {
       this.isLogin = status;
@@ -232,6 +238,44 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     return postLayoutType;
+  }
+
+  uploadbannerpic(Bannerpictemplate) {
+    this.modalRef = this.modalService.show(Bannerpictemplate);
+  }
+
+  fileProgress(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview();
+  }
+
+  preview() {
+    var mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    }
+  }
+
+  saveGalleryPost(postData) {
+    const formData = new FormData();
+    formData.append('files', this.fileData);
+    this.fileUploadProgress = '0%';
+    this.http.post('http://localhost:50517/api/ProfileInfo/SaveUserProfilePic/2/'+this.loggedInUserInfo.UserId, formData, {
+      reportProgress: true,
+      observe: 'events'
+    })
+      .subscribe(events => {
+        if (events.type === HttpEventType.UploadProgress) {
+          this.fileUploadProgress = Math.round(events.loaded / events.total * 100) + '%';
+        } else if (events.type === HttpEventType.Response) {
+          this.fileUploadProgress = '';
+        }
+      })
   }
 
 }

@@ -36,6 +36,9 @@ namespace Sellff_API.ADO
                     objAuthenticationBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
                     if (string.IsNullOrEmpty(objAuthenticationBO.ProfilePicPath))
                         objAuthenticationBO.ProfilePicPath = "./././assets/images/defaultpic.jpg";
+                    objAuthenticationBO.BannerPicPath = Convert.ToString(objDataRow["BannerPicPath"]);
+                    if (string.IsNullOrEmpty(objAuthenticationBO.BannerPicPath))
+                        objAuthenticationBO.BannerPicPath = "./././assets/images/defaultpic.jpg";
                     objAuthenticationBO.UserRefProfileId = 0;
                     objAuthenticationBO.City = Convert.ToString(objDataRow["City"]);
                     objAuthenticationBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);

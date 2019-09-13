@@ -65,14 +65,13 @@ export class InvestComponent implements OnInit {
   getSchedularData(){
     this.profileService.getSharePriceValuesByUserId(this.loggedInUser.UserId)
     .subscribe(res => {
-      debugger;
       this.chartOptions.xAxis.categories=[];
       this.chartOptions.series[0].data=[];
       for(let sc of res){
-        this.chartOptions.xAxis.categories.push(sc.DayDate.toString());
+        this.chartOptions.xAxis.categories.push(sc.onlyDate.toString());
         this.chartOptions.series[0].data.push(sc.SharePriceValue);
       };
-      alert(JSON.stringify(this.chartOptions));
+      //alert(JSON.stringify(this.chartOptions));
     }, error => {
 
     })

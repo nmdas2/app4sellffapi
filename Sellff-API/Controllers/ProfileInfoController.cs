@@ -1,6 +1,7 @@
 ﻿using log4net;
 using Sellff_API.Models;
 using Sellff_API.Services;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Web;
@@ -142,9 +143,11 @@ namespace Sellff_API.Controllers
                 foreach (string file in httpRequest.Files)
                 {
                     var postedFile = httpRequest.Files[file];
+                    var picFileName = "0000000" + DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss") + postedFile.FileName;
+                    picFileName = picFileName.Replace(" ", "-");
                     //var filePath = HttpContext.Current.Server.MapPath("~/GalleryImages/" + postedFile.FileName);
                     //var filePath = "F:/Projects/Ron/Das/web/src/assets/selfprflimages/" + postedFile.FileName;
-                    var filePath = "C:/www/dev-sellff/assets/selfprflimages/" + postedFile.FileName;
+                    var filePath = "C:/www/dev-sellff/assets/selfprflimages/" + picFileName;
                     postedFile.SaveAs(filePath);
                 }
             }
@@ -161,8 +164,10 @@ namespace Sellff_API.Controllers
                 foreach (string file in httpRequest.Files)
                 {
                     var postedFile = httpRequest.Files[file];
+                    var picFileName = "0000000" + DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss") + postedFile.FileName;
+                    picFileName = picFileName.Replace(" ", "-");
                     //var filePath = "F:/Projects/Ron/Das/web/src/assets/selfprflimages/postimages/" + postedFile.FileName;
-                    var filePath = "C:/www/dev-sellff/assets/selfprflimages/postimages/" + postedFile.FileName;
+                    var filePath = "C:/www/dev-sellff/assets/selfprflimages/postimages/" + picFileName;
                     postedFile.SaveAs(filePath);
                 }
             }
@@ -392,8 +397,8 @@ namespace Sellff_API.Controllers
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUnReadMessagesCountByUserId(UserId)));
         }
 
-        [HttpPost, Route("api/ProfileInfo/SaveUserProfilePic/{UserId}")]
-        public HttpResponseMessage UploadJsonFile4ProfilePic(int UserId)
+        [HttpPost, Route("api/ProfileInfo/SaveUserProfilePic/{PicType}/{UserId}")]
+        public HttpResponseMessage UploadJsonFile4ProfilePic(int PicType, int UserId)
         {
             HttpResponseMessage response = new HttpResponseMessage();
             var httpRequest = HttpContext.Current.Request;
@@ -402,13 +407,20 @@ namespace Sellff_API.Controllers
             {
                 foreach (string file in httpRequest.Files)
                 {
+                    var filePath = "";
                     var postedFile = httpRequest.Files[file];
-                    var filePath = "E:/Projects/Samples/Mysellff/web/src/assets/profilepics/" + postedFile.FileName;
-                    Profilefilepath = postedFile.FileName;
+                    var picFileName = "0000000"+Convert.ToString(UserId) + DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss") +  postedFile.FileName;
+                    picFileName = picFileName.Replace(" ", "-");
+                    if (PicType == 1)
+                        filePath = "C:/www/dev-sellff/assets/profilepics/" + picFileName;
+                    else
+                        filePath = "C:/www/dev-sellff/assets/bannerpics/" + picFileName;
+
+                    Profilefilepath = picFileName;
                     //var filePath = "C:/www/dev-sellff/assets/profilepics/" + postedFile.FileName;
                     postedFile.SaveAs(filePath);
                 }
-                response = Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.UpdateUserProfilePicById(UserId, Profilefilepath));
+                response = Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.UpdateUserProfilePicById(UserId, Profilefilepath, PicType));
             }
             return response;
         }

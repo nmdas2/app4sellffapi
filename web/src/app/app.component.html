@@ -10,7 +10,6 @@
         <!-- <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a> -->
         <div class="nav-profile" *ngIf="!showSideNav">
             <div class="cover-img" *ngIf="dataDisplayProfile"><img src='{{dataDisplayProfile.ProfilePicPath}}' class="img-responsive"></div>
-            <i>Welcome</i>
             <h3 *ngIf="dataDisplayProfile">{{dataDisplayProfile.DisplayName}}</h3>
             <!-- <h6 class="status online"><i></i> Online</h6> -->
             <!-- <ul>
@@ -71,6 +70,8 @@
     <div class="row" *ngIf="showheadsection && !isSummaryPage">
         <div class="col-md-12">
             <div class="banner">
+                <img src="{{bannerpicpath}}" class="user-image" alt="Banner Image">
+                <a (click)="uploadbannerpic(Bannerpictemplate)"> Change Banner Pic</a>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-2 col-xs-12  pull-right  circle1 hidden-xs hidden-sm">
@@ -78,6 +79,42 @@
                         </div>
                     </div>
                 </div>
+                <ng-template #Bannerpictemplate>
+                        <form [formGroup]="postGalleryForm" (ngSubmit)="saveGalleryPost(postGalleryForm.value)">
+                            <div class="modal-header" style="padding: 5px;">
+                                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="padding: 0;">
+                                <div class="upload-file">
+                                    <div class="col-md-12">
+                                        <h4>Upload</h4>
+                                        <div class="col-md-12">
+                                            <div class="upload-img">
+                                                <input type="file" name="image" (change)="fileProgress($event)" />
+                                                <div class="" *ngIf="uploadedFilePath">
+                                                    {{uploadedFilePath}}
+                                                </div>
+                                                <div *ngIf="fileUploadProgress">
+                                                    Upload progress: {{ fileUploadProgress }}
+                                                </div>
+                                                <button class="btn btn-primary">Submit</button>
+                                                <button class="btn btn-danger ml-3" (click)="AllowImageUpload = false">Cancel</button>
+                                            </div>        
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-sm-3">
+                                                <div class="image-preview mb-3" *ngIf="previewUrl">
+                                                    <img [src]="previewUrl" height="300" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        </ng-template>
             </div>
         </div>
     </div>

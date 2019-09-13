@@ -18,6 +18,9 @@ export interface UserTransaction{
     BuySellQty?: number;
     BuySellActionType?: number;
     ErrorMessage?: string;
+    TotalPurchasedShareQty?: number;
+    MarketCap?: number;
+    Investors?: number;
     
     //    BuySellActionType - sell 1, buy - 2
     //    UserId - loggedIn User Id

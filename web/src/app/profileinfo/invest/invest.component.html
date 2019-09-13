@@ -18,39 +18,40 @@
                             </alert>
                         </div>
                         <div class="box-header">
-                            <h4>Sellff market exchange open 24X7</h4>
-                            <p>New trading day starts @12am pacific time</p>
-                            <form class="form-horizontal">
+                            <h4>sellff market exchange open 24X7</h4>
+                            <p>new trading day starts @12am pacific time</p>
+                            <form class="form-horizontal" *ngIf="userTransactionDetails">
                                 <div class="form-group" *ngIf="userTransactionDetails && userTransactionDetails.ShareSymbol">
-                                    <label class="text-left col-sm-5">Symbol</label>
+                                    <label class="text-left col-sm-5">symbol</label>
                                     <label class="text-right col-sm-7" style="font-weight: normal !important;">{{userTransactionDetails.ShareSymbol}}</label>
                                 </div>
                                 <div class="form-group">
-                                    <label class="text-left col-sm-5">Current Price</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">@tclarke</label>
+                                    <label class="text-left col-sm-5">current price</label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">{{userTransactionDetails.LastTradeSharePrice}}</label>
                                 </div>
                                 <div class="form-group">
-                                    <label class="text-left col-sm-5">Open Price</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">Los
-                                        Angeles, CA</label>
+                                    <label class="text-left col-sm-5">open price</label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">{{userTransactionDetails.AskPrice}}</label>
                                 </div>
                                 <div class="form-group">
-                                    <label class="text-left col-sm-5">%Change</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">21st
-                                        Sep</label>
+                                        <label class="text-left col-sm-5">price change</label>
+                                        <label class="text-right col-sm-7" style="font-weight: normal !important;"></label>
+                                    </div>
+                                <div class="form-group">
+                                    <label class="text-left col-sm-5">% change</label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"></label>
                                 </div>
                                 <div class="form-group">
-                                    <label class="text-left col-sm-5">Shares Traded</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">10-18-2016</label>
+                                    <label class="text-left col-sm-5">shares traded</label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">{{userTransactionDetails.TotalPurchasedShareQty}}</label>
                                 </div>
                                 <div class="form-group">
-                                    <label class="text-left col-sm-5">Market Cap</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">IT
-                                        Engineer</label>
+                                    <label class="text-left col-sm-5">market cap</label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">{{userTransactionDetails.MarketCap}}</label>
                                 </div>
                                 <div class="form-group">
-                                    <label class="text-left col-sm-5">#Investers</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">114</label>
+                                    <label class="text-left col-sm-5"># investors</label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">{{userTransactionDetails.Investors}}</label>
                                 </div>
                             </form>
                         </div>
@@ -74,17 +75,17 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="box">
-                        <div class="form-horizontal">
+                        <div class="form-horizontal" *ngIf="userTransactionDetails">
                             <div class="form-group">
-                                <label class="text-left col-sm-5">Shares Traded</label>
-                                <label class="text-right col-sm-7">10-18-2016</label>
+                                <label class="text-left col-sm-5">shares owned</label>
+                                <label class="text-right col-sm-7">{{userTransactionDetails.TotalPurchasedShareQty}}</label>
                             </div>
                             <div class="form-group">
-                                <label class="text-left col-sm-5">Market Cap</label>
+                                <label class="text-left col-sm-5">profit/loss</label>
                                 <label class="text-right col-sm-7">IT Engineer</label>
                             </div>
                             <div class="form-group">
-                                <label class="text-left col-sm-5">#Investers</label>
+                                <label class="text-left col-sm-5">% profit/loss</label>
                                 <label class="text-right col-sm-7">114</label>
                             </div>
                         </div>

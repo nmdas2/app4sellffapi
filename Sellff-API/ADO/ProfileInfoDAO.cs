@@ -199,15 +199,19 @@ namespace Sellff_API.ADO
             return objProotionsList;
         }
 
-        public bool UpdateUserProfilePicById(int userId, string Profilefilepath)
+        public bool UpdateUserProfilePicById(int userId, string Profilefilepath, int PicType)
         {
             bool result = true;
-            Profilefilepath = ConfigurationManager.AppSettings["ProfileimagespathinAngular"].ToString() + Profilefilepath;
+            if(PicType == 1)
+                Profilefilepath = ConfigurationManager.AppSettings["ProfileimagespathinAngular"].ToString() + Profilefilepath;
+            else
+                Profilefilepath = ConfigurationManager.AppSettings["bannerimagespathinAngular"].ToString() + Profilefilepath;
             try
             {
-                var sqlParams = new SqlParameter[2];
+                var sqlParams = new SqlParameter[3];
                 sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = userId };
                 sqlParams[1] = new SqlParameter("@Profilefilepath", SqlDbType.VarChar) { Value = Profilefilepath };
+                sqlParams[2] = new SqlParameter("@PicType", SqlDbType.Int) { Value = PicType };
                 SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_UpdateUserProfilePicPath", sqlParams);
             }
             catch (Exception ex)
@@ -316,7 +320,14 @@ namespace Sellff_API.ADO
                     objResponseBO.PurchasedShareQty = Convert.ToInt32(objDataRow["PurchasedShareQty"]);
                     objResponseBO.TotalValueAtCurrentPrice = Convert.ToDecimal(objDataRow["TotalValueAtCurrentPrice"]);
                     objResponseBO.TotalValueAtPurchasedPrice = Convert.ToDecimal(objDataRow["TotalValueAtPurchasedPrice"]);
+                    objResponseBO.TotalPurchasedShareQty = Convert.ToInt32(objDataRow["InitialShareQty"]) - Convert.ToInt32(objDataRow["AvailableShareQty"]);
+                    objResponseBO.MarketCap = Convert.ToDecimal(objResponseBO.TotalPurchasedShareQty * objResponseBO.LastTradeSharePrice);
                     objResponseBO.ErrorMessage = "";
+                }
+                if (_objDataSet.Tables[1].Rows.Count > 0)
+                {
+                    var objDataRow = _objDataSet.Tables[1].Rows[0];
+                    objResponseBO.Investors = Convert.ToInt32(objDataRow["Investors"]);
                 }
             }
             catch (Exception ex)
@@ -877,7 +888,7 @@ namespace Sellff_API.ADO
                         UserShareDetailsBO objPriceValuesBO = new UserShareDetailsBO();
                         var objDataRow = _objDataSet.Tables[0].Rows[i];
                         //objPriceValuesBO.DayDate = ToJsonTicks(Convert.ToDateTime(objDataRow["dt"])).ToString();
-                        objPriceValuesBO.DayDate = Convert.ToDateTime(objDataRow["dt"]);
+                        objPriceValuesBO.onlyDate = Convert.ToDateTime(objDataRow["dt"]).Day;
                         objPriceValuesBO.SharePriceValue = Convert.ToDecimal(objDataRow["SharePrice"]);
                         PriceList.Add(objPriceValuesBO);
                     }
