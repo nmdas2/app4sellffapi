@@ -354,6 +354,10 @@ namespace Sellff_API.Models
         public decimal MarketCap { get; set; }
         [DataMember]
         public int Investors { get; set; }
+        [DataMember]
+        public decimal ProfitRLoss { get; set; }
+        [DataMember]
+        public decimal ProfitRLossPercentage { get; set; }
     }
 
     public class UserShareDetailsBO

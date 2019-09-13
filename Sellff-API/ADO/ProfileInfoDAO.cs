@@ -322,6 +322,8 @@ namespace Sellff_API.ADO
                     objResponseBO.TotalValueAtPurchasedPrice = Convert.ToDecimal(objDataRow["TotalValueAtPurchasedPrice"]);
                     objResponseBO.TotalPurchasedShareQty = Convert.ToInt32(objDataRow["InitialShareQty"]) - Convert.ToInt32(objDataRow["AvailableShareQty"]);
                     objResponseBO.MarketCap = Convert.ToDecimal(objResponseBO.TotalPurchasedShareQty * objResponseBO.LastTradeSharePrice);
+                    objResponseBO.ProfitRLoss = Convert.ToDecimal(objResponseBO.TotalValueAtCurrentPrice - objResponseBO.TotalValueAtPurchasedPrice);
+                    objResponseBO.ProfitRLossPercentage = Convert.ToDecimal((objResponseBO.TotalValueAtCurrentPrice * 100) / objResponseBO.TotalValueAtPurchasedPrice) - 100;
                     objResponseBO.ErrorMessage = "";
                 }
                 if (_objDataSet.Tables[1].Rows.Count > 0)

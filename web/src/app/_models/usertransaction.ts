@@ -21,7 +21,8 @@ export interface UserTransaction{
     TotalPurchasedShareQty?: number;
     MarketCap?: number;
     Investors?: number;
-    
+    ProfitRLoss?: number;
+    ProfitRLossPercentage?: number;
     //    BuySellActionType - sell 1, buy - 2
     //    UserId - loggedIn User Id
     //    UserProfileId - profile Id
