@@ -1,11 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
 // Home Screen CSS Starting Here
-html,
-body {
+html, body {
     width: 100%;
     height: 100% !important;
-    font-family: 'Lato', sans-serif !important;
+    text-transform: lowercase !important;
+    font-family: "Lato", sans-serif !important;
+    background-color: #fff;
 }
 p {
     font-size: 13px;
@@ -59,13 +60,16 @@ p {
 }
 
 .login-links li a {
-    color: #dadada;
-    border-bottom: 2px solid rgba(218, 218, 218, 0.46);
+    color: #2f6371;
+    border: 1px solid #c7c7c7;
     padding-bottom: 2px;
+    background-color: #f2f2f2;
+    padding: 4px 15px;
+    font-size: 16px;
 }
 .login-links li a:hover{
     color:#FFF;
-    border-bottom: 2px solid #FFF;
+    background-color: #012974;
 }
 .login-links li a i {
     border: 1px solid #FFF;
@@ -73,17 +77,19 @@ p {
     padding: 3px 6px;
     font-size: 16px;
 }
-.login-screen button.btn.btn-default {
+.login-btn .btn{ 
     padding: 8px 25px;
+    width: 100%;
+    font-size: 20px;
 }
 .login-links li a i.fa-user-plus {
     padding: 3px 3px;
 }
 
 .login-links li a:hover i {
-    border: 1px solid #3c8dbc;
+    border: 1px solid #012974;
     background-color: #FFF;
-    color: #3c8dbc;
+    color: #012974;
 }
 
 .navbar-custom-menu .navbar-nav>.user-menu .user-image {
@@ -122,7 +128,7 @@ p {
     color: #FFF;
     background-color: transparent;
     font-size: 16px;
-    text-transform: uppercase;
+    
     letter-spacing: 0.03em;
     font-weight: 600;
 }
@@ -148,7 +154,7 @@ p {
     display: block;
     width: 100%;
     font-size: 12px;
-    text-transform: capitalize;
+    
     font-weight: 300;
     letter-spacing: 0.03em;
     margin: 0px;
@@ -173,57 +179,43 @@ p {
     padding-top: 4px;
     color: #FFF;
 }
-.home-body{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-.home-body {
-    background-repeat: no-repeat;
-    background-size: 100%;
-    overflow: visible;
-    display: inline-block;
-    background-position: center top;
-}
 
 .home-screen {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    position: relative;
+    top: 0;
+    left: 0;
+    -webkit-transform: translate(0%, 0%);
+    transform: translate(0%, 0%);
     background-color: #FFF;
     padding: 0;
-    width: 60%;
+    width: 100%;
 }
 
 .home-screen h1 {
     margin-top: 0px;
-    font-size: 35px;
-    text-transform: uppercase;
+    font-size: 47px;
     text-align: center;
     margin-bottom: 20px;
     letter-spacing: 0.03em;
-    font-weight: 600;
+    font-weight: 900;
+    color: #000;
 }
 
 .home-screen p {
     text-align: center;
     font-size: 20px;
     margin-bottom: 20px;
-    text-transform: capitalize;
+    
     letter-spacing: 0.03em;
 }
 
 .companyCaption {
-    padding: 40px 50px 70px;
+    padding: 84px 0px;
 }
 
 .companydetails {
     padding: 30px 50px 50px;
-    background-color: #3c8dbc;
+    background-color: #012974;
 }
 
 .companydetails * {
@@ -231,20 +223,19 @@ p {
 }
 
 .buy h2 {
-    font-size: 23px;
-    font-weight: 500;
+    font-size: 34px;
+    font-weight: 600;
     letter-spacing: 1px;
     text-shadow: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25882352941176473);
-    padding-bottom: 10px;
-    text-transform: uppercase;
+    display: inline-block;
+    text-decoration: underline;
     margin-bottom: 20px;
 }
 
 .buy p {
     text-align: left;
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 20px;
+    margin-bottom: 20px;
     margin-left: 27px;
     font-weight: 300;
     letter-spacing: 0.03em;
@@ -254,22 +245,27 @@ p {
 .buy p i {
     font-size: 17px;
     margin-left: -34px;
-    margin-right: 0;
+    margin-right: 12px;
     vertical-align: middle;
     text-align: center;
-    width: 30px;
+    width: 36px;
     -webkit-box-align: center;
     align-items: center;
+    background-color: #FFF;
+    padding: 6px 8px;
+    color: #012974;
 }
 
-.buy img {
-    width: 100%;
-    margin-top: 60px;
-    opacity: 0.8;
+.buy-img img {
+    width: 45%;
+    margin: 0 auto;
+}
+.buy {
+    padding-top: 90px;
 }
 
 .home-search {
-    width: 60%;
+    width: 46%;
     margin: 0 auto;
 }
 
@@ -286,37 +282,20 @@ p {
 // Login and Regester Screen CSS Starting Here
 .login-screen {
     max-width: 450px;
-    margin: 50px auto;
-    background-color: #fff;
-    border-radius: 6px;
-    -webkit-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1);
-    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1);
+    margin: 10px auto;
 }
 
 .login-screen .auth-header {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
-    position: relative;
-    z-index: 1;
-    padding-left: 25px;
-    text-transform: uppercase;
+    text-align: center;
+    font-size: 130px;
+    font-weight: 900;
+    color: #000;
+    padding: 0;
+    margin: 0;
+    line-height: normal;
 }
-
-.login-screen .auth-header:after {
-    content: "";
-    background-color: #3c8dbc;
-    width: 32px;
-    height: 5px;
-    border-radius: 2px;
-    display: block;
-    position: absolute;
-    bottom: -3px;
-    left: 25px;
-}
-
 .login-screen form {
-    padding: 20px 80px;
+    padding: 20px 73px;
     padding-bottom: 60px;
 }
 
@@ -330,9 +309,13 @@ p {
     letter-spacing: 0.03em;
     margin-bottom: 8px;
     color: #868686;
-    text-transform: uppercase;
+    
 }
-
+.login-screen input[type=checkbox], 
+.login-screen input[type=radio] {
+    height: auto;
+    margin-right: 10px;
+}
 .login-screen input {
     height: 45px;
     padding: 0px 10px;
@@ -340,12 +323,17 @@ p {
     color: #000;
     letter-spacing: 1px;
 }
-
+.capcha iframe{
+    border: 1px solid #d3d3d3;
+}
+.capcha iframe{
+    width:100% !important;
+}
 .login-screen form .form-group .pre-icon {
     position: absolute;
     bottom: 5px;
     font-size: 24px;
-    color: #3c8dbc;
+    color: #012974;
     left: -38px;
 }
 
@@ -579,8 +567,8 @@ p {
 .socail-links .input-group .input-group-append .btn{
  border-radius: 2px;
     box-shadow: none;
-    border: 1px solid #3c8dbc;
-    background-color: #3c8dbc;
+    border: 1px solid #012974;
+    background-color: #012974;
     color: #FFF;
     margin-right: 3px;
     padding: 0px 7px;
@@ -690,7 +678,7 @@ p {
     color:#000;
 }
 .msg-box:hover a{
-    color: #3c8dbc;
+    color: #012974;
 }
 .msg-box ul{
     list-style-type: none;
@@ -725,7 +713,7 @@ p {
 }
 .msg-box:hover ul li a *, .msg-box:hover ul li a label *{
     cursor: pointer !important;
-    color: #3c8dbc;
+    color: #012974;
 }
 .msg-box ul li label{
     color: #777777;
@@ -746,9 +734,11 @@ p {
     width: 100%;
     max-width: 100%;
     margin-bottom: 20px;
+        border-collapse: separate;
+        border-spacing: 12px;
 }
 .table thead {
-    background: none repeat scroll 0 0 #e8ecec;
+    background: none !important;
     cursor: pointer;
 }
 .table thead tr th.pro{
@@ -770,7 +760,7 @@ p {
     color:#f00;
 }
 .table thead tr th {
-    color: #FFF;
+    color: #000;
     font-weight: bold;
     letter-spacing: 0.4px;
     padding: 12px 15px;
@@ -786,17 +776,29 @@ p {
 }
 .table tbody tr td label i{
     font-size: 16px;
-    color: #3c8dbc;
+    color: #012974;
 }
 .table tbody tr table tr{
     border:none;
 }
+.search-summary.table tbody tr td:first-child {
+    width: 67px !important;
+    border: none;
+}
+.table-hover>tbody>tr:hover {
+    background-color: #FFF;
+}
+.table tbody tr td a{
+    color: #141414;
+}
 .table tbody tr td {
-    color: #868686;
-    letter-spacing: 0.3px;
-    padding: 8px 10px;
-    text-align: left;
+    color: #141414;
+    font-size: 25px;
+    letter-spacing: normal;
+    padding: 0;
+    text-align: center;
     font-weight: 400;
+    border: 1px solid #f2f2f2;
 }
 table tbody tr td.lalign {
     text-align: left;
@@ -842,7 +844,7 @@ table tbody tr td.lalign {
     z-index: 25;
     line-height: normal;
     padding: 10px 15px;
-    text-transform: uppercase;
+    
     pointer-events: none;
     border-radius: 0 5px 5px 0;
     border: none;
@@ -852,7 +854,7 @@ table tbody tr td.lalign {
     color: #FFF;
     transition: 0.5s;
     background-size: 200% auto;
-    background-image: linear-gradient(to right, #0f5075 0%, #3c8dbc 51%, #0f5075 100%);
+    background-image: linear-gradient(to right, #0f5075 0%, #012974 51%, #0f5075 100%);
 }
 .file-upload-wrapper:hover:before {
 color: #FFF;
@@ -1005,10 +1007,10 @@ rating span{
     margin: 0;
     padding: 4px 0px;
     display: block;
-    background-color: #3c8dbc;
+    background-color: #012974;
     background-size: 200% auto;
     transition: 0.5s;
-    background-image: linear-gradient(to right, #0f5075 0%, #3c8dbc 51%, #0f5075 100%);
+    background-image: linear-gradient(to right, #0f5075 0%, #012974 51%, #0f5075 100%);
 }
 .reviewname:hover{
     color:#FFF;
@@ -1035,6 +1037,19 @@ span.bs-rating-star.active {
 
 
 // Responsive CSS Starting Here
+
+@media only screen and (max-width: 1440px) {
+    .buy {
+        padding-top: 10px;
+    }
+    .buy-img img {
+        width: 30%;
+    }    
+
+}
+
+
+
 @media only screen and (max-width: 1366px) {
     .home-screen {
         width: 65%;

@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="table table-responsive ">
-                    <table id="datatable" class="table table-responsive-sm table-hover table-outline mb-0" cellspacing="0" width="100%">
+                    <table id="datatable" class="search-summary table table-responsive-sm table-hover table-outline mb-0" cellspacing="0" width="100%">
                         <thead class="thead-light">
                             <tr>
                                 <th>Member</th>
@@ -16,7 +16,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let reslt of searchResults">
-                                <td style="width: 10%;"><img src="{{reslt.ProfilePicPath}}" width="85%"></td>
+                                <td><img src="{{reslt.ProfilePicPath}}" width="85%"></td>
                                 <td><a style="cursor: pointer;" (click)=openotherprofile(reslt)>{{reslt.DisplayName}}</a></td>
                                 <td>{{reslt.City}}</td>
                                 <td>{{reslt.Occupation}}</td>
