@@ -12,19 +12,28 @@ import * as Highcharts from 'highcharts';
   styleUrls: ['./invest.component.scss']
 })
 export class InvestComponent implements OnInit {
-  highcharts = Highcharts;
-  chartOptions = {   
-    chart: { type: "spline" },
-    title: { text: "" },
-    subtitle: { text: "" },
-    xAxis:{categories:[] },
-    yAxis: { title:{ text:"Share Price" } },
-    tooltip: {valueSuffix:""},
-    series: [{name: 'Day',
-          data: []
-       }
-    ]
- };
+//   highcharts = Highcharts;
+//   chartOptions = {   
+//     chart: { type: "spline" },
+//     title: { text: "" },
+//     subtitle: { text: "" },
+//     xAxis:{categories:[] },
+//     yAxis: { title:{ text:"Share Price" } },
+//     tooltip: {valueSuffix:""},
+//     series: [{name: 'Day',
+//           data: []
+//        }
+//     ]
+//  };
+loading:boolean= false;
+Highcharts = Highcharts;
+chartOptions = {
+  xAxis:{categories:[] },
+  series: [{
+    data: []
+  }]
+};
+
   showBuySell: boolean;
   loggedInUser: ProfileInfo;
   profileInfo: ProfileInfo;
@@ -66,11 +75,12 @@ export class InvestComponent implements OnInit {
     this.profileService.getSharePriceValuesByUserId(this.loggedInUser.UserId)
     .subscribe(res => {
       this.chartOptions.xAxis.categories=[];
-      this.chartOptions.series[0].data=[];
+     this.chartOptions.series[0].data=[];
       for(let sc of res){
-        this.chartOptions.xAxis.categories.push(sc.onlyDate.toString());
-        this.chartOptions.series[0].data.push(sc.SharePriceValue);
+       this.chartOptions.xAxis.categories.push(sc.onlyDate);
+       this.chartOptions.series[0].data.push(sc.SharePriceValue);
       };
+      this.loading=true;
       //alert(JSON.stringify(this.chartOptions));
     }, error => {
 

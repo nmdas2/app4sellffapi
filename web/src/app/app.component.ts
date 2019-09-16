@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isLogin: boolean = false; fileData: File = null;
   showSideNav: boolean = false; fileUploadProgress: string = null; uploadedFilePath: string = null; 
   isSummarySub: Subscription; postGalleryForm: FormGroup; 
-  isSummaryPage: boolean;
+  isSummaryPage: boolean; AllowImageUpload: boolean = false;
   profileSubscription: Subscription;
   showheadsection: boolean;
   dataDisplayProfile: ProfileInfo;
@@ -265,7 +265,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const formData = new FormData();
     formData.append('files', this.fileData);
     this.fileUploadProgress = '0%';
-    this.http.post('http://localhost:50517/api/ProfileInfo/SaveUserProfilePic/2/'+this.loggedInUserInfo.UserId, formData, {
+    this.http.post('http://4sellff.com/sellffapi/api/ProfileInfo/SaveUserProfilePic/2/'+this.loggedInUserInfo.UserId, formData, {
       reportProgress: true,
       observe: 'events'
     })

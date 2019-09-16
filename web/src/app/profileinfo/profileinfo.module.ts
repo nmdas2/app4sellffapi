@@ -24,7 +24,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { DataTablesModule } from 'angular-datatables';
 import { MatchComponent } from './match/match.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { HighchartsChartComponent } from 'highcharts-angular';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,8 @@ import { HighchartsChartComponent } from 'highcharts-angular';
     BumpComponent, 
     ReferComponent, 
     MytestingComponent, 
-    UploadComponent, InviteComponent, MatchComponent,HighchartsChartComponent
+    UploadComponent, InviteComponent, MatchComponent
+    //,HighchartsChartComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +56,8 @@ import { HighchartsChartComponent } from 'highcharts-angular';
     AlertModule.forRoot(),
     PaginationModule.forRoot(),
     DataTablesModule,
-    TypeaheadModule.forRoot()
+    TypeaheadModule.forRoot(),
+    HighchartsChartModule
   ]
 })
 export class ProfileinfoModule { }

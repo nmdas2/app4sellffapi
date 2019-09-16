@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   submitted = false; modalRef: BsModalRef; showheadsection: boolean = false; previewUrl: any = null;
   dataDisplayProfile: ProfileInfo; toggler: boolean = false; unReadMsgsCount: number = 0;
   fileUploadProgress: string = null; uploadedFilePath: string = null; fileData: File = null; 
-  postGalleryForm: FormGroup; 
+  postGalleryForm: FormGroup; AllowImageUpload: boolean = false;
   @Output() closeSideNav = new EventEmitter<boolean>();
   constructor(
     private router: Router,
@@ -172,7 +172,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const formData = new FormData();
     formData.append('files', this.fileData);
     this.fileUploadProgress = '0%';
-    this.http.post('http://localhost:50517/api/ProfileInfo/SaveUserProfilePic/1/'+this.loggedInUserInfo.UserId, formData, {
+    this.http.post('http://4sellff.com/sellffapi/api/ProfileInfo/SaveUserProfilePic/1/'+this.loggedInUserInfo.UserId, formData, {
       reportProgress: true,
       observe: 'events'
     })

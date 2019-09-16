@@ -22,8 +22,6 @@
     "angular-datatables": "^8.0.0",
     "datatables.net": "^1.10.19",
     "datatables.net-dt": "^1.10.19",
-    "highcharts": "^7.2.0",
-    "highcharts-angular": "^2.4.0",
     "jquery": "^3.4.1",
     "ng-recaptcha": "^5.0.0",
     "ngx-bootstrap": "^5.1.0",

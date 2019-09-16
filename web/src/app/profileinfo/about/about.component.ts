@@ -142,7 +142,7 @@ export class AboutComponent implements OnInit, OnDestroy {
     const formData = new FormData();
     formData.append('files', this.fileData);
     this.fileUploadProgress = '0%';
-    this.http.post('http://localhost:50517/api/ProfileInfo/SaveImagesForGallery', formData, {
+    this.http.post('http://4sellff.com/sellffapi/api/ProfileInfo/SaveImagesForGallery', formData, {
       reportProgress: true,
       observe: 'events'
     })

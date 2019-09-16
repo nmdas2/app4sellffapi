@@ -139,13 +139,13 @@ export class PostComponent implements OnInit {
     formData.append('files', this.fileData);    
     let galleryPost:Post={
       image:formData,
-      ImagePath:consts.ImagesPath + this.fileData.name,
+      ImagePath:consts.PostImagesPath + this.fileData.name,
       UserId:this.loggedInUserInfo.UserId,
       ContentType:2,
       WebURL:this.postGalleryForm.value.webUrl
     };
     console.log(galleryPost.WebURL);
-    this.http.post('http://apollostage2.quad1test.com/practice/api/ProfileInfo/SaveImagesForPost', formData, {
+    this.http.post('http://4sellff.com/sellffapi/api/ProfileInfo/SaveImagesForPost', formData, {
       reportProgress: true,
       observe: 'events'
     })

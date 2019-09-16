@@ -42,7 +42,7 @@ onSubmit() {
    
   this.fileUploadProgress = '0%';
 
-  this.http.post('http://localhost:50517/api/Upload/UploadJsonFile', formData, {
+  this.http.post('http://4sellff.com/sellffapi/api/Upload/UploadJsonFile', formData, {
     reportProgress: true,
     observe: 'events'   
   })
