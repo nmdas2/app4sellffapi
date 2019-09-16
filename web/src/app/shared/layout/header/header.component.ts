@@ -22,6 +22,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   fileUploadProgress: string = null; uploadedFilePath: string = null; fileData: File = null; 
   postGalleryForm: FormGroup; AllowImageUpload: boolean = false;
   @Output() closeSideNav = new EventEmitter<boolean>();
+  isSummarySub: Subscription;
+  isSummaryPage: boolean;
+  isLogin: boolean;
+
+  loginSub : Subscription;
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -37,6 +42,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     
+    this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
+      setTimeout(() => {
+        this.isSummaryPage = status;
+      }, 3)
+
+    });
+
+    this.loginSub = this.authenticationService.isLogin$.subscribe(status => {
+      this.isLogin = status;
+      if (this.isLogin) {
+        // document.getElementById("mySidenav").style.width = "228px";
+        // document.getElementById("main").style.marginLeft = "228px";
+      }
+      else {
+        // document.getElementById("mySidenav").style.width = "0";
+        // document.getElementById("main").style.marginLeft = "0";
+      }
+    });
+
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
       this.hasActiveSession = false;
       this.showheadsection = false;
@@ -63,8 +87,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       }
 
-    })
-    this.GetUnReadMessagesCount(this.dataDisplayProfile.UserId);
+    });
+    if(this.dataDisplayProfile && this.dataDisplayProfile.UserId)
+      this.GetUnReadMessagesCount(this.dataDisplayProfile.UserId);
     this.searchForm = this.formBuilder.group({
       searchprofiles: ['', [Validators.required, Validators.maxLength(25), Validators.pattern('^[a-zA-Z \-\']+')]]
     });
@@ -123,6 +148,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.profileSubscription)
       this.profileSubscription.unsubscribe();
+
+    if(this.loginSub){
+      this.loginSub.unsubscribe();
+    }
   }
 
   gotoregister() {

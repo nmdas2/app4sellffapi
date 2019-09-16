@@ -66,7 +66,8 @@ export class AppComponent implements OnInit, OnDestroy {
           this.dataDisplayProfile = JSON.parse(localStorage.getItem('profileviewUser'));
           this.showheadsection = true;
         }
-        this.bannerpicpath = this.dataDisplayProfile.BannerPicPath;
+        if(this.dataDisplayProfile && this.dataDisplayProfile.BannerPicPath)
+          this.bannerpicpath = this.dataDisplayProfile.BannerPicPath;
         this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
           setTimeout(() => {
             this.isSummaryPage = status;
@@ -81,12 +82,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authenticationService.isLogin$.subscribe(status => {
       this.isLogin = status;
       if (this.isLogin) {
-        document.getElementById("mySidenav").style.width = "228px";
-        document.getElementById("main").style.marginLeft = "228px";
+        // document.getElementById("mySidenav").style.width = "228px";
+        // document.getElementById("main").style.marginLeft = "228px";
       }
       else {
-        document.getElementById("mySidenav").style.width = "0";
-        document.getElementById("main").style.marginLeft = "0";
+        // document.getElementById("mySidenav").style.width = "0";
+        // document.getElementById("main").style.marginLeft = "0";
       }
     });
     if (localStorage.getItem('profileviewUser')) {
@@ -133,12 +134,12 @@ export class AppComponent implements OnInit, OnDestroy {
   closeSideNav(status) {
     this.showSideNav = status;
     if (this.showSideNav) {
-      document.getElementById("mySidenav").style.width = "55px";
-      document.getElementById("main").style.marginLeft = "55px";
+      // document.getElementById("mySidenav").style.width = "55px";
+      // document.getElementById("main").style.marginLeft = "55px";
     }
     else {
-      document.getElementById("mySidenav").style.width = "228px";
-      document.getElementById("main").style.marginLeft = "228px";
+      // document.getElementById("mySidenav").style.width = "228px";
+      // document.getElementById("main").style.marginLeft = "228px";
     }
 
   }

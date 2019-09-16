@@ -8,13 +8,13 @@
                 <div class="logo ng-scope">
                     <a (click)="taketoActualProfile()" href="javscript:void(0)">
                         <img src="./././assets/images/logo.png" alt="Sellff Logo"></a>
-                    <span class="sidebar-toggle" role="button" *ngIf="hasActiveSession" (click)="toggleSideNav()"><i class="fa fa-bars" aria-hidden="true"></i></span>
+                    <!-- <span class="sidebar-toggle" role="button" *ngIf="hasActiveSession" (click)="toggleSideNav()"><i class="fa fa-bars" aria-hidden="true"></i></span> -->
                 </div>
                 <!-- Sidebar toggle button-->
             </div>
             <div class="col-md-7">
 
-                <!-- <nav class="navbar navbar-static-top">
+                <nav class="navbar navbar-static-top" *ngIf="isLogin || isSummaryPage">
 
                     <div class="navbar-custom-menu pull-left navmobile">
                         <form [formGroup]=searchForm class="pull-left" (ngSubmit)="onSubmit()">
@@ -32,7 +32,7 @@
                         </form>
                     </div>
 
-                </nav> -->
+                </nav>
             </div>
             <div class="col-md-3">
                 <ul class="login-links" *ngIf="!hasActiveSession">
@@ -46,7 +46,7 @@
                                 <img src='{{loggedInUserInfo.ProfilePicPath}}' class="user-image" alt="User Image">
                                 <span class="hidden-xs">
                                     {{loggedInUserInfo.DisplayName}} <span *ngIf="unReadMsgsCount >0">[{{unReadMsgsCount}}]</span>
-                                    <span>{{loggedInUserInfo.Occupation}}</span>
+                                <span>{{loggedInUserInfo.Occupation}}</span>
                                 </span>
                             </a>
                             <ul class="dropdown-menu">
@@ -60,40 +60,40 @@
                                     <a routerLink="" (click)=signoutplz()><i class="fa fa-sign-out" aria-hidden="true"></i> Sign out</a>
                                 </li>
                                 <ng-template #Profilepictemplate>
-                                <form [formGroup]="postGalleryForm" (ngSubmit)="saveGalleryPost(postGalleryForm.value)">
-                                    <div class="modal-header" style="padding: 5px;">
-                                        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                    <form [formGroup]="postGalleryForm" (ngSubmit)="saveGalleryPost(postGalleryForm.value)">
+                                        <div class="modal-header" style="padding: 5px;">
+                                            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
-                                    </div>
-                                    <div class="modal-body" style="padding: 0;">
-                                        <div class="upload-file">
-                                            <div class="col-md-12">
-                                                <h4>Upload</h4>
+                                        </div>
+                                        <div class="modal-body" style="padding: 0;">
+                                            <div class="upload-file">
                                                 <div class="col-md-12">
-                                                    <div class="upload-img">
-                                                        <input type="file" name="image" (change)="fileProgress($event)" />
-                                                        <div class="" *ngIf="uploadedFilePath">
-                                                            {{uploadedFilePath}}
+                                                    <h4>Upload</h4>
+                                                    <div class="col-md-12">
+                                                        <div class="upload-img">
+                                                            <input type="file" name="image" (change)="fileProgress($event)" />
+                                                            <div class="" *ngIf="uploadedFilePath">
+                                                                {{uploadedFilePath}}
+                                                            </div>
+                                                            <div *ngIf="fileUploadProgress">
+                                                                Upload progress: {{ fileUploadProgress }}
+                                                            </div>
+                                                            <button class="btn btn-primary">Submit</button>
+                                                            <button class="btn btn-danger ml-3" (click)="AllowImageUpload = false">Cancel</button>
                                                         </div>
-                                                        <div *ngIf="fileUploadProgress">
-                                                            Upload progress: {{ fileUploadProgress }}
-                                                        </div>
-                                                        <button class="btn btn-primary">Submit</button>
-                                                        <button class="btn btn-danger ml-3" (click)="AllowImageUpload = false">Cancel</button>
-                                                    </div>        
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="col-sm-3">
-                                                        <div class="image-preview mb-3" *ngIf="previewUrl">
-                                                            <img [src]="previewUrl" height="300" />
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="col-sm-3">
+                                                            <div class="image-preview mb-3" *ngIf="previewUrl">
+                                                                <img [src]="previewUrl" height="300" />
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
                                 </ng-template>
                             </ul>
                         </li>
