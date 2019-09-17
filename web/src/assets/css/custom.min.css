@@ -85,7 +85,6 @@ body {
 
 .content-wrapper {
     min-height: calc(100% - 102px);
-    background-color: #ecf0f5;
     z-index: 800
 }
 
@@ -142,12 +141,8 @@ body {
 }
 
 .content {
- /*padding: 0px;
-    margin-right: auto;
-    margin-left: auto;
-    padding-left: 15px;
-    padding-right: 15px;
-	margin-top:0px;*/
+    width: 100%;
+    padding: 0px 15px;
 }
 
 h1,
@@ -162,7 +157,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-    font-family: 'Source Sans Pro', sans-serif
+    font-family: 'Fjalla One', sans-serif;
 }
 
 a {
@@ -190,8 +185,8 @@ a:focus {
 }
 
 .main-header {
-    position: fixed;
-    max-height: 100px;
+    position: relative;
+    max-height: initial;
     z-index: 1030;
     width: 100%;
     background: #FFF;
@@ -200,6 +195,7 @@ a:focus {
 }
 
 .main-header .navbar {
+    background-color: transparent !important;
     -webkit-transition: margin-left .3s ease-in-out;
     -o-transition: margin-left .3s ease-in-out;
     transition: margin-left .3s ease-in-out;
@@ -214,17 +210,24 @@ a:focus {
     float: left;
     width: 100%;
     margin-bottom: 0;
-    background-color: #FFF;
+    background-color: #f2f2f2;
     border: none;
     border-radius: 2px;
-    font-size: 14px;
+    color: #7f7f7f;
+    font-size: 20px;
+    font-family: "Lato", sans-serif !important;
+    font-weight: 400;
+}
+.main-header  .input-group {
+    border: 1px solid #bfbfbf;
 }
 .main-header .input-group .input-group-btn{
     opacity: 1;
     color: #FFF;
+    background-color: #f2f2f2;
 }
+
 .main-header .input-group .input-group-btn button{
-    background-color: #ffffff !important;
     color: #012974;
 }
 .layout-top-nav .main-header .navbar {
@@ -1345,11 +1348,12 @@ a:focus {
 }
 .navbar-nav>.user-menu>.dropdown-menu>li a{
     color: #333333;
-    font-size: 14px;
+    font-size: 16px !important;
     padding: 12px 15px;
     margin: 0px;
     letter-spacing: 0.3px;
     position: relative;
+    font-family: "Lato", sans-serif !important;
     width: 100%;
     cursor: pointer;
 }
@@ -2471,12 +2475,7 @@ a:focus {
 
 .info-box {
     display: block;
-    min-height: 40px;
-    background: #fff;
-    width: 100%;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-    border-radius: 2px;
-    margin-bottom: 5px;
+    padding-top: 10px;
 }
 
 .info-box small {
@@ -2521,10 +2520,7 @@ line-height: 61px;
     max-width: 100%
 }
 
-.info-box-content {
-    padding: 10px 15px;
-    margin-left: 61px;
-}
+
 
 @media (max-width: 990px){
 .views{
@@ -2601,13 +2597,13 @@ padding-left: 0px;
 
 .info-box-number {
     display: block;
-    text-transform: uppercase;
-    color: #3f3f3f;
-    font-size: 18px;
+    color: #7f7f7f;
+    font-size: 28px;
     letter-spacing: 1px;
     margin: 0;
     font-weight: 600;
     width: 100%;
+    text-align: center;
 }
 
 .progress-description,
@@ -2620,13 +2616,13 @@ padding-left: 0px;
 }
 
 .info-box-text {
-    text-transform: uppercase;
-    color: #3f3f3f;
-    font-size: 13px;
+    color: #7f7f7f;
+    font-size: 16px;
     letter-spacing: 1px;
     margin: 0;
     font-weight: 500;
     width: 100%;
+    text-align: center;
 }
 
 .info-box-more {

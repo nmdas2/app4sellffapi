@@ -5,62 +5,139 @@
 </div>
 
 <app-header (closeSideNav)="closeSideNav($event)"></app-header>
-<div class="row" *ngIf="showheadsection && !isSummaryPage">
-    <div class="col-md-3">
-        <div class="cover-img" *ngIf="dataDisplayProfile"><img src='{{dataDisplayProfile.ProfilePicPath}}' class="img-responsive"></div>
-        <h3 *ngIf="dataDisplayProfile">{{dataDisplayProfile.DisplayName}}</h3>
-    </div>
-
-    <div class="col-md-9">
-        <div class="banner">
-            <img src="{{bannerpicpath}}" class="user-image" alt="Banner Image">
-            <a (click)="uploadbannerpic(Bannerpictemplate)"> Change Banner Pic</a>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-2 col-xs-12  pull-right  circle1 hidden-xs hidden-sm">
-                        <h3 class="">{{dataDisplayProfile.Rank}}</h3>
+<div class="content-box">
+    <div  *ngIf="showheadsection && !isSummaryPage"> 
+        <div class="banner-header">
+                <a (click)="uploadbannerpic(Bannerpictemplate)" class="change-pic"> Change Banner Pic</a>
+                <!-- <img src="{{bannerpicpath}}" class="user-image" alt="Banner Image"> -->
+                <img src="./././assets/bannerpics/banner-img.jpg" class="user-banner" alt="Banner Image"> 
+        </div>
+        <div class="header-details">
+           <div class="row">
+                <div class="col-md-2">
+                    <div class="profile-img" *ngIf="dataDisplayProfile">
+                        <img src='{{dataDisplayProfile.ProfilePicPath}}' class="img-responsive">
+                        <h3 *ngIf="dataDisplayProfile">{{dataDisplayProfile.DisplayName}}</h3>
                     </div>
+                   
                 </div>
-            </div>
-            <ng-template #Bannerpictemplate>
-                <form [formGroup]="postGalleryForm" (ngSubmit)="saveGalleryPost(postGalleryForm.value)">
-                    <div class="modal-header" style="padding: 5px;">
-                        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" style="padding: 0;">
-                        <div class="upload-file">
-                            <div class="col-md-12">
-                                <h4>Upload</h4>
-                                <div class="col-md-12">
-                                    <div class="upload-img">
-                                        <input type="file" name="image" (change)="fileProgress($event)" />
-                                        <div class="" *ngIf="uploadedFilePath">
-                                            {{uploadedFilePath}}
-                                        </div>
-                                        <div *ngIf="fileUploadProgress">
-                                            Upload progress: {{ fileUploadProgress }}
-                                        </div>
-                                        <button class="btn btn-primary">Submit</button>
-                                        <button class="btn btn-danger ml-3" (click)="AllowImageUpload = false">Cancel</button>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="col-sm-3">
-                                        <div class="image-preview mb-3" *ngIf="previewUrl">
-                                            <img [src]="previewUrl" height="300" />
-                                        </div>
-                                    </div>
+
+                <div class="col-md-8">
+                        <div class="main" id="main">
+                                <div class="row" *ngIf="isLogin">
+                                            <div class="col-sm-2  col-xs-12 views">
+                                                <div class="info-box">
+                                                    
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">Views</span>
+                                                        <span class="info-box-number" *ngIf="headerWidgetsDetails">{{headerWidgetsDetails.Views}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2 col-xs-12 views">
+                                                <div class="info-box">
+                                                    
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">Posts</span>
+                                                        <span class="info-box-number" *ngIf="headerWidgetsDetails">{{headerWidgetsDetails.Posts}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2  col-xs-12 views">
+                                                <div class="info-box">
+                                                   
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">Reviews</span>
+                                                        <span class="info-box-number" *ngIf="headerWidgetsDetails">{{headerWidgetsDetails.Reviews}}</span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                </div>
+                                                <!-- /.info-box -->
+                                            </div>
+                                            <div class="col-sm-2 col-xs-12 views">
+                                                <div class="info-box">
+                                                  
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">Investors</span>
+                                                        <span class="info-box-number" *ngIf="headerWidgetsDetails">
+                                                            {{headerWidgetsDetails.Investors}}</span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                </div>
+                                                <!-- /.info-box -->
+                                            </div>
+                                            <div class="col-sm-2  col-xs-12 views">
+                                                <div class="info-box">
+                                                    
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">Investments</span>
+                                                        <span class="info-box-number" *ngIf="headerWidgetsDetails">{{headerWidgetsDetails.Investments}}</span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                </div>
+                                                <!-- /.info-box -->
+                                            </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </form>
-            </ng-template>
-        </div>
+                </div>
+
+
+                <div class="col-md-2">
+                            <div class="banner">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-2 col-xs-12  pull-right  circle1 hidden-xs hidden-sm">
+                                            <h3 class="">{{dataDisplayProfile.Rank}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #Bannerpictemplate>
+                                    <form [formGroup]="postGalleryForm" (ngSubmit)="saveGalleryPost(postGalleryForm.value)">
+                                        <div class="modal-header" style="padding: 5px;">
+                                            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body" style="padding: 0;">
+                                            <div class="upload-file">
+                                                <div class="col-md-12">
+                                                    <h4>Upload</h4>
+                                                    <div class="col-md-12">
+                                                        <div class="upload-img">
+                                                            <input type="file" name="image" (change)="fileProgress($event)" />
+                                                            <div class="" *ngIf="uploadedFilePath">
+                                                                {{uploadedFilePath}}
+                                                            </div>
+                                                            <div *ngIf="fileUploadProgress">
+                                                                Upload progress: {{ fileUploadProgress }}
+                                                            </div>
+                                                            <button class="btn btn-primary">Submit</button>
+                                                            <button class="btn btn-danger ml-3" (click)="AllowImageUpload = false">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="col-sm-3">
+                                                            <div class="image-preview mb-3" *ngIf="previewUrl">
+                                                                <img [src]="previewUrl" height="300" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </ng-template>
+                            </div>
+                </div>
+           </div> 
+</div>
+        
+
+        
     </div>
 </div>
+
+
 <!-- <div id="mySidenav" class="sidenav sidebar" [hidden]="!isLogin">
     <div class="">
         <div class="nav-profile" *ngIf="!showSideNav">
@@ -156,134 +233,71 @@
     </div>
 </div> -->
 
-
-<div class="main" id="main">
-    <div class="row" *ngIf="isLogin">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-sm-2  col-xs-12 views">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-red"><i class="fa fa-street-view"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Views</span>
-                            <span class="info-box-number" *ngIf="headerWidgetsDetails">{{headerWidgetsDetails.Views}}</span>
+<div class="main-content">
+        <div class="row" *ngIf="isLogin">
+                <div class="col-md-12 " *ngIf="dataDisplayProfile">
+                        <div class="socail-links text-center pull-right">
+                            <div *ngIf="isEditbale">
+                                <a (click)="showSocialLayout('g')"><i id="social-gp" class="fa fa-globe fa-2x social"></i></a>
+                                <a (click)="showSocialLayout('tw')"><i id="social-tw"
+                                        class="fa fa-twitter-square fa-2x social"></i></a>
+                                <a (click)="showSocialLayout('em')"><i id="social-em" class="fa fa-bell fa-2x social"></i></a>
+                                <a (click)="showSocialLayout('fb')"><i id="social-fb"
+                                        class="fa fa-facebook-square fa-2x social"></i></a>
+                                <a (click)="showSocialLayout('gp')"><i id="social-gp"
+                                        class="fa fa-google-plus-square fa-2x social"></i></a>
+                                <a (click)="showSocialLayout('sem')"><i id="social-em"
+                                        class="fa fa-envelope-square fa-2x social"></i></a>
+                                <a (click)="showSocialLayout('ig')"><i id="social-ig"
+                                        class="fa fa-instagram-square fa-2x social"></i></a>
+                            </div>
+                            <div *ngIf="!isEditbale && socialIconsDetails">
+                                <a *ngIf="socialIconsDetails.LinkedInLink" href="{{socialIconsDetails.LinkedInLink}}" target="_blank"><i id="social-gp" class="fa fa-globe fa-2x social"></i></a>
+                                <a *ngIf="socialIconsDetails.TwitterLink" href="{{socialIconsDetails.TwitterLink}}" target="_blank"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
+                                <a *ngIf="socialIconsDetails.SocialEmail" href="{{socialIconsDetails.SocialEmail}}" target="_blank"><i id="social-em" class="fa fa-bell fa-2x social"></i></a>
+                                <a *ngIf="socialIconsDetails.FacebookLink" href="{{socialIconsDetails.FacebookLink}}" target="_blank"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
+                                <a *ngIf="socialIconsDetails.TwitterLink" href="{{socialIconsDetails.TwitterLink}}" target="_blank"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
+                                <a *ngIf="socialIconsDetails.TwitterLink" href="{{socialIconsDetails.TwitterLink}}" target="_blank"><i id="social-em" class="fa fa-envelope-square fa-2x social"></i></a>
+                                <a *ngIf="socialIconsDetails.InstagramLink" href="{{socialIconsDetails.InstagramLink}}" target="_blank"><i id="social-ig" class="fa fa-instagram-square fa-2x social"></i></a>
+                            </div>
+            
+                            <div *ngIf="postLayoutType!='' && isEditbale">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="link.." name="link" [(ngModel)]="socialLink" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="submit" (click)="SubmitSocialLink()"><i
+                                                class="fa fa-address-book"></i></button>
+                                        <button class="btn btn-outline-secondary" type="button" (click)="onCancelSocial()"><i
+                                                class="fa fa-remove"></i></button>
+                                    </div>
+                                </div>
+                                <!-- <input type="search" placeholder="link.." name="link" [(ngModel)]="socialLink" />
+                                        <button type="submit" (click)="SubmitSocialLink()"><i class="fa fa-address-book"></i></button> -->
+                            </div>
+                            <!-- <div *ngIf="postLayoutType!='' && !isEditbale">
+                                        <p>{{socialLink}},<a [href]="socialLink" (click)="postLayoutType = ''">Close</a> </p>
+                                    </div> -->
                         </div>
                     </div>
+        </div>
+        <div class="row">
+                <div class="" [ngClass]="isLogin ? 'col-md-2' : ''">
+                    <ul class="sidebar-menu" data-widget="tree" *ngIf="isLogin">
+                        <li class="active treeview menu-open"><a routerLink="/profileinfo/about">About</a></li>
+                        <li><a routerLink="/profileinfo/post">Posts</a></li>
+                        <li><a routerLink="/profileinfo/message">Message</a></li>
+                        <!-- <li><a routerLink="/profileinfo/promote">Promote</a></li> -->
+                        <li><a routerLink="/profileinfo/review">Review</a></li>
+                        <li><a routerLink="/profileinfo/invest">Invest</a></li>
+                        <li *ngIf="isEditbale"><a routerLink="/profileinfo/invite">Invite</a></li>
+                        <li *ngIf="isEditbale"><a routerLink="/profileinfo/match">Match</a></li>
+        
+                        <!-- <li><a routerLink="/profileinfo/consult">Consult</a></li>
+                        <li><a routerLink="/profileinfo/refer">Refer</a></li> -->
+                    </ul>
                 </div>
-                <div class="col-sm-2 col-xs-12 views">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-green"><i class="fa fa-sticky-note-o"
-                                aria-hidden="true"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Posts</span>
-                            <span class="info-box-number" *ngIf="headerWidgetsDetails">{{headerWidgetsDetails.Posts}}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-2  col-xs-12 views">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-aqua"><i class="fa fa-star"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text">Reviews</span>
-                            <span class="info-box-number" *ngIf="headerWidgetsDetails">{{headerWidgetsDetails.Reviews}}</span>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-                <div class="col-sm-2 col-xs-12 views">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-yellow"><i class="fa fa-user"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text">Investors</span>
-                            <span class="info-box-number" *ngIf="headerWidgetsDetails">
-                                {{headerWidgetsDetails.Investors}}</span>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-                <div class="col-sm-2  col-xs-12 views">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-aqua"><i class="fa fa-money"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text">Investments</span>
-                            <span class="info-box-number" *ngIf="headerWidgetsDetails">{{headerWidgetsDetails.Investments}}</span>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
+                <div class="" [ngClass]="isLogin ? 'col-md-10' : 'col-md-12'">
+                    <router-outlet></router-outlet>
                 </div>
             </div>
-        </div>
-        <div class="col-md-12" *ngIf="dataDisplayProfile">
-            <div class="socail-links text-center pull-right">
-                <div *ngIf="isEditbale">
-                    <a (click)="showSocialLayout('g')"><i id="social-gp" class="fa fa-globe fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('tw')"><i id="social-tw"
-                            class="fa fa-twitter-square fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('em')"><i id="social-em" class="fa fa-bell fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('fb')"><i id="social-fb"
-                            class="fa fa-facebook-square fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('gp')"><i id="social-gp"
-                            class="fa fa-google-plus-square fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('sem')"><i id="social-em"
-                            class="fa fa-envelope-square fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('ig')"><i id="social-ig"
-                            class="fa fa-instagram-square fa-2x social"></i></a>
-                </div>
-                <div *ngIf="!isEditbale && socialIconsDetails">
-                    <a *ngIf="socialIconsDetails.LinkedInLink" href="{{socialIconsDetails.LinkedInLink}}" target="_blank"><i id="social-gp" class="fa fa-globe fa-2x social"></i></a>
-                    <a *ngIf="socialIconsDetails.TwitterLink" href="{{socialIconsDetails.TwitterLink}}" target="_blank"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
-                    <a *ngIf="socialIconsDetails.SocialEmail" href="{{socialIconsDetails.SocialEmail}}" target="_blank"><i id="social-em" class="fa fa-bell fa-2x social"></i></a>
-                    <a *ngIf="socialIconsDetails.FacebookLink" href="{{socialIconsDetails.FacebookLink}}" target="_blank"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
-                    <a *ngIf="socialIconsDetails.TwitterLink" href="{{socialIconsDetails.TwitterLink}}" target="_blank"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
-                    <a *ngIf="socialIconsDetails.TwitterLink" href="{{socialIconsDetails.TwitterLink}}" target="_blank"><i id="social-em" class="fa fa-envelope-square fa-2x social"></i></a>
-                    <a *ngIf="socialIconsDetails.InstagramLink" href="{{socialIconsDetails.InstagramLink}}" target="_blank"><i id="social-ig" class="fa fa-instagram-square fa-2x social"></i></a>
-                </div>
-
-                <div *ngIf="postLayoutType!='' && isEditbale">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="link.." name="link" [(ngModel)]="socialLink" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="submit" (click)="SubmitSocialLink()"><i
-                                    class="fa fa-address-book"></i></button>
-                            <button class="btn btn-outline-secondary" type="button" (click)="onCancelSocial()"><i
-                                    class="fa fa-remove"></i></button>
-                        </div>
-                    </div>
-                    <!-- <input type="search" placeholder="link.." name="link" [(ngModel)]="socialLink" />
-                            <button type="submit" (click)="SubmitSocialLink()"><i class="fa fa-address-book"></i></button> -->
-                </div>
-                <!-- <div *ngIf="postLayoutType!='' && !isEditbale">
-                            <p>{{socialLink}},<a [href]="socialLink" (click)="postLayoutType = ''">Close</a> </p>
-                        </div> -->
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="" [ngClass]="isLogin ? 'col-md-2' : ''">
-            <ul class="sidebar-menu" data-widget="tree" *ngIf="isLogin">
-                <li class="active treeview menu-open"><a routerLink="/profileinfo/about">About</a></li>
-                <li><a routerLink="/profileinfo/post">Posts</a></li>
-                <li><a routerLink="/profileinfo/message">Message</a></li>
-                <!-- <li><a routerLink="/profileinfo/promote">Promote</a></li> -->
-                <li><a routerLink="/profileinfo/review">Review</a></li>
-                <li><a routerLink="/profileinfo/invest">Invest</a></li>
-                <li *ngIf="isEditbale"><a routerLink="/profileinfo/invite">Invite</a></li>
-                <li *ngIf="isEditbale"><a routerLink="/profileinfo/match">Match</a></li>
-
-                <!-- <li><a routerLink="/profileinfo/consult">Consult</a></li>
-                <li><a routerLink="/profileinfo/refer">Refer</a></li> -->
-            </ul>
-        </div>
-        <div class="" [ngClass]="isLogin ? 'col-md-10' : 'col-md-12'">
-            <router-outlet></router-outlet>
-        </div>
-    </div>
-
 </div>

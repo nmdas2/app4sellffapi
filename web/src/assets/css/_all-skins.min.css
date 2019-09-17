@@ -86,15 +86,14 @@
 
 .skin-blue .sidebar-menu>li>a {
     cursor: pointer !important;
-    border-left: 3px solid transparent;
-    color: #8b91a0;
+    color: #252525;
     display: block;
-    font-size: 13px;
-    padding: 9px 15px;
+    font-size: 16px;
+    font-weight: 300;
+    padding-bottom: 5px;
     position: relative;
     text-decoration: none;
     z-index: 0;
-    text-transform: uppercase;
     -webkit-transition: all 0.4s ease 0s;
     -moz-transition: all 0.4s ease 0s;
     -ms-transition: all 0.4s ease 0s;
@@ -106,16 +105,16 @@
 .skin-blue .sidebar-menu>li.active>a,
 .skin-blue .sidebar-menu>li.menu-open>a {
     color: #fff;
-    background: #1e282c
+
 }
 
 .skin-blue .sidebar-menu>li.active>a {
-    border-left-color: #3c8dbc
+
 }
 
 .skin-blue .sidebar-menu>li>.treeview-menu {
     margin: 0 1px;
-    background: #2c3b41
+
 }
 
 .skin-blue .sidebar a {
