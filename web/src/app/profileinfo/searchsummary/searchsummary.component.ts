@@ -15,6 +15,7 @@ import { ProfileInfo } from 'src/app/_models/profileinfo';
 export class SearchsummaryComponent implements OnInit, OnDestroy {
   returnUrl: string = "/home";
   searchResults: searchRes[];
+  tempSearchResults: searchRes[];
   userTrackerSub = new Subscription;
   loggedInUserInfo: User;
   currentProfileId: number;
@@ -23,11 +24,15 @@ export class SearchsummaryComponent implements OnInit, OnDestroy {
   hasSession: boolean = false;
   readonlyUserInfo: ProfileInfo;
 
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+
   constructor(private pfrlsrvs: ProfileinfoService,
     private router: Router,
     private aroute: ActivatedRoute,
     private commonService: CommonService
   ) {
+    this.tempSearchResults = [];
 
   }
   ngOnInit() {
@@ -79,8 +84,18 @@ export class SearchsummaryComponent implements OnInit, OnDestroy {
   getSearchResult() {
     this.pfrlsrvs.getUsersBySearchTerm(this.srchParam)
       .subscribe(res => {
-        this.searchResults = res;
+        if(res && res.length > 0){
+          this.searchResults = res;
+          this.pageChanged({page: this.currentPage, itemsPerPage: this.itemsPerPage})
+        }
+        else
+          this.searchResults = [];
+        
       });
   }
-
+  pageChanged(event){
+    this.currentPage = event.page - 1
+    let itemsPerPage = event.itemsPerPage;
+    this.tempSearchResults = this.searchResults.slice((this.currentPage ) * itemsPerPage, (this.currentPage + 1) *  itemsPerPage);
+  }
 }

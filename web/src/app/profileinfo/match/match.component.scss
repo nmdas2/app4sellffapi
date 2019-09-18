@@ -20,3 +20,28 @@ ul li {
     color: red;
     margin-bottom: 10px;
 }
+
+.align-middle {
+    margin-top: auto!important;
+    margin-bottom: auto!important;
+}
+
+td {
+    border: 1px solid;
+    text-align: center;
+    font-size: 18px;
+}
+
+.inner__ td {
+    width: 192px;
+    padding: 5px
+}
+
+tr {
+    border: 1px solid;
+}
+
+tr td input {
+    border: none;
+    width: 100%;
+}

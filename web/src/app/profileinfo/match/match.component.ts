@@ -129,6 +129,12 @@ export class MatchComponent implements OnInit {
           this.servicesNeeded = userServices.filter(service => service.ServiceType == 2);
           this.servicesInterested = userServices.filter(service => service.ServiceType == 3);
         }
+        if (this.servicesOffered.length < 15)
+          this.servicesOffered.unshift({});
+        if (this.servicesNeeded.length < 15)
+          this.servicesNeeded.unshift({});
+        if (this.servicesInterested.length < 15)
+          this.servicesInterested.unshift({});
       })
   }
 
@@ -137,15 +143,15 @@ export class MatchComponent implements OnInit {
       this.saveService(event.item.ServiceName, event.item.ServiceType);
     }
   }
-  removeServices(service: UserServiceTypes){
+  removeServices(service: UserServiceTypes) {
     this.commonService.loadingShow();
     this.profileInfoService.removeUserServiceByType(service)
-    .subscribe(res => {
-      this.commonService.loadingHide();
-      this.getServiceTypesByUserId();
-      //this.successMsg = `${service.ServiceName} has been removed success`
-    }, error => {
-      this.commonService.loadingHide();
-    })
+      .subscribe(res => {
+        this.commonService.loadingHide();
+        this.getServiceTypesByUserId();
+        //this.successMsg = `${service.ServiceName} has been removed success`
+      }, error => {
+        this.commonService.loadingHide();
+      })
   }
 }

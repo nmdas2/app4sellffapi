@@ -27,8 +27,9 @@
                             </ng-template>
                             <!-- /.box-header -->
                             <h4>Services Offered</h4>
+                            <span></span>
                             <div class="col-md-3 service-offered" *ngFor="let service of serviceOffered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">{{service.ServiceName}}</button>
+                                <button type="button" class="btn">{{service.ServiceName}}</button>
                             </div>
                             <div class="col-md-3 service-offered" *ngIf="serviceOffered.length == 0">
                                 <p>No Services offered</p>
@@ -131,12 +132,12 @@
     <!-- /.row -->
 
     <!-- /.content -->
-    <footer class="main-footer">
+    <!-- <footer class="main-footer">
         <div class="pull-right ">
             <a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Site map</a>
         </div>
         Copyright 2019 All Right Reserved
-    </footer>
+    </footer> -->
 </div>
 <!-- /.content-wrapper -->
 <div class="control-sidebar-bg"></div>

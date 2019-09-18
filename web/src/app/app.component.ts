@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { User } from './_models/user';
 import { AuthenticationService } from './_services/authentication.service';
@@ -144,8 +144,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
 
+  activeUrl : string;
   ngAfterViewInit() {
-
+    this.router.events.subscribe(event => {
+      if(event instanceof NavigationStart) {
+         this.activeUrl = event.url
+      }
+    })
 
   }
   ngOnDestroy() {

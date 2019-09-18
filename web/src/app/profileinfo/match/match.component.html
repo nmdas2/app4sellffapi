@@ -471,70 +471,238 @@
                 <div>
                     <p class="error-msg"></p>
                 </div> -->
-                <div class="row">
-                    <div class="col-md-3">
+
+                <table class="table">
+                    <tr>
+                        <td [style.background-color]="'#eefeee'">
+                            Services Offered
+                        </td>
+                        <td>
+                            <table class="table inner__">
+                                <tr>
+                                    <td *ngFor="let service of servicesOffered.slice(0, 3)">
+                                        <div *ngIf="service.ServiceName">
+                                            <a class="" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
+                                                {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                            </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                                    class="fa fa-remove"
+                                                    style="font-size: 15px;margin-left: 6px;"></i></a>
+                                        </div>
+                                        <div *ngIf="!(service.ServiceName)">
+                                            <input type="text" placeholder="Enter Service" [(ngModel)]="asyncSelectedO" (keyup)="serviceOfferedKeyUp($event, 1)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="allServicesO" typeaheadOptionField="ServiceName">
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td *ngFor="let service of servicesOffered.slice(3, 6)">
+                                        <a class="" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
+                                            {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                        </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                                class="fa fa-remove" style="font-size: 15px;margin-left: 6px;"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td *ngFor="let service of servicesOffered.slice(6, 9)">
+                                        <a class="" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
+                                            {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                        </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                                class="fa fa-remove" style="font-size: 15px;margin-left: 6px;"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td *ngFor="let service of servicesOffered.slice(9, 12)">
+                                        <a class="" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
+                                            {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                        </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                                class="fa fa-remove" style="font-size: 15px;margin-left: 6px;"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td *ngFor="let service of servicesOffered.slice(12, 15)">
+                                        <a class="" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
+                                            {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                        </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                                class="fa fa-remove" style="font-size: 15px;margin-left: 6px;"></i></a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td [style.background-color]="'#e7f8fe'">Services Needed</td>
+                        <td>
+                            <table class="table inner__">
+                                <tr>
+                                    <td *ngFor="let service of servicesNeeded.slice(0, 3)">
+                                        <div *ngIf="service.ServiceName">
+                                            <a class="" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
+                                                {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                            </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                                    class="fa fa-remove"
+                                                    style="font-size: 15px;margin-left: 6px;"></i></a>
+                                        </div>
+                                        <div *ngIf="!service.ServiceName">
+                                            <input type="text" placeholder="Enter Service" [(ngModel)]="asyncSelectedN" (keyup)="serviceOfferedKeyUp($event, 2)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="allServicesN" typeaheadOptionField="ServiceName">
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td *ngFor="let service of servicesNeeded.slice(3, 6)">
+                                        <a class="" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
+                                            {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                        </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                                class="fa fa-remove" style="font-size: 15px;margin-left: 6px;"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td *ngFor="let service of servicesNeeded.slice(6, 9)">
+                                        <a class="" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
+                                            {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                        </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                                class="fa fa-remove" style="font-size: 15px;margin-left: 6px;"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td *ngFor="let service of servicesNeeded.slice(9, 12)">
+                                        <a class="" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
+                                            {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                        </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                                class="fa fa-remove" style="font-size: 15px;margin-left: 6px;"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td *ngFor="let service of servicesNeeded.slice(12, 15)">
+                                        <a class="" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
+                                            {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                        </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                                class="fa fa-remove" style="font-size: 15px;margin-left: 6px;"></i></a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td [style.background-color]="'#fceef1'">Services Interest</td>
+                        <td>
+                            <table class="table inner__">
+                                <tr>
+                                    <td *ngFor="let service of servicesInterested.slice(0, 3)">
+                                        <div *ngIf="service.ServiceName">
+                                            <a [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
+                                                {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                            </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                                    class="fa fa-remove"
+                                                    style="font-size: 15px;margin-left: 6px;"></i></a>
+                                        </div>
+                                        <div *ngIf="!service.ServiceName">
+                                            <input type="text" placeholder="Enter Service" [(ngModel)]="asyncSelectedI" (keyup)="serviceOfferedKeyUp($event, 3)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="allServicesI" typeaheadOptionField="ServiceName">
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td *ngFor="let service of servicesInterested.slice(3, 6)">
+                                        <a class="" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
+                                            {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                        </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                                class="fa fa-remove" style="font-size: 15px;margin-left: 6px;"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td *ngFor="let service of servicesInterested.slice(6, 9)">
+                                        <a class="" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
+                                            {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                        </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                                class="fa fa-remove" style="font-size: 15px;margin-left: 6px;"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td *ngFor="let service of servicesInterested.slice(9, 12)">
+                                        <a class="" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
+                                            {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                        </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                                class="fa fa-remove" style="font-size: 15px;margin-left: 6px;"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td *ngFor="let service of servicesInterested.slice(12, 15)">
+                                        <a class="" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
+                                            {{service.ServiceName}} ({{service.ServiceMatchCount}})
+                                        </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
+                                                class="fa fa-remove" style="font-size: 15px;margin-left: 6px;"></i></a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <!-- <div class="row align-middle">
+                    <div class="col-md-3 ">
                         Services Offered
                     </div>
                     <div class="col-md-9">
                         <ul>
-                            <li *ngIf="servicesOffered.length <= 15">
+                            <li *ngIf="servicesOffered.length < 15">
                                 <input type="text" [(ngModel)]="asyncSelectedO" (keyup)="serviceOfferedKeyUp($event, 1)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="allServicesO" typeaheadOptionField="ServiceName">
                             </li>
                             <li *ngFor="let service of servicesOffered">
                                 <a class="btn btn-default" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
                                     {{service.ServiceName}} ({{service.ServiceMatchCount}})
                                 </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
-                                        class="fa fa-remove" style="font-size:24px"></i></a>
+                                        class="fa fa-remove" style="font-size: 15px;margin-left: 6px;"></i></a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3 my-auto">
                         Services Needed
                     </div>
                     <div class="col-md-9">
                         <ul>
-                            <li *ngIf="servicesNeeded.length <= 15">
+                            <li *ngIf="servicesNeeded.length < 15">
                                 <input type="text" [(ngModel)]="asyncSelectedN" (keyup)="serviceOfferedKeyUp($event, 2)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="allServicesN" typeaheadOptionField="ServiceName">
                             </li>
                             <li *ngFor="let service of servicesNeeded">
                                 <a class="btn btn-default" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
                                     {{service.ServiceName}} ({{service.ServiceMatchCount}})
                                 </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
-                                        class="fa fa-remove" style="font-size:24px"></i></a>
+                                        class="fa fa-remove" style="font-size: 15px;margin-left: 6px;"></i></a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3 my-auto">
                         Services Interest
                     </div>
                     <div class="col-md-9">
                         <ul>
-                            <li *ngIf="servicesInterested.length <= 15">
+                            <li *ngIf="servicesInterested.length < 15">
                                 <input type="text" [(ngModel)]="asyncSelectedI" (keyup)="serviceOfferedKeyUp($event, 3)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="allServicesI" typeaheadOptionField="ServiceName">
                             </li>
                             <li *ngFor="let service of servicesInterested">
                                 <a class="btn btn-default" [routerLink]="['/profileinfo/searchsummary']" [queryParams]="{ searchTerm: service.ServiceName}">
                                     {{service.ServiceName}} ({{service.ServiceMatchCount}})
                                 </a> <a href="javascript:void(0)" (click)="removeServices(service)"><i
-                                        class="fa fa-remove" style="font-size:24px"></i></a>
+                                        class="fa fa-remove" style="font-size: 15px;margin-left: 6px;"></i></a>
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </section>
     </div>
-    <footer class="main-footer">
+    <!-- <footer class="main-footer">
         <div class="pull-right ">
             <a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Site map</a>
         </div>
         Copyright 2019 All Right Reserved
-    </footer>
+    </footer> -->
 </div>

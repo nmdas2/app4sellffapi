@@ -34,9 +34,9 @@
                                     <label class="text-right col-sm-7" style="font-weight: normal !important;">{{userTransactionDetails.AskPrice}}</label>
                                 </div>
                                 <div class="form-group">
-                                        <label class="text-left col-sm-5">price change</label>
-                                        <label class="text-right col-sm-7" style="font-weight: normal !important;"></label>
-                                    </div>
+                                    <label class="text-left col-sm-5">price change</label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"></label>
+                                </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">% change</label>
                                     <label class="text-right col-sm-7" style="font-weight: normal !important;"></label>
@@ -61,11 +61,7 @@
                     <div class="box">
                         <div class="invest-graph" *ngIf="loading">
 
-                                <highcharts-chart 
-                                [Highcharts]="Highcharts"
-                                [options]="chartOptions"                           
-                                style="width: 100%; height: 400px; display: block;"
-                              ></highcharts-chart>
+                            <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions" style="width: 100%; height: 400px; display: block;"></highcharts-chart>
 
                             <!-- <highcharts-chart
                                 [Highcharts] = "highcharts" 
@@ -122,12 +118,12 @@
             </div>
         </section>
     </div>
-    <footer class="main-footer">
+    <!-- <footer class="main-footer">
         <div class="pull-right ">
             <a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Site map</a>
         </div>
         Copyright 2019 All Right Reserved
-    </footer>
+    </footer> -->
 </div>
 <!-- /.content-wrapper -->
 <div class="control-sidebar-bg"></div>
