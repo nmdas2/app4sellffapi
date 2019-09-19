@@ -238,27 +238,23 @@
         <div class="col-md-12 " *ngIf="dataDisplayProfile">
             <div class="socail-links text-center pull-right">
                 <div *ngIf="isEditbale">
-                    <a (click)="showSocialLayout('g')"><i id="social-gp" class="fa fa-globe fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('tw')"><i id="social-tw"
-                                        class="fa fa-twitter-square fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('em')"><i id="social-em" class="fa fa-bell fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('fb')"><i id="social-fb"
-                                        class="fa fa-facebook-square fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('gp')"><i id="social-gp"
-                                        class="fa fa-google-plus-square fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('sem')"><i id="social-em"
-                                        class="fa fa-envelope-square fa-2x social"></i></a>
-                    <a (click)="showSocialLayout('ig')"><i id="social-ig"
-                                        class="fa fa-instagram-square fa-2x social"></i></a>
+                    <a (click)="showSocialLayout('g')"><img src="../assets/images/iconfinder_globe.png"></a>
+                    <a (click)="showSocialLayout('tw')"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a (click)="showSocialLayout('fb')"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
+                    <a (click)="showSocialLayout('em')"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a (click)="showSocialLayout('gp')"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <a (click)="showSocialLayout('sem')"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
+                    <!-- <a (click)="showSocialLayout('ig')"><i id="social-ig"
+                                        class="fa fa-instagram-square fa-2x social"></i></a> -->
                 </div>
                 <div *ngIf="!isEditbale && socialIconsDetails">
-                    <a *ngIf="socialIconsDetails.LinkedInLink" href="{{socialIconsDetails.LinkedInLink}}" target="_blank"><i id="social-gp" class="fa fa-globe fa-2x social"></i></a>
-                    <a *ngIf="socialIconsDetails.TwitterLink" href="{{socialIconsDetails.TwitterLink}}" target="_blank"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
-                    <a *ngIf="socialIconsDetails.SocialEmail" href="{{socialIconsDetails.SocialEmail}}" target="_blank"><i id="social-em" class="fa fa-bell fa-2x social"></i></a>
-                    <a *ngIf="socialIconsDetails.FacebookLink" href="{{socialIconsDetails.FacebookLink}}" target="_blank"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
-                    <a *ngIf="socialIconsDetails.TwitterLink" href="{{socialIconsDetails.TwitterLink}}" target="_blank"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
-                    <a *ngIf="socialIconsDetails.TwitterLink" href="{{socialIconsDetails.TwitterLink}}" target="_blank"><i id="social-em" class="fa fa-envelope-square fa-2x social"></i></a>
-                    <a *ngIf="socialIconsDetails.InstagramLink" href="{{socialIconsDetails.InstagramLink}}" target="_blank"><i id="social-ig" class="fa fa-instagram-square fa-2x social"></i></a>
+                    <a *ngIf="socialIconsDetails.WebsiteLink" href="{{socialIconsDetails.WebsiteLink}}" target="_blank"><img src="../assets/images/iconfinder_globe.png"></a>
+                    <a *ngIf="socialIconsDetails.TwitterLink" href="{{socialIconsDetails.TwitterLink}}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a *ngIf="socialIconsDetails.FacebookLink" href="{{socialIconsDetails.FacebookLink}}" target="_blank"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
+                    <a *ngIf="socialIconsDetails.LinkedInLink" href="{{socialIconsDetails.LinkedInLink}}" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a *ngIf="socialIconsDetails.InstagramLink" href="{{socialIconsDetails.InstagramLink}}" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <a *ngIf="socialIconsDetails.YouTubeLink" href="{{socialIconsDetails.YouTubeLink}}" target="_blank"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
+                    <!-- <a *ngIf="socialIconsDetails.InstagramLink" href="{{socialIconsDetails.InstagramLink}}" target="_blank"></a> -->
                 </div>
 
                 <div *ngIf="postLayoutType!='' && isEditbale">
