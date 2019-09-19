@@ -11,7 +11,7 @@ body {
 }
 
 p {
-    font-size: 13px;
+    font-size: 16px;
     font-weight: normal;
     margin: 0;
     color: #585858;
@@ -1124,8 +1124,8 @@ span.bs-rating-star.active {
     left: 0;
     overflow: hidden;
     right: 0;
-    min-height: 145px;
-    height: 145px;
+    min-height: 120px;
+    height: 120px;
 }
 
 .user-banner {
@@ -1145,7 +1145,7 @@ span.bs-rating-star.active {
 
 .header-details {
     position: relative;
-    top: 25px;
+    top: 10px;
     padding: 0px 15px;
 }
 
@@ -1171,7 +1171,7 @@ span.bs-rating-star.active {
 .main-content {
     background-color: #f2f2f2;
     padding: 30px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .socail-links {

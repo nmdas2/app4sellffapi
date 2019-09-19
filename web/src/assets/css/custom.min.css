@@ -142,7 +142,7 @@ body {
 
 .content {
     width: 100%;
-    padding: 0px 15px;
+    padding: 10px 15px;
 }
 
 h1,
@@ -2475,7 +2475,6 @@ a:focus {
 
 .info-box {
     display: block;
-    padding-top: 10px;
 }
 
 .info-box small {

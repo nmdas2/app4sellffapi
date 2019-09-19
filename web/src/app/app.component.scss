@@ -17,7 +17,10 @@
 .sidenav::-webkit-scrollbar {
     display: none;
 }
-
+.main-content{
+    padding: 0px;
+    margin-top: 0px;
+}
 .sidenav .closebtn {
     position: absolute;
     top: 0;
