@@ -17,10 +17,7 @@
 .sidenav::-webkit-scrollbar {
     display: none;
 }
-.main-content{
-    padding: 0px;
-    margin-top: 0px;
-}
+
 .sidenav .closebtn {
     position: absolute;
     top: 0;
@@ -28,13 +25,15 @@
     font-size: 36px;
     margin-left: 50px;
 }
-.header-banner{
+
+.header-banner {
     padding-top: 50px;
 }
 
-.content-banner{
-    padding-top: 50px; 
+.content-banner {
+    padding-top: 50px;
 }
+
 #mySidenav ul {
     padding: 0;
     margin: 0;

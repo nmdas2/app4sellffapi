@@ -233,7 +233,7 @@
     </div>
 </div> -->
 
-<div class="main-content">
+<div class="" [ngClass]="isLogin ? 'login-content' : 'main-content'">
     <div class="row" *ngIf="isLogin">
         <div class="col-md-12 " *ngIf="dataDisplayProfile">
             <div class="socail-links text-center pull-right">
