@@ -136,31 +136,25 @@ export class PostComponent implements OnInit {
   saveGalleryPost(postData){
     const formData = new FormData();    
     formData.append('file', this.postGalleryForm.get('image').value);
-    formData.append('files', this.fileData);    
-    let galleryPost:Post={
-      image:formData,
-      ImagePath:consts.PostImagesPath + this.fileData.name,
-      UserId:this.loggedInUserInfo.UserId,
-      ContentType:2,
-      WebURL:this.postGalleryForm.value.webUrl
-    };
-    console.log(galleryPost.WebURL);
-    this.http.post('http://4sellff.com/sellffapi/api/ProfileInfo/SaveImagesForPost', formData, {
-      reportProgress: true,
-      observe: 'events'
-    })
+    formData.append('files', this.fileData);
+    this.http.post('http://localhost:50517/api/ProfileInfo/SaveImagesForPost', formData)
       .subscribe(events => {
-        if (events.type === HttpEventType.UploadProgress) {
-        } else if (events.type === HttpEventType.Response) {          
-        }
-      })
-    this.profileInfoService.postText(galleryPost)
-    .subscribe((res: any) => {
-      this.getUserPosts();
-      this.resetPostGalleryForm();
-    }, error => {
-      console.log(error);
-    })
+
+        let galleryPost:Post={
+          image:formData,
+          ImagePath:consts.ImagesPath + JSON.stringify(events),
+          UserId:this.loggedInUserInfo.UserId,
+          ContentType:2,
+          WebURL:this.postGalleryForm.value.webUrl
+        };
+        this.profileInfoService.postText(galleryPost)
+        .subscribe((res: any) => {
+          this.getUserPosts();
+          this.resetPostGalleryForm();
+        }, error => {
+          console.log(error);
+        })
+    })    
   }
   userContent: string;
   userTitle: string;

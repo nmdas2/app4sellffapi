@@ -8,6 +8,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CommonService } from 'src/app/_services/common.service';
 import { Subscription } from 'rxjs';
 import { UserServiceTypes } from 'src/app/_models/userservicetypes';
+import { strictEqual } from 'assert';
 
 @Component({
   selector: 'app-about',
@@ -20,7 +21,7 @@ export class AboutComponent implements OnInit, OnDestroy {
   previewUrl: any = null; fileUploadProgress: string = null; uploadedFilePath: string = null;
   dynamicImg: string = ""; modalRef: BsModalRef; imgGallery = []; userProfileInfo: ProfileInfo;
   dataDisplayProfile: ProfileInfo; readonlyUserInfo: ProfileInfo;
-  profileSubscription: Subscription;
+  profileSubscription: Subscription; svrfilepath: string = "";
   isEditbale: boolean = false;
   html: string = `<span class="btn btn-danger">Never trust not sanitized HTML!!!</span>`;
   serviceOffered: UserServiceTypes[];
@@ -138,23 +139,15 @@ export class AboutComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSubmit() {
+  onSubmit() {    
     const formData = new FormData();
     formData.append('files', this.fileData);
     this.fileUploadProgress = '0%';
-    this.http.post('http://4sellff.com/sellffapi/api/ProfileInfo/SaveImagesForGallery', formData, {
-      reportProgress: true,
-      observe: 'events'
-    })
+    this.http.post('http://localhost:50517/api/ProfileInfo/SaveImagesForGallery', formData)
       .subscribe(events => {
-        if (events.type === HttpEventType.UploadProgress) {
-          this.fileUploadProgress = Math.round(events.loaded / events.total * 100) + '%';
-        } else if (events.type === HttpEventType.Response) {
-          this.fileUploadProgress = '';
-          //alert('SUCCESS !!');
-        }
-      })
-    this.saveimagedocdetails(this.fileData.name);
+        this.svrfilepath = JSON.stringify(events);
+        this.saveimagedocdetails(this.svrfilepath);
+      })    
     this.AllowImageUpload = false;
   }
 
@@ -188,43 +181,7 @@ export class AboutComponent implements OnInit, OnDestroy {
 
   ShowGalUpPop(): void {
     this.AllowImageUpload = true;
-  }
-
-  //social link section
-  
-
-  // showSocialLayoutForOthers(type: string) { //readonlyinfo object
-  //   this.socialLink = "";
-  //   this.postLayoutType = type;
-  //   switch (type) {
-  //     case "g":
-  //       this.socialLink = this.userProfileInfo.LinkedInLink;
-  //       break;
-  //     case "tw":
-  //       this.socialLink = this.userProfileInfo.TwitterLink;
-  //       break;
-  //     case "em":
-  //       this.socialLink = this.userProfileInfo.email;
-  //       break;
-  //     case "fb":
-  //       this.socialLink = this.userProfileInfo.FacebookLink;
-  //       break;
-  //     case "gp":
-  //       this.socialLink = this.userProfileInfo.TwitterLink;
-  //       break;
-  //     case "sem":
-  //       this.socialLink = this.userProfileInfo.TwitterLink;
-  //       break;
-  //     case "ig":
-  //       this.socialLink = this.userProfileInfo.InstagramLink;
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // }
-
-  
-  
+  }  
 
   onCancel(){
     this.isAboutInEditMode = false;
