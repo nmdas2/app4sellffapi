@@ -145,7 +145,7 @@ export class AboutComponent implements OnInit, OnDestroy {
     this.fileUploadProgress = '0%';
     this.http.post('http://localhost:50517/api/ProfileInfo/SaveImagesForGallery', formData)
       .subscribe(events => {
-        this.svrfilepath = JSON.stringify(events);
+        this.svrfilepath = events.toString();
         this.saveimagedocdetails(this.svrfilepath);
       })    
     this.AllowImageUpload = false;
