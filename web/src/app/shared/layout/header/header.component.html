@@ -7,7 +7,9 @@
 
                 <div class="logo ng-scope">
                     <a (click)="taketoActualProfile()" href="javscript:void(0)">
-                        <img src="./././assets/images/logo.png" alt="Sellff Logo"></a>
+                        <span>sellff</span>
+                        <!-- <img src="./././assets/images/logo.png" alt="Sellff Logo"> -->
+                    </a>
                     <!-- <span class="sidebar-toggle" role="button" *ngIf="hasActiveSession" (click)="toggleSideNav()"><i class="fa fa-bars" aria-hidden="true"></i></span> -->
                 </div>
                 <!-- Sidebar toggle button-->
@@ -44,9 +46,9 @@
                         <li class="dropdown user user-menu">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
                                 <!-- <img src='{{loggedInUserInfo.ProfilePicPath}}' class="user-image" alt="User Image"> -->
-                                <span class="hidden-xs">
-                                    {{loggedInUserInfo.DisplayName}} <span *ngIf="unReadMsgsCount >0">[{{unReadMsgsCount}}]</span>
+                                <span class="hidden-xs">{{loggedInUserInfo.DisplayName}} <span *ngIf="unReadMsgsCount >0">[{{unReadMsgsCount}}]</span>
                                 <!-- <span>{{loggedInUserInfo.Occupation}}</span> -->
+                                <span class="notification">[<span>2</span>]</span>
                                 </span>
                             </a>
                             <ul class="dropdown-menu">

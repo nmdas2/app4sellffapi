@@ -8,8 +8,12 @@
 <div class="content-box">
     <div *ngIf="showheadsection && !isSummaryPage">
         <div class="banner-header">
-            <a (click)="uploadbannerpic(Bannerpictemplate)" class="change-pic"> Change Banner Pic</a>
-            <img src="{{bannerpicpath}}" class="user-banner" alt="Banner Image">
+            <div class="change-pic">
+                    <a (click)="uploadbannerpic(Bannerpictemplate)"> <span>Update Cover Photo</span></a>
+            </div>
+            
+            <!-- <img src="{{bannerpicpath}}" class="user-banner" alt="Banner Image"> -->
+            <img src="../assets/bannerpics/banner-img.jpg" class="user-banner" alt="Banner Image">
         </div>
         <div class="header-details">
             <div class="row">
@@ -17,6 +21,7 @@
                     <div class="profile-img" *ngIf="dataDisplayProfile">
                         <img src='{{dataDisplayProfile.ProfilePicPath}}' class="img-responsive">
                         <h3 *ngIf="dataDisplayProfile">{{dataDisplayProfile.DisplayName}}</h3>
+                        <p>@tclarke</p>
                     </div>
 
                 </div>
@@ -235,40 +240,39 @@
 <div class="" [ngClass]="isLogin ? 'login-content' : 'main-content'">
     <div class="row" *ngIf="isLogin">
         <div class="col-md-12 " *ngIf="dataDisplayProfile">
+                <div class="social-inputbox" *ngIf="postLayoutType!='' && isEditbale">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="link.." name="link" [(ngModel)]="socialLink" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit" (click)="SubmitSocialLink()"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                <button class="btn btn-outline-secondary" type="button" (click)="onCancelSocial()"><i class="fa fa-remove"></i></button>
+                            </div>
+                        </div>
+                        <!-- <input type="search" placeholder="link.." name="link" [(ngModel)]="socialLink" />
+                                            <button type="submit" (click)="SubmitSocialLink()"><i class="fa fa-address-book"></i></button> -->
+                    </div>
             <div class="socail-links text-center pull-right">
                 <div *ngIf="isEditbale">
-                    <a (click)="showSocialLayout('g')"><img src="../assets/images/iconfinder_globe.png"></a>
-                    <a (click)="showSocialLayout('tw')"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    <a (click)="showSocialLayout('fb')"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
-                    <a (click)="showSocialLayout('em')"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                    <a (click)="showSocialLayout('gp')"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                    <a (click)="showSocialLayout('sem')"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
+                    <a (click)="showSocialLayout('g')" class="web"><img src="../assets/images/iconfinder_globe.png"></a>
+                    <a (click)="showSocialLayout('tw')" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a (click)="showSocialLayout('fb')" class="bell"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
+                    <a (click)="showSocialLayout('em')" class="in"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a (click)="showSocialLayout('gp')" class="insta"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <a (click)="showSocialLayout('sem')" class="pint"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
                     <!-- <a (click)="showSocialLayout('ig')"><i id="social-ig"
                                         class="fa fa-instagram-square fa-2x social"></i></a> -->
                 </div>
                 <div *ngIf="!isEditbale && socialIconsDetails">
-                    <a *ngIf="socialIconsDetails.WebsiteLink" href="{{socialIconsDetails.WebsiteLink}}" target="_blank"><img src="../assets/images/iconfinder_globe.png"></a>
-                    <a *ngIf="socialIconsDetails.TwitterLink" href="{{socialIconsDetails.TwitterLink}}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    <a *ngIf="socialIconsDetails.FacebookLink" href="{{socialIconsDetails.FacebookLink}}" target="_blank"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
-                    <a *ngIf="socialIconsDetails.LinkedInLink" href="{{socialIconsDetails.LinkedInLink}}" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                    <a *ngIf="socialIconsDetails.InstagramLink" href="{{socialIconsDetails.InstagramLink}}" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                    <a *ngIf="socialIconsDetails.YouTubeLink" href="{{socialIconsDetails.YouTubeLink}}" target="_blank"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
+                    <a *ngIf="socialIconsDetails.WebsiteLink" href="{{socialIconsDetails.WebsiteLink}}" target="_blank" class="web"><img src="../assets/images/iconfinder_globe.png"></a>
+                    <a *ngIf="socialIconsDetails.TwitterLink" href="{{socialIconsDetails.TwitterLink}}" target="_blank" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a *ngIf="socialIconsDetails.FacebookLink" href="{{socialIconsDetails.FacebookLink}}" target="_blank" class="bell"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
+                    <a *ngIf="socialIconsDetails.LinkedInLink" href="{{socialIconsDetails.LinkedInLink}}" target="_blank" class="in"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a *ngIf="socialIconsDetails.InstagramLink" href="{{socialIconsDetails.InstagramLink}}" target="_blank" class="insta"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <a *ngIf="socialIconsDetails.YouTubeLink" href="{{socialIconsDetails.YouTubeLink}}" target="_blank"  class="pint"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
                     <!-- <a *ngIf="socialIconsDetails.InstagramLink" href="{{socialIconsDetails.InstagramLink}}" target="_blank"></a> -->
                 </div>
 
-                <div *ngIf="postLayoutType!='' && isEditbale">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="link.." name="link" [(ngModel)]="socialLink" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="submit" (click)="SubmitSocialLink()"><i
-                                                class="fa fa-address-book"></i></button>
-                            <button class="btn btn-outline-secondary" type="button" (click)="onCancelSocial()"><i
-                                                class="fa fa-remove"></i></button>
-                        </div>
-                    </div>
-                    <!-- <input type="search" placeholder="link.." name="link" [(ngModel)]="socialLink" />
-                                        <button type="submit" (click)="SubmitSocialLink()"><i class="fa fa-address-book"></i></button> -->
-                </div>
+                
                 <!-- <div *ngIf="postLayoutType!='' && !isEditbale">
                                         <p>{{socialLink}},<a [href]="socialLink" (click)="postLayoutType = ''">Close</a> </p>
                                     </div> -->

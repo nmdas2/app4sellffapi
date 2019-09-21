@@ -55,8 +55,10 @@
     padding: 0px;
 }
 .skin-blue .main-header .logo a{
-    float: left;
     padding-left: 15px;
+    color: #000;
+    font-size: 32px;
+    vertical-align: middle;
 }
 .skin-blue .main-header li.user-header {
     background-color: #3c8dbc
