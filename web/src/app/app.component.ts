@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'sellff-app'; previewUrl: any = null;
   isLogin: boolean = false; fileData: File = null;
   showSideNav: boolean = false; fileUploadProgress: string = null; uploadedFilePath: string = null; 
-  isSummarySub: Subscription; postGalleryForm: FormGroup; 
+  isSummarySub: Subscription; postGalleryForm: FormGroup; postProfileForm: FormGroup;
   isSummaryPage: boolean; AllowImageUpload: boolean = false;
   profileSubscription: Subscription;
   showheadsection: boolean;
@@ -82,6 +82,9 @@ export class AppComponent implements OnInit, OnDestroy {
       }, 1)
     });
     this.postGalleryForm = this.fb.group({
+      image: ['', []]
+    });
+    this.postProfileForm = this.fb.group({
       image: ['', []]
     });
     this.authenticationService.isLogin$.subscribe(status => {
@@ -289,4 +292,19 @@ export class AppComponent implements OnInit, OnDestroy {
     this.modalRef.hide();
     this.AllowImageUpload = false;
   }
+  uploadprofilepic(Profilepictemplate) {
+    this.modalRef = this.modalService.show(Profilepictemplate);
+  }
+  saveProfilePost(postData) {
+    this.fileUploadProgress = '0%';
+    this.commonService.uploadImages(this.loggedInUserInfo.UserId, 1, this.fileData)
+      .subscribe(events => {
+        if (events.type === HttpEventType.UploadProgress) {
+          this.fileUploadProgress = Math.round(events.loaded / events.total * 100) + '%';
+        } else if (events.type === HttpEventType.Response) {
+          this.fileUploadProgress = '';
+        }
+      })
+  }
+
 }
