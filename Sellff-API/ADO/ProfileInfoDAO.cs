@@ -202,7 +202,10 @@ namespace Sellff_API.ADO
         public bool UpdateUserProfilePicById(int userId, string Profilefilepath, int PicType)
         {
             bool result = true;
-            Profilefilepath = ConfigurationManager.AppSettings["ImagesPathforAngularDisplay"].ToString() + Profilefilepath;
+            if(PicType == 1)
+                Profilefilepath = ConfigurationManager.AppSettings["ProfileimagespathinAngular"].ToString() + Profilefilepath;
+            else
+                Profilefilepath = ConfigurationManager.AppSettings["bannerimagespathinAngular"].ToString() + Profilefilepath;
             try
             {
                 var sqlParams = new SqlParameter[3];
