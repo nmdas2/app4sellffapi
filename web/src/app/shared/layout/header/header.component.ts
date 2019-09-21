@@ -198,13 +198,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   saveGalleryPost(postData) {
-    const formData = new FormData();
-    formData.append('files', this.fileData);
     this.fileUploadProgress = '0%';
-    this.http.post('http://localhost:50517/api/ProfileInfo/SaveUserProfilePic/1/'+this.loggedInUserInfo.UserId, formData, {
-      reportProgress: true,
-      observe: 'events'
-    })
+    this.commonService.uploadImages(this.loggedInUserInfo.UserId, 1, this.fileData)
       .subscribe(events => {
         if (events.type === HttpEventType.UploadProgress) {
           this.fileUploadProgress = Math.round(events.loaded / events.total * 100) + '%';

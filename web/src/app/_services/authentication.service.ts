@@ -32,6 +32,7 @@ export class AuthenticationService {
             .pipe(map(user => {
                 if(user.UserId > 0)
                 {localStorage.setItem('currentUser', JSON.stringify(user));
+                localStorage.setItem('profilepic', user.ProfilePicPath);
                 localStorage.removeItem('profileviewUser');
                 this.currentUserSubject.next(user);
                 this.commonService.isProfileSelected.next(false);
@@ -44,6 +45,7 @@ export class AuthenticationService {
         // remove user from local storage and set current user to null
         localStorage.removeItem('currentUser');
         localStorage.removeItem('profileviewUser');
+        localStorage.removeItem('profilepic');
         this.commonService.isProfileSelected.next(false);
         this.commonService.socialAndHeaderWidgetsTracker.next(false);
         this.isLogin.next(false);

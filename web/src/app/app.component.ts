@@ -30,6 +30,7 @@ export class AppComponent implements OnInit, OnDestroy {
   socialIconsDetails: ProfileInfo;
   headerWidgetsDetails: ProfileInfo;
   trackerSub: Subscription;
+  profilePic: string;
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -60,6 +61,10 @@ export class AppComponent implements OnInit, OnDestroy {
           this.dataDisplayProfile = JSON.parse(localStorage.getItem('currentUser'));
           this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
           this.showheadsection = true;
+        }
+
+        if(localStorage.getItem('profilepic')){
+          this.profilePic = localStorage.getItem('profilepic')
         }
 
         if (localStorage.getItem('profileviewUser')) {
@@ -266,15 +271,12 @@ export class AppComponent implements OnInit, OnDestroy {
       this.previewUrl = reader.result;
     }
   }
-
+//AllowImageUpload = false
   saveGalleryPost(postData) {
-    const formData = new FormData();
-    formData.append('files', this.fileData);
+    // const formData = new FormData();
+    // formData.append('files', this.fileData);
     this.fileUploadProgress = '0%';
-    this.http.post('http://localhost:50517/api/ProfileInfo/SaveUserProfilePic/2/'+this.loggedInUserInfo.UserId, formData, {
-      reportProgress: true,
-      observe: 'events'
-    })
+    this.commonService.uploadImages(this.loggedInUserInfo.UserId, 2, this.fileData)
       .subscribe(events => {
         if (events.type === HttpEventType.UploadProgress) {
           this.fileUploadProgress = Math.round(events.loaded / events.total * 100) + '%';
@@ -283,5 +285,8 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       })
   }
-
+  onCancel(){
+    this.modalRef.hide();
+    this.AllowImageUpload = false;
+  }
 }

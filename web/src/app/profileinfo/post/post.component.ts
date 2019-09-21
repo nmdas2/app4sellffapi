@@ -137,7 +137,7 @@ export class PostComponent implements OnInit {
     const formData = new FormData();    
     formData.append('file', this.postGalleryForm.get('image').value);
     formData.append('files', this.fileData);
-    this.http.post('http://localhost:50517/api/ProfileInfo/SaveImagesForPost', formData)
+    this.profileInfoService.saveImageGalleryForPost(formData)
       .subscribe(events => {
 
         let galleryPost:Post={

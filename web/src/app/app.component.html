@@ -9,7 +9,7 @@
     <div *ngIf="showheadsection && !isSummaryPage">
         <div class="banner-header">
             <div class="change-pic">
-                    <a (click)="uploadbannerpic(Bannerpictemplate)"> <span>Update Cover Photo</span></a>
+                <a (click)="uploadbannerpic(Bannerpictemplate)"> <span>Update Cover Photo</span></a>
             </div>
             <!-- <img src="{{bannerpicpath}}" class="user-banner" alt="Banner Image"> -->
             <img src="../assets/bannerpics/banner-img.jpg" class="user-banner" alt="Banner Image">
@@ -18,10 +18,10 @@
             <div class="row">
                 <div class="col-md-2">
                     <div class="profile-img" *ngIf="dataDisplayProfile">
-                            <div class="profile-change">
-                                <img src='{{dataDisplayProfile.ProfilePicPath}}' class="img-responsive">
-                                <a (click)="uploadbannerpic(Bannerpictemplate)"> <span>Update Cover Photo</span></a>
-                            </div>
+                        <div class="profile-change">
+                            <img src='{{profilePic}}' class="img-responsive">
+                            <a (click)="uploadbannerpic(Bannerpictemplate)"> <span>Update Cover Photo</span></a>
+                        </div>
                         <h3 *ngIf="dataDisplayProfile">{{dataDisplayProfile.DisplayName}}</h3>
                         <p>@tclarke</p>
                     </div>
@@ -118,7 +118,7 @@
                                                         Upload progress: {{ fileUploadProgress }}
                                                     </div>
                                                     <button class="btn btn-primary">Submit</button>
-                                                    <button class="btn btn-danger ml-3" (click)="AllowImageUpload = false">Cancel</button>
+                                                    <button class="btn btn-danger ml-3" (click)="onCancel()">Cancel</button>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -242,17 +242,17 @@
 <div class="" [ngClass]="isLogin ? 'login-content' : 'main-content'">
     <div class="row" *ngIf="isLogin">
         <div class="col-md-12 " *ngIf="dataDisplayProfile">
-                <div class="social-inputbox" *ngIf="postLayoutType!='' && isEditbale">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="link.." name="link" [(ngModel)]="socialLink" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="submit" (click)="SubmitSocialLink()"><i class="fa fa-check" aria-hidden="true"></i></button>
-                                <button class="btn btn-outline-secondary" type="button" (click)="onCancelSocial()"><i class="fa fa-remove"></i></button>
-                            </div>
-                        </div>
-                        <!-- <input type="search" placeholder="link.." name="link" [(ngModel)]="socialLink" />
-                                            <button type="submit" (click)="SubmitSocialLink()"><i class="fa fa-address-book"></i></button> -->
+            <div class="social-inputbox" *ngIf="postLayoutType!='' && isEditbale">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="link.." name="link" [(ngModel)]="socialLink" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit" (click)="SubmitSocialLink()"><i class="fa fa-check" aria-hidden="true"></i></button>
+                        <button class="btn btn-outline-secondary" type="button" (click)="onCancelSocial()"><i class="fa fa-remove"></i></button>
                     </div>
+                </div>
+                <!-- <input type="search" placeholder="link.." name="link" [(ngModel)]="socialLink" />
+                                            <button type="submit" (click)="SubmitSocialLink()"><i class="fa fa-address-book"></i></button> -->
+            </div>
             <div class="socail-links text-center pull-right">
                 <div *ngIf="isEditbale">
                     <a (click)="showSocialLayout('g')" class="web"><img src="../assets/images/iconfinder_globe.png"></a>
@@ -270,11 +270,11 @@
                     <a *ngIf="socialIconsDetails.FacebookLink" href="{{socialIconsDetails.FacebookLink}}" target="_blank" class="bell"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
                     <a *ngIf="socialIconsDetails.LinkedInLink" href="{{socialIconsDetails.LinkedInLink}}" target="_blank" class="in"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
                     <a *ngIf="socialIconsDetails.InstagramLink" href="{{socialIconsDetails.InstagramLink}}" target="_blank" class="insta"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                    <a *ngIf="socialIconsDetails.YouTubeLink" href="{{socialIconsDetails.YouTubeLink}}" target="_blank"  class="pint"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
+                    <a *ngIf="socialIconsDetails.YouTubeLink" href="{{socialIconsDetails.YouTubeLink}}" target="_blank" class="pint"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
                     <!-- <a *ngIf="socialIconsDetails.InstagramLink" href="{{socialIconsDetails.InstagramLink}}" target="_blank"></a> -->
                 </div>
 
-                
+
                 <!-- <div *ngIf="postLayoutType!='' && !isEditbale">
                                         <p>{{socialLink}},<a [href]="socialLink" (click)="postLayoutType = ''">Close</a> </p>
                                     </div> -->

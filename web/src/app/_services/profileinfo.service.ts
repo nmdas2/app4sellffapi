@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { constants as consts } from '../constants';
+import { constants as consts, constants } from '../constants';
 import { ProfileInfo, userAboutInfo } from '../_models/profileinfo';
 import { Post } from 'src/app/_models/post';
 import { Review } from '../_models/review';
@@ -146,5 +146,16 @@ export class ProfileinfoService {
   }
   GetUnReadMessagesCountByUserId(UserId: number): Observable<any>{
     return this.http.get(`${consts.DomainURL}ProfileInfo/GetUnReadMessagesCountByUserId/${UserId}`);
+  }
+
+  saveImageGallery(fileData): Observable<any>{
+    const formData = new FormData();
+    formData.append('files', fileData);
+    return this.http.post(`${constants.DomainURL}ProfileInfo/SaveImagesForGallery`, formData)
+  }
+
+  saveImageGalleryForPost(formData): Observable<any>{
+    
+    return this.http.post(`${constants.DomainURL}ProfileInfo/SaveImagesForPost`, formData)
   }
 }

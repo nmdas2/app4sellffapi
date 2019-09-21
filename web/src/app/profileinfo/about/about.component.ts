@@ -140,10 +140,9 @@ export class AboutComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {    
-    const formData = new FormData();
-    formData.append('files', this.fileData);
+    
     this.fileUploadProgress = '0%';
-    this.http.post('http://localhost:50517/api/ProfileInfo/SaveImagesForGallery', formData)
+    this.profileInfoService.saveImageGallery(this.fileData)
       .subscribe(events => {
         this.svrfilepath = events.toString();
         this.saveimagedocdetails(this.svrfilepath);

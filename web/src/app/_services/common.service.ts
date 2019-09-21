@@ -23,7 +23,7 @@ export class CommonService {
     }
 
     socialAndHeaderWidgetsTracker = new BehaviorSubject<boolean>(true)
-    get socialAndHeaderWidgetsTracker$(){
+    get socialAndHeaderWidgetsTracker$() {
         return this.socialAndHeaderWidgetsTracker.asObservable();
     }
 
@@ -35,5 +35,14 @@ export class CommonService {
     }
     UpdateUserSocialLinkInfo(data: ProfileInfo): Observable<any> {
         return this.http.post(`${consts.DomainURL}ProfileInfo/UpdateUsersSocialInfo`, data);
+    }
+
+    uploadImages(userId: any, type: number, file: any): Observable<any> {
+        const formData = new FormData();
+        formData.append('files', file);
+        return this.http.post(`${consts.DomainURL}ProfileInfo/SaveUserProfilePic/${type}/${userId}`, formData,  {
+            reportProgress: true,
+            observe: 'events'
+          })
     }
 }
