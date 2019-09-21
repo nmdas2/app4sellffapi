@@ -2811,6 +2811,12 @@ padding-left: 0px;
     color:#FFF;
     background-position: right center; 
 }
+.btn-default:hover {
+    color: #333;
+    background-color: #000000;
+    border-color: #000000;
+    color:#FFF;
+}
 .btn-default {
     background-color: #0070c0;
 }
