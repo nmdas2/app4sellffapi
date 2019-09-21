@@ -3625,7 +3625,12 @@ table.text-center th {
         box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125)
     }
 }
-
+.modal-content {
+    display: inline-block;
+}
+.modal-content button{
+    border-radius: 0px !important;
+}
 .modal-header {
     border-bottom-color: #f4f4f4
 }
