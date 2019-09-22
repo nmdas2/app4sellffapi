@@ -13,12 +13,12 @@ export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
     isLogin = new BehaviorSubject<boolean>(false);
-    get isLogin$(){
+    get isLogin$() {
         return this.isLogin.asObservable();
     }
     constructor(private http: HttpClient,
-            private commonService : CommonService
-        ) {
+        private commonService: CommonService
+    ) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
@@ -28,17 +28,21 @@ export class AuthenticationService {
     }
 
     login(user: ProfileInfo) {
-        return this.http.post<any>(`${consts.DomainURL}SellffDefault/AuthenticateSellffUserInfo`,  user )
+        return this.http.post<any>(`${consts.DomainURL}SellffDefault/AuthenticateSellffUserInfo`, user)
             .pipe(map(user => {
-                if(user.UserId > 0)
-                {localStorage.setItem('currentUser', JSON.stringify(user));
-                localStorage.setItem('profilepic', user.ProfilePicPath);
-                localStorage.removeItem('profileviewUser');
-                this.currentUserSubject.next(user);
-                this.commonService.isProfileSelected.next(false);
-            }
+                if (user.UserId > 0) {
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    localStorage.setItem('profilepic', user.ProfilePicPath);
+                    localStorage.setItem('bannerpic', user.BannerPicPath);
+                    localStorage.removeItem('profileviewUser');
+                    this.currentUserSubject.next(user);
+                    this.commonService.isProfileSelected.next(false);
+                }
                 return user;
             }));
+    }
+    loginForImages(user: ProfileInfo) {
+        return this.http.post<any>(`${consts.DomainURL}SellffDefault/AuthenticateSellffUserInfo`, user)
     }
 
     logout() {
@@ -46,16 +50,17 @@ export class AuthenticationService {
         localStorage.removeItem('currentUser');
         localStorage.removeItem('profileviewUser');
         localStorage.removeItem('profilepic');
+        localStorage.removeItem('bannerpic');
         this.commonService.isProfileSelected.next(false);
         this.commonService.socialAndHeaderWidgetsTracker.next(false);
         this.isLogin.next(false);
         this.currentUserSubject.next(null);
     }
 
-    socialLinksByUserId(userId: number): Observable<ProfileInfo>{
+    socialLinksByUserId(userId: number): Observable<ProfileInfo> {
         return this.http.get<ProfileInfo>(`${consts.DomainURL}SellffDefault/SocialLinksByUserId/${userId}`);
     }
-    headerWidgetsCountByUserId(userId: number): Observable<ProfileInfo>{
+    headerWidgetsCountByUserId(userId: number): Observable<ProfileInfo> {
         return this.http.get<ProfileInfo>(`${consts.DomainURL}SellffDefault/HeaderWidgetsCountByUserId/${userId}`);
     }
 }

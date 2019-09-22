@@ -18,7 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
   currentUser: User; bannerpicpath: string = '';
   title = 'sellff-app'; previewUrl: any = null;
   isLogin: boolean = false; fileData: File = null;
-  showSideNav: boolean = false; fileUploadProgress: string = null; uploadedFilePath: string = null; 
+  showSideNav: boolean = false; fileUploadProgress: string = null; uploadedFilePath: string = null;
   isSummarySub: Subscription; postGalleryForm: FormGroup; postProfileForm: FormGroup;
   isSummaryPage: boolean; AllowImageUpload: boolean = false;
   profileSubscription: Subscription;
@@ -63,22 +63,25 @@ export class AppComponent implements OnInit, OnDestroy {
           this.showheadsection = true;
         }
 
-        if(localStorage.getItem('profilepic')){
+        if (localStorage.getItem('profilepic')) {
           this.profilePic = localStorage.getItem('profilepic')
+        }
+        if (localStorage.getItem('bannerpic')) {
+          this.bannerpicpath = localStorage.getItem('bannerpic')
         }
 
         if (localStorage.getItem('profileviewUser')) {
           this.dataDisplayProfile = JSON.parse(localStorage.getItem('profileviewUser'));
           this.showheadsection = true;
         }
-        if(this.dataDisplayProfile && this.dataDisplayProfile.BannerPicPath)
-          this.bannerpicpath = this.dataDisplayProfile.BannerPicPath;
-        this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
-          setTimeout(() => {
-            this.isSummaryPage = status;
-          }, 3)
+        if (this.dataDisplayProfile && this.dataDisplayProfile.BannerPicPath)
+          //this.bannerpicpath = this.dataDisplayProfile.BannerPicPath;
+          this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
+            setTimeout(() => {
+              this.isSummaryPage = status;
+            }, 3)
 
-        })
+          })
       }, 1)
     });
     this.postGalleryForm = this.fb.group({
@@ -106,31 +109,31 @@ export class AppComponent implements OnInit, OnDestroy {
       this.commonService.isProfileSelected.next(false);
     }
 
-    this.trackerSub = this.commonService.socialAndHeaderWidgetsTracker$.subscribe(status =>{
+    this.trackerSub = this.commonService.socialAndHeaderWidgetsTracker$.subscribe(status => {
       let userId = 0;
-      if(localStorage.getItem('currentUser')){
+      if (localStorage.getItem('currentUser')) {
         userId = JSON.parse(localStorage.getItem('currentUser')).UserId;
-        
+
       }
-      if(localStorage.getItem('profileviewUser')){
+      if (localStorage.getItem('profileviewUser')) {
         userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
-        
+
       }
-      if(userId > 0){
+      if (userId > 0) {
         this.authenticationService.socialLinksByUserId(userId)
-        .subscribe(res =>{
-          this.socialIconsDetails = res;
-        }, error =>{
+          .subscribe(res => {
+            this.socialIconsDetails = res;
+          }, error => {
 
-        });
+          });
         this.authenticationService.headerWidgetsCountByUserId(userId)
-        .subscribe(res =>{
-          this.headerWidgetsDetails = res;
-        }, error =>{
+          .subscribe(res => {
+            this.headerWidgetsDetails = res;
+          }, error => {
 
-        })
+          })
       }
-      
+
     })
   }
 
@@ -152,11 +155,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
 
-  activeUrl : string;
+  activeUrl: string;
   ngAfterViewInit() {
     this.router.events.subscribe(event => {
-      if(event instanceof NavigationStart) {
-         this.activeUrl = event.url
+      if (event instanceof NavigationStart) {
+        this.activeUrl = event.url
       }
     })
 
@@ -166,7 +169,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.isSummarySub.unsubscribe();
     if (this.profileSubscription)
       this.profileSubscription.unsubscribe();
-    if(this.trackerSub)
+    if (this.trackerSub)
       this.trackerSub.unsubscribe();
   }
 
@@ -202,20 +205,20 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  onCancelSocial(){
+  onCancelSocial() {
     this.postLayoutType = '';
   }
   SubmitSocialLink() {
-    this.userProfileInfo = <ProfileInfo>{};    
+    this.userProfileInfo = <ProfileInfo>{};
     this.userProfileInfo.UserId = this.loggedInUserInfo.UserId;
     this.userProfileInfo.socialLink = this.socialLink;
     this.userProfileInfo.socialLinkType = this.mapSocialLinkLegends(this.postLayoutType);
     this.commonService.UpdateUserSocialLinkInfo(this.userProfileInfo)
       .subscribe(res => {
         this.authenticationService.socialLinksByUserId(this.loggedInUserInfo.UserId)
-        .subscribe(res =>{
-          this.socialIconsDetails = res;
-        })
+          .subscribe(res => {
+            this.socialIconsDetails = res;
+          })
       }, error => {
         console.log(error);
       })
@@ -274,7 +277,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.previewUrl = reader.result;
     }
   }
-//AllowImageUpload = false
+  //AllowImageUpload = false
   saveGalleryPost(postData) {
     // const formData = new FormData();
     // formData.append('files', this.fileData);
@@ -284,11 +287,22 @@ export class AppComponent implements OnInit, OnDestroy {
         if (events.type === HttpEventType.UploadProgress) {
           this.fileUploadProgress = Math.round(events.loaded / events.total * 100) + '%';
         } else if (events.type === HttpEventType.Response) {
+          this.modalRef.hide();
+          let user = JSON.parse(localStorage.getItem('currentUser'));
+          this.authenticationService.loginForImages(user)
+            .subscribe(res => {
+              if (res.UserId > 0) {
+                
+                localStorage.setItem('bannerpic', res.BannerPicPath);
+                
+                this.bannerpicpath = res.BannerPicPath;
+              }
+            })
           this.fileUploadProgress = '';
         }
       })
   }
-  onCancel(){
+  onCancel() {
     this.modalRef.hide();
     this.AllowImageUpload = false;
   }
@@ -302,6 +316,17 @@ export class AppComponent implements OnInit, OnDestroy {
         if (events.type === HttpEventType.UploadProgress) {
           this.fileUploadProgress = Math.round(events.loaded / events.total * 100) + '%';
         } else if (events.type === HttpEventType.Response) {
+          this.modalRef.hide();
+          let user = JSON.parse(localStorage.getItem('currentUser'));
+          this.authenticationService.loginForImages(user)
+            .subscribe(res => {
+              if (res.UserId > 0) {
+                localStorage.setItem('profilepic', res.ProfilePicPath);
+                
+                this.profilePic = res.ProfilePicPath;
+                
+              }
+            })
           this.fileUploadProgress = '';
         }
       })
