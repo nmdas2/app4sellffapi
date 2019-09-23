@@ -1759,7 +1759,7 @@ a:focus {
 
 .progress-bar-yellow,
 .progress-bar-warning {
-    background-color: #f39c12
+    background-color: #ffc107;
 }
 
 .progress-striped .progress-bar-yellow,

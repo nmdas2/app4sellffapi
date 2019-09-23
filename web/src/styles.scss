@@ -990,24 +990,27 @@ table tbody tr td.lalign {
 }
 
 .progress-box .progress {
-    height: 5px;
+    height: 22px;
     overflow: hidden;
-    background-color: #f5f5f5;
-    border-radius: 4px;
+    background-color: #fff;
+    border-radius: 0;
     box-shadow: none;
     margin: 0;
-    margin-top: 10px;
+    margin-top: -1px;
+    border: 1px solid #d0d0d0;
+    padding: 2px;
 }
 
 .progress-box .p-box {
     display: flex;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 .progress-box .p-box span {
     white-space: nowrap;
     float: left;
     margin-right: 20px;
+    color: #0070c0;
 }
 
 .review-box h4:after {
@@ -1028,7 +1031,7 @@ rating span {
 }
 
 .c-review-box {
-    border-bottom: 1px solid #ececec;
+    border-bottom: 1px solid #d0d0d0;
     padding-bottom: 10px;
     margin-bottom: 10px;
 }
@@ -1082,13 +1085,7 @@ rating span {
     top: 100%;
 }*/
 
-.review-details {
-    text-align: center;
-}
 
-.review-details img {
-    width: 100%;
-}
 
 .reviewname {
     color: #FFF;
@@ -1110,7 +1107,6 @@ rating span {
 }
 
 .review-date {
-    text-align: right;
     margin-bottom: 8px;
     color: #828282;
 }
@@ -1542,6 +1538,9 @@ li.dropdown.user.user-menu span .notification span{
     .p-r-d-40 {
         padding-right: 40px;
     }
+    .p-r-d-50 {
+        padding-right: 50px;
+    }
     .p-l-d-40 {
         padding-left: 40px;
     }
@@ -1739,4 +1738,58 @@ li.dropdown.user.user-menu span .notification span{
     background: #ffc107;
     color: #780000;
     padding: 10px 50px;
+}
+.p-box .progress {
+    margin-right: 17px;
+}
+.custom-hr {
+    border-color: #d0d0d0;
+}
+.text-initial {
+    text-transform: initial;
+}
+.m-t-b-5 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.no-margin-top {
+    margin-top:0;
+}
+.m-t-20 {
+    margin-top: 20px;
+}
+.d-block w-100 {
+    display: block;
+}
+.w-100 {
+    width: 100%;
+}
+.customer_reviews {
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+.p-l-20 {
+    padding-left: 20px;
+}
+.box .review-img {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+}
+.reviewtitle {
+    color: #000;
+    text-transform: initial;
+    font-size: 20px;
+}
+.f-16 {
+    font-size: 16px;
+}
+.review-des {
+    font-size: 14px;
+    color: #828282;
+    margin-bottom: 10px;
+}
+.review-main {
+    max-height: 590px;
+    overflow-y: auto;
 }

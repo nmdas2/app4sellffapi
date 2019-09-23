@@ -16,6 +16,8 @@ import { CommonService } from 'src/app/_services/common.service';
   styleUrls: ['./review.component.scss']
 })
 export class ReviewComponent implements OnInit {
+  
+  ratefive: number = 5;
   max = 5; rate = 0; communicationRate = 0; QOWRate = 0; isReadonly = false; overStar: number | undefined; percent: number;
   ViewUserInfo: User; modalRef: BsModalRef; loggedInUserInfo: ProfileInfo; ratingGivenTo: number; reviewUserForm: FormGroup
   canReview: boolean = false; idToGetReviews: number; userReviews: Review[]; searchProfileUserId: number = 0; currentRating: Review;

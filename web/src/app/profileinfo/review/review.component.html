@@ -30,14 +30,17 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div *ngIf="currentRating">
+                    <div *ngIf="currentRating" class="p-r-d-50">
                         <div class="box message-box progress-box">
-                            <h4>{{totalRatings}} Customer Reviews</h4>
+                            <h3 class="normal-title no-margin">{{totalRatings}} customer reviews</h3>
+                            <div class="customer_reviews">
+                                <rating [(ngModel)]="ratefive" [max]="max" [readonly]="isReadonly"></rating> <span class="f-22 p-l-20">5.5 out of 5 starts</span>
+                            </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="p-box">
                                         <span>5 Star</span>
-                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts5 type="warning" [striped]="true">{{currentRating.Starts5}}</progressbar>
+                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts5 type="warning"></progressbar> {{currentRating.Starts5}}%
                                     </div>
                                 </div>
                             </div>
@@ -45,7 +48,7 @@
                                 <div class="col-sm-12">
                                     <div class="p-box">
                                         <span>4 Star</span>
-                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts4 type="warning" [striped]="true">{{currentRating.Starts4}}</progressbar>
+                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts4 type="warning"></progressbar> {{currentRating.Starts4}}%
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +56,7 @@
                                 <div class="col-sm-12">
                                     <div class="p-box">
                                         <span>3 Star</span>
-                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts3 type="warning" [striped]="true">{{currentRating.Starts3}}</progressbar>
+                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts3 type="warning"></progressbar> {{currentRating.Starts3}}%
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +64,7 @@
                                 <div class="col-sm-12">
                                     <div class="p-box">
                                         <span>2 Star</span>
-                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts2 type="warning" [striped]="true">{{currentRating.Starts2}}</progressbar>
+                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts2 type="warning"></progressbar> {{currentRating.Starts2}}%
                                     </div>
                                 </div>
                             </div>
@@ -69,70 +72,60 @@
                                 <div class="col-sm-12">
                                     <div class="p-box">
                                         <span>1 Star</span>
-                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts1 type="warning" [striped]="true">{{currentRating.Starts1}}</progressbar>
+                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts1 type="warning"></progressbar> {{currentRating.Starts1}}%
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <hr class="custom-hr" />
                         <div class="box message-box review-box">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h4 class="aria-label padding-right">Performance</h4>
-                                    <rating [ngModel]=currentRating.Performance [max]="max" [readonly]="true"></rating>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h4 class="aria-label padding-right">Communication</h4>
-                                    <rating [ngModel]=currentRating.Communication [max]="max" [readonly]="true"></rating>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h4 class="aria-label padding-right">QOW</h4>
-                                    <rating [ngModel]=currentRating.QOW [max]="max" [readonly]="true"></rating>
-                                </div>
-                            </div>
-                            <button *ngIf="canReview && !reviewAlreadyGiven" type="button" class="btn btn-primary" (click)="openModal(template)">Write a Member Review</button>
+                            <h3 class="normal-title">By category</h3>
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td><h5 class="aria-label padding-right text-initial m-t-b-5">Performance</h5></td>
+                                    <td class="f-22"><rating [ngModel]=currentRating.Performance [max]="max" [readonly]="true"></rating></td>
+                                    <td>4.0</td>
+                                </tr>
+                                <tr>
+                                    <td><h5 class="aria-label padding-right text-initial m-t-b-5">Communication</h5></td>
+                                    <td class="f-22"><rating [ngModel]=currentRating.Communication [max]="max" [readonly]="true"></rating></td>
+                                    <td>3.0</td>
+                                </tr>
+                                <tr>
+                                    <td><h5 class="aria-label padding-right text-initial m-t-b-5">Quality of Work</h5></td>
+                                    <td class="f-22"><rating [ngModel]=currentRating.QOW [max]="max" [readonly]="true"></rating></td>
+                                    <td>5.0</td>
+                                </tr>
+                            </table>
+                            <hr class="custom-hr" />
+                        </div>
+                       
+                        <div *ngIf="canReview && !reviewAlreadyGiven">
+                            <h3 class="normal-title">Review this member</h3>
+                            <h5 class="font-fjalla-one no-margin-top text-initial">Share your thoughts with other members</h5>
+                            <button  type="button" class="btn btn-warning large_yellow_btn m-t-20 d-block w-100" (click)="openModal(template)">write a member review</button>
+                            <hr class="custom-hr" />
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <div class="box message-box ">
+                    <div class="box message-box review-main">
                         <div class="c-review-box" *ngFor="let review of userReviews">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="review-title">
-                                                <rating [ngModel]=review.Rating [max]="max" [readonly]="true"></rating>
-                                                <h2>{{review.ReviewTitle}}</h2>
-                                            </div>
+                                <div class="review-details">
+                                        <img src="{{review.ProfilePicPath}}" class="review-img">
+                                        <a class="reviewtitle" href="javascript:void(0)" (click)=openotherprofile(review)>{{review.DisplayName}}</a>
+                                        
+                                        <div>
+                                            <rating class="f-22" [ngModel]=review.Rating [max]="max" [readonly]="true"></rating>
+                                            <span class="p-l-20 f-16 text-initial">{{review.ReviewTitle}}</span>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="review-date">{{review.CreatedOn}}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="review-details">
-                                        <img src="{{review.ProfilePicPath}}" width="85%" class="reviewsmallpic"><br>
-                                        <a class="reviewname" (click)=openotherprofile(review)>{{review.DisplayName}}</a>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="review-content">
-
-                                        <p>{{review.ReviewContent}}</p>
-                                        <div class="review-comments">
-                                            <button class="btn btn-primary btn-xs" (click)="sayhelpful(review)"><i class="fa fa-thumbs-up" aria-hidden="true"></i> <span *ngIf = "review.helpful" style="margin-left: 5px;"> ({{ review.helpful }})</span></button>
-
-                                        </div>
+                                        
+                                        <div class="review-date">{{review.CreatedOn}}</div>
+                                        <p class="font-fjalla-one review-des text-initial">{{review.ReviewContent}}</p>
+                                        <button class="btn btn-primary btn-xs" (click)="sayhelpful(review)"><i class="fa fa-thumbs-up" aria-hidden="true"></i> <span *ngIf = "review.helpful" style="margin-left: 5px;"> ({{ review.helpful }})</span></button>
                                     </div>
 
-                                </div>
-                            </div>
+                            
                         </div>
 
 
