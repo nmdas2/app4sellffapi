@@ -14,14 +14,14 @@
                 </div>
                 <!-- Sidebar toggle button-->
             </div>
-            <div class="col-md-7">
+            <div class="col-md-8" *ngIf="isLogin || isSummaryPage">
 
-                <nav class="navbar navbar-static-top" *ngIf="isLogin || isSummaryPage">
+                <nav class="navbar navbar-static-top" >
 
-                    <div class="navbar-custom-menu pull-left navmobile">
+                    <div class="navbar-custom-menu pull-left navmobile no-margin">
                         <form [formGroup]=searchForm class="pull-left" (ngSubmit)="onSubmit()">
                             <div class="input-group">
-                                <input type="text" formControlName="searchprofiles" class="form-control control1" placeholder="Search..." [ngClass]="{ 'is-invalid': submitted && f.searchprofiles.errors }">
+                                <input type="text" formControlName="searchprofiles" class="form-control control1" placeholder="explore sellff..." [ngClass]="{ 'is-invalid': submitted && f.searchprofiles.errors }">
                                 <div *ngIf="submitted && f.searchprofiles.errors" class="invalid-feedback">
                                     <div *ngIf="f.searchprofiles.errors.required">Search text is required</div>
                                 </div>
@@ -36,19 +36,22 @@
 
                 </nav>
             </div>
-            <div class="col-md-3">
-                <ul class="login-links" *ngIf="!hasActiveSession">
-                    <li><a href="javascript:void(0);" (click)="navigateTo('/login')">Sign In</a></li>
-                    <li><a href="javascript:void(0);" (click)="navigateTo('/register')">Register</a></li>
-                </ul>
-                <div class="navbar-custom-menu" *ngIf="hasActiveSession">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown user user-menu">
+            <div class="col-md-3 pull-right-header" *ngIf="!hasActiveSession">
+                    <ul class="login-links" >
+                            <li><a href="javascript:void(0);" class="login_btn" (click)="navigateTo('/login')">login</a></li>
+                            <li><a href="javascript:void(0);" (click)="navigateTo('/register')">sign up</a></li>
+                        </ul>
+            </div>
+            <div class="col-md-2" *ngIf="hasActiveSession">
+                
+                <div class="navbar-custom-menu float_none" >
+                    <ul class="nav navbar-nav float_none">
+                        <li class="dropdown user user-menu float_none">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
                                 <!-- <img src='{{loggedInUserInfo.ProfilePicPath}}' class="user-image" alt="User Image"> -->
-                                <span class="hidden-xs">{{loggedInUserInfo.DisplayName}} <span *ngIf="unReadMsgsCount >0">[{{unReadMsgsCount}}]</span>
+                                <span class="hidden-xs">{{loggedInUserInfo.DisplayName}} 
                                 <!-- <span>{{loggedInUserInfo.Occupation}}</span> -->
-                                <span class="notification">[<span>2</span>]</span>
+                                <span class="notification">[<span *ngIf="unReadMsgsCount >0">[{{unReadMsgsCount}}]</span>]</span>
                                 </span>
                             </a>
                             <ul class="dropdown-menu">

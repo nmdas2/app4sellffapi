@@ -9,7 +9,6 @@ import { CommonService } from 'src/app/_services/common.service';
 import { Subscription } from 'rxjs';
 import { UserServiceTypes } from 'src/app/_models/userservicetypes';
 import { strictEqual } from 'assert';
-
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',

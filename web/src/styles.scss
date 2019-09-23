@@ -38,7 +38,7 @@ p {
 .login-links {
     float: right;
     display: flex;
-    padding: 12px 0px;
+    padding: 18px 0px 15px;
     margin: 0px;
     margin-right: 15px;
     list-style-type: none;
@@ -62,8 +62,9 @@ p {
     border: 1px solid #c7c7c7;
     padding-bottom: 2px;
     background-color: #f2f2f2;
-    padding: 4px 15px;
-    font-size: 16px;
+    padding: 4px 25px;
+    font-size: 24px;
+    font-family: "Lato", sans-serif !important;
 }
 
 .login-links li a:hover {
@@ -81,7 +82,9 @@ p {
 .login-btn .btn {
     padding: 8px 25px;
     width: 100%;
-    font-size: 20px;
+    font-size: 24px;
+    font-family: "Lato", sans-serif !important;
+    border-radius: 0;
 }
 
 .login-links li a i.fa-user-plus {
@@ -93,7 +96,11 @@ p {
     background-color: #FFF;
     color: #0070c0;
 }
-
+.login-links li a.login_btn {
+    color: #FFF;
+    background: #0070c0;
+    margin-right: 10px;
+}
 .navbar-custom-menu .navbar-nav>.user-menu .user-image {
     float: left;
     width: 35px;
@@ -129,9 +136,10 @@ p {
     margin: 0;
     color: #FFF;
     background-color: transparent;
-    font-size: 16px;
+    font-size: 18px;
     letter-spacing: 0.03em;
-    font-weight: 600;
+    font-weight: normal;
+    font-family: "Lato", sans-serif !important;
 }
 
 .navbar-custom-menu .navbar-nav>li>a:hover,
@@ -142,7 +150,7 @@ p {
 }
 
 .navbar-custom-menu {
-    padding-top: 4px;
+    padding-top: 11px;
     margin-right: 20px;
 }
 
@@ -193,9 +201,9 @@ p {
 
 .home-screen h1 {
     margin-top: 0px;
-    font-size: 47px;
+    font-size: 54px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     letter-spacing: 0.03em;
     font-weight: 900;
     color: #000;
@@ -203,17 +211,17 @@ p {
 
 .home-screen p {
     text-align: center;
-    font-size: 20px;
+    font-size: 23.5px;
     margin-bottom: 20px;
     letter-spacing: 0.03em;
 }
 
 .companyCaption {
-    padding: 84px 0px;
+    padding: 84px 0 120px;
 }
 
 .companydetails {
-    padding: 30px 50px 50px;
+    padding: 50px 0 50px;
     background-color: #0070c0;
 }
 
@@ -222,7 +230,7 @@ p {
 }
 
 .buy h2 {
-    font-size: 34px;
+    font-size: 44px;
     font-weight: 600;
     letter-spacing: 1px;
     text-shadow: none;
@@ -233,35 +241,35 @@ p {
 
 .buy p {
     text-align: left;
-    font-size: 20px;
+    font-size: 26px;
     margin-bottom: 20px;
-    margin-left: 27px;
-    font-weight: 300;
-    letter-spacing: 0.03em;
+    margin-left: 32px;
+    font-weight: bold;
+    letter-spacing: 0;
     line-height: 25px;
 }
 
 .buy p i {
-    font-size: 17px;
+    font-size: 23px;
     margin-left: -34px;
-    margin-right: 12px;
+    margin-right: 20px;
     vertical-align: middle;
     text-align: center;
     width: 36px;
     -webkit-box-align: center;
     align-items: center;
     background-color: #FFF;
-    padding: 6px 8px;
+    padding: 6px 0;
     color: #0070c0;
 }
 
 .buy-img img {
-    width: 45%;
     margin: 0 auto;
+    max-width: 60%;
 }
 
 .buy {
-    padding-top: 90px;
+    padding-top: 50px;
 }
 
 .home-search {
@@ -276,13 +284,16 @@ p {
 
 .home-search .input-group-btn button {
     height: 45px;
+    font-size: 24px;
+    font-family: "Lato", sans-serif !important;
+    padding: 4px 25px;
 }
 
 // Home Screen CSS Ending Here
 // Login and Regester Screen CSS Starting Here
 .login-screen {
     max-width: 450px;
-    margin: 30px auto;
+    margin: 84px auto 30px;
     // width: 450px;
     // position: absolute;
     // top: 50%;
@@ -292,7 +303,7 @@ p {
 
 .login-screen .auth-header {
     text-align: center;
-    font-size: 130px;
+    font-size: 75px;
     font-weight: 900;
     color: #000;
     padding: 0;
@@ -301,7 +312,7 @@ p {
 }
 
 .login-screen form {
-    padding: 20px 73px;
+    padding: 20px;
     padding-bottom: 60px;
 }
 
@@ -327,7 +338,7 @@ p {
 .login-screen input {
     height: 45px;
     padding: 0px 10px;
-    font-size: 16px;
+    font-size: 20px;
     color: #000;
     letter-spacing: 1px;
 }
@@ -485,12 +496,11 @@ p {
 }
 
 .box h4 {
-    color: #222222;
-    font-size: 17px;
+    color: #7f7f7f;
+    font-size: 20px;
     font-weight: 600;
     letter-spacing: 0.3px;
-    margin: 0;
-    margin-bottom: 20px;
+    margin: 25px 0 20px 0;
     position: relative;
     padding-bottom: 5px;
 }
@@ -689,17 +699,15 @@ p {
 
 //Messege Box CSS
 .msg-box {
-    border-bottom: 1px solid #ededed;
+    border: 1px solid #d0d0d0;
     color: #333333;
     font-weight: normal;
     letter-spacing: 0.3px;
-    padding: 16px 15px;
+    padding: 10px;
     width: 100%;
     -webkit-transition: all 0.4s ease 0s;
-    -moz-transition: all 0.4s ease 0s;
-    -ms-transition: all 0.4s ease 0s;
-    -o-transition: all 0.4s ease 0s;
     transition: all 0.4s ease 0s;
+    margin-bottom: 10px;
 }
 
 .msg-box:hover {
@@ -876,7 +884,7 @@ table tbody tr td.lalign {
 .file-upload-wrapper {
     position: relative;
     width: 100%;
-    height: 60px;
+    height: 33px;
 }
 
 .file-upload-wrapper:after {
@@ -1205,7 +1213,7 @@ span.bs-rating-star.active {
     padding-top: 120px;
 }
 .profile-change {
-    height: 125px;
+    height: 140px;
     width: 140px;
     min-height: 125px;
     position: relative;
@@ -1245,7 +1253,7 @@ span.bs-rating-star.active {
 }
 .profile-img h3 {
     color: #000;
-    font-size: 22px;
+    font-size: 28px;
     text-transform: capitalize !important;
     margin: 10px 0px;
     margin-bottom: 0px;
@@ -1268,9 +1276,9 @@ span.bs-rating-star.active {
 }
 
 .socail-links {
-    border-bottom: 1px solid #d0d0d0;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
+    border-bottom: 2px solid #d0d0d0;
+    margin-bottom: 45px;
+    padding-bottom: 10px;
     display: block;
     width: 100%;
     text-align: right;
@@ -1288,10 +1296,11 @@ span.bs-rating-star.active {
 }
 .socail-links a i{
     border-radius: 100%;
-    padding: 5px;
+    padding: 0;
     color: #FFF;
-    width: 26px;
-    height: 26px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
 }
 .socail-links a.twitter i{ 
     background: rgba(9,201,254,1);
@@ -1376,21 +1385,25 @@ span.bs-rating-star.active {
     /*height: 344px;
     min-height: 344px;
     overflow-y: auto; */
-    border: 1px dotted #8c8c8c;
+    border: 1px dotted #000;
     border-radius: 15px;
     background-color: #FFF;
 }
 
 li.dropdown.user.user-menu {
     position: relative;
-    display: -webkit-box;
-    display: flex;
+    display: block;
+    float: none;
+    width: 100%;
+    text-align: center;
+}
+li.dropdown.user.user-menu > a {
+   
     background-color: #dbeef3;
     border: 1px solid #c3c3c3;
-    height: 34px;
-    padding: 6px 12px;
+    height: 47px;
+    padding: 13px 12px;
 }
-
 li.dropdown.user.user-menu span {
     padding-top: 0;
     display: inline-block;
@@ -1525,7 +1538,17 @@ li.dropdown.user.user-menu span .notification span{
 @media only screen and (max-width: 340px) {}
 
 @media only screen and (max-width: 320px) {}
-
+@media only screen and (min-width: 768px) {
+    .p-r-d-40 {
+        padding-right: 40px;
+    }
+    .p-l-d-40 {
+        padding-left: 40px;
+    }
+    .b-d-left {
+        border-left:1px dotted #d0d0d0
+    }
+}
 .content-wrapper,
 .main-footer {
     margin-left: 0 !important;
@@ -1540,10 +1563,180 @@ li.dropdown.user.user-menu span .notification span{
     border: 1px solid #d7d6d6;
     padding: 5px;
     width: 100%;
-    font-size: 16px;
+    font-size: 20px;
     border-radius: 0;
 }
 
 .box {
     padding: 0 !important;
+}
+.font-fjalla-one {
+    font-family: 'Fjalla One', sans-serif !important;
+}
+.f-22 {
+    font-size: 22px;
+}
+.home-from-data {
+    margin-top: 30px;
+}
+.footer_container {
+    max-width: 1350px;
+    margin: auto;
+}
+.footer_terms_condition {
+    text-align: right;
+}
+.copy_right {
+    padding-top: 20px;
+}
+.footer_terms_condition {
+    text-align: right;
+    font-size: 16px;
+}
+.footer_terms_condition a {
+    color: #000;
+    text-transform: capitalize;
+}
+.copy_right_text {
+    color: #000;
+}
+.footer_terms_condition span {
+    padding: 0 8px;
+}
+.login-screen .invalid-feedback {
+    margin-bottom: 10px;
+}
+.no-margin {
+    margin: 0;
+}
+.float_none {
+    float: none !important;
+}
+.edit-text-box p {
+    font-size: 18px;
+    line-height: 1.5;
+    text-transform: initial;
+}
+.pull-right-header {
+    float:right;
+}
+.accordian_menu {
+    color: #7f7f7f;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    margin: 25px 40px 10px 0;
+    position: relative;
+    padding-bottom: 5px;
+    display: block;
+}
+.accordian_menu:hover {
+    color: #7f7f7f;
+}
+.accordian_menu:before {
+    content: "";
+    height: 1px;
+    width: 100%;
+    background: #d0d0d0;
+    display: block;
+    position: absolute;
+    top: 14px;
+}
+.accordian_title {
+    background: #fff;
+    padding: 0 20px 0 0;
+    position: relative;
+    z-index: 1;
+}
+.accordian_menu:after {
+    font: normal normal normal 30px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\f106";
+    position: absolute;
+    right: -30px;
+    font-size: 25px;
+    color: #0070c0;
+}
+.accordian_menu[aria-expanded="false"]:after {
+    content: "\f107";
+}
+.services_main {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.service-offered {
+    margin-bottom: 10px;
+    -webkit-box-flex: 0;
+    flex: 0 0 calc(20% - 10px);
+    max-width: calc(20% - 10px);
+    margin-right: 10px;
+    background: #fff;
+    border-radius: 0 !important;
+    border: 1px dotted #9b9b9b;
+    font-size: 20px;
+}
+.p-r-50 {
+    padding-right: 50px;
+}
+.e-p-img {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.normal-title {
+    text-transform: initial;
+    margin-top: 0;
+    color:#000;
+}
+.e-p-main {
+    padding-bottom: 10px;
+}
+.p-10 {
+    padding: 10px;
+}
+.img-max-100 {
+    max-width: 100%;
+    width: 100%;
+}
+.modal-backdrop.in {
+    filter: alpha(opacity=30);
+    opacity: .3;
+}
+.btn-custom {
+    padding: 5px 25px;
+    font-size: 16px;
+}
+.h-250 {
+    height: 250px !important;
+}
+.form-control {   
+    font-size: 17px;
+}
+.add-p-w {
+    padding: 20px;
+    border: 1px dotted #9b9b9b;
+    min-height: 170px;
+    margin: 20px 0;
+    text-align: center;
+    font-size: 17px;
+    padding-top: 50px;
+}
+.message-m-b {
+    border: 1px dotted #d0d0d0;
+    padding: 15px;
+    border-radius: 20px;
+    min-height: 500px;
+    margin-bottom: 20px;
+}
+.large_yellow_btn {
+    font-size: 20px;
+    background: #ffc107;
+    color: #780000;
+    padding: 10px 50px;
 }

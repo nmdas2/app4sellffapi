@@ -52,13 +52,14 @@
     border-bottom: none;
     display: inline-block;
     width: 100%;
-    padding: 0px;
+    padding: 7px 0 0;
 }
 .skin-blue .main-header .logo a{
     padding-left: 15px;
     color: #000;
-    font-size: 32px;
+    font-size: 44px;
     vertical-align: middle;
+    font-weight: bold;
 }
 .skin-blue .main-header li.user-header {
     background-color: #3c8dbc

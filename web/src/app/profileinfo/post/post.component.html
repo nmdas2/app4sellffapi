@@ -2,49 +2,46 @@
     <div class="content-wrapper">
         <section class="content">
             <ng-template #templateForPostGallary>
-                <div class="modal-header">
-                    <h4 class="modal-title pull-left">Create Post</h4>
-                    <button type="button" class="close pull-right" aria-label="Close" (click)="resetPostGalleryForm()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
                     <form [formGroup]="postGalleryForm" (ngSubmit)="saveGalleryPost(postGalleryForm.value)">
+                <div class="modal-body">
+                   
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Select Photo</label>
-                                <div class="form-group file-upload-wrapper justify-content-center" data-text="Select your file!">
-                                    <input type="file" name="image" (change)="attachToFormControl($event)" value="" />
+                                <div class="add-p-w">
+                                    
+                                    <div class="form-group file-upload-wrapper justify-content-center" data-text="Select your file!">
+                                        <input type="file" name="image" (change)="attachToFormControl($event)" value="" />
+                                    </div>
+                                    <label>Select Photo</label>
                                 </div>
                             </div>
-                            <div class="col-md-1">
-                                <b>or</b>
-                            </div>                            
-                            <div class="col-md-5">
-                                <label>Add a photo url from web</label>
+                                                     
+                            <div class="col-md-6">
+                                    <div class="add-p-w">
+                                
                                 <div class="form-group justify-content-center">
                                     <input type="text" class="form-control" formControlName="webUrl" placeholder="https://www.google.com/images/branding/googleimage.png" />
                                 </div>
+                                <label>Add a photo url from web</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <button class="btn btn-primary" type="submit" [disabled]="postGalleryForm.invalid">Submit Post</button> |
-                                <button class="btn btn-danger" type="button" (click)="resetPostGalleryForm()">Close</button>
-                            </div>
-                        </div>
-                    </form>
+                        
+                   
                 </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-custom pull-left" aria-label="Close" (click)="resetPostGalleryForm()">
+                                Close
+                         </button>
+                         <button class="btn btn-custom btn-primary pull-right" type="submit" [disabled]="postGalleryForm.invalid">Submit Post</button>
+                </div>
+            </form>
             </ng-template>
             <ng-template #template>
-                <div class="modal-header">
-                    <h4 class="modal-title pull-left">Create Post</h4>
-                    <button type="button" class="close pull-right" aria-label="Close" (click)="resetPostTextForm()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                
+                <form [formGroup]="postTextForm" (ngSubmit)="savePost(postTextForm.value)">
                 <div class="modal-body">
-                    <form [formGroup]="postTextForm" (ngSubmit)="savePost(postTextForm.value)">
+                   
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group row justify-content-center">
@@ -57,22 +54,26 @@
                             <div class="col-md-12">
                                 <div class="form-group row justify-content-center">
                                     <div class="col-md-12">
-                                        <textarea class="form-control" formControlName="text" placeholder="Place text here" rows="4" cols="50"></textarea>
+                                        <textarea class="form-control h-250" formControlName="text" placeholder="Place text here" rows="4" cols="50"></textarea>
                                         <span *ngIf="postTextForm.controls['text'].touched && postTextForm.controls['text'].invalid" class="form-error">Text
                                             required</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <button class="btn btn-primary" type="submit" [disabled]="postTextForm.invalid">Submit Post</button> |
-                                <button class="btn btn-danger" type="button" (click)="resetPostTextForm()">Close</button>
-                            </div>
-                        </div>
-                    </form>
+                       
+                    
                 </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-custom pull-left" aria-label="Close" (click)="resetPostTextForm()">
+                                Close
+                         </button>
+                         <button class="btn btn-custom btn-primary" type="submit" [disabled]="postTextForm.invalid">Submit Post</button> 
+                         
+                </div>
+            </form>
             </ng-template>
+            <div class="p-10">
             <div class="box">
                 <div *ngIf="isAboutInEditMode" class="post-btns">
                     <ul>
@@ -85,13 +86,13 @@
                     <div *ngFor="let posts of PostsByGroups">
                         <div class="row">
                             <div class="col-md-12">
-                                <h4>{{posts.MonthYear}}</h4>
+                                <h3 class="normal-title">{{posts.MonthYear}}</h3>
                             </div>
                         </div>
                         <div class="maring-bottom-30">
-                            <div class="post-list-view row">
-                                <div class="col-md-2" *ngFor="let post of posts.objPostsList">
-                                    <div class="post-img-box">
+                            <div class="post-list-view e-p-main">
+                                <div class="e-p-img" *ngFor="let post of posts.objPostsList">
+                                   
                                         <div *ngIf="post.ContentType==1">
                                             <a href="javascript:void(0)" (click)="getUserContent(post.UserContent, post.Title, contentTemplate)"><img src="../../../assets/selfprflimages/doc_icon.png"></a>
                                         </div>
@@ -107,46 +108,55 @@
                                                 </a>
                                             </ng-template>                                            
                                         </div>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            </div>
+
             <ng-template #ImagesTemplate>
-                <div class="modal-header">
-                    <button type="button" class="close pull-right" aria-label="Close" (click)="contentModalRef.hide()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                
                 <div class="modal-body">
-                    <img src="{{selectedModelImgPath}}" width="100%" />
+                    <img class="img-max-100" src="{{selectedModelImgPath}}" />
+                </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-custom pull-left" aria-label="Close" (click)="contentModalRef.hide()">
+                               Close
+                        </button>
                 </div>
             </ng-template>
             <div class="modal fade" id="1" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">×</span></button>
+                      
                         <div class="modal-body">
-                            <img src="{{selectedModelImgPath}}" />
+                            <img class="img-max-100" src="{{selectedModelImgPath}}" />
                         </div>
-
+                        <div class="modal-footer">
+                                <button type="button" class="btn btn-custom pull-left" aria-label="Close" data-dismiss="modal">
+                                       Close
+                                </button>
+                        </div>
                     </div>
                 </div>
             </div>
             <ng-template #contentTemplate>
                 <div class="modal-header">
                     <h4 class="modal-title pull-left">{{userTitle}}</h4>
-                    <button type="button" class="close pull-right" aria-label="Close" (click)="contentModalRef.hide()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                   
                 </div>
                 <div class="modal-body">
                     <div>
                         <p>{{userContent}}</p>
                     </div>
+                </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-custom pull-left" aria-label="Close" (click)="contentModalRef.hide()">
+                               Close
+                        </button>
                 </div>
             </ng-template>
         </section>

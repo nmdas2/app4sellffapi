@@ -112,7 +112,7 @@ export class PostComponent implements OnInit {
   modalRefForGallery: BsModalRef;
   popupPostGalleryModel(template) {
     this.modalRefForGallery = this.modalService.show(template,
-      Object.assign({}, this.config, { class: 'gray modal-small' })
+      Object.assign({}, this.config, { class: 'gray modal-lg' })
     );
   }
   resetPostGalleryForm(){

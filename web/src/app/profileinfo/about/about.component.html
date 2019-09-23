@@ -3,7 +3,7 @@
     <div class="content-wrapper">
         <section class="content">
 
-
+               
             <div class="row">
                 <div class="col-md-12">
                     <div class="box">
@@ -26,14 +26,22 @@
 
                             </ng-template>
                             <!-- /.box-header -->
-                            <h4>Services Offered</h4>
-                            <span></span>
-                            <div class="col-md-3 service-offered" *ngFor="let service of serviceOffered">
-                                <button type="button" class="btn">{{service.ServiceName}}</button>
-                            </div>
-                            <div class="col-md-3 service-offered" *ngIf="serviceOffered.length == 0">
-                                <p>No Services offered</p>
-                            </div>
+                                <a class="accordian_menu" role="button" data-toggle="collapse" href="#services_offered" aria-expanded="true" aria-controls="Services Offered">
+                                       <span class="accordian_title">Services Offered</span> 
+                                </a>
+                                  <div class="collapse in" id="services_offered">
+                                      <div class="services_main p-r-50">
+                                           
+                                                <button *ngFor="let service of serviceOffered" type="button" class="btn service-offered">{{service.ServiceName}}</button>
+                                           
+                                            <div class="" *ngIf="serviceOffered.length == 0">
+                                                <p>No Services offered</p>
+                                            </div>
+                                        </div>
+                                  </div>
+                           
+                            
+                           
                             <!-- <div class="col-md-3 service-offered">
                                 <button type="button" class="btn btn-block btn-default btn-sm">Data Center Architecture</button>
                             </div>
@@ -61,14 +69,22 @@
                         <section class="upload-img-section">
                             <div class="">
                                 <div class="col-md-12">
-                                    <h4>Gallery</h4>
-                                    <a *ngFor="let item of imgGallery" (click)="checkevent(item.imgUrl, template, item.galType,item.altUrl)" id="link1" href="javascript:void(0)">
-                                        <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
-                                            <div class="box">
-                                                <img [src]="item.imgUrl" id="img1" class="img-responsive" width="20%" height="20%">
-                                            </div>
-                                        </div>
-                                    </a>
+                                        <a class="accordian_menu" role="button" data-toggle="collapse" href="#gallery_main" aria-expanded="true" aria-controls="Gallery">
+                                                <span class="accordian_title">Gallery</span> 
+                                         </a>
+                                           <div class="collapse in" id="gallery_main">
+                                               <div>
+                                                    <a *ngFor="let item of imgGallery" (click)="checkevent(item.imgUrl, template, item.galType,item.altUrl)" id="link1" href="javascript:void(0)">
+                                                            <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
+                                                                <div class="box">
+                                                                    <img [src]="item.imgUrl" id="img1" class="img-responsive" width="20%" height="20%">
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                 </div>
+                                           </div>
+                                  
+                                   
                                     <ng-template #template>
                                         <div class="modal-header" style="padding: 0;">
                                             <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">

@@ -93,8 +93,8 @@ font-weight: bold;
 
 .gal-item {
 	overflow: hidden;
-	padding: 6px;
-	width: 10%;
+    padding: 0 15px 15px 0;
+    width: auto;
 }
 
 .gal-item .box {
