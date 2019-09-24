@@ -30,7 +30,7 @@ export class AboutComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private modalService: BsModalService,
     private commonService: CommonService
-  ) {  }
+  ) { }
   ngOnInit() {
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
       this.isEditbale = true;
@@ -40,20 +40,19 @@ export class AboutComponent implements OnInit, OnDestroy {
     })
     this.userAboutInfoList = [];
     if (localStorage.getItem('currentUser') != null) {
-      this.dataDisplayProfile =  this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));  
+      this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
     }
     if (localStorage.getItem('profileviewUser') != null) {
       this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
       this.isAboutInEditMode = false;
       this.updateProfileViewsCount();
     }
-    if(this.dataDisplayProfile)
+    if (this.dataDisplayProfile)
       this.getServiceOffered();
     this.textValue = this.dataDisplayProfile.ProfileSummary;
     this.getUserAboutText();
   }
-  updateProfileViewsCount()
-  {
+  updateProfileViewsCount() {
     this.profileInfoService.UpdateUserViewsCount(this.dataDisplayProfile)
       .subscribe(res => {
       }, error => {
@@ -63,15 +62,15 @@ export class AboutComponent implements OnInit, OnDestroy {
   logText(): void {
     this.isAboutInEditMode = true;
   }
-  getServiceOffered(){
+  getServiceOffered() {
     this.serviceOffered = [];
     this.profileInfoService.getUserServiceTypesByUserIdServiceId(this.dataDisplayProfile.UserId, 1)
-    .subscribe(res => {
-      if(res && res.length > 0)
-        this.serviceOffered = res;
-    }, error => {
+      .subscribe(res => {
+        if (res && res.length > 0)
+          this.serviceOffered = res;
+      }, error => {
 
-    })
+      })
   }
   saveupdatedabout(): void {
     console.log(this.dataDisplayProfile.UserId);
@@ -138,8 +137,8 @@ export class AboutComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSubmit() {    
-    
+  onSubmit() {
+
     this.fileUploadProgress = '0%';
     this.profileInfoService.saveImageGallery(this.fileData)
       .subscribe(events => {
@@ -147,13 +146,17 @@ export class AboutComponent implements OnInit, OnDestroy {
         this.fileUploadProgress = "";
         this.previewUrl = "";
         this.saveimagedocdetails(this.svrfilepath);
-      }, error =>{
+      }, error => {
         this.fileUploadProgress = "";
         this.previewUrl = "";
-      })    
+      })
     this.AllowImageUpload = false;
   }
-
+  onUploadCancel() {
+    this.fileUploadProgress = "";
+    this.previewUrl = "";
+    this.AllowImageUpload = false;
+  }
   saveimagedocdetails(flname: string): void {
     let userAboutInfoBO = <userAboutInfo>{};
     userAboutInfoBO.About = this.textValue;
@@ -184,12 +187,12 @@ export class AboutComponent implements OnInit, OnDestroy {
 
   ShowGalUpPop(): void {
     this.AllowImageUpload = true;
-  }  
+  }
 
-  onCancel(){
+  onCancel() {
     this.isAboutInEditMode = false;
   }
-  
+
   ngOnDestroy() {
     if (this.profileSubscription)
       this.profileSubscription.unsubscribe();

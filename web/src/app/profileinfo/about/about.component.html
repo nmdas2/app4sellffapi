@@ -3,20 +3,21 @@
     <div class="content-wrapper">
         <section class="content">
 
-               
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="box">
                         <div class="box-header with-border p-lr-0-d">
                             <div class="edit-text-box">
-                                <div *ngIf="!isAboutInEditMode; else elseBlock" >
-                                <p class="edit-btn" style="text-justify: distribute-all-lines;">
-                                    {{textValue}}
-                                    
-                                </p>
-                                <div class="text-right">
-                                <button class="btn btn-primary" *ngIf="isEditbale" (click)="logText()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
-                                </div>
+                                <div *ngIf="!isAboutInEditMode; else elseBlock">
+                                    <p class="edit-btn" style="text-justify: distribute-all-lines;">
+                                        {{textValue}}
+
+                                    </p>
+                                    <div class="text-right">
+                                        <button class="btn btn-primary" *ngIf="isEditbale" (click)="logText()"><i
+                                                class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
+                                    </div>
                                 </div>
                             </div>
                             <ng-template #elseBlock>
@@ -31,22 +32,24 @@
 
                             </ng-template>
                             <!-- /.box-header -->
-                                <a class="accordian_menu" role="button" data-toggle="collapse" href="#services_offered" aria-expanded="true" aria-controls="Services Offered">
-                                       <span class="accordian_title">Services Offered</span> 
-                                </a>
-                                  <div class="collapse in" id="services_offered">
-                                      <div class="services_main p-r-d-50">
-                                           
-                                                <button *ngFor="let service of serviceOffered" type="button" class="btn service-offered">{{service.ServiceName}}</button>
-                                           
-                                            <div class="" *ngIf="serviceOffered.length == 0">
-                                                <p>No Services offered</p>
-                                            </div>
-                                        </div>
-                                  </div>
-                           
-                            
-                           
+                            <a class="accordian_menu" role="button" data-toggle="collapse" href="#services_offered"
+                                aria-expanded="true" aria-controls="Services Offered">
+                                <span class="accordian_title">Services Offered</span>
+                            </a>
+                            <div class="collapse in" id="services_offered">
+                                <div class="services_main p-r-d-50">
+
+                                    <button *ngFor="let service of serviceOffered" type="button"
+                                        class="btn service-offered">{{service.ServiceName}}</button>
+
+                                    <div class="" *ngIf="serviceOffered.length == 0">
+                                        <p>No Services offered</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
                             <!-- <div class="col-md-3 service-offered">
                                 <button type="button" class="btn btn-block btn-default btn-sm">Data Center Architecture</button>
                             </div>
@@ -74,22 +77,27 @@
                         <section class="upload-img-section">
                             <div class="">
                                 <div class="box-header with-border p-lr-0-d">
-                                        <a class="accordian_menu" role="button" data-toggle="collapse" href="#gallery_main" aria-expanded="true" aria-controls="Gallery">
-                                                <span class="accordian_title">Gallery</span> 
-                                         </a>
-                                           <div class="collapse in" id="gallery_main">
-                                               <div class="e-p-main">
-                                                    <a *ngFor="let item of imgGallery" (click)="checkevent(item.imgUrl, template, item.galType,item.altUrl)" id="link1" href="javascript:void(0)">
-                                                            <div class="e-p-img">
-                                                                <div class="box">
-                                                                    <img [src]="item.imgUrl" id="img1" >
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                 </div>
-                                           </div>
-                                  
-                                   
+                                    <a class="accordian_menu" role="button" data-toggle="collapse" href="#gallery_main"
+                                        aria-expanded="true" aria-controls="Gallery">
+                                        <span class="accordian_title">Gallery</span>
+                                    </a>
+                                    <div class="collapse in" id="gallery_main">
+                                        <div class="e-p-main">
+                                            <a *ngFor="let item of imgGallery" id="link1" href="javascript:void(0)">
+                                                <div class="e-p-img">
+                                                    <div class="box">
+                                                        <img [src]="item.imgUrl" id="img1"
+                                                            (click)="checkevent(item.imgUrl, template, item.galType,item.altUrl)">
+                                                    </div>
+                                                </div>
+                                                <!-- <span class="trash_post" title="Delete Post"
+                                                (click)="deleteGalleryItem(post)"><i class="fa fa-trash"></i></span> -->
+                                            </a>
+                                            
+                                        </div>
+                                    </div>
+
+
                                     <ng-template #template>
                                         <div class="modal-header" style="padding: 0;">
                                             <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
@@ -106,8 +114,10 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div *ngIf="!AllowImageUpload; else upldelseBlock" style="text-justify: distribute-all-lines;">
-                                    <button class="btn btn-primary" *ngIf="isEditbale" (click)="ShowGalUpPop()"><span><i class="fa fa-cloud-upload"></i> Upload Image</span></button>
+                                <div *ngIf="!AllowImageUpload; else upldelseBlock"
+                                    style="text-justify: distribute-all-lines;">
+                                    <button class="btn btn-primary" *ngIf="isEditbale" (click)="ShowGalUpPop()"><span><i
+                                                class="fa fa-cloud-upload"></i> Upload Image</span></button>
                                 </div>
                             </div>
 
@@ -125,7 +135,8 @@
                                                     Upload progress: {{ fileUploadProgress }}
                                                 </div>
                                                 <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
-                                                <button class="btn btn-custom ml-3" (click)="AllowImageUpload = false">Cancel</button>
+                                                <button class="btn btn-custom ml-3"
+                                                    (click)="onUploadCancel()">Cancel</button>
                                             </div>
 
                                         </div>
