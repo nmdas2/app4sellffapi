@@ -22,6 +22,11 @@ export class CommonService {
         return this.isSummaryPage.asObservable();
     }
 
+    profilePicTracker = new BehaviorSubject<string>('');
+    get profilePicTracker$(){
+        return this.profilePicTracker.asObservable();
+    }
+
     socialAndHeaderWidgetsTracker = new BehaviorSubject<boolean>(true)
     get socialAndHeaderWidgetsTracker$() {
         return this.socialAndHeaderWidgetsTracker.asObservable();

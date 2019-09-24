@@ -144,7 +144,12 @@ export class AboutComponent implements OnInit, OnDestroy {
     this.profileInfoService.saveImageGallery(this.fileData)
       .subscribe(events => {
         this.svrfilepath = events.toString();
+        this.fileUploadProgress = "";
+        this.previewUrl = "";
         this.saveimagedocdetails(this.svrfilepath);
+      }, error =>{
+        this.fileUploadProgress = "";
+        this.previewUrl = "";
       })    
     this.AllowImageUpload = false;
   }

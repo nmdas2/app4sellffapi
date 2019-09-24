@@ -16,7 +16,7 @@
             </div>
             <div class="col-md-8" *ngIf="isLogin || isSummaryPage">
 
-                <nav class="navbar navbar-static-top" >
+                <nav class="navbar navbar-static-top">
 
                     <div class="navbar-custom-menu pull-left navmobile no-margin">
                         <form [formGroup]=searchForm class="pull-left" (ngSubmit)="onSubmit()">
@@ -37,14 +37,14 @@
                 </nav>
             </div>
             <div class="col-md-3 pull-right-header" *ngIf="!hasActiveSession">
-                    <ul class="login-links" >
-                            <li><a href="javascript:void(0);" class="login_btn" (click)="navigateTo('/login')">login</a></li>
-                            <li><a href="javascript:void(0);" (click)="navigateTo('/register')">sign up</a></li>
-                        </ul>
+                <ul class="login-links">
+                    <li><a href="javascript:void(0);" class="login_btn" (click)="navigateTo('/login')">login</a></li>
+                    <li><a href="javascript:void(0);" (click)="navigateTo('/register')">sign up</a></li>
+                </ul>
             </div>
             <div class="col-md-2" *ngIf="hasActiveSession">
-                
-                <div class="navbar-custom-menu float_none" >
+
+                <div class="navbar-custom-menu float_none">
                     <ul class="nav navbar-nav float_none">
                         <li class="dropdown user user-menu float_none">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
@@ -58,9 +58,12 @@
                                 <li>
                                     <a (click)="taketoActualProfile()"><i class="fa fa-cog" aria-hidden="true"></i> Profile</a>
                                 </li>
-                                <li>
+                                <!-- <li>
+                                    <a (click)="goToEditProfile()"><i class="fa fa-cog" aria-hidden="true"></i> Edit Profile</a>
+                                </li> -->
+                                <!-- <li>
                                     <a (click)="uploadprofilepic(Profilepictemplate)"><i class="fa fa-cog" aria-hidden="true"></i> Change Profile Pic</a>
-                                </li>
+                                </li> -->
                                 <li>
                                     <a routerLink="" (click)=signoutplz()><i class="fa fa-sign-out" aria-hidden="true"></i> Sign out</a>
                                 </li>

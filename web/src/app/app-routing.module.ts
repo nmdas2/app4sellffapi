@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ConfirmuseraccComponent } from './confirmuseracc/confirmuseracc.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 export const routes: Routes = [
@@ -17,6 +18,10 @@ export const routes: Routes = [
   { path: 'profileinfo', loadChildren: './profileinfo//profileinfo.module#ProfileinfoModule' },
   // { path: 'profileinfo', loadChildren: () => import(`./profileinfo/profileinfo.module`).then(m => m.ProfileinfoModule) },
   // otherwise redirect to home  , canActivate: [AuthGuard]
+  {
+    path: 'editprofile',
+    component: EditProfileComponent
+  },
   {
     path: '**',
     component: PageNotFoundComponent

@@ -1,0 +1,41 @@
+.btn-sc {
+    border: none;
+    background-color: #0783fe;
+    color: white;
+    padding: 5px;
+    margin-top: -5px;
+}
+
+.btn-sc:hover {
+    background-color: white;
+    color: #0783fe;
+}
+
+.pb-3 {
+    padding-bottom: 3px;
+}
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    padding-right: 19px;
+}
+
+.btn {
+    border: 1px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 2px 7px;
+    border-radius: none;
+    font-size: 14px;
+    margin-right: 14px;
+}
+
+.upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}

@@ -15,6 +15,7 @@ import { AlertComponent } from './_components/alert/alert.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     LoginComponent,
     RegisterComponent,
     PageNotFoundComponent,
-    ConfirmuseraccComponent
+    ConfirmuseraccComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

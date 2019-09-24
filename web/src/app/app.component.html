@@ -8,7 +8,7 @@
 <div class="content-box">
     <div *ngIf="showheadsection && !isSummaryPage">
         <div class="banner-header">
-            <div class="change-pic">
+            <div class="change-pic" *ngIf="isEditbale">
                 <a (click)="uploadbannerpic(Bannerpictemplate)"> <span>update banner photo</span></a>
             </div>
             <img src="{{bannerpicpath}}" class="user-banner" alt="Banner Image">
@@ -19,11 +19,11 @@
                     <div class="profile-img" *ngIf="dataDisplayProfile">
                         <div class="profile-change">
                             <img src='{{profilePic}}' class="img-responsive">
-                            <a (click)="uploadprofilepic(Profilepictemplate)"> <span>Update profile Photo</span></a>
+                            <a (click)="uploadprofilepic(Profilepictemplate)" *ngIf="isEditbale"> <span>Update profile Photo</span></a>
                         </div>
                         <h3 *ngIf="dataDisplayProfile">{{dataDisplayProfile.DisplayName}}</h3>
                         <!-- <p>@tclarke</p> -->
-                    </div>                    
+                    </div>
                 </div>
                 <div class="col-md-8">
                     <div class="main" id="main">
