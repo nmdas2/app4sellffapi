@@ -70,6 +70,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
         this.showheadsection = true;
         this.hasActiveSession = true;
+        this.GetUnReadMessagesCount(this.loggedInUserInfo.UserId);
       }
       if (!status) {
         if (localStorage.getItem('currentUser')) {
@@ -87,9 +88,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       }
 
-    });
-    if(this.dataDisplayProfile && this.dataDisplayProfile.UserId)
-      this.GetUnReadMessagesCount(this.dataDisplayProfile.UserId);
+    });      
     this.searchForm = this.formBuilder.group({
       searchprofiles: ['', [Validators.required, Validators.maxLength(25), Validators.pattern('^[a-zA-Z \-\']+')]]
     });
