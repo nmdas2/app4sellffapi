@@ -1,0 +1,239 @@
+<div class="row">
+    <div class="col-md-8">
+        <form [formGroup]="profileForm" class="" (ngSubmit)="editProfileDetails(profileForm.value)">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Profile Details
+                    <button type="submit" class="pull-right btn-sc">Save Changes</button>
+                </div>
+                <div class="panel-body form-horizontal">
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="pusername">User Name:</label>
+                        <div class="col-sm-8">
+                            <input type="text" formControlName="userName" class="form-control" id="pusername" placeholder="Enter User Name">
+                            <div *ngIf="profileForm.get('userName').errors" class="invalid-feedback">
+                                <div *ngIf="(submittedPrForm || profileForm.get('userName').dirty || profileForm.get('userName').touched) && profileForm.get('userName').errors.required">
+                                    User Name is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="profileid">Profile Id:</label>
+                        <div class="col-sm-8">
+                            <input type="text" formControlName="profileId" class="form-control" id="profileid" placeholder="Enter Profile Id">
+                            <div *ngIf="profileForm.get('profileId').errors" class="invalid-feedback">
+                                <div *ngIf="(submittedPrForm || profileForm.get('profileId').dirty || profileForm.get('profileId').touched) && profileForm.get('profileId').errors.required">
+                                    Profile Id is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="profession">Profession</label>
+                        <div class="col-sm-8">
+                            <input type="text" formControlName="profession" class="form-control" id="profession" placeholder="Enter Profession">
+                            <div *ngIf="profileForm.get('profession').errors" class="invalid-feedback">
+                                <div *ngIf="(submittedPrForm || profileForm.get('profession').dirty || profileForm.get('profession').touched) && profileForm.get('profession').errors.required">
+                                    Profession is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="pcity">City</label>
+                        <div class="col-sm-8">
+                            <input type="text" formControlName="city" class="form-control" id="pcity" placeholder="Enter City">
+                            <div *ngIf="profileForm.get('city').errors" class="invalid-feedback">
+                                <div *ngIf="(submittedPrForm || profileForm.get('city').dirty || profileForm.get('city').touched) && profileForm.get('city').errors.required">
+                                    City is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="pjoinedon">Joined On</label>
+                        <div class="col-sm-8">
+                            <input type="date" formControlName="joinedOn" class="form-control" id="pjoinedon" placeholder="Joined On">
+                            <div *ngIf="profileForm.get('joinedOn').errors" class="invalid-feedback">
+                                <div *ngIf="(submittedPrForm || profileForm.get('joinedOn').dirty || profileForm.get('joinedOn').touched) && profileForm.get('joinedOn').errors.required">
+                                    Joined Date is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group pb-3">
+                        <label class="control-label col-sm-4" for="pserviceoffered">Service Offered</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="pserviceoffered" formControlName="servicesOffered" placeholder="Service Offered"></textarea>
+                            <div *ngIf="profileForm.get('servicesOffered').errors" class="invalid-feedback">
+                                <div *ngIf="(submittedPrForm || profileForm.get('servicesOffered').dirty || profileForm.get('servicesOffered').touched) && profileForm.get('servicesOffered').errors.required">
+                                    Services Offered is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group pb-3">
+                        <label class="control-label col-sm-4" for="pserviceinterest">Service Interested</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="pserviceinterest" formControlName="servicesInterested" placeholder="Service Interested"></textarea>
+                            <div *ngIf="profileForm.get('servicesInterested').errors" class="invalid-feedback">
+                                <div *ngIf="(submittedPrForm || profileForm.get('servicesInterested').dirty || profileForm.get('servicesInterested').touched) && profileForm.get('servicesInterested').errors.required">
+                                    Services Interested is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Profile Picture
+                <div class="pull-right">
+                    <div class="upload-btn-wrapper">
+                        <button class="btn">Upload a file</button>
+                        <input type="file" name="myfile" (change)="fileProgress($event)" />
+                    </div>
+                    <button class="btn-sc" (click)="saveProfilePost()">Save Changes</button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="thumbnail">
+                    <img [src]="previewUrl" alt="Lights" style="width:100%; height: 322px;" *ngIf="previewUrl">
+                    <img [src]="profilePic" alt="Lights" style="width:100%; height: 322px;" *ngIf="profilePic">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <form>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Profile Details
+                    <button type="submit" class="pull-right btn-sc">Save Changes</button>
+                </div>
+                <div class="panel-body form-horizontal">
+                    <div class="form-group">
+                        <!-- <label for="comment">Comment:</label> -->
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="col-md-12">
+        <form>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Personal Website & Social Network Profiles
+                    <button type="submit" class="pull-right btn-sc">Save Changes</button>
+                </div>
+                <div class="panel-body form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="website">Personal Website</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <span class="input-group-addon">https://</span>
+                                <input id="website" type="text" class="form-control" name="website" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="twitter">Twitter</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <span class="input-group-addon">https://</span>
+                                <input id="twitter" type="text" class="form-control" name="twitter" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="socialmedia">Social Media</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <span class="input-group-addon">https://</span>
+                                <input id="socialmedia" type="text" class="form-control" name="socialmedia" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="linkedin">Linked In</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <span class="input-group-addon">https://</span>
+                                <input id="linkedin" type="text" class="form-control" name="linkedin" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="instagram">Instagram</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <span class="input-group-addon">https://</span>
+                                <input id="instagram" type="text" class="form-control" name="instagram" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="pinterest">Pinterest</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <span class="input-group-addon">https://</span>
+                                <input id="pinterest" type="text" class="form-control" name="pinterest" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="col-md-12">
+        <form>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Skills & Interests
+                    <button type="submit" class="pull-right btn-sc">Save Changes</button>
+                </div>
+                <div class="panel-body form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="prmonth">Month</label>
+                        <div class="col-sm-2">
+                            <input id="prmonth" type="text" class="form-control" name="prmonth" placeholder="">
+                        </div>
+
+                        <label class="control-label col-sm-1" for="prcity">City</label>
+                        <div class="col-sm-5">
+                            <input id="prcity" type="text" class="form-control" name="prcity" placeholder="">
+                        </div>
+
+                        <label class="control-label col-sm-1" for="prstate">State</label>
+                        <div class="col-sm-1">
+                            <input id="prstate" type="text" class="form-control" name="prstate" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="pryear">Year</label>
+                        <div class="col-sm-2">
+                            <input id="pryear" type="text" class="form-control" name="pryear" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="prdetails">Details</label>
+                        <div class="col-sm-10">
+                            <input id="prdetails" type="text" class="form-control" name="prdetails" placeholder="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

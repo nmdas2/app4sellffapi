@@ -16,7 +16,7 @@
             </div>
             <div class="col-md-8 col-xs-6" *ngIf="isLogin || isSummaryPage">
 
-                <nav class="navbar navbar-static-top" >
+                <nav class="navbar navbar-static-top">
 
                     <div class="navbar-custom-menu pull-left navmobile no-margin">
                         <form [formGroup]=searchForm class="pull-left" (ngSubmit)="onSubmit()">
@@ -64,9 +64,12 @@
                                 <li>
                                     <a (click)="taketoActualProfile()"><i class="fa fa-cog" aria-hidden="true"></i> Profile</a>
                                 </li>
-                                <li>
+                                <!-- <li>
+                                    <a (click)="goToEditProfile()"><i class="fa fa-cog" aria-hidden="true"></i> Edit Profile</a>
+                                </li> -->
+                                <!-- <li>
                                     <a (click)="uploadprofilepic(Profilepictemplate)"><i class="fa fa-cog" aria-hidden="true"></i> Change Profile Pic</a>
-                                </li>
+                                </li> -->
                                 <li>
                                     <a routerLink="" (click)=signoutplz()><i class="fa fa-sign-out" aria-hidden="true"></i> Sign out</a>
                                 </li>

@@ -19,14 +19,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   searchForm: FormGroup; readonlyUserInfo: ProfileInfo; profileSubscription: Subscription;
   submitted = false; modalRef: BsModalRef; showheadsection: boolean = false; previewUrl: any = null;
   dataDisplayProfile: ProfileInfo; toggler: boolean = false; unReadMsgsCount: number = 0;
-  fileUploadProgress: string = null; uploadedFilePath: string = null; fileData: File = null; 
+  fileUploadProgress: string = null; uploadedFilePath: string = null; fileData: File = null;
   postGalleryForm: FormGroup; AllowImageUpload: boolean = false;
   @Output() closeSideNav = new EventEmitter<boolean>();
   isSummarySub: Subscription;
   isSummaryPage: boolean;
   isLogin: boolean;
 
-  loginSub : Subscription;
+  loginSub: Subscription;
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    
+
     this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
       setTimeout(() => {
         this.isSummaryPage = status;
@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.hasActiveSession = false;
       this.showheadsection = false;
       this.loggedInUserInfo = <ProfileInfo>{};
-      
+
       if (localStorage.getItem('currentUser')) {
         this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
         this.showheadsection = true;
@@ -88,26 +88,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       }
 
+<<<<<<< HEAD
     });      
+=======
+    });
+>>>>>>> d6a882b63abc952e02ac64d2bf83f7f8f307d163
     this.searchForm = this.formBuilder.group({
       searchprofiles: ['', [Validators.required, Validators.maxLength(25), Validators.pattern('^[a-zA-Z \-\']+')]]
     });
-    
+
     this.postGalleryForm = this.fb.group({
       image: ['', []]
     });
   }
-  GetUnReadMessagesCount(userId: number)
-  {
+  GetUnReadMessagesCount(userId: number) {
     this.profileInfoService.GetUnReadMessagesCountByUserId(userId)
       .subscribe(data => {
         console.log(data);
-          if(data>0)
-            this.unReadMsgsCount = data;
-        },
+        if (data > 0)
+          this.unReadMsgsCount = data;
+      },
         error => {
         });
-  } 
+  }
 
   get f() { return this.searchForm.controls; }
 
@@ -124,7 +127,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       return;
     }
     var sparam = this.searchForm.value["searchprofiles"];
-    this.router.navigate(['/profileinfo/searchsummary/'], { queryParams: {searchTerm : sparam}});
+    this.router.navigate(['/profileinfo/searchsummary/'], { queryParams: { searchTerm: sparam } });
     // this.profileService.getUsersBySearchTerm(this.searchForm.value)
     // .subscribe(
     //     data => {
@@ -148,7 +151,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.profileSubscription)
       this.profileSubscription.unsubscribe();
 
-    if(this.loginSub){
+    if (this.loginSub) {
       this.loginSub.unsubscribe();
     }
   }
@@ -161,16 +164,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['/login']);
   }
 
-  homePageRedirection(){
+  homePageRedirection() {
     this.router.navigate(['/']);
   }
 
-  toggleSideNav(){
+  toggleSideNav() {
     this.toggler = !this.toggler;
     this.closeSideNav.emit(this.toggler);
   }
 
-  navigateTo(url){
+  navigateTo(url) {
     this.router.navigate([url]);
   }
   uploadprofilepic(Profilepictemplate) {
@@ -206,6 +209,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.fileUploadProgress = '';
         }
       })
+  }
+
+  goToEditProfile() {
+    this.router.navigate(['/editprofile']);
   }
 
 }

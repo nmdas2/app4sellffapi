@@ -31,6 +31,8 @@ export class AppComponent implements OnInit, OnDestroy {
   headerWidgetsDetails: ProfileInfo;
   trackerSub: Subscription;
   profilePic: string;
+
+  profilePicSub : Subscription;
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -50,6 +52,9 @@ export class AppComponent implements OnInit, OnDestroy {
     else {
       this.authenticationService.isLogin.next(false);
     }
+    this.profilePicSub = this.commonService.profilePicTracker$.subscribe(imgPath => {
+      this.profilePic = imgPath;
+    })
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
       setTimeout(() => {
         this.isEditbale = true;
@@ -63,8 +68,8 @@ export class AppComponent implements OnInit, OnDestroy {
           this.showheadsection = true;
         }
 
-        if (localStorage.getItem('profilepic')) {
-          this.profilePic = localStorage.getItem('profilepic')
+        if (localStorage.getItem('profilepic') && this.isEditbale) {
+          this.commonService.profilePicTracker.next(localStorage.getItem('profilepic'));
         }
         if (localStorage.getItem('bannerpic')) {
           this.bannerpicpath = localStorage.getItem('bannerpic')
@@ -73,8 +78,10 @@ export class AppComponent implements OnInit, OnDestroy {
         if (localStorage.getItem('profileviewUser')) {
           this.dataDisplayProfile = JSON.parse(localStorage.getItem('profileviewUser'));
           this.showheadsection = true;
+          this.commonService.profilePicTracker.next(this.dataDisplayProfile.ProfilePicPath);
+          //localStorage.setItem('profilepic', this.profilePic)
         }
-        if (this.dataDisplayProfile && this.dataDisplayProfile.BannerPicPath)
+        //if (this.dataDisplayProfile && this.dataDisplayProfile.BannerPicPath)
           //this.bannerpicpath = this.dataDisplayProfile.BannerPicPath;
           this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
             setTimeout(() => {
@@ -171,6 +178,8 @@ export class AppComponent implements OnInit, OnDestroy {
       this.profileSubscription.unsubscribe();
     if (this.trackerSub)
       this.trackerSub.unsubscribe();
+    if(this.profilePicSub)
+      this.profilePicSub.unsubscribe();
   }
 
   postLayoutType: string = "";
@@ -323,7 +332,7 @@ export class AppComponent implements OnInit, OnDestroy {
               if (res.UserId > 0) {
                 localStorage.setItem('profilepic', res.ProfilePicPath);
                 
-                this.profilePic = res.ProfilePicPath;
+                this.commonService.profilePicTracker.next(res.ProfilePicPath)
                 
               }
             })
