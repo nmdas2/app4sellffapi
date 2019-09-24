@@ -1,5 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
+@font-face {
+    font-family: 'Agency FB Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Agency FB Bold'), url('../src/assets/fonts/AGENCYB.woff') format('woff');
+}
+
+
 // Home Screen CSS Starting Here
 html,
 body {
@@ -201,7 +209,7 @@ p {
 
 .home-screen h1 {
     margin-top: 0px;
-    font-size: 54px;
+    font-size: 62px;
     text-align: center;
     margin-bottom: 12px;
     letter-spacing: 0.03em;
@@ -211,7 +219,7 @@ p {
 
 .home-screen p {
     text-align: center;
-    font-size: 23.5px;
+    font-size: 26.2px;
     margin-bottom: 20px;
     letter-spacing: 0.03em;
 }
@@ -477,7 +485,6 @@ p {
     padding: 10px 25px;
     width: auto;
     background-color: #eee;
-    margin-bottom: 20px;
     border-radius: 0px;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
@@ -641,13 +648,15 @@ p {
 }
 
 .form-horizontal .form-group label {
-    border: 1px solid #f1f1f1;
-    color: #7b7b7b;
-    margin: 0px;
+    border: 1px dotted #c6c6c6;
+    color: #000;
+    margin: 3px 3px 3px 0;
     text-align: left;
-    font-size: 13px;
+    font-size: 16px;
     letter-spacing: 0.3px;
-    padding: 10px 15px;
+    padding: 2px 10px;
+    font-weight: normal;
+    min-height: 32px;
 }
 
 .invest-graph img {
@@ -679,22 +688,20 @@ p {
 
 .box-center .btn {
     width: 100%;
-    font-size: 16px;
-    padding: 30px 15px;
 }
 
 .status-open {
-    margin-top: 30px;
-    background-color: #47a500;
-    color: #FFF;
+    margin-top: 10px;
+    background-color: yellow;
     padding: 10px 15px;
+    color: #000;
 }
 
 .status-open p {
-    color: #FFF;
+    color: #000;
     margin: 0px;
-    font-size: 20px;
-    padding: 10px 0px;
+    font-size: 22px;
+    font-family: "Fjalla One", sans-serif !important;
 }
 
 //Messege Box CSS
@@ -951,23 +958,22 @@ table tbody tr td.lalign {
 }
 
 .text-edit.btn {
-    padding: 6px 18px;
+    padding: 5px 25px;
     position: absolute;
     right: 0;
     margin-top: 6px;
 }
 
 .edit-box textarea {
-    border: none;
     box-shadow: none;
     font-size: 14px;
     font-weight: normal;
-    padding: 0;
     margin: 0px;
     letter-spacing: 0.03em;
     line-height: 24px;
     margin-bottom: 0;
     height: 150px;
+    width:100%
 }
 
 .text-edit-footer {
@@ -1266,14 +1272,13 @@ span.bs-rating-star.active {
 }
 
 .login-content {
-    padding: 30px;
-    margin-top: 10px;
+    padding: 10px 30px 30px;
     background-color: #f2f2f2;
 }
 
 .socail-links {
     border-bottom: 2px solid #d0d0d0;
-    margin-bottom: 45px;
+    margin-bottom: 25px;
     padding-bottom: 10px;
     display: block;
     width: 100%;
@@ -1478,6 +1483,204 @@ li.dropdown.user.user-menu span .notification span{
     .msg-box ul li {
         width: 100%;
     }
+    .skin-blue .main-header .logo a {
+        padding-left: 0;       
+        font-size: 29px;
+    }
+    .login-links li a {
+        padding: 4px 25px;
+        font-size: 15px;
+    }
+    .login-links {
+        padding: 18px 0px 15px;
+        margin-right: 0;
+    }
+    .row {
+        margin-right: -10px;
+        margin-left: -10px;
+    }
+    .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    .home-search .input-group-btn button {
+        font-size: 16px;
+        padding: 4px 10px;
+    }
+    body .form-control {
+        font-size: 14px;
+    }
+    .buy p i {
+        font-size: 18px;
+        margin-right: 10px;
+        width: 30px;
+        padding: 5px 0;
+    }
+    .buy p {
+        margin-bottom: 10px;
+    }
+    body .home-from-data {
+        margin-top: 20px;
+    }
+    .login-screen {
+        margin: 35px auto 0;
+    }
+    .login-screen .auth-header {
+        font-size: 24px;
+    }
+    .login-btn .btn {
+        font-size: 20px;
+    }
+    .main {
+        padding-top: 20px;
+    }
+    .info-box-number {
+        color: #000;
+        font-size: 30px;
+        margin: 0 0 20px;
+    }
+    .info-box-text {
+        font-size: 16px;
+    }
+    .login-content {
+        padding: 10px 15px;
+        margin-top: 0;
+    }
+    .socail-links {
+        margin-bottom: 0;
+        padding-bottom: 10px;
+    }
+   
+    body .edit-text-box p {
+        font-size: 14px;
+    }
+    body .service-offered {
+        margin-bottom: 10px;       
+        flex: 0 0 calc(33% - 10px);
+        max-width: calc(33% - 10px);
+        font-size: 14px;
+        white-space: normal;
+    }
+    body .accordian_menu {
+        font-size: 18px;
+        margin: 0 40px 10px 0;
+    }
+    body .btn-primary , body .btn-custom{
+        font-size: 14px;
+        padding: 5px 15px;
+    }
+    .box img {
+        height: 65px;
+        width: 65px;
+    }
+    .h3, h3 {
+        font-size: 18px;
+    }
+    .maring-bottom-30 {
+        margin-bottom: 10px;
+    }
+    body .review-main {
+        max-height: initial;
+        overflow-y: initial;
+    }
+    .p-lr-0-d {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .form-horizontal .form-group label:first-child {
+        width: calc(41.66666667% - 3px);
+    }
+    .form-horizontal .form-group label:last-child {
+        width: calc(58.33333333% - 3px);
+    }
+    body .form-horizontal .form-group label:last-child {
+        font-size: 16px;
+    }
+    .form-horizontal .form-group label {
+        vertical-align: top;
+    }
+    .title-border {
+        margin-top: 20px;
+    }
+    .button-large {
+        margin-bottom: 10px;
+    }
+    .table thead tr th {
+        padding: 5px;
+    }
+    .table tbody tr td {
+        font-size: 14px;
+    }
+    .w-d-block {
+        width:100% !important;
+        display:block;
+    }
+    .w-d-block > table {
+        border-spacing: 2px;
+    }
+    .w-d-block > table td {
+        font-size: 14px;
+    }
+    .main-header .input-group .input-group-btn button {
+        font-size: 13px;
+    }
+    .main-header .input-group .form-control {
+        font-size: 15px;
+        padding: 10px 10px;
+        height: 32px;
+    }
+    .navbar-custom-menu {
+        padding-top: 9px;
+    }
+    body .post-text {
+        max-width: 65px;
+        max-height: 65px;
+        min-width: 65px;
+        min-height: 65px;
+        font-size: 12px;
+        line-height: normal;
+    }
+    .sidebar-menu>li {
+        padding: 0 15px;
+        display: inline-block;
+    }
+    .sidebar-menu{
+        white-space: normal;
+        text-align: center;
+        margin-bottom: 10px
+    }
+    body .trash_post {
+        display: block !important;
+        font-size: 11px;
+        padding: 1px 4px 2px;
+    }
+    .navbar-custom-menu {
+        margin-right: 0;
+    }
+    li.dropdown.user.user-menu > a {
+        height: auto;
+        padding: 8px 12px;
+        font-size: 14px;
+        line-height: normal;
+    }
+    .main-header {
+        padding: 0 10px 5px;
+    }
+    body .home-search .form-control {
+        font-size: 13px;
+    }
+   body .message-m-b {
+     
+        min-height: auto;
+    }
+    .main-content {
+        margin: 0 -10px;
+        padding: 0 10px;
+        width: 100%;
+    }
+    body .search-summary tbody tr td {
+        font-size: 14px;
+    }
 }
 
 @media only screen and (max-width: 640px) {
@@ -1488,11 +1691,14 @@ li.dropdown.user.user-menu span .notification span{
         font-size: 16px;
     }
     .buy h2 {
-        font-size: 18px;
+        font-size: 25px;
     }
-    .companyCaption,
+    .companyCaption     {
+        padding: 35px 15px;
+    }
+    
     .companydetails {
-        padding: 25px 15px;
+        padding:15px;
     }
     .home-search {
         width: 100%;
@@ -1510,12 +1716,7 @@ li.dropdown.user.user-menu span .notification span{
 }
 
 @media only screen and (max-width: 480px) {
-    .home-screen h1 {
-        font-size: 18px;
-    }
-    .home-screen p {
-        font-size: 14px;
-    }
+    
     .login-screen form .form-group .pre-icon {
         display: none;
     }
@@ -1547,6 +1748,12 @@ li.dropdown.user.user-menu span .notification span{
     .b-d-left {
         border-left:1px dotted #d0d0d0
     }
+    .form-horizontal .form-group label:first-child {
+        width: calc(41.66666667% - 3px);
+    }
+    .form-horizontal .form-group label:last-child {
+        width: calc(58.33333333% - 3px);
+    }
 }
 .content-wrapper,
 .main-footer {
@@ -1569,8 +1776,11 @@ li.dropdown.user.user-menu span .notification span{
 .box {
     padding: 0 !important;
 }
-.font-fjalla-one {
+.font-fjalla-one, .highcharts-title {
     font-family: 'Fjalla One', sans-serif !important;
+}
+.font-agency-bold {
+    font-family: 'Agency FB Bold' !important;
 }
 .f-22 {
     font-size: 22px;
@@ -1621,13 +1831,14 @@ li.dropdown.user.user-menu span .notification span{
 }
 .accordian_menu {
     color: #7f7f7f;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 600;
     letter-spacing: 0.3px;
-    margin: 25px 40px 10px 0;
+    margin: 10px 40px 10px 0;
     position: relative;
     padding-bottom: 5px;
     display: block;
+    font-family: 'Agency FB Bold' !important;
 }
 .accordian_menu:hover {
     color: #7f7f7f;
@@ -1710,6 +1921,7 @@ li.dropdown.user.user-menu span .notification span{
 .btn-custom {
     padding: 5px 25px;
     font-size: 16px;
+    border-radius: 0;
 }
 .h-250 {
     height: 250px !important;
@@ -1767,6 +1979,7 @@ li.dropdown.user.user-menu span .notification span{
 .customer_reviews {
     margin-bottom: 10px;
     font-size: 30px;
+    font-family: 'Agency FB Bold' !important;
 }
 .p-l-20 {
     padding-left: 20px;
@@ -1792,4 +2005,134 @@ li.dropdown.user.user-menu span .notification span{
 .review-main {
     max-height: 590px;
     overflow-y: auto;
+}
+.mt-20 {
+    margin-top: 20px;
+}
+.form-horizontal .form-group label:last-child {
+    font-size: 18px;
+}
+.title-border {
+    border: 1px dotted #c6c6c6;
+    color: #000;
+    margin: 0 0 10px;
+    font-size: 18px;
+    letter-spacing: 0.3px;
+    padding: 5px 10px;
+    font-weight: bold;
+    text-align: center;
+}
+.button-large {
+    border-radius: 20px;
+    border: 3px solid #113274;
+    font-size: 22px !important;
+    padding: 5px 10px;
+}
+.btn-success {
+    background: #00ac46;
+}
+.btn-danger {
+    background: #f00000;
+}
+.larget-text {
+    font-size: 45px;
+    line-height: normal;
+}
+.table tbody tr td .btn-primary {
+    color: #fff;
+}
+.table thead tr.table-head-bg th {
+    color: #fff !important;
+    background: #001d55;
+}
+.custom-table {
+    margin-bottom: 0;
+    border-spacing: 2px;
+    font-family: "Lato", sans-serif ;
+    text-transform: initial;
+}
+.custom-table tbody tr td {
+    padding: 2px 0;
+}
+.btn-yellow {
+    background: yellow;
+    border-radius: 0;
+    font-weight: bold;
+    border: none;
+}
+.join-no-response {
+    padding: 6px 12px;
+    font-size: 14px;
+    background: #ffe9e7;
+    font-weight: bold;
+}
+.box-success {
+    background: #00ac46;
+    color:#fff;
+}
+.d-blck {
+    display: block;
+}
+.p-0-b-0 {
+    padding: 0 !important;
+    border:none !important;
+}
+.table-td-dotted tr td {
+    border: 1px dotted #9b9b9b;
+}
+.table-td-dotted td a{
+    color: #444;
+}
+.create-history {
+    font-size: 15px;
+    margin-right: 8px;
+    color: #333;
+}
+.max-height-modal {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+.trash_post {
+    background: #f00000;
+    color: #fff;
+    padding: 1px 6px;
+    border-radius: 3px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: none;
+    cursor: pointer;
+}
+.p-t-each {
+    position: relative;
+    display: block
+}
+.p-t-each:hover .trash_post {
+    display: block
+}
+.post-text {
+    max-width: 100px;
+    max-height: 100px;
+    min-width: 100px;
+    min-height: 100px;
+    font-size: 15px;
+    color: #000;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+}
+.search-summary {
+    border-spacing: 2px;
+}
+.search-summary tbody tr td{
+    font-size: 22px;
+}
+.search-summary thead tr th {
+    border-bottom: 1px dotted #9b9b9b;
+}
+.home-search .form-control {
+    font-size: 22px;
+}
+.m-100 {
+    max-width: 100%;
 }

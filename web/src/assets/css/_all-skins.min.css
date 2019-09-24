@@ -52,14 +52,15 @@
     border-bottom: none;
     display: inline-block;
     width: 100%;
-    padding: 7px 0 0;
+    padding: 0;
 }
 .skin-blue .main-header .logo a{
     padding-left: 15px;
     color: #000;
-    font-size: 44px;
+    font-size: 47px;
     vertical-align: middle;
     font-weight: bold;
+    font-family: 'Agency FB Bold', sans-serif;
 }
 .skin-blue .main-header li.user-header {
     background-color: #3c8dbc

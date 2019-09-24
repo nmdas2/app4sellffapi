@@ -28,14 +28,14 @@ body {
 }
 .circle1 h3{
 	position: absolute;
-    left: 50%;
-    top: 50%;
-    color:#f00;
+    top: 50px;
+    color: #f00;
     transform: translate(-50%, -50%);
     margin: 0px;
     font-size: 55px;
     line-height: normal;
     font-weight: 700;
+    left: -4px;
 }
 
 .cover-img h4{

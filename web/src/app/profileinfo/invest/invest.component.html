@@ -6,7 +6,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="box">
+                    <div>
                         <div *ngIf="successMsg" class="mb-3 mt-3">
                             <alert type="success">
                                 {{successMsg}}
@@ -17,9 +17,9 @@
                                 {{errorMsg}}
                             </alert>
                         </div>
-                        <div class="box-header">
-                            <h4>sellff market exchange open 24X7</h4>
-                            <p>new trading day starts @12am pacific time</p>
+                        <div>
+                            <h3 class="normal-title no-margin-top">sellff market exchange open 24X7</h3>
+                            <p class="font-fjalla-one">new trading day starts @12am pacific time</p>
                             <form class="form-horizontal" *ngIf="userTransactionDetails">
                                 <div class="form-group" *ngIf="userTransactionDetails && userTransactionDetails.ShareSymbol">
                                     <label class="text-left col-sm-5">symbol</label>
@@ -31,33 +31,34 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">open price</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">{{userTransactionDetails.AskPrice}}</label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b>{{userTransactionDetails.AskPrice}}</b></label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">price change</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"></label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b class="text-green"></b></label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">% change</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"></label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b class="text-green"></b></label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">shares traded</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">{{userTransactionDetails.TotalPurchasedShareQty}}</label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b>{{userTransactionDetails.TotalPurchasedShareQty}}</b></label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">market cap</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">{{userTransactionDetails.MarketCap}}</label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b>{{userTransactionDetails.MarketCap}}</b></label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5"># investors</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">{{userTransactionDetails.Investors}}</label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b>{{userTransactionDetails.Investors}}</b></label>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8">
+                        <div class="p-l-d-40">
                     <div class="box">
                         <div class="invest-graph" *ngIf="loading">
 
@@ -71,42 +72,42 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-6"></div>
-            </div>
+            <hr class="custom-hr" style="margin-top:10px" />
             <div class="row">
                 <div class="col-md-4">
                     <div class="box">
-                        <div class="form-horizontal" *ngIf="userTransactionDetails">
+                        <div class="form-horizontal no-margin" *ngIf="userTransactionDetails">
                             <div class="form-group">
                                 <label class="text-left col-sm-5">shares owned</label>
                                 <label class="text-right col-sm-7">{{userTransactionDetails.TotalPurchasedShareQty}}</label>
                             </div>
                             <div class="form-group">
                                 <label class="text-left col-sm-5">profit/loss</label>
-                                <label class="text-right col-sm-7">{{userTransactionDetails.ProfitRLoss}}</label>
+                                <label class="text-right col-sm-7"><b class="text-green">{{userTransactionDetails.ProfitRLoss}}</b></label>
                             </div>
                             <div class="form-group">
                                 <label class="text-left col-sm-5">% profit/loss</label>
-                                <label class="text-right col-sm-7">{{userTransactionDetails.ProfitRLossPercentage}}</label>
+                                <label class="text-right col-sm-7"><b class="text-green">{{userTransactionDetails.ProfitRLossPercentage}}</b></label>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8">
+                    <div class="p-l-d-40">
                     <div class="box">
                         <div class="box-center">
-                            <h4>Select buy or sell to make a trade</h4>
+                            <h3 class="title-border">Select buy or sell to make a trade</h3>
                             <div class="row">
-                                <div class="col-sm-2"></div>
-                                <div class="col-sm-4">
-                                    <button class="btn btn-default" (click)="saveUserBuySellTransactionDetails(2)">1.215<br> Buy {{buySharesStr}} shares</button>
+                                
+                                <div class="col-sm-6">
+                                    <button class="btn btn-success button-large" (click)="saveUserBuySellTransactionDetails(2)"><div class="larget-text">1.215</div> Buy {{buySharesStr}} shares</button>
                                 </div>
-                                <div class="col-sm-4">
-                                    <button class="btn btn-danger" (click)="saveUserBuySellTransactionDetails(1)">1.213<br> Sell {{sellSharesStr}} shares</button>
+                                <div class="col-sm-6">
+                                    <button class="btn btn-danger button-large" (click)="saveUserBuySellTransactionDetails(1)"><div class="larget-text">1.213</div> Sell {{sellSharesStr}} shares</button>
                                 </div>
-                                <div class="col-sm-2"></div>
+                                
                             </div>
 
                             <div class="status-open">
@@ -114,6 +115,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </section>
