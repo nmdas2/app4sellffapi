@@ -88,11 +88,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       }
 
-<<<<<<< HEAD
     });      
-=======
-    });
->>>>>>> d6a882b63abc952e02ac64d2bf83f7f8f307d163
     this.searchForm = this.formBuilder.group({
       searchprofiles: ['', [Validators.required, Validators.maxLength(25), Validators.pattern('^[a-zA-Z \-\']+')]]
     });
