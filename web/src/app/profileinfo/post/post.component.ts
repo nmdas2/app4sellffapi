@@ -142,7 +142,7 @@ export class PostComponent implements OnInit {
 
         let galleryPost:Post={
           image:formData,
-          ImagePath:consts.ImagesPath + events.toString(),
+          ImagePath:events ? consts.ImagesPath + events.toString() : "",
           UserId:this.loggedInUserInfo.UserId,
           ContentType:2,
           WebURL:this.postGalleryForm.value.webUrl

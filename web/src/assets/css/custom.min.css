@@ -157,7 +157,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-    font-family: 'Fjalla One', sans-serif;
+    font-family: 'Agency FB Bold', sans-serif;
 }
 
 a {
@@ -526,7 +526,12 @@ a:focus {
     .main-header .logo,
     .main-header .navbar {
         width: 100%;
-        float: none
+        float: none;
+       
+    }
+    .main-header .logo {
+       
+        padding-top: 7px !important;
     }
     .main-header .navbar {
         margin: 0
@@ -1527,10 +1532,11 @@ a:focus {
     }
     .navbar-custom-menu>.navbar-nav>li>.dropdown-menu {
         position: absolute;
-        right: 5%;
+        right: 0;
         left: auto;
         border: 1px solid #ddd;
-        background: #fff
+        background: #fff;
+        width: auto;
     }
 }
 
@@ -2580,10 +2586,11 @@ text-align: center;
     color: #7f7f7f;
     font-size: 40px;
     letter-spacing: 1px;
-    margin: 5px 0 5px;
-    font-weight: 600;
+    margin: 0;
+    font-family: 'Agency FB Bold' !important;
     width: 100%;
     text-align: center;
+    line-height: normal;
 }
 
 .progress-description,
@@ -2597,12 +2604,12 @@ text-align: center;
 
 .info-box-text {
     color: #7f7f7f;
-    font-size: 18px;
+    font-size: 22px;
     letter-spacing: 1px;
     margin: 0;
-    font-weight: bold;
     width: 100%;
     text-align: center;
+    font-family: 'Agency FB Bold' !important;
 }
 
 .info-box-more {

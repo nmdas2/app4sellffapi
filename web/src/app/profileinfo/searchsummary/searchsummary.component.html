@@ -2,6 +2,7 @@
     <div class="content-wrapper">
         <div class="row">
             <div class="col-md-12">
+                <div class="p-10">
                 <div class="table table-responsive ">
                     <table id="datatable" class="search-summary table table-responsive-sm table-hover table-outline mb-0" cellspacing="0" width="100%">
                         <thead class="thead-light">
@@ -20,7 +21,7 @@
                                 <td><a style="cursor: pointer;" (click)=openotherprofile(reslt)>{{reslt.DisplayName}}</a></td>
                                 <td>{{reslt.City}}</td>
                                 <td>{{reslt.Occupation}}</td>
-                                <td>{{reslt.Views}}</td>
+                                <td>{{reslt.Reviews}}</td>
                                 <td>{{reslt.Rank}}</td>
                             </tr>
                         </tbody>
@@ -28,6 +29,7 @@
 
                     <pagination [boundaryLinks]="true" [totalItems]="searchResults.length" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
                 </div>
+            </div>
             </div>
         </div>
     </div>

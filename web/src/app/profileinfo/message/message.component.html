@@ -13,7 +13,7 @@
                     <strong>Error!</strong> {{errorMsg}}
                 </alert>
             </div>
-            <div class="p-10">
+            <div class="p-10 p-lr-0-d">
                 <div class="message-main">
             <div class="row">
                 <div class="col-md-7 p-r-d-40">
@@ -23,11 +23,11 @@
                         <div class="msg-box" *ngFor="let message of userMessages">
                             <ul>
                                 <li>
-                                    <a (click)=openotherprofile(message) style="    margin-right: 15px;"><span *ngIf="message.DisplayName">{{message.DisplayName}}</span></a>
-                                     <a *ngIf="isAboutInEditMode" (click)="showcommunication(message.MessageFrom,message.MessageTo,message.DisplayName)">
-                                        <span class="fa fa-list-alt"></span></a>
-                                    <a *ngIf="isAboutInEditMode" (click)="showpreviousmessages(message.MessageFrom,message.MessageTo,message.DisplayName,template)">
-                                        <span class="fa fa-list-alt"></span></a>
+                                    <a (click)=openotherprofile(message) style="margin-right: 15px;"><span *ngIf="message.DisplayName">{{message.DisplayName}}</span></a>
+                                     <a title="New Message" class="create-history" *ngIf="isAboutInEditMode" (click)="showcommunication(message.MessageFrom,message.MessageTo,message.DisplayName)">
+                                            <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                    <a class="create-history" title="Message History" *ngIf="isAboutInEditMode" (click)="showpreviousmessages(message.MessageFrom,message.MessageTo,message.DisplayName,template)">
+                                            <i class="fa fa-history" aria-hidden="true"></i></a>
                                 </li>
                                 <li>
                                     <label class="text-right" *ngIf="message.MessageSentTime">{{message.MessageSentTime}}</label>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-md-5 p-l-d-40 b-d-left" *ngIf="!isAboutInEditMode || showcommunicationbox">
                     <div class="box new-mg-box message-box">
-                            <h3 class="normal-title">New Message</h3> <span *ngIf="showcommunicationbox"> - {{messageDisplayName}}</span>
+                            <h3 class="normal-title">New Message <span *ngIf="showcommunicationbox"> - {{messageDisplayName}}</span></h3> 
                             <div class="message-m-b">
                         <textarea [(ngModel)]="userMsg"></textarea>
                         <span *ngIf="isSubmitted && !userMsg" style="color: red">Please enter the message</span>
@@ -59,18 +59,21 @@
     </div>
 </div>
 <ng-template #template>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Message History</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+   
+      <div class="modal-body max-height-modal">
         <div style="border-radius: 10px;" *ngFor="let commmessage of usersCommMessages">
-            <label class="text-left col-sm-6" *ngIf="commmessage.DisplayName">{{commmessage.DisplayName}}</label>
-            <label class="text-right col-sm-6" *ngIf="commmessage.MessageSentTime">{{commmessage.MessageSentTime}}</label><br>
+            <div class="row">
+                    <label class="text-left col-sm-6" *ngIf="commmessage.DisplayName">{{commmessage.DisplayName}}</label>
+                    <label class="text-right col-sm-6" *ngIf="commmessage.MessageSentTime">{{commmessage.MessageSentTime}}</label>
+            </div>
+           
             <p *ngIf="commmessage.Message">{{commmessage.Message}}</p>
         </div>
+      </div>
+      <div class="modal-footer">
+            <button type="button" class="btn btn-custom pull-left" aria-label="Close" (click)="modalRef.hide()">
+                   Close
+                  </button>
       </div>
 </ng-template>
 <!-- /.content-wrapper -->

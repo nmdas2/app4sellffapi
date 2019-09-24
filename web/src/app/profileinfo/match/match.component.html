@@ -472,12 +472,12 @@
                     <p class="error-msg"></p>
                 </div> -->
 
-                <table class="table">
+                <table class="table table-td-dotted" style="border-spacing: 5px;">
                     <tr>
-                        <td [style.background-color]="'#eefeee'">
-                            Services Offered
+                        <td [style.background-color]="'#eef2e6'" style="width: 175px; padding: 30px;border: 1px dotted #dfe2d7;" class="w-d-block">
+                            <span class="f-22">Services Offered</span>
                         </td>
-                        <td>
+                        <td class="p-0-b-0 w-d-block">
                             <table class="table inner__">
                                 <tr>
                                     <td *ngFor="let service of servicesOffered.slice(0, 3)">
@@ -531,8 +531,11 @@
                     </tr>
 
                     <tr>
-                        <td [style.background-color]="'#e7f8fe'">Services Needed</td>
-                        <td>
+                        <td [style.background-color]="'#ddf2f7'" style="padding: 30px;border: 1px dotted #d2e5e8;" class="w-d-block">
+                           
+                            <span class="f-22">Services Needed</span>
+                        </td>
+                        <td class="p-0-b-0 w-d-block">
                             <table class="table inner__">
                                 <tr>
                                     <td *ngFor="let service of servicesNeeded.slice(0, 3)">
@@ -585,8 +588,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <td [style.background-color]="'#fceef1'">Services Interest</td>
-                        <td>
+                        <td [style.background-color]="'#eee9f8'" style="padding: 30px;border: 1px dotted #e4dfee;" class="w-d-block">
+                           
+                            <span class="f-22">Services Interest</span>
+                        </td>
+                        <td class="p-0-b-0 w-d-block">
                             <table class="table inner__">
                                 <tr>
                                     <td *ngFor="let service of servicesInterested.slice(0, 3)">

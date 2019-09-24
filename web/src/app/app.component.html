@@ -28,7 +28,7 @@
                 <div class="col-md-8">
                     <div class="main" id="main">
                         <div class="row" *ngIf="isLogin">
-                            <div class="col-sm-2  col-xs-12 views">
+                            <div class="col-sm-2  col-xs-4">
                                 <div class="info-box">
 
                                     <div class="info-box-content">
@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-2 col-xs-12 views">
+                            <div class="col-sm-2  col-xs-4">
                                 <div class="info-box">
 
                                     <div class="info-box-content">
@@ -46,7 +46,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-2  col-xs-12 views">
+                            <div class="col-sm-2  col-xs-4">
                                 <div class="info-box">
 
                                     <div class="info-box-content">
@@ -57,7 +57,7 @@
                                 </div>
                                 <!-- /.info-box -->
                             </div>
-                            <div class="col-sm-2 col-xs-12 views">
+                            <div class="col-sm-2  col-xs-4">
                                 <div class="info-box">
 
                                     <div class="info-box-content">
@@ -69,7 +69,7 @@
                                 </div>
                                 <!-- /.info-box -->
                             </div>
-                            <div class="col-sm-2  col-xs-12 views">
+                            <div class="col-sm-2  col-xs-4">
                                 <div class="info-box">
 
                                     <div class="info-box-content">
@@ -85,28 +85,24 @@
                 </div>
 
 
-                <div class="col-md-2">
+                <div class="col-md-2 circle1 hidden-xs hidden-sm">
                     <div class="banner">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-2 col-xs-12  pull-right  circle1 hidden-xs hidden-sm">
+                                <div class="col-md-2 col-xs-12  pull-right ">
                                     <h3 class="">{{dataDisplayProfile.Rank}}</h3>
                                 </div>
                             </div>
                         </div>
                         <ng-template #Bannerpictemplate>
                             <form [formGroup]="postGalleryForm" (ngSubmit)="saveGalleryPost(postGalleryForm.value)">
-                                <div class="modal-header" style="padding: 5px;">
-                                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body" style="padding: 0;">
+                               
+                                <div class="modal-body">
                                     <div class="upload-file">
-                                        <div class="col-md-12">
+                                        <div>
                                             <h4>Upload</h4>
-                                            <div class="col-md-12">
-                                                <div class="upload-img">
+                                            <div>
+                                                <div class="upload-img form-group">
                                                     <input type="file" name="image" (change)="fileProgress($event)" />
                                                     <div class="" *ngIf="uploadedFilePath">
                                                         {{uploadedFilePath}}
@@ -114,19 +110,21 @@
                                                     <div *ngIf="fileUploadProgress">
                                                         Upload progress: {{ fileUploadProgress }}
                                                     </div>
-                                                    <button class="btn btn-primary">Submit</button>
-                                                    <button class="btn btn-danger ml-3" (click)="onCancel()">Cancel</button>
+                                                   
+                                                   <!--<button class="btn btn-danger ml-3" (click)="onCancel()">Cancel</button>--> 
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="col-sm-3">
-                                                    <div class="image-preview mb-3" *ngIf="previewUrl">
-                                                        <img [src]="previewUrl" height="300" />
-                                                    </div>
+                                            <div class="image-preview mb-3" *ngIf="previewUrl">
+                                                    <img [src]="previewUrl" class="m-100" />
                                                 </div>
-                                            </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="modal-footer">
+                                        <button type="button" class="btn btn-custom pull-left" aria-label="Close" (click)="modalRef.hide()">
+                                                Close
+                                            </button>
+                                        <button class="btn btn-primary pull-right">Submit</button>
                                 </div>
                             </form>
                         </ng-template>
@@ -141,17 +139,13 @@
 </div>
 <ng-template #Profilepictemplate>
     <form [formGroup]="postProfileForm" (ngSubmit)="saveProfilePost(postProfileForm.value)">
-        <div class="modal-header" style="padding: 5px;">
-            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body" style="padding: 0;">
+       
+        <div class="modal-body">
             <div class="upload-file">
-                <div class="col-md-12">
+                <div>
                     <h4>Upload</h4>
-                    <div class="col-md-12">
-                        <div class="upload-img">
+                    
+                        <div class="upload-img form-group">
                             <input type="file" name="image" (change)="fileProgress($event)" />
                             <div class="" *ngIf="uploadedFilePath">
                                 {{uploadedFilePath}}
@@ -159,19 +153,21 @@
                             <div *ngIf="fileUploadProgress">
                                 Upload progress: {{ fileUploadProgress }}
                             </div>
-                            <button class="btn btn-primary">Submit</button>
-                            <button class="btn btn-danger ml-3" (click)="AllowImageUpload = false">Cancel</button>
+                            
+                            <!--<button class="btn btn-danger ml-3" (click)="AllowImageUpload = false">Cancel</button>-->
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-sm-3">
-                            <div class="image-preview mb-3" *ngIf="previewUrl">
-                                <img [src]="previewUrl" height="300" />
+                   
+                        <div class="image-preview mb-3" *ngIf="previewUrl">
+                                <img [src]="previewUrl" class="m-100"  />
                             </div>
-                        </div>
-                    </div>
                 </div>
             </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-custom pull-left" aria-label="Close" (click)="modalRef.hide()">
+                Close
+            </button>
+            <button class="btn btn-primary pull-right">Submit</button>
         </div>
     </form>
 </ng-template>

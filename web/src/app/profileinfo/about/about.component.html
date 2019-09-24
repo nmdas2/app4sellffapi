@@ -7,12 +7,17 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="box">
-                        <div class="box-header with-border">
+                        <div class="box-header with-border p-lr-0-d">
                             <div class="edit-text-box">
-                                <p class="edit-btn" *ngIf="!isAboutInEditMode; else elseBlock" style="text-justify: distribute-all-lines;">
+                                <div *ngIf="!isAboutInEditMode; else elseBlock" >
+                                <p class="edit-btn" style="text-justify: distribute-all-lines;">
                                     {{textValue}}
-                                    <span class="text-edit btn btn-default" *ngIf="isEditbale" (click)="logText()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</span>
+                                    
                                 </p>
+                                <div class="text-right">
+                                <button class="btn btn-primary" *ngIf="isEditbale" (click)="logText()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
+                                </div>
+                                </div>
                             </div>
                             <ng-template #elseBlock>
                                 <div class="edit-box">
@@ -20,7 +25,7 @@
                                     <!-- <input #textbox id="txtAboutUser" type="textarea" width="85%" height="100px;" [(ngModel)]="textValue" required> -->
                                     <div class="text-edit-footer">
                                         <button class="btn btn-primary" (click)="saveupdatedabout()">Update</button>
-                                        <button class="btn btn-danger ml-3" (click)="onCancel()">Cancel</button>
+                                        <button class="btn btn-custom ml-3" (click)="onCancel()">Cancel</button>
                                     </div>
                                 </div>
 
@@ -30,7 +35,7 @@
                                        <span class="accordian_title">Services Offered</span> 
                                 </a>
                                   <div class="collapse in" id="services_offered">
-                                      <div class="services_main p-r-50">
+                                      <div class="services_main p-r-d-50">
                                            
                                                 <button *ngFor="let service of serviceOffered" type="button" class="btn service-offered">{{service.ServiceName}}</button>
                                            
@@ -68,16 +73,16 @@
                     <div class="box">
                         <section class="upload-img-section">
                             <div class="">
-                                <div class="col-md-12">
+                                <div class="box-header with-border p-lr-0-d">
                                         <a class="accordian_menu" role="button" data-toggle="collapse" href="#gallery_main" aria-expanded="true" aria-controls="Gallery">
                                                 <span class="accordian_title">Gallery</span> 
                                          </a>
                                            <div class="collapse in" id="gallery_main">
-                                               <div>
+                                               <div class="e-p-main">
                                                     <a *ngFor="let item of imgGallery" (click)="checkevent(item.imgUrl, template, item.galType,item.altUrl)" id="link1" href="javascript:void(0)">
-                                                            <div class="col-md-2 col-sm-4 co-xs-12 gal-item">
+                                                            <div class="e-p-img">
                                                                 <div class="box">
-                                                                    <img [src]="item.imgUrl" id="img1" class="img-responsive" width="20%" height="20%">
+                                                                    <img [src]="item.imgUrl" id="img1" >
                                                                 </div>
                                                             </div>
                                                         </a>
@@ -101,16 +106,16 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <p class="upload-btn" *ngIf="!AllowImageUpload; else upldelseBlock" style="text-justify: distribute-all-lines;">
-                                    <button class="fa fa-cloud-upload text-right" *ngIf="isEditbale" (click)="ShowGalUpPop()"><span>Upload Image</span></button>
-                                </p>
+                                <div *ngIf="!AllowImageUpload; else upldelseBlock" style="text-justify: distribute-all-lines;">
+                                    <button class="btn btn-primary" *ngIf="isEditbale" (click)="ShowGalUpPop()"><span><i class="fa fa-cloud-upload"></i> Upload Image</span></button>
+                                </div>
                             </div>
 
                             <ng-template #upldelseBlock>
                                 <div class="upload-file">
-                                    <div class="col-md-12">
-                                        <h4>Upload</h4>
-                                        <div class="col-md-12">
+                                    <div>
+                                        <h3 class="normal-title">Upload</h3>
+                                        <div>
                                             <div class="upload-img">
                                                 <input type="file" name="image" (change)="fileProgress($event)" />
                                                 <div class="" *ngIf="uploadedFilePath">
@@ -120,11 +125,11 @@
                                                     Upload progress: {{ fileUploadProgress }}
                                                 </div>
                                                 <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
-                                                <button class="btn btn-danger ml-3" (click)="AllowImageUpload = false">Cancel</button>
+                                                <button class="btn btn-custom ml-3" (click)="AllowImageUpload = false">Cancel</button>
                                             </div>
 
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="row mt-20">
                                             <div class="col-sm-3">
                                                 <div class="image-preview mb-3" *ngIf="previewUrl">
                                                     <img [src]="previewUrl" height="300" />
