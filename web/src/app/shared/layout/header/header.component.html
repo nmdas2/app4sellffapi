@@ -14,7 +14,7 @@
                 </div>
                 <!-- Sidebar toggle button-->
             </div>
-            <div class="col-md-8 col-xs-6" *ngIf="isLogin || isSummaryPage">
+            <div class="col-md-8 col-xs-6" *ngIf="isLogin || isSummaryPage" [ngClass]="{'col-md-8':isLogin, 'col-md-7':isSummaryPage}">
 
                 <nav class="navbar navbar-static-top">
 
@@ -59,6 +59,7 @@
                                         <!-- <span>{{loggedInUserInfo.Occupation}}</span> -->
                                         <span *ngIf="unReadMsgsCount >0" class="notification">[<span>{{unReadMsgsCount}}</span>]</span>
                                         </span>
+                                        <span class="down-arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>

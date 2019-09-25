@@ -46,7 +46,7 @@ p {
 .login-links {
     float: right;
     display: flex;
-    padding: 18px 0px 15px;
+    padding: 20px 0px 15px;
     margin: 0px;
     margin-right: 15px;
     list-style-type: none;
@@ -70,8 +70,8 @@ p {
     border: 1px solid #c7c7c7;
     padding-bottom: 2px;
     background-color: #f2f2f2;
-    padding: 4px 25px;
-    font-size: 24px;
+    padding: 4px 20px 6px;
+    font-size: 19px;
     font-family: "Lato", sans-serif !important;
 }
 
@@ -90,7 +90,7 @@ p {
 .login-btn .btn {
     padding: 8px 25px;
     width: 100%;
-    font-size: 24px;
+    font-size: 19px;
     font-family: "Lato", sans-serif !important;
     border-radius: 0;
 }
@@ -225,11 +225,12 @@ p {
 }
 
 .companyCaption {
-    padding: 84px 0 120px;
+    padding: 4.5% 15px 4.5%;
+    min-height: 44.5vh;
 }
 
 .companydetails {
-    padding: 50px 0 50px;
+    padding: 30px 10px 30px;
     background-color: #0070c0;
 }
 
@@ -238,32 +239,33 @@ p {
 }
 
 .buy h2 {
-    font-size: 44px;
+    font-size: 40px;
     font-weight: 600;
     letter-spacing: 1px;
     text-shadow: none;
     display: inline-block;
     text-decoration: underline;
     margin-bottom: 20px;
+    margin-top: 0;
 }
 
 .buy p {
     text-align: left;
-    font-size: 26px;
+    font-size: 20px;
     margin-bottom: 20px;
-    margin-left: 32px;
+    margin-left: 26px;
     font-weight: bold;
     letter-spacing: 0;
     line-height: 25px;
 }
 
 .buy p i {
-    font-size: 23px;
-    margin-left: -34px;
-    margin-right: 20px;
+    font-size: 19px;
+    margin-left: -26px;
+    margin-right: 15px;
     vertical-align: middle;
     text-align: center;
-    width: 36px;
+    width: 32px;
     -webkit-box-align: center;
     align-items: center;
     background-color: #FFF;
@@ -273,15 +275,13 @@ p {
 
 .buy-img img {
     margin: 0 auto;
-    max-width: 60%;
+    max-width: 147px;
 }
 
-.buy {
-    padding-top: 50px;
-}
+
 
 .home-search {
-    width: 46%;
+    max-width: 680px;
     margin: 0 auto;
 }
 
@@ -292,9 +292,9 @@ p {
 
 .home-search .input-group-btn button {
     height: 45px;
-    font-size: 24px;
+    font-size: 19px;
     font-family: "Lato", sans-serif !important;
-    padding: 4px 25px;
+    padding: 4px 20px;
 }
 
 // Home Screen CSS Ending Here
@@ -1193,7 +1193,7 @@ span.bs-rating-star.active {
     background-size: 18px;
     background-position-y: 2px;
 }
-.banner-header:hover .change-pic a{
+.banner-header:hover .change-pic a, .profile-change:hover a{
     background-color: #000;
     border: 1px solid #fff;
     border-color: rgba(255, 255, 255, 0.8);
@@ -1202,7 +1202,10 @@ span.bs-rating-star.active {
     color: #fff;
     padding: 6px 12px;
 }
-
+.profile-change:hover a{
+    padding: 6px 4px;
+    font-size: 13px
+}
 .header-details {
     position: relative;
     top: 10px;
@@ -1224,14 +1227,15 @@ span.bs-rating-star.active {
 }
 .profile-change a{
     position: absolute;
-    top: 6px;
-    right: 8px;
+    top: 4px;
+    right: 2px;
     text-align: right;
     width: 100%;
     cursor: pointer !important;
 }
 .profile-change a span{
     display: none;
+    padding-left: 4px;
 }
 .profile-change a:before{
     vertical-align: middle;
@@ -1267,13 +1271,14 @@ span.bs-rating-star.active {
 }
 .main-content {
     background-color: #f2f2f2;
-    height: 100%;
-    min-height: 100%;
+    height: calc(100% - 69px);
+    min-height: calc(100% - 69px);
 }
 
 .login-content {
     padding: 10px 30px 30px;
     background-color: #f2f2f2;
+    margin-top: 20px;
 }
 
 .socail-links {
@@ -1284,8 +1289,7 @@ span.bs-rating-star.active {
     width: 100%;
     text-align: right;
 }
-.socail-links a{
-    background-color: #FFF;
+.socail-links a{        
     text-align: center;
     display: inline-block;
     margin-right: 8px;
@@ -1430,28 +1434,23 @@ li.dropdown.user.user-menu span .notification span{
         width: 30%;
     }
 }
-
-@media only screen and (max-width: 1366px) {
-    .home-screen {
-        width: 65%;
+@media only screen and (max-width: 1260px) {
+    .buy p {
+        font-size: 19px;
+        margin-bottom: 15px;
+        margin-left: 14px;
+    }
+    .buy p i {
+        font-size: 20px;
+        margin-left: -14px;
+        margin-right: 15px;
+        width: 32px;
+        padding: 4px 0;
     }
 }
 
-@media only screen and (max-width: 1280px) {
-    .home-screen {
-        width: 70%;
-    }
-}
 
-@media only screen and (max-width: 1024px) {
-    .home-screen {
-        width: 100%;
-        transform: scale(0.8);
-        position: relative;
-        left: 0px;
-        margin: 0 auto;
-    }
-}
+
 
 @media only screen and (max-width: 992px) {
     .home-body .container {
@@ -1466,14 +1465,6 @@ li.dropdown.user.user-menu span .notification span{
 }
 
 @media only screen and (max-width: 800px) {}
-
-@media only screen and (max-width: 768px) {
-    .home-screen {
-        -webkit-transform: scale(0.8);
-        transform: scale(0.8);
-        padding: 25px;
-    }
-}
 
 @media only screen and (max-width: 767px) {
     .home-screen {
@@ -1674,7 +1665,7 @@ li.dropdown.user.user-menu span .notification span{
         min-height: auto;
     }
     .main-content {
-        margin: 0 -10px;
+        margin: 0 ;
         padding: 0 10px;
         width: 100%;
     }
@@ -1695,10 +1686,13 @@ li.dropdown.user.user-menu span .notification span{
     }
     .companyCaption     {
         padding: 35px 15px;
+        min-height: auto;
+        margin: 0 -10px;
     }
     
     .companydetails {
         padding:15px;
+        margin: 0 -10px;
     }
     .home-search {
         width: 100%;
@@ -2135,4 +2129,9 @@ li.dropdown.user.user-menu span .notification span{
 }
 .m-100 {
     max-width: 100%;
+}
+.down-arrow {
+    font-size: 22px;
+    margin-left: 7px;
+    color: #000 !important;
 }
