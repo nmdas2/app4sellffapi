@@ -489,7 +489,7 @@
                                                     style="font-size: 15px;margin-left: 6px;"></i></a>
                                         </div>
                                         <div *ngIf="!(service.ServiceName)">
-                                            <input type="text" placeholder="Enter Service" [(ngModel)]="asyncSelectedO" (keyup)="serviceOfferedKeyUp($event, 1)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="allServicesO" typeaheadOptionField="ServiceName">
+                                            <input type="text" placeholder="Enter Service" [(ngModel)]="asyncSelectedO" (keyup)="serviceOfferedKeyUp($event, 1)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event, 1)" [typeahead]="allServicesO" typeaheadOptionField="ServiceName">
                                         </div>
 
                                     </td>
@@ -547,7 +547,7 @@
                                                     style="font-size: 15px;margin-left: 6px;"></i></a>
                                         </div>
                                         <div *ngIf="!service.ServiceName">
-                                            <input type="text" placeholder="Enter Service" [(ngModel)]="asyncSelectedN" (keyup)="serviceOfferedKeyUp($event, 2)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="allServicesN" typeaheadOptionField="ServiceName">
+                                            <input type="text" placeholder="Enter Service" [(ngModel)]="asyncSelectedN" (keyup)="serviceOfferedKeyUp($event, 2)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event, 2)" [typeahead]="allServicesN" typeaheadOptionField="ServiceName">
                                         </div>
 
                                     </td>
@@ -604,7 +604,7 @@
                                                     style="font-size: 15px;margin-left: 6px;"></i></a>
                                         </div>
                                         <div *ngIf="!service.ServiceName">
-                                            <input type="text" placeholder="Enter Service" [(ngModel)]="asyncSelectedI" (keyup)="serviceOfferedKeyUp($event, 3)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="allServicesI" typeaheadOptionField="ServiceName">
+                                            <input type="text" placeholder="Enter Service" [(ngModel)]="asyncSelectedI" (keyup)="serviceOfferedKeyUp($event, 3)" [typeaheadAsync]="true" typeaheadWaitMs="1000" (typeaheadOnSelect)="typeaheadOnSelect($event, 3)" [typeahead]="allServicesI" typeaheadOptionField="ServiceName">
                                         </div>
 
                                     </td>

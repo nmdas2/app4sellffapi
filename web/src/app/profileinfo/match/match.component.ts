@@ -138,9 +138,9 @@ export class MatchComponent implements OnInit {
       })
   }
 
-  typeaheadOnSelect(event) {
+  typeaheadOnSelect(event, stype) {
     if (event && event.item) {
-      this.saveService(event.item.ServiceName, event.item.ServiceType);
+      this.saveService(event.item.ServiceName, stype);
     }
   }
   removeServices(service: UserServiceTypes) {
