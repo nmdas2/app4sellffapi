@@ -60,6 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.isEditbale = true;
         if (localStorage.getItem('profileviewUser') && status) {
           this.isEditbale = false;
+          this.bannerpicpath = JSON.parse(localStorage.getItem('profileviewUser')).BannerPicPath
         }
         this.showheadsection = false;
         if (localStorage.getItem('currentUser')) {
@@ -71,7 +72,7 @@ export class AppComponent implements OnInit, OnDestroy {
         if (localStorage.getItem('profilepic') && this.isEditbale) {
           this.commonService.profilePicTracker.next(localStorage.getItem('profilepic'));
         }
-        if (localStorage.getItem('bannerpic')) {
+        if (localStorage.getItem('bannerpic') && this.isEditbale) {
           this.bannerpicpath = localStorage.getItem('bannerpic')
         }
 

@@ -18,15 +18,15 @@ import { CommonService } from 'src/app/_services/common.service';
 export class PostComponent implements OnInit {
 
   monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
-  userPosts: any;  
-  PostsByGroups:PostByGroup[]=[];  
-  loggedInUserInfo: ProfileInfo; 
+    "July", "August", "September", "October", "November", "December"
+  ];
+  userPosts: any;
+  PostsByGroups: PostByGroup[] = [];
+  loggedInUserInfo: ProfileInfo;
   isAboutInEditMode: boolean = false;
-  readonlyUserInfo: ProfileInfo; 
-  fileData: File = null;  
-  dataDisplayProfile: ProfileInfo; 
+  readonlyUserInfo: ProfileInfo;
+  fileData: File = null;
+  dataDisplayProfile: ProfileInfo;
   constructor(
     private profileInfoService: ProfileinfoService,
     private modalService: BsModalService,
@@ -37,33 +37,33 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     this.userPosts = [];
-    if(localStorage.getItem('currentUser') != null){
+    if (localStorage.getItem('currentUser') != null) {
       this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
       this.isAboutInEditMode = true;
     }
-    if(localStorage.getItem('profileviewUser') != null){
+    if (localStorage.getItem('profileviewUser') != null) {
       this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
-        this.isAboutInEditMode = false;
+      this.isAboutInEditMode = false;
     }
     this.createPostTextForm();
     this.createPostGallryForm();
-    this.getUserPosts();    
+    this.getUserPosts();
   }
 
   //get user posts
-  getUserPosts(){
+  getUserPosts() {
     this.userPosts = [];
     this.profileInfoService.getUserPostsByGroups(this.dataDisplayProfile.UserId)
-    .subscribe((posts: any) => {
-      this.PostsByGroups = posts;
-    }, error => {
-      console.log(error);
-    })
+      .subscribe((posts: any) => {
+        this.PostsByGroups = posts;
+      }, error => {
+        console.log(error);
+      })
   }
 
-  selectedModelImgPath="";
-  setModelImage(imgPath:string){
-    this.selectedModelImgPath=imgPath;
+  selectedModelImgPath = "";
+  setModelImage(imgPath: string) {
+    this.selectedModelImgPath = imgPath;
   }
 
   //end get user posts
@@ -88,25 +88,25 @@ export class PostComponent implements OnInit {
       text: ['', [Validators.required]]
     });
   }
-  resetPostTextForm(){
+  resetPostTextForm() {
     this.modalRef.hide();
     this.postTextForm.reset();
   }
-  savePost(postData){
-    let post:Post={
-      ContentType:1,
-      Title:postData.title,
-      UserContent:postData.text,
-      UserId:this.loggedInUserInfo.UserId
+  savePost(postData) {
+    let post: Post = {
+      ContentType: 1,
+      Title: postData.title,
+      UserContent: postData.text,
+      UserId: this.loggedInUserInfo.UserId
     };
     this.profileInfoService.postText(post)
-    .subscribe((res: any) => {
-      this.getUserPosts();
-      this.commonService.socialAndHeaderWidgetsTracker.next(true);
-      this.resetPostTextForm();
-    }, error => {
-      console.log(error);
-    })
+      .subscribe((res: any) => {
+        this.getUserPosts();
+        this.commonService.socialAndHeaderWidgetsTracker.next(true);
+        this.resetPostTextForm();
+      }, error => {
+        console.log(error);
+      })
   }
   modalRefForGallery: BsModalRef;
   popupPostGalleryModel(template) {
@@ -114,7 +114,7 @@ export class PostComponent implements OnInit {
       Object.assign({}, this.config, { class: 'gray modal-lg' })
     );
   }
-  resetPostGalleryForm(){
+  resetPostGalleryForm() {
     this.modalRefForGallery.hide();
     this.postGalleryForm.reset();
   }
@@ -132,51 +132,49 @@ export class PostComponent implements OnInit {
       this.postGalleryForm.get('image').setValue(file);
     }
   }
-  saveGalleryPost(postData){
-    const formData = new FormData();    
+  saveGalleryPost(postData) {
+    const formData = new FormData();
     formData.append('file', this.postGalleryForm.get('image').value);
     formData.append('files', this.fileData);
     this.profileInfoService.saveImageGalleryForPost(formData)
       .subscribe(events => {
 
-        let galleryPost:Post={
-          image:formData,
-          ImagePath:events ? consts.ImagesPath + events.toString() : "",
-          UserId:this.loggedInUserInfo.UserId,
-          ContentType:2,
-          WebURL:this.postGalleryForm.value.webUrl
+        let galleryPost: Post = {
+          image: formData,
+          ImagePath: events ? consts.ImagesPath + events.toString() : "",
+          UserId: this.loggedInUserInfo.UserId,
+          ContentType: 2,
+          WebURL: this.postGalleryForm.value.webUrl
         };
         this.profileInfoService.postText(galleryPost)
-        .subscribe((res: any) => {
-          this.getUserPosts();
-          this.resetPostGalleryForm();
-        }, error => {
-          console.log(error);
-        })
-    })    
+          .subscribe((res: any) => {
+            this.getUserPosts();
+            this.resetPostGalleryForm();
+          }, error => {
+            console.log(error);
+          })
+      })
   }
   userContent: string;
   userTitle: string;
-  contentModalRef: BsModalRef;  
-  getUserContent(content, title, contentTemplate){
+  contentModalRef: BsModalRef;
+  getUserContent(content, title, contentTemplate) {
     this.userContent = content;
     this.userTitle = title;
     this.contentModalRef = this.modalService.show(contentTemplate,
       Object.assign({}, this.config, { class: 'gray modal-small' })
     );
   }
-  getImageUserContent(imgURL, ImagesTemplate)
-  {
-    this.selectedModelImgPath=imgURL;
+  getImageUserContent(imgURL, ImagesTemplate) {
+    this.selectedModelImgPath = imgURL;
     this.contentModalRef = this.modalService.show(ImagesTemplate);
   }
-  removepostbyid(UserId,postId)
-  {
-    this.profileInfoService.removePostByAutoid(UserId,postId)
-    .subscribe((res: any) => {
-      this.getUserPosts();
-    }, error => {
-      console.log(error);
-    })
+  removepostbyid(UserId, postId) {
+    this.profileInfoService.removePostByAutoid(UserId, postId)
+      .subscribe((res: any) => {
+        this.getUserPosts();
+      }, error => {
+        console.log(error);
+      })
   }
 }

@@ -11,7 +11,8 @@
             <div class="change-pic" *ngIf="isEditbale">
                 <a (click)="uploadbannerpic(Bannerpictemplate)"> <span>update banner photo</span></a>
             </div>
-            <img src="{{bannerpicpath}}" class="user-banner" alt="Banner Image">
+            <img src="{{bannerpicpath}}" class="user-banner" alt="Banner Image" *ngIf = "bannerpicpath">
+            <img src="../assets/images/Default_Banner.jpg" class="user-banner" alt="Banner Image" *ngIf = "!bannerpicpath">
         </div>
         <div class="header-details">
                 <div class="ranking-circle">

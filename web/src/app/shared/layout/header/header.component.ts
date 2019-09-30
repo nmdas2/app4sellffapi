@@ -90,7 +90,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     });      
     this.searchForm = this.formBuilder.group({
-      searchprofiles: ['', [Validators.required, Validators.maxLength(25), Validators.pattern('^[a-zA-Z \-\']+')]]
+      searchprofiles: ['', [Validators.required, Validators.maxLength(25)]]
     });
 
     this.postGalleryForm = this.fb.group({

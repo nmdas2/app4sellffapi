@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.homesearchForm = this.formBuilder.group({
-      homesearchprofiles: ['', [Validators.required, Validators.maxLength(25), Validators.pattern('^[a-zA-Z \-\']+')]]
+      homesearchprofiles: ['', [Validators.required, Validators.maxLength(25)]]
     });
     localStorage.removeItem('profileviewUser');
     this.commonService.isProfileSelected.next(false);
