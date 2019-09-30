@@ -53,7 +53,8 @@ export class ReviewComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.reviewUserForm.controls; }
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+    //this.modalRef = this.modalService.show(template);
+    this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
   }
   hoveringOver(value: number): void {
     this.overStar = value;

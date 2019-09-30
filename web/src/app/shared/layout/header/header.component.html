@@ -3,7 +3,7 @@
 
     <div class="header">
         <div class="row">
-            <div class="col-sm-2 col-xs-3 h-pad-right">
+            <div class="col-sm-2 col-xs-2 h-pad-right">
 
                 <div class="logo ng-scope">
                     <a (click)="taketoActualProfile()" href="javscript:void(0)">
@@ -14,7 +14,7 @@
                 </div>
                 <!-- Sidebar toggle button-->
             </div>
-            <div class="col-md-8 col-xs-6" *ngIf="isLogin || isSummaryPage" [ngClass]="{'col-md-8':isLogin, 'col-md-7':isSummaryPage}">
+            <div  class="col-md-8 col-sm-7 col-xs-8" *ngIf="isLogin || isSummaryPage" [ngClass]="{'col-md-7 col-sm-7 col-xs-5 ':isSummaryPage, 'col-md-8 col-sm-7 col-xs-8':isLogin}">
 
                 <nav class="navbar navbar-static-top">
 
@@ -36,13 +36,13 @@
 
                 </nav>
             </div>
-            <div class="col-sm-3 col-xs-8 pull-right-header" *ngIf="!hasActiveSession">
+            <div class="col-md-3 col-sm-5 col-xs-5 pull-right-header" *ngIf="!hasActiveSession">
                     <ul class="login-links" >
                             <li><a href="javascript:void(0);" class="login_btn" (click)="navigateTo('/login')">login</a></li>
                             <li><a href="javascript:void(0);" (click)="navigateTo('/register')">sign up</a></li>
                         </ul>
             </div>
-            <div class="col-md-2 col-xs-3" *ngIf="hasActiveSession">
+            <div class="col-md-2 col-sm-3 col-xs-2 pull-right" *ngIf="hasActiveSession">
                 
                 <div class="navbar-custom-menu float_none" >
                     <ul class="nav navbar-nav float_none">
@@ -59,7 +59,7 @@
                                         <!-- <span>{{loggedInUserInfo.Occupation}}</span> -->
                                         <span *ngIf="unReadMsgsCount >0" class="notification">[<span>{{unReadMsgsCount}}</span>]</span>
                                         </span>
-                                        <span class="down-arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                                        <span class="down-arrow hidden-xs"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>

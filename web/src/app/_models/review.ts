@@ -20,4 +20,7 @@ export class Review {
     Starts2?: number = 0;
     Starts1?: number = 0;
     ReviewAlreadyGiven?: boolean = false;
+    OverallRating?: number = 0;
+    TotalRatingsCount?: number = 0;
+    NoofRatingsGiven?: number = 0;
 }

@@ -100,7 +100,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   GetUnReadMessagesCount(userId: number) {
     this.profileInfoService.GetUnReadMessagesCountByUserId(userId)
       .subscribe(data => {
-        console.log(data);
         if (data > 0)
           this.unReadMsgsCount = data;
       },

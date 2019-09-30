@@ -14,8 +14,11 @@
             <img src="{{bannerpicpath}}" class="user-banner" alt="Banner Image">
         </div>
         <div class="header-details">
+                <div class="ranking-circle">
+                        <div class="ranking-count">{{dataDisplayProfile.Rank}}</div>
+                </div>
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-sm-2 col-md-2 m-w-170">
                     <div class="profile-img" *ngIf="dataDisplayProfile">
                         <div class="profile-change">
                             <img src='{{profilePic}}' class="img-responsive">
@@ -25,7 +28,7 @@
                         <!-- <p>@tclarke</p> -->
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-sm-10 col-md-10">
                     <div class="main" id="main">
                         <div class="row" *ngIf="isLogin">
                             <div class="col-sm-2  col-xs-4">
@@ -85,51 +88,7 @@
                 </div>
 
 
-                <div class="col-md-2 circle1 hidden-xs hidden-sm">
-                    <div class="banner">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-2 col-xs-12  pull-right ">
-                                    <h3 class="">{{dataDisplayProfile.Rank}}</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <ng-template #Bannerpictemplate>
-                            <form [formGroup]="postGalleryForm" (ngSubmit)="saveGalleryPost(postGalleryForm.value)">
-                               
-                                <div class="modal-body">
-                                    <div class="upload-file">
-                                        <div>
-                                            <h4>Upload</h4>
-                                            <div>
-                                                <div class="upload-img form-group">
-                                                    <input type="file" name="image" (change)="fileProgress($event)" />
-                                                    <div class="" *ngIf="uploadedFilePath">
-                                                        {{uploadedFilePath}}
-                                                    </div>
-                                                    <div *ngIf="fileUploadProgress">
-                                                        Upload progress: {{ fileUploadProgress }}
-                                                    </div>
-                                                   
-                                                   <!--<button class="btn btn-danger ml-3" (click)="onCancel()">Cancel</button>--> 
-                                                </div>
-                                            </div>
-                                            <div class="image-preview mb-3" *ngIf="previewUrl">
-                                                    <img [src]="previewUrl" class="m-100" />
-                                                </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                        <button type="button" class="btn btn-custom pull-left" aria-label="Close" (click)="modalRef.hide()">
-                                                Close
-                                            </button>
-                                        <button class="btn btn-primary pull-right">Submit</button>
-                                </div>
-                            </form>
-                        </ng-template>
-                    </div>
-                </div>
+                
             </div>
         </div>
 
@@ -137,6 +96,40 @@
 
     </div>
 </div>
+<ng-template #Bannerpictemplate>
+        <form [formGroup]="postGalleryForm" (ngSubmit)="saveGalleryPost(postGalleryForm.value)">
+           
+            <div class="modal-body">
+                <div class="upload-file">
+                    <div>
+                        <h4>Upload</h4>
+                        <div>
+                            <div class="upload-img form-group">
+                                <input type="file" name="image" (change)="fileProgress($event)" />
+                                <div class="" *ngIf="uploadedFilePath">
+                                    {{uploadedFilePath}}
+                                </div>
+                                <div *ngIf="fileUploadProgress">
+                                    Upload progress: {{ fileUploadProgress }}
+                                </div>
+                               
+                               <!--<button class="btn btn-danger ml-3" (click)="onCancel()">Cancel</button>--> 
+                            </div>
+                        </div>
+                        <div class="image-preview mb-3" *ngIf="previewUrl">
+                                <img [src]="previewUrl" class="m-100" />
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-custom pull-left" aria-label="Close" (click)="modalRef.hide()">
+                            Close
+                        </button>
+                    <button class="btn btn-primary pull-right">Submit</button>
+            </div>
+        </form>
+    </ng-template>
 <ng-template #Profilepictemplate>
     <form [formGroup]="postProfileForm" (ngSubmit)="saveProfilePost(postProfileForm.value)">
        
@@ -214,7 +207,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="" [ngClass]="isLogin ? 'col-md-1' : ''">
+        <div class="" [ngClass]="isLogin ? 'col-sm-2 col-md-1' : ''">
             <ul class="sidebar-menu" data-widget="tree" *ngIf="isLogin">
                 <li class="" [ngClass]="activeUrl == '/profileinfo/about' ? 'active' : ''"><a routerLink="/profileinfo/about">About</a></li>
                 <li class="" [ngClass]="activeUrl == '/profileinfo/post' ? 'active' : ''"><a routerLink="/profileinfo/post">Posts</a></li>
@@ -229,7 +222,7 @@
                         <li><a routerLink="/profileinfo/refer">Refer</a></li> -->
             </ul>
         </div>
-        <div class="" [ngClass]="isLogin ? 'col-md-11' : 'col-md-12'">
+        <div class="" [ngClass]="isLogin ? 'col-sm-10 col-md-11' : 'col-md-12'">
             <router-outlet></router-outlet>
         </div>
     </div>

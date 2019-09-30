@@ -24,7 +24,10 @@ namespace Sellff_API.Services
         }
         public List<ProfileInfoBO> GetAllUserMessages(int UserId)
         {
-            return objProfileInfoDAO.GetAllUserMessages(UserId);
+            //documentList = documentList.OrderByDescending(d => d.LastModifiedAt.Value).ToList();
+            List<ProfileInfoBO> objResponseList = objProfileInfoDAO.GetAllUserMessages(UserId);
+            objResponseList = objResponseList.OrderByDescending(d => d.MessagesDateForSorting).ToList();
+            return objResponseList;
         }
 
         public List<PromotionsBO> GetAllUserPromotions(int UserId)
@@ -126,6 +129,9 @@ namespace Sellff_API.Services
                 objFinalResponse.Performance = Convert.ToInt32(Performance / resultlist.Count);
                 objFinalResponse.Communication = Convert.ToInt32(Communication / resultlist.Count);
                 objFinalResponse.QOW = Convert.ToInt32(QOW / resultlist.Count);
+                objFinalResponse.NoofRatingsGiven = objFinalResponse.Starts5 + objFinalResponse.Starts4 + objFinalResponse.Starts3 + objFinalResponse.Starts2 + objFinalResponse.Starts1;
+                objFinalResponse.TotalRatingsCount = 5 * objFinalResponse.Starts5 + 4 * objFinalResponse.Starts4 + 3 * objFinalResponse.Starts3 + 2 * objFinalResponse.Starts2 + objFinalResponse.Starts1;
+                objFinalResponse.OverallRating = Convert.ToDecimal(objFinalResponse.TotalRatingsCount) / Convert.ToDecimal(objFinalResponse.NoofRatingsGiven);
             }
             return objFinalResponse;
         }

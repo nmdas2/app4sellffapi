@@ -1,30 +1,6 @@
 <div class="wrapper">
-    <!-- <aside class="main-sidebar">
-        <section class="sidebar">
-            <ul class="sidebar-menu" data-widget="tree">
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/about"><i class="fa fa-user"></i> <span>About</span><span class="pull-right-container"></span></a></li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/post"><i class="fa fa-sticky-note-o"></i> <span>Posts</span><span class="pull-right-container"></span></a></li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/message"><i class="fa fa-envelope-o"></i> <span>Message</span><span class="pull-right-container"></span></a></li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/promote"><i class="fa fa-bullhorn"></i> <span>Promote</span><span class="pull-right-container"></span></a> </li>
-                <li class="active treeview menu-open"><a style="cursor: pointer;" routerLink="/profileinfo/review"><i class="fa fa-star"></i> <span>Review</span><span class="pull-right-container"></span></a> </li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/invest"><i class="fa fa-money"></i> <span>Invest</span><span class="pull-right-container"></span></a> </li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/consult"><i class="fa fa-handshake-o"></i> <span>Consult</span><span class="pull-right-container"></span></a> </li>
-                <li class=""><a style="cursor: pointer;" routerLink="/profileinfo/refer"><i class="fa fa fa-user-plus"></i> <span>Refer</span><span class="pull-right-container"></span></a> </li>
-            </ul>
-        </section>
-    </aside> -->
     <div class="content-wrapper">
         <section class="content">
-
-            <!-- <div class="socail-links text-center pull-right">
-                <a href="#"><i id="social-gp" class="fa fa-globe fa-2x social"></i></a>
-                <a href="#"><i id="social-tw"  class="fa fa-twitter-square fa-2x social"></i></a>
-                <a href="#"><i id="social-em"  class="fa fa-bell fa-2x social"></i></a>
-                <a href="#"><i id="social-fb"  class="fa fa-facebook-square fa-2x social"></i></a>
-                <a href="#"><i id="social-tw"  class="fa fa-twitter-square fa-2x social"></i></a>
-                <a href="#"><i id="social-gp"  class="fa fa-google-plus-square fa-2x social"></i></a>
-                <a href="#"><i id="social-em"  class="fa fa-envelope-square fa-2x social"></i></a>
-            </div> -->
             <div class="row">
                 <div class="col-md-6"></div>
             </div>
@@ -32,15 +8,15 @@
                 <div class="col-md-4">
                     <div *ngIf="currentRating" class="p-r-d-50">
                         <div class="box message-box progress-box">
-                            <h3 class="normal-title no-margin">{{totalRatings}} customer reviews</h3>
+                            <h3 class="normal-title no-margin">{{currentRating.NoofRatingsGiven}} customer reviews</h3>
                             <div class="customer_reviews">
-                                <rating [(ngModel)]="ratefive" [max]="max" [readonly]="isReadonly"></rating> <span class="f-22 p-l-20">5.5 out of 5 starts</span>
+                                <rating [(ngModel)]="ratefive" [max]="max" [readonly]="isReadonly"></rating> <span class="f-22 p-l-20">{{currentRating.OverallRating}} out of 5 stars</span>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="p-box">
                                         <span>5 Star</span>
-                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts5 type="warning"></progressbar> {{currentRating.Starts5}}%
+                                        <progressbar max="{{currentRating.NoofRatingsGiven}}" [value]=currentRating.Starts5 type="warning"></progressbar> {{currentRating.Starts5}}%
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +24,7 @@
                                 <div class="col-sm-12">
                                     <div class="p-box">
                                         <span>4 Star</span>
-                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts4 type="warning"></progressbar> {{currentRating.Starts4}}%
+                                        <progressbar max="{{currentRating.NoofRatingsGiven}}" [value]=currentRating.Starts4 type="warning"></progressbar> {{currentRating.Starts4}}%
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +32,7 @@
                                 <div class="col-sm-12">
                                     <div class="p-box">
                                         <span>3 Star</span>
-                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts3 type="warning"></progressbar> {{currentRating.Starts3}}%
+                                        <progressbar max="{{currentRating.NoofRatingsGiven}}" [value]=currentRating.Starts3 type="warning"></progressbar> {{currentRating.Starts3}}%
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +40,7 @@
                                 <div class="col-sm-12">
                                     <div class="p-box">
                                         <span>2 Star</span>
-                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts2 type="warning"></progressbar> {{currentRating.Starts2}}%
+                                        <progressbar max="{{currentRating.NoofRatingsGiven}}" [value]=currentRating.Starts2 type="warning"></progressbar> {{currentRating.Starts2}}%
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +48,7 @@
                                 <div class="col-sm-12">
                                     <div class="p-box">
                                         <span>1 Star</span>
-                                        <progressbar max="{{totalRatings}}" [value]=currentRating.Starts1 type="warning"></progressbar> {{currentRating.Starts1}}%
+                                        <progressbar max="{{currentRating.NoofRatingsGiven}}" [value]=currentRating.Starts1 type="warning"></progressbar> {{currentRating.Starts1}}%
                                     </div>
                                 </div>
                             </div>
@@ -82,17 +58,17 @@
                             <h3 class="normal-title">By category</h3>
                             <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                 <tr>
-                                    <td><h5 class="aria-label padding-right text-initial m-t-b-5">Performance</h5></td>
+                                    <td><h5 class="aria-label padding-right text-initial m-t-b-5 f-16">Performance</h5></td>
                                     <td class="f-22"><rating [ngModel]=currentRating.Performance [max]="max" [readonly]="true"></rating></td>
                                     <td class="hide">4.0</td>
                                 </tr>
                                 <tr>
-                                    <td><h5 class="aria-label padding-right text-initial m-t-b-5">Communication</h5></td>
+                                    <td><h5 class="aria-label padding-right text-initial m-t-b-5 f-16">Communication</h5></td>
                                     <td class="f-22"><rating [ngModel]=currentRating.Communication [max]="max" [readonly]="true"></rating></td>
                                     <td class="hide">3.0</td>
                                 </tr>
                                 <tr>
-                                    <td><h5 class="aria-label padding-right text-initial m-t-b-5">Quality of Work</h5></td>
+                                    <td><h5 class="aria-label padding-right text-initial m-t-b-5 f-16">Quality of Work</h5></td>
                                     <td class="f-22"><rating [ngModel]=currentRating.QOW [max]="max" [readonly]="true"></rating></td>
                                     <td class="hide">5.0</td>
                                 </tr>
@@ -132,62 +108,67 @@
                     </div>
                 </div>
                 <ng-template #template>
-                    <div class="modal-header">
-                        <h4 class="modal-title pull-left">Write a review to {{dataDisplayProfile.DisplayName}}</h4>
-                        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                    </div>
+                   
                     <div class="modal-body ">
-                        <label class="aria-label padding-right">Performance</label>
-                        <rating [(ngModel)]="rate" [max]="max" [readonly]="isReadonly" (onHover)="hoveringOver($event)" (onLeave)="resetStar()" [titles]="['one','two','three']"></rating>
-                        <!-- <span class="label"
-                                    [ngClass]="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}"
-                                    [ngStyle]="{display: (overStar && !isReadonly) ? 'inline' : 'none'}">{{percent}}%</span>
-                                <div class="card">
-                                    <pre class="card-block card-header" style="margin:15px 0;">Rate: <b>{{rate}}</b>;  Readonly is: <i>{{isReadonly}}</i>;  Hovering over: <b>{{overStar || "none"}}</b></pre>
-                                </div> -->
-                        <br>
-                        <label class="aria-label padding-right">Communication</label>
-                        <rating [(ngModel)]="communicationRate" [max]="max" [readonly]="isReadonly" (onHover)="hoveringOver($event)" (onLeave)="resetStar()" [titles]="['one','two','three']"></rating>
-                        <br>
-                        <label class="aria-label padding-right">QOW</label>
-                        <rating [(ngModel)]="QOWRate" [max]="max" [readonly]="isReadonly" (onHover)="hoveringOver($event)" (onLeave)="resetStar()" [titles]="['one','two','three']"></rating>
-                        <!-- <button type="button" class="btn btn-sm btn-danger" (click)="rate = 0"
-                                        [disabled]="isReadonly">Clear
-                                </button>
-                                <button type="button" class="btn btn-sm btn-primary"
-                                        (click)="isReadonly = ! isReadonly">Toggle Readonly
-                                </button> -->
-                    </div>
-                    <div class="modal-header">
-                        <h4 class="modal-title pull-left">Post a Review</h4>
-                        <button type="button" class="close pull-right" aria-label="Close" (click)="resetPostTextForm()">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                    </div>
-                    <div class="modal-body">
-                        <form [formGroup]="reviewUserForm" (ngSubmit)="onSubmit()">
-                            <div class="form-row">
-                                <div class="form-group col-5">
-                                    <input type="text" formControlName="reviewTitle" placeholder="Review Title" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.reviewTitle.errors }" />
-                                    <div *ngIf="submitted && f.reviewTitle.errors" class="invalid-feedback">
-                                        <div *ngIf="f.reviewTitle.errors.required">Review Title is required</div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-5">
-                                    <textarea formControlName="reviewContent" placeholder="Review Description" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.reviewContent.errors }"></textarea>
-                                    <div *ngIf="submitted && f.reviewContent.errors" class="invalid-feedback">
-                                        <div *ngIf="f.reviewContent.errors.required">Review Description is required</div>
-                                    </div>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4">
+                                    <h3 class="normal-title">By category</h3>
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <tr>
+                                            <td>
+                                                <h5  class="aria-label padding-right text-initial m-t-b-5 f-16">Performance</h5>
+                                            </td>
+                                            <td class="f-22">
+                                                    <rating [(ngModel)]="rate" [max]="max" [readonly]="isReadonly" (onHover)="hoveringOver($event)" (onLeave)="resetStar()" [titles]="['one','two','three']"></rating>     
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>
+                                                    <h5  class="aria-label padding-right text-initial m-t-b-5 f-16">Communication</h5>
+                                                </td>
+                                                <td class="f-22">
+                                                        <rating [(ngModel)]="communicationRate" [max]="max" [readonly]="isReadonly" (onHover)="hoveringOver($event)" (onLeave)="resetStar()" [titles]="['one','two','three']"></rating>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                    <td>
+                                                        <h5  class="aria-label padding-right text-initial m-t-b-5 f-16">Quality of Work</h5>
+                                                    </td>
+                                                    <td class="f-22">
+                                                            <rating [(ngModel)]="QOWRate" [max]="max" [readonly]="isReadonly" (onHover)="hoveringOver($event)" (onLeave)="resetStar()" [titles]="['one','two','three']"></rating>
+                                                    </td>
+                                                </tr>
+                                    </table>
+                                   
                             </div>
-                            <div class="text-center">
-                                <button class="btn btn-primary mr-1">Submit Review</button>
-                                <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
-                            </div>
-                        </form>
+                            <div class="col-md-8 col-sm-8">
+                                    <form [formGroup]="reviewUserForm" (ngSubmit)="onSubmit()">
+                                            <div class="form-row">
+                                                <div class="form-group col-5">
+                                                    <input type="text" formControlName="reviewTitle" placeholder="Review Title" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.reviewTitle.errors }" />
+                                                    <div *ngIf="submitted && f.reviewTitle.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.reviewTitle.errors.required">Review Title is required</div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-5">
+                                                    <textarea formControlName="reviewContent" placeholder="Review Description" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.reviewContent.errors }"></textarea>
+                                                    <div *ngIf="submitted && f.reviewContent.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.reviewContent.errors.required">Review Description is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <button class="btn btn-custom" style="margin-right:10px;" type="reset" (click)="onReset()">Cancel</button>
+                                                <button class="btn btn-primary">Submit Review</button>
+                                                
+                                            </div>
+                                        </form>
+                                </div>
+                        </div>
+                        
                     </div>
+                
+                    
                 </ng-template>
             </div>
         </section>

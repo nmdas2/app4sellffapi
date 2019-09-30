@@ -24,13 +24,13 @@
                             <ul>
                                 <li>
                                     <a (click)=openotherprofile(message) style="margin-right: 15px;"><span *ngIf="message.DisplayName">{{message.DisplayName}}</span></a>
-                                     <a title="New Message" class="create-history" *ngIf="isAboutInEditMode" (click)="showcommunication(message.MessageFrom,message.MessageTo,message.DisplayName)">
+                                     <a title="New Message" class="create-history" *ngIf="isAboutInEditMode && !message.IsMsgFromLoggedInUser" (click)="showcommunication(message.MessageFrom,message.MessageTo,message.DisplayName)">
                                             <i class="fa fa-plus" aria-hidden="true"></i></a>
-                                    <a class="create-history" title="Message History" *ngIf="isAboutInEditMode" (click)="showpreviousmessages(message.MessageFrom,message.MessageTo,message.DisplayName,template)">
+                                    <a class="create-history" title="Message History" *ngIf="isAboutInEditMode && !message.IsMsgFromLoggedInUser" (click)="showpreviousmessages(message.MessageFrom,message.MessageTo,message.DisplayName,template)">
                                             <i class="fa fa-history" aria-hidden="true"></i></a>
                                 </li>
                                 <li>
-                                    <label class="text-right" *ngIf="message.MessageSentTime">{{message.MessageSentTime}}</label>
+                                    <label class="text-right" *ngIf="message.MessageSentTime"><span *ngIf="message.IsMsgFromLoggedInUser">To {{message.MessageToName}} at: </span> {{message.MessageSentTime}}</label>
                                 </li>
                             </ul>
                             <p *ngIf="message.Message">{{message.Message}}</p>

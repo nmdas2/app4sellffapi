@@ -97,8 +97,12 @@ namespace Sellff_API.ADO
                         objResponseBO.Message = Convert.ToString(objDataRow["Message"]);
                         objResponseBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
                         objResponseBO.MessageSentTime = Convert.ToString(objDataRow["MessageSentTime"]);
+                        objResponseBO.MessagesDateForSorting = Convert.ToDateTime(objDataRow["MessageSentTime"]);
                         objResponseBO.MessageTo = Convert.ToInt32(objDataRow["MessageTo"]);
                         objResponseBO.MessageFrom = Convert.ToInt32(objDataRow["MessageFrom"]);
+                        objResponseBO.MessageToName = Convert.ToString(objDataRow["MessageToName"]);
+                        if (UserId == objResponseBO.MessageFrom)
+                            objResponseBO.IsMsgFromLoggedInUser = true;
                         objProfilesList.Add(objResponseBO);
                     }
                 }
@@ -661,8 +665,9 @@ namespace Sellff_API.ADO
             var result = false;
             try
             {
-                var sqlParams = new SqlParameter[1];
+                var sqlParams = new SqlParameter[2];
                 sqlParams[0] = new SqlParameter("@UserRefId", SqlDbType.Int) { Value = objProfileInfoBO.UserId };
+                sqlParams[1] = new SqlParameter("@UserRefProfileId", SqlDbType.Int) { Value = objProfileInfoBO.UserRefProfileId };
 
                 if (SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "UpdateUserViewsCount", sqlParams) > 0)
                     result = true;
@@ -679,6 +684,11 @@ namespace Sellff_API.ADO
             var result = false;
             try
             {
+                if(!string.IsNullOrEmpty(objProfileInfoBO.SocialLink))
+                {
+                    if (!objProfileInfoBO.SocialLink.ToLower().Substring(0,4).Contains("http"))
+                        objProfileInfoBO.SocialLink = "http://" + objProfileInfoBO.SocialLink;
+                }
                 var sqlParams = new SqlParameter[3];
                 sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = objProfileInfoBO.UserId };
                 sqlParams[1] = new SqlParameter("@SocialLinkType", SqlDbType.Int) { Value = objProfileInfoBO.SocialLinkType };
@@ -806,6 +816,7 @@ namespace Sellff_API.ADO
                     {
                         PostsBO objResponseBO = new PostsBO();
                         var objDataRow = _objDataSet.Tables[0].Rows[i];
+                        objResponseBO.AutoId = Convert.ToInt32(objDataRow["AutoId"]);
                         objResponseBO.UserId = Convert.ToInt32(objDataRow["UserId"]);
                         objResponseBO.ContentType = Convert.ToInt32(objDataRow["ContentType"]);
                         objResponseBO.Title = Convert.ToString(objDataRow["Title"]);

@@ -147,15 +147,18 @@ export class ProfileinfoService {
   GetUnReadMessagesCountByUserId(UserId: number): Observable<any>{
     return this.http.get(`${consts.DomainURL}ProfileInfo/GetUnReadMessagesCountByUserId/${UserId}`);
   }
-
   saveImageGallery(fileData): Observable<any>{
     const formData = new FormData();
     formData.append('files', fileData);
     return this.http.post(`${constants.DomainURL}ProfileInfo/SaveImagesForGallery`, formData)
   }
-
-  saveImageGalleryForPost(formData): Observable<any>{
-    
+  saveImageGalleryForPost(formData): Observable<any>{    
     return this.http.post(`${constants.DomainURL}ProfileInfo/SaveImagesForPost`, formData)
+  }
+  removePostByAutoid(UserId:number, postId: number): Observable<any>{
+    return this.http.get<any>(`${consts.DomainURL}ProfileInfo/RemovePostsByUserIdNPostId/${UserId}/${postId}`);
+  }
+  removeGalleryPicByAutoid(UserId:number, GalId: number): Observable<any>{
+    return this.http.get<any>(`${consts.DomainURL}ProfileInfo/RemoveAboutImageFromGalleryByUserId/${UserId}/${GalId}`);
   }
 }

@@ -39,9 +39,12 @@ export interface ProfileInfo{
     Investors?: number;
     Investments?: number;
     BannerPicPath?: string;
+    MessagesDateForSorting?: string;
+    MessageToName?: string;
+    IsMsgFromLoggedInUser?: boolean;
 }
 export interface userAboutInfo{
-    AutoId: number;
+    AutoId?: number;
     UserId?: number;
     About: string;
     ImagePath: string;

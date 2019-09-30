@@ -55,8 +55,7 @@ export class PostComponent implements OnInit {
     this.userPosts = [];
     this.profileInfoService.getUserPostsByGroups(this.dataDisplayProfile.UserId)
     .subscribe((posts: any) => {
-      this.PostsByGroups = posts; 
-      console.log(this.PostsByGroups);
+      this.PostsByGroups = posts;
     }, error => {
       console.log(error);
     })
@@ -170,5 +169,14 @@ export class PostComponent implements OnInit {
   {
     this.selectedModelImgPath=imgURL;
     this.contentModalRef = this.modalService.show(ImagesTemplate);
+  }
+  removepostbyid(UserId,postId)
+  {
+    this.profileInfoService.removePostByAutoid(UserId,postId)
+    .subscribe((res: any) => {
+      this.getUserPosts();
+    }, error => {
+      console.log(error);
+    })
   }
 }

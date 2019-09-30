@@ -7,6 +7,7 @@ export class Post {
     image?: FormData;
     ImagePath?:string;
     WebURL?:string;
+    AutoId?: number;
 }
 export class PostByGroup {
     key:string

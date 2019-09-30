@@ -88,6 +88,12 @@ namespace Sellff_API.Models
         public string ErrorMessage { get; set; } = "";
         [DataMember]
         public string BannerPicPath { get; set; }
+        [DataMember]
+        public DateTime MessagesDateForSorting { get; set; }
+        [DataMember]
+        public string MessageToName { get; set; }
+        [DataMember]
+        public bool IsMsgFromLoggedInUser { get; set; } = false;
     }
 
     public class PromotionsBO
@@ -132,6 +138,8 @@ namespace Sellff_API.Models
 
     public class PostsBO
     {
+        [DataMember]
+        public int AutoId { get; set; }
         [DataMember]
         public int UserId { get; set; }
         [DataMember]
@@ -260,6 +268,12 @@ namespace Sellff_API.Models
         public int Starts1 { get; set; } = 0;
         [DataMember]
         public bool ReviewAlreadyGiven { get; set; }
+        [DataMember]
+        public decimal OverallRating { get; set; }
+        [DataMember]
+        public int TotalRatingsCount { get; set; }
+        [DataMember]
+        public int NoofRatingsGiven { get; set; }
     }
     public class UserLocalStorageBO
     {

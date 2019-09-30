@@ -53,8 +53,10 @@ export class AboutComponent implements OnInit, OnDestroy {
     this.getUserAboutText();
   }
   updateProfileViewsCount() {
+    this.dataDisplayProfile.UserRefProfileId = this.loggedInUserInfo.UserId;
     this.profileInfoService.UpdateUserViewsCount(this.dataDisplayProfile)
       .subscribe(res => {
+        this.dataDisplayProfile.UserRefProfileId = 0;
       }, error => {
         console.log(error);
       })
@@ -192,9 +194,17 @@ export class AboutComponent implements OnInit, OnDestroy {
   onCancel() {
     this.isAboutInEditMode = false;
   }
-
   ngOnDestroy() {
     if (this.profileSubscription)
       this.profileSubscription.unsubscribe();
+  }
+  removeGalleryicbyid(GalId)
+  {
+    this.profileInfoService.removeGalleryPicByAutoid(this.loggedInUserInfo.UserId, GalId)
+    .subscribe((res: any) => {
+      this.getUserAboutText();
+    }, error => {
+      console.log(error);
+    })
   }
 }

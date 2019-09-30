@@ -95,7 +95,7 @@
                                    
                                         <div *ngIf="post.ContentType==1" class="p-t-each" >
                                             <a href="javascript:void(0)" (click)="getUserContent(post.UserContent, post.Title, contentTemplate)"><img  src="../../../assets/selfprflimages/doc_icon.png"></a>
-                                            <span class="trash_post" title="Delete Post"><i class="fa fa-trash"></i></span>
+                                            <a (click)="removepostbyid(post.UserId,post.AutoId)"><span class="trash_post" title="Delete Post"><i class="fa fa-trash"></i></span></a>
                                         </div>
                                         <div *ngIf="post.ContentType==2" class="p-t-each">
                                             <div *ngIf="post.WebURL != ''; else elseBlocklocimg" >

@@ -34,7 +34,7 @@ chartOptions = {
   }]
 };
 
-  showBuySell: boolean;
+  showBuySell: boolean; askPrice: number; buyPrice: number;
   loggedInUser: ProfileInfo;
   profileInfo: ProfileInfo;
   buyShares: number = consts.BuyShares;
@@ -98,6 +98,8 @@ chartOptions = {
     this.profileService.getUserProfileDetailsByUserIdNUserProfileId(this.loggedInUser.UserId, profileId)
       .subscribe(res => {
         this.userTransactionDetails = res
+        this.askPrice = this.userTransactionDetails.AskPrice;
+        this.buyPrice = this.userTransactionDetails.BuyPrice;
       }, error => {
 
       })
