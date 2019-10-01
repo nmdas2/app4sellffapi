@@ -104,14 +104,14 @@
                                                     <!-- <span class="post-text">this is a test page this is a test page this is a test page</span> -->
                                                     
                                                 </a>
-                                                <span class="trash_post" title="Delete Post"><i class="fa fa-trash"></i></span>
+                                                <a (click)="removepostbyid(post.UserId,post.AutoId)"><span class="trash_post" title="Delete Post"><i class="fa fa-trash"></i></span></a>
                                             </div>
                                             <ng-template #elseBlocklocimg>
                                                 <a (click)="getImageUserContent(post.ImagePath,ImagesTemplate)" >
                                                     <img src={{post.ImagePath}} />
                                                    
                                                 </a>
-                                                <span class="trash_post" title="Delete Post"><i class="fa fa-trash"></i></span>
+                                                <a (click)="removepostbyid(post.UserId,post.AutoId)"><span class="trash_post" title="Delete Post"><i class="fa fa-trash"></i></span></a>
                                             </ng-template>                                            
                                         </div>
                                    
