@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-sm-10 col-md-10">
                     <div class="main" id="main">
-                        <div class="row" *ngIf="isLogin">
+                        <div class="row" *ngIf="showheadsection">
                             <div class="col-sm-2  col-xs-4">
                                 <div class="info-box">
 
@@ -165,8 +165,8 @@
         </div>
     </form>
 </ng-template>
-<div class="" [ngClass]="isLogin ? 'login-content' : 'main-content'">
-    <div class="row" *ngIf="isLogin">
+<div class="" [ngClass]="showheadsection ? 'login-content' : 'main-content'">
+    <div class="row" *ngIf="showheadsection">
         <div class="col-md-12 " *ngIf="dataDisplayProfile">
             <div class="social-inputbox" *ngIf="postLayoutType!='' && isEditbale">
                 <div class="input-group">
@@ -208,8 +208,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="" [ngClass]="isLogin ? 'col-sm-2 col-md-1' : ''">
-            <ul class="sidebar-menu" data-widget="tree" *ngIf="isLogin">
+        <div class="" [ngClass]="showheadsection ? 'col-sm-2 col-md-1' : ''">
+            <ul class="sidebar-menu" data-widget="tree" *ngIf="showheadsection">
                 <li class="" [ngClass]="activeUrl == '/profileinfo/about' ? 'active' : ''"><a routerLink="/profileinfo/about">About</a></li>
                 <li class="" [ngClass]="activeUrl == '/profileinfo/post' ? 'active' : ''"><a routerLink="/profileinfo/post">Posts</a></li>
                 <li class="" [ngClass]="activeUrl == '/profileinfo/message' ? 'active' : ''"><a routerLink="/profileinfo/message">Message</a></li>
@@ -223,7 +223,7 @@
                         <li><a routerLink="/profileinfo/refer">Refer</a></li> -->
             </ul>
         </div>
-        <div class="" [ngClass]="isLogin ? 'col-sm-10 col-md-11' : 'col-md-12'">
+        <div class="" [ngClass]="showheadsection ? 'col-sm-10 col-md-11' : 'col-md-12'">
             <router-outlet></router-outlet>
         </div>
     </div>

@@ -45,7 +45,8 @@ export class AboutComponent implements OnInit, OnDestroy {
     if (localStorage.getItem('profileviewUser') != null) {
       this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
       this.isAboutInEditMode = false;
-      this.updateProfileViewsCount();
+      if(this.loggedInUserInfo)
+        this.updateProfileViewsCount();
     }
     if (this.dataDisplayProfile)
       this.getServiceOffered();
