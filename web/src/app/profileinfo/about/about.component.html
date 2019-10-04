@@ -88,7 +88,7 @@
                                                     <div class="box p-t-each">
                                                         <img [src]="item.imgUrl" id="img1"
                                                             (click)="checkevent(item.imgUrl, template, item.galType,item.altUrl)">
-                                                            <a *ngIf="(item.galType != 2)" (click)="removeGalleryicbyid(item.id)"><span class="trash_post" title="Delete Post"><i class="fa fa-trash"></i></span></a>
+                                                            <a *ngIf="(item.galType != 2)" (click)="removeGalleryicbyid(item.id)"><span class="trash_post" title="Delete Post" *ngIf = "isEditbale"><i class="fa fa-trash"></i></span></a>
                                                     </div>
                                                 </div>
                                                 <!-- <span class="trash_post" title="Delete Post"
