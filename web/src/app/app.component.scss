@@ -90,3 +90,9 @@
 .socail-links a {
     padding-right: 10px;
 }
+
+.disabled {
+    pointer-events: none;
+    cursor: not-allowed !important;
+    opacity: 0.6;
+  }

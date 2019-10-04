@@ -211,11 +211,11 @@
         <div class="" [ngClass]="showheadsection ? 'col-sm-2 col-md-1' : ''">
             <ul class="sidebar-menu" data-widget="tree" *ngIf="showheadsection">
                 <li class="" [ngClass]="activeUrl == '/profileinfo/about' ? 'active' : ''"><a routerLink="/profileinfo/about">About</a></li>
-                <li class="" [ngClass]="activeUrl == '/profileinfo/post' ? 'active' : ''"><a routerLink="/profileinfo/post">Posts</a></li>
-                <li class="" [ngClass]="activeUrl == '/profileinfo/message' ? 'active' : ''"><a routerLink="/profileinfo/message">Message</a></li>
+                <li class="" [ngClass]="activeUrl == '/profileinfo/post' ? 'active' : ''"><a class= "" [ngClass] = "!isLogin? 'disabled' : ''" routerLink="/profileinfo/post">Posts</a></li>
+                <li class="" [ngClass]="activeUrl == '/profileinfo/message' ? 'active' : ''"><a class= "" [ngClass] = "!isLogin? 'disabled' : ''" routerLink="/profileinfo/message">Message</a></li>
                 <!-- <li><a routerLink="/profileinfo/promote">Promote</a></li> -->
-                <li class="" [ngClass]="activeUrl == '/profileinfo/review' ? 'active' : ''"><a routerLink="/profileinfo/review">Review</a></li>
-                <li class="" [ngClass]="activeUrl == '/profileinfo/invest' ? 'active' : ''"><a routerLink="/profileinfo/invest">Invest</a></li>
+                <li class="" [ngClass]="activeUrl == '/profileinfo/review' ? 'active' : ''"><a class= "" [ngClass] = "!isLogin? 'disabled' : ''" routerLink="/profileinfo/review">Review</a></li>
+                <li class="" [ngClass]="activeUrl == '/profileinfo/invest' ? 'active' : ''"><a class= "" [ngClass] = "!isLogin? 'disabled' : ''" routerLink="/profileinfo/invest">Invest</a></li>
                 <li *ngIf="isEditbale" class="" [ngClass]="activeUrl == '/profileinfo/invite' ? 'active' : ''"><a routerLink="/profileinfo/invite">Invite</a></li>
                 <li *ngIf="isEditbale" class="" [ngClass]="activeUrl == '/profileinfo/match' ? 'active' : ''"><a routerLink="/profileinfo/match">Match</a></li>
 
