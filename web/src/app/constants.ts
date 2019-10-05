@@ -9,7 +9,9 @@ export const constants = {
     AboutPath: '/profileinfo/about',
     AppDomain:'http://4sellff.com/',
     BuyShares: 1000,
-    SellShares: 1000
+    SellShares: 1000,
+    forgetMsgSuccess: 'your password is reset, new password has been sent to your mail',
+    forgetMsgError: 'given email is not registered with sellff'
 };
 export const enum UploadType {
     Image = 1,

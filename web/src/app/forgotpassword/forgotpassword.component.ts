@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
 import { CommonService } from '../_services/common.service';
 import { first } from 'rxjs/operators';
+import { constants } from '../constants';
 
 @Component({
   selector: 'app-forgotpassword',
@@ -15,6 +16,8 @@ export class ForgotpasswordComponent implements OnInit {
   loading = false;
   submitted = false;
   invalidLogin: boolean = false;
+  successMsg: string = ''; //constants.forgetMsgSuccess;
+  errorMsg: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,16 +48,22 @@ export class ForgotpasswordComponent implements OnInit {
     this.authenticationService.forgotpasswordinfo(this.loginForm.value.username)
         .subscribe(
             (data) => {
-              
+                this.successMsg = constants.forgetMsgSuccess;
+                this.errorMsg = '';
+                setTimeout(() => {
+                  this.successMsg = '';
+                }, 60000)
                 this.commonService.loadingHide();
+                this.loginForm.reset();
             },
             error => {
                 this.commonService.loadingHide();
                 console.log(error);
-                this.invalidLogin = true;
+                this.errorMsg = constants.forgetMsgError;
+                this.successMsg = '';
                 setTimeout(() => {
-                    this.invalidLogin = false;
-                }, 10000)
+                  this.errorMsg = '';
+                }, 60000)
                 this.loading = false;
             });
 }

@@ -11,19 +11,20 @@ import { SharedModule } from './shared/shared.module';
 import { CommonService } from './_services/common.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ConfirmuseraccComponent } from './confirmuseracc/confirmuseracc.component';
-import { AlertComponent } from './_components/alert/alert.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { AlertModule } from 'ngx-bootstrap/alert';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AlertComponent,
+    //AlertComponent,
     LoginComponent,
     RegisterComponent,
     PageNotFoundComponent,
@@ -42,7 +43,8 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
     FormsModule,
     RecaptchaModule.forRoot(),
     RecaptchaFormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    AlertModule.forRoot()
   ],
   providers: [
     CommonService
