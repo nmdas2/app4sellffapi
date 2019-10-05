@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ConfirmuseraccComponent } from './confirmuseracc/confirmuseracc.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 
 
 export const routes: Routes = [
@@ -14,6 +15,7 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'forgotpassword', component: ForgotpasswordComponent },
   { path: 'confirmuseracc/:hashkey', component:ConfirmuseraccComponent  },
   { path: 'profileinfo', loadChildren: './profileinfo//profileinfo.module#ProfileinfoModule' },
   // { path: 'profileinfo', loadChildren: () => import(`./profileinfo/profileinfo.module`).then(m => m.ProfileinfoModule) },

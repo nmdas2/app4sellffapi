@@ -150,5 +150,19 @@ namespace Sellff_API.Controllers
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.HeaderWidgetsCountByUserId(UserId)));
         }
+        /// <summary>
+        /// This for forgot password checking
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="noval"></param>
+        /// <returns></returns>
+        [HttpGet, Route("api/SellffDefault/forgotpasswordinfo/{email}/{noval}")]
+        public IHttpActionResult Forgotpasswordinfo(string email,int noval)
+        {
+            if (objSellffDefaultService.Forgotpasswordinfo(email))
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, true));
+            else
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, false));
+        }
     }
 }

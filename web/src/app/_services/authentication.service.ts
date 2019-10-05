@@ -56,11 +56,13 @@ export class AuthenticationService {
         this.isLogin.next(false);
         this.currentUserSubject.next(null);
     }
-
     socialLinksByUserId(userId: number): Observable<ProfileInfo> {
         return this.http.get<ProfileInfo>(`${consts.DomainURL}SellffDefault/SocialLinksByUserId/${userId}`);
     }
     headerWidgetsCountByUserId(userId: number): Observable<ProfileInfo> {
         return this.http.get<ProfileInfo>(`${consts.DomainURL}SellffDefault/HeaderWidgetsCountByUserId/${userId}`);
+    }
+    forgotpasswordinfo(email: string): Observable<any> {
+        return this.http.get(`${consts.DomainURL}SellffDefault/Forgotpasswordinfo/${email}/1`);
     }
 }

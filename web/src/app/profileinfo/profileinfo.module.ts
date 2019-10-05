@@ -25,6 +25,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { MatchComponent } from './match/match.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
     BumpComponent, 
     ReferComponent, 
     MytestingComponent, 
-    UploadComponent, InviteComponent, MatchComponent
+    UploadComponent, InviteComponent, MatchComponent, ChangepasswordComponent
     //,HighchartsChartComponent
   ],
   imports: [

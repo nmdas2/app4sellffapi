@@ -153,6 +153,30 @@ namespace Sellff_API.ADO
             return objResponseBO;
         }
 
+        public string Forgotpasswordinfo(string email)
+        {
+            string response = "";
+            try
+            {
+                string pwdString = RandomString(Convert.ToInt32(ConfigurationManager.AppSettings["RandomPasswordLength"]));
+                var sqlParams = new SqlParameter[2];
+                sqlParams[0] = new SqlParameter("@Email", SqlDbType.VarChar) { Value = email };
+                sqlParams[1] = new SqlParameter("@pwdString", SqlDbType.VarChar) { Value = pwdString };
+
+                response = Convert.ToString(SqlHelper.SqlHelper.ExecuteScalar(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_Forgotpasswordinfo", sqlParams));
+                if (!string.IsNullOrEmpty(response))
+                    response = response + "~" + pwdString;
+                else
+                    response = "";
+            }
+            catch (Exception ex)
+            {
+                response = "";
+                log4netlogger.Error(ex);
+            }
+            return response;
+        }
+
         public List<InviteUsersBO> GetInvitedUsersByUserId(int keystring)
         {
             List<InviteUsersBO> objResultList = new List<InviteUsersBO>();
