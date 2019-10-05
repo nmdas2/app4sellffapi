@@ -58,13 +58,18 @@ chartOptions = {
 
       this.buySharesStr = this.formatNumber(this.buyShares);
       this.sellSharesStr = this.formatNumber(this.sellShares);
-      this.getSharesDetails();
-      this.getLoggedInUserTranctions();
-      this.getSchedularData();
+      this.BindDefaultValues();
     }
     else {
       this.router.navigate(['/'])
     }
+  }
+
+  BindDefaultValues()
+  {
+    this.getSharesDetails();
+      this.getLoggedInUserTranctions();
+      this.getSchedularData();
   }
 
   formatNumber(num) {
@@ -122,6 +127,7 @@ chartOptions = {
     this.profileService.saveUserBuySellTransactionDetails(obj)
     .subscribe(res => {
       this.successMsg = 'Transaction details has been submitted successfully';
+      this.BindDefaultValues();
       setTimeout(() => {
         this.successMsg = ''
       }, 10000)
