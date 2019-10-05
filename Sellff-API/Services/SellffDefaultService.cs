@@ -179,6 +179,11 @@ namespace Sellff_API.Services
             return finalresp;
         }
 
+        public bool Changepasswordinfo(string email, int userId)
+        {
+            return objSellffDefaultDAO.Changepasswordinfo(email, userId);
+        }
+
         public bool SendSMTPEmail(string Email, EmailTemplatesBO objEmailTemplatesBO, string EmailBody)
         {
             String FROM = ConfigurationManager.AppSettings["FROMEmail"].ToString();

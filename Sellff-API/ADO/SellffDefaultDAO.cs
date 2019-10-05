@@ -153,6 +153,25 @@ namespace Sellff_API.ADO
             return objResponseBO;
         }
 
+        public bool Changepasswordinfo(string email, int userId)
+        {
+            bool response = true;
+            try
+            {
+                var sqlParams = new SqlParameter[2];
+                sqlParams[0] = new SqlParameter("@Email", SqlDbType.VarChar) { Value = email };
+                sqlParams[1] = new SqlParameter("@userId", SqlDbType.Int) { Value = userId };
+
+                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_Changepasswordinfo", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                response = false;
+                log4netlogger.Error(ex);
+            }
+            return response;
+        }
+
         public string Forgotpasswordinfo(string email)
         {
             string response = "";

@@ -65,4 +65,7 @@ export class AuthenticationService {
     forgotpasswordinfo(email: string): Observable<any> {
         return this.http.get(`${consts.DomainURL}SellffDefault/Forgotpasswordinfo/${email}/1`);
     }
+    changepasswordinfo(email: string, UserId: number): Observable<any> {
+        return this.http.get(`${consts.DomainURL}SellffDefault/Changepasswordinfo/${email}/${UserId}`);
+    }
 }

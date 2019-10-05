@@ -164,5 +164,19 @@ namespace Sellff_API.Controllers
             else
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, false));
         }
+        /// <summary>
+        /// This is to change password
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
+        [HttpGet, Route("api/SellffDefault/Changepasswordinfo/{email}/{UserId}")]
+        public IHttpActionResult Changepasswordinfo(string email, int UserId)
+        {
+            if (objSellffDefaultService.Changepasswordinfo(email,UserId))
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, true));
+            else
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, false));
+        }
     }
 }

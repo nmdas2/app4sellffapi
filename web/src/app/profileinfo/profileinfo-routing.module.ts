@@ -15,6 +15,7 @@ import { MytestingComponent } from './mytesting/mytesting.component';
 import { UploadComponent } from './upload/upload.component';
 import { InviteComponent } from './invite/invite.component';
 import { MatchComponent } from './match/match.component';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
 
 
 export const routes: Routes = [
@@ -32,7 +33,8 @@ export const routes: Routes = [
   { path: 'mytesting', component: MytestingComponent },
   { path: 'upload', component: UploadComponent },
   { path: 'invite', component: InviteComponent },
-  { path: 'match', component: MatchComponent }
+  { path: 'match', component: MatchComponent },
+  { path: 'changepassword', component: ChangepasswordComponent }
 ];
 
 @NgModule({
