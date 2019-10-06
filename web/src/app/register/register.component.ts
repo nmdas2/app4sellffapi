@@ -43,6 +43,9 @@ export class RegisterComponent implements OnInit {
                 if (this.authenticationService.currentUserValue) {
                     this.router.navigate(['/profileinfo/about']);
                 }
+                else{
+                    this.authenticationService.logout();
+                }
             }
         })
 
