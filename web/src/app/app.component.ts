@@ -67,6 +67,7 @@ export class AppComponent implements OnInit, OnDestroy {
           this.dataDisplayProfile = JSON.parse(localStorage.getItem('currentUser'));
           this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
           this.showheadsection = true;
+          this.GetUnReadMessagesCount(this.loggedInUserInfo.UserId);
         }
 
         if (localStorage.getItem('profilepic') && this.isEditbale) {
