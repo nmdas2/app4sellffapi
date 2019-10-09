@@ -22,7 +22,8 @@
                 <div class="col-sm-2 col-md-2 m-w-170">
                     <div class="profile-img" *ngIf="dataDisplayProfile">
                         <div class="profile-change">
-                            <img src='{{profilePic}}' class="img-responsive">
+                            <img src='{{profilePic}}' class="img-responsive" *ngIf = "profilePic">
+                            <img src='../assets/images/defaultpic.jpg' class="img-responsive" *ngIf = "!profilePic">
                             <a (click)="uploadprofilepic(Profilepictemplate)" *ngIf="isEditbale"> <span>Update profile Photo</span></a>
                         </div>
                         <h3 *ngIf="dataDisplayProfile">{{dataDisplayProfile.DisplayName}}</h3>

@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first, max } from 'rxjs/operators';
 import { AuthenticationService } from '../_services/authentication.service';
 import { UserService } from '../_services/user.service';
-import { AlertService } from '../_services/alert.service';
 import { CommonService } from '../_services/common.service';
 import { User } from '../_models/user';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -27,7 +26,6 @@ export class RegisterComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private userService: UserService,
-        private alertService: AlertService,
         private commonService: CommonService,
         private route: ActivatedRoute,
         private modalService: BsModalService
@@ -67,7 +65,6 @@ export class RegisterComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-        this.alertService.clear();
         if (this.registerForm.invalid) { return; }
         this.userService.CheckIfUserExists(this.registerForm.value.email)
             .subscribe(
@@ -76,8 +73,8 @@ export class RegisterComponent implements OnInit {
                         this.errorMsg = 'This user already registered with Sellff.';
                         setTimeout(() => {
                             this.errorMsg = "";
-                        }, 10000)
-                        this.alertService.success('This user already registered with Sellff.', true);
+                        }, 30000)
+                        //this.alertService.success('This user already registered with Sellff.', true);
                         return;
                     }
                     else {
@@ -99,22 +96,27 @@ export class RegisterComponent implements OnInit {
                                     // setTimeout(() => {
                                     //     this.successMsg = "";
                                     // }, 10000)
-                                    this.alertService.success('Registration successful', true, 10000);
+                                    //this.alertService.success('Registration successful', true, 10000);
                                     this.router.navigate(['/login']);
+                                    this.commonService.regSuccessMsg.next('registration was successful, we have sent an verification email to you.');
                                 },
                                 error => {
                                     this.commonService.loadingHide();
                                     this.errorMsg = 'Something went wrong. Please try after some time';
                                     setTimeout(() => {
                                         this.errorMsg = "";
-                                    }, 10000)
-                                    this.alertService.error(error);
+                                    }, 30000)
+                                    //this.alertService.error(error);
                                     this.loading = false;
                                 });
                     }
                 },
                 error => {
-                    this.alertService.error(error);
+                    //this.alertService.error(error);
+                    this.errorMsg = 'Something went wrong. Please try after some time';
+                    setTimeout(() => {
+                        this.errorMsg = "";
+                    }, 30000)
                     this.loading = false;
                 });
     }

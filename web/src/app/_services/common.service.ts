@@ -9,6 +9,11 @@ import { constants as consts } from '../constants';
 @Injectable()
 export class CommonService {
 
+    regSuccessMsg = new BehaviorSubject<string>('');
+    get regSuccessMsg$(){
+        return this.regSuccessMsg.asObservable();
+    }
+
     constructor(private http: HttpClient) {
 
     }

@@ -1,30 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { first} from 'rxjs/operators';
 import { AuthenticationService } from '../_services/authentication.service';
-import { AlertService } from '../_services/alert.service';
 import { User } from '../_models/user';
 import { CommonService } from '../_services/common.service';
-import { AlertComponent } from 'ngx-bootstrap';
+import { Subscription } from 'rxjs';
 
 
-@Component({ 
+@Component({
     templateUrl: 'login.component.html',
-    styleUrls:[ './login.component.scss' ]
+    styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+    
     loginForm: FormGroup;
     loading = false;
     submitted = false;
     returnUrl: string;
     invalidLogin: boolean = false;
+    stateMsg: string = "";
+    regSub: Subscription;
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService,
         private commonService: CommonService
     ) {
     }
@@ -39,6 +40,9 @@ export class LoginComponent implements OnInit {
         localStorage.removeItem('profileviewUser');
         this.commonService.isProfileSelected.next(false);
         this.commonService.socialAndHeaderWidgetsTracker.next(false);
+        this.regSub = this.commonService.regSuccessMsg$.subscribe(msg => {
+            this.stateMsg = msg;
+        })
     }
 
     // convenience getter for easy access to form fields
@@ -48,7 +52,6 @@ export class LoginComponent implements OnInit {
         this.submitted = true;
 
         // reset alerts on submit
-        this.alertService.clear();
 
         // stop here if form is invalid
         if (this.loginForm.invalid) {
@@ -77,5 +80,9 @@ export class LoginComponent implements OnInit {
                     }, 10000)
                     this.loading = false;
                 });
+    }
+
+    ngOnDestroy(): void {
+       if(this.regSub) this.regSub.unsubscribe();
     }
 }

@@ -2,37 +2,49 @@
     <div class="login-screen">
         <div class="row">
             <div class="col-md-12 col-sm-12">
+                <alert type="success" *ngIf="successMsg" [dismissible]="true">
+                    {{successMsg}}
+                </alert>
+                <alert type="danger" *ngIf="errorMsg" [dismissible]="true">
+                    {{errorMsg}}
+                </alert>
                 <h3 class="auth-header">sellff</h3>
-                <div *ngIf="successMsg" class="text-center">
+                <!-- <div *ngIf="successMsg" class="text-center">
                     <p class="success-msg">{{successMsg}}</p>
                 </div>
                 <div *ngIf="errorMsg" class="text-center">
                     <p class="error-msg">{{errorMsg}}</p>
-                </div>
-                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">                    
+                </div> -->
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
-                        <input type="text" placeholder="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                        <input type="text" placeholder="email" formControlName="email" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                         <div *ngIf="f.email.errors" class="invalid-feedback">
-                        <div *ngIf="(submitted || f.email.dirty || f.email.touched) && f.email.errors.required">
-                            email is required</div>
+                            <div *ngIf="(submitted || f.email.dirty || f.email.touched) && f.email.errors.required">
+                                email is required</div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <input placeholder="password" type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                        <input placeholder="password" type="password" formControlName="password" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
 
                         <div *ngIf="f.password.errors" class="invalid-feedback">
-                        <div *ngIf="(submitted || f.password.dirty || f.password.touched) && f.password.errors.required">
-                            password is required</div>
-                        <div *ngIf="(submitted || f.password.dirty || f.password.touched) && f.password.errors.minlength">
-                            Password must be at least 6 characters</div>
+                            <div
+                                *ngIf="(submitted || f.password.dirty || f.password.touched) && f.password.errors.required">
+                                password is required</div>
+                            <div
+                                *ngIf="(submitted || f.password.dirty || f.password.touched) && f.password.errors.minlength">
+                                Password must be at least 6 characters</div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="text" placeholder="user name" formControlName="displayName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.displayName.errors }" />
+                        <input type="text" placeholder="user name" formControlName="displayName" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.displayName.errors }" />
 
                         <div *ngIf="f.displayName.errors" class="invalid-feedback">
-                        <div *ngIf="(submitted || f.displayName.dirty || f.displayName.touched) && f.displayName.errors.required">
-                            user name is required</div>
+                            <div
+                                *ngIf="(submitted || f.displayName.dirty || f.displayName.touched) && f.displayName.errors.required">
+                                user name is required</div>
                         </div>
                     </div>
                     <!-- <div class="form-group">
@@ -48,29 +60,35 @@
                         </div>
                     </div> -->
                     <div class="form-group">
-                        <input type="text" placeholder="city" formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
+                        <input type="text" placeholder="city" formControlName="city" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
 
                         <div *ngIf="f.city.errors" class="invalid-feedback">
-                        <div *ngIf="(submitted || f.city.dirty || f.city.touched) && f.city.errors.required">
-                            city is required</div>
+                            <div *ngIf="(submitted || f.city.dirty || f.city.touched) && f.city.errors.required">
+                                city is required</div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="checkbox" formControlName="termsandconditions" [ngClass]="{ 'is-invalid': submitted && f.termsandconditions.errors }">
-                        I have read, understand and agree to the <b>sellff</b> <a href="javascript:void(0);" (click)="openModal(template)"> Terms of Service</a>
+                        <input type="checkbox" formControlName="termsandconditions"
+                            [ngClass]="{ 'is-invalid': submitted && f.termsandconditions.errors }">
+                        I have read, understand and agree to the <b>sellff</b> <a href="javascript:void(0);"
+                            (click)="openModal(template)"> Terms of Service</a>
                         <div *ngIf="f.termsandconditions.errors" class="invalid-feedback">
-                        <div *ngIf="(submitted || f.termsandconditions.dirty || f.termsandconditions.touched) && f.termsandconditions.errors.required">
-                            please accept terms and conditions</div>
+                            <div
+                                *ngIf="(submitted || f.termsandconditions.dirty || f.termsandconditions.touched) && f.termsandconditions.errors.required">
+                                please accept terms and conditions</div>
                         </div>
                     </div>
                     <div class="form-group capcha">
-                        <re-captcha  (resolved)="resolved($event)" formControlName="recaptchaReactive" [ngClass]="{ 'is-invalid': submitted && f.recaptchaReactive.errors }"
-                        siteKey="6LehNicUAAAAAC1kw1XFQTSxjKEO2_lH_WDSOUdT"></re-captcha>
+                        <re-captcha (resolved)="resolved($event)" formControlName="recaptchaReactive"
+                            [ngClass]="{ 'is-invalid': submitted && f.recaptchaReactive.errors }"
+                            siteKey="6LehNicUAAAAAC1kw1XFQTSxjKEO2_lH_WDSOUdT"></re-captcha>
                         <div *ngIf="f.recaptchaReactive.errors" class="invalid-feedback">
-                        <div *ngIf="(submitted || f.recaptchaReactive.dirty || f.recaptchaReactive.touched) && f.recaptchaReactive.errors.required">
-                            captcha is required</div>
+                            <div
+                                *ngIf="(submitted || f.recaptchaReactive.dirty || f.recaptchaReactive.touched) && f.recaptchaReactive.errors.required">
+                                captcha is required</div>
                         </div>
-                    </div>                    
+                    </div>
                     <div class="form-group login-btn">
                         <button [disabled]="loading" class="btn btn-primary">
                             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
@@ -80,15 +98,15 @@
                     </div>
                     <ng-template #template>
                         <div class="modal-header">
-                          <h4 class="modal-title pull-left">Modal</h4>
-                          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
+                            <h4 class="modal-title pull-left">Modal</h4>
+                            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                         <div class="modal-body">
-                          This is a modal.
+                            This is a modal.
                         </div>
-                      </ng-template>
+                    </ng-template>
                 </form>
             </div>
         </div>
