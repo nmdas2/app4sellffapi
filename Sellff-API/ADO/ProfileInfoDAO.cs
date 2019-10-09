@@ -564,23 +564,39 @@ namespace Sellff_API.ADO
                 sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = UserId };
 
                 DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetAboutNGalleryInfo", sqlParams);
-                if (_objDataSet.Tables[0].Rows.Count > 0)
+                if (_objDataSet.Tables.Count > 0)
                 {
-                    for (int i = 0; i < _objDataSet.Tables[0].Rows.Count; i++)
-                    {
-                        UserAboutBO objResponseBO = new UserAboutBO();
-                        var objDataRow = _objDataSet.Tables[0].Rows[i];
-                        objResponseBO.AutoId = Convert.ToInt32(objDataRow["AutoId"]);
-                        objResponseBO.UserId = Convert.ToInt32(objDataRow["UserId"]);
-                        objResponseBO.About = Convert.ToString(objDataRow["About"]);
-                        objResponseBO.ImagePath = Convert.ToString(objDataRow["ImagePath"]);
-                        objResponseBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
-                        objResponseBO.Type = Convert.ToInt32(objDataRow["Type"]);
-                        objResponseBO.Views = Convert.ToInt32(objDataRow["Views"]);
-                        objResponseBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
-                        objResponseBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
-                        objAboutList.Add(objResponseBO);
+                    UserAboutBO objResponseBOAbout = new UserAboutBO();
+                    if (_objDataSet.Tables[1].Rows.Count > 0)
+                    {                        
+                        var objDataRow = _objDataSet.Tables[1].Rows[0];
+                        objResponseBOAbout.About = Convert.ToString(objDataRow["About"]);
+                        objResponseBOAbout.UserId = Convert.ToInt32(objDataRow["UserId"]);
+                        objResponseBOAbout.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
+                        objResponseBOAbout.Views = Convert.ToInt32(objDataRow["Views"]);
+                        objResponseBOAbout.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                        objResponseBOAbout.Posts = Convert.ToInt32(objDataRow["Posts"]);
                     }
+                    if (_objDataSet.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < _objDataSet.Tables[0].Rows.Count; i++)
+                        {
+                            UserAboutBO objResponseBO = new UserAboutBO();
+                            var objDataRow = _objDataSet.Tables[0].Rows[i];
+                            objResponseBO.AutoId = Convert.ToInt32(objDataRow["AutoId"]);
+                            objResponseBO.UserId = Convert.ToInt32(objDataRow["UserId"]);
+                            objResponseBO.About = Convert.ToString(objDataRow["About"]);
+                            objResponseBO.ImagePath = Convert.ToString(objDataRow["ImagePath"]);
+                            objResponseBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
+                            objResponseBO.Type = Convert.ToInt32(objDataRow["Type"]);
+                            objResponseBO.Views = Convert.ToInt32(objDataRow["Views"]);
+                            objResponseBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                            objResponseBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
+                            objAboutList.Add(objResponseBO);
+                        }
+                    }
+                    else
+                        objAboutList.Add(objResponseBOAbout);
                 }
             }
             catch (Exception ex)

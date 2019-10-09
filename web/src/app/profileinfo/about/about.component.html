@@ -1,9 +1,6 @@
 <div class="wrapper">
-
     <div class="content-wrapper">
         <section class="content">
-
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="box">
@@ -12,7 +9,6 @@
                                 <div *ngIf="!isAboutInEditMode; else elseBlock">
                                     <p class="edit-btn" style="text-justify: distribute-all-lines;">
                                         {{textValue}}
-
                                     </p>
                                     <div class="text-right">
                                         <button class="btn btn-primary" *ngIf="isEditbale" (click)="logText()"><i
@@ -47,30 +43,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
-                            <!-- <div class="col-md-3 service-offered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">Data Center Architecture</button>
-                            </div>
-                            <div class="col-md-3 service-offered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">Fibre Channel & NFS Storage</button>
-                            </div>
-                            <div class="col-md-3 service-offered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">Virtual Desktop Infrastucture</button>
-                            </div>
-                            <div class="col-md-3 service-offered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">Real Estate Investing</button>
-                            </div>
-                            <div class="col-md-3 service-offered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">Multifamily Investing</button>
-                            </div>
-                            <div class="col-md-3 service-offered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">Real Estate Finacial Analysis</button>
-                            </div>
-                            <div class="col-md-3 service-offered">
-                                <button type="button" class="btn btn-block btn-default btn-sm">Real Estate Brokerage and Finacing</button>
-                            </div> -->
                         </div>
                     </div>
                     <div class="box">
@@ -91,19 +63,11 @@
                                                             <a *ngIf="(item.galType != 2)" (click)="removeGalleryicbyid(item.id)"><span class="trash_post" title="Delete Post" *ngIf = "isEditbale"><i class="fa fa-trash"></i></span></a>
                                                     </div>
                                                 </div>
-                                                <!-- <span class="trash_post" title="Delete Post"
-                                                (click)="deleteGalleryItem(post)"><i class="fa fa-trash"></i></span> -->
-                                            </a>
-                                            
+                                            </a>                                            
                                         </div>
                                     </div>
-
-
                                     <ng-template #template>
                                         <div class="modal-header" style="padding: 0;">
-                                            <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button> -->
                                         </div>
                                         <div class="modal-body" style="padding: 0;">
                                             <div *ngIf="dynamicImg">
@@ -152,27 +116,12 @@
                                 </div>
                             </ng-template>
                         </section>
-                        <!-- /.box-footer -->
                     </div>
                 </div>
-                <!-- /.box -->
             </div>
-            <!-- /.col -->
         </section>
     </div>
-    <!-- /.row -->
-    <!-- Main row -->
-    <!-- /.row -->
-
-    <!-- /.content -->
-    <!-- <footer class="main-footer">
-        <div class="pull-right ">
-            <a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Site map</a>
-        </div>
-        Copyright 2019 All Right Reserved
-    </footer> -->
 </div>
-<!-- /.content-wrapper -->
 <div class="control-sidebar-bg"></div>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
