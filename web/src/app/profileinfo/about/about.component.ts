@@ -97,6 +97,7 @@ export class AboutComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         if (res && res.length)
           this.userAboutInfoList = res;
+        if(this.userAboutInfoList[0].AutoId>0){
         this.imgGallery = [];
         for (let img of res) {
           this.altrPath = img.ImagePath;
@@ -111,6 +112,8 @@ export class AboutComponent implements OnInit, OnDestroy {
           };
           this.imgGallery.push(image);
         }
+      }
+      this.textValue = this.userAboutInfoList[0].About;
       }, error => {
         console.log(error);
       })
