@@ -131,7 +131,10 @@ namespace Sellff_API.Services
                 objFinalResponse.QOW = Convert.ToInt32(QOW / resultlist.Count);
                 objFinalResponse.NoofRatingsGiven = objFinalResponse.Starts5 + objFinalResponse.Starts4 + objFinalResponse.Starts3 + objFinalResponse.Starts2 + objFinalResponse.Starts1;
                 objFinalResponse.TotalRatingsCount = 5 * objFinalResponse.Starts5 + 4 * objFinalResponse.Starts4 + 3 * objFinalResponse.Starts3 + 2 * objFinalResponse.Starts2 + objFinalResponse.Starts1;
-                objFinalResponse.OverallRating = Convert.ToDecimal(objFinalResponse.TotalRatingsCount) / Convert.ToDecimal(objFinalResponse.NoofRatingsGiven);
+                if (objFinalResponse.NoofRatingsGiven > 0)
+                    objFinalResponse.OverallRating = Convert.ToDecimal(objFinalResponse.TotalRatingsCount) / Convert.ToDecimal(objFinalResponse.NoofRatingsGiven);
+                else
+                    objFinalResponse.OverallRating = 0;
             }
             return objFinalResponse;
         }
