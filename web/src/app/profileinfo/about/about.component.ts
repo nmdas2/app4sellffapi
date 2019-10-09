@@ -45,7 +45,7 @@ export class AboutComponent implements OnInit, OnDestroy {
     if (localStorage.getItem('profileviewUser') != null) {
       this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
       this.isAboutInEditMode = false;
-      if(this.loggedInUserInfo)
+      if (this.loggedInUserInfo)
         this.updateProfileViewsCount();
     }
     if (this.dataDisplayProfile)
@@ -95,25 +95,27 @@ export class AboutComponent implements OnInit, OnDestroy {
     this.userAboutInfoList = [];
     this.profileInfoService.getUsersAboutNGalleryInfo(this.dataDisplayProfile.UserId)
       .subscribe(res => {
-        if (res && res.length)
+        if (res && res.length) {
           this.userAboutInfoList = res;
-        if(this.userAboutInfoList[0].AutoId>0){
-        this.imgGallery = [];
-        for (let img of res) {
-          this.altrPath = img.ImagePath;
-          if (img.Type == '2') {
-            img.ImagePath = "./././assets/selfprflimages/pdf_icon.png";
+          if (this.userAboutInfoList[0].AutoId > 0) {
+            this.imgGallery = [];
+            for (let img of res) {
+              this.altrPath = img.ImagePath;
+              if (img.Type == '2') {
+                img.ImagePath = "./././assets/selfprflimages/pdf_icon.png";
+              }
+              let image = {
+                "id": img.AutoId,
+                "imgUrl": img.ImagePath,
+                "galType": img.Type,
+                "altUrl": this.altrPath
+              };
+              this.imgGallery.push(image);
+            }
           }
-          let image = {
-            "id": img.AutoId,
-            "imgUrl": img.ImagePath,
-            "galType": img.Type,
-            "altUrl": this.altrPath
-          };
-          this.imgGallery.push(image);
+          this.textValue = this.userAboutInfoList[0].About;
         }
-      }
-      this.textValue = this.userAboutInfoList[0].About;
+
       }, error => {
         console.log(error);
       })
@@ -202,13 +204,12 @@ export class AboutComponent implements OnInit, OnDestroy {
     if (this.profileSubscription)
       this.profileSubscription.unsubscribe();
   }
-  removeGalleryicbyid(GalId)
-  {
+  removeGalleryicbyid(GalId) {
     this.profileInfoService.removeGalleryPicByAutoid(this.loggedInUserInfo.UserId, GalId)
-    .subscribe((res: any) => {
-      this.getUserAboutText();
-    }, error => {
-      console.log(error);
-    })
+      .subscribe((res: any) => {
+        this.getUserAboutText();
+      }, error => {
+        console.log(error);
+      })
   }
 }

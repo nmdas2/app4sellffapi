@@ -31,7 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
   headerWidgetsDetails: ProfileInfo;
   trackerSub: Subscription;
   profilePic: string;
-
+  unReadMsgsCount: number = 0;
   profilePicSub : Subscription;
   constructor(
     private router: Router,
@@ -342,4 +342,13 @@ export class AppComponent implements OnInit, OnDestroy {
       })
   }
 
+  GetUnReadMessagesCount(userId: number) {
+    this.commonService.GetUnReadMessagesCountByUserId(userId)
+      .subscribe(data => {
+        if (data > 0)
+          this.unReadMsgsCount = data;
+      },
+        error => {
+        });
+  }
 }

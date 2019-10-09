@@ -37,10 +37,14 @@
                                     Response</span>
                             </td>
                         </tr>
+
+                        <tr *ngIf = "tempInviteUsersList.length == 0"> 
+                            <td rowspan="5">no records found</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-                <pagination [boundaryLinks]="true" [totalItems]="inviteUsersList.length" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+                <pagination *ngIf = "tempInviteUsersList.length > 0" [boundaryLinks]="true" [totalItems]="inviteUsersList.length" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
             </div>
             <ng-template #template>
                 

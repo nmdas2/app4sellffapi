@@ -35,6 +35,9 @@
                             </ul>
                             <p *ngIf="message.Message">{{message.Message}}</p>
                         </div>
+                        <div *ngIf = "userMessages.length == 0">
+                            no messages are available
+                        </div>
                     </div>
                     </div>
                 </div>

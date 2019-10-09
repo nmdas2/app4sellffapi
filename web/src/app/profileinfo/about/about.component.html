@@ -18,7 +18,8 @@
                             </div>
                             <ng-template #elseBlock>
                                 <div class="edit-box">
-                                    <textarea cols="150" class="about-textarea" rows="10" [(ngModel)]="textValue" required></textarea>
+                                    <textarea cols="150" class="about-textarea" rows="10" [(ngModel)]="textValue"
+                                        required></textarea>
                                     <!-- <input #textbox id="txtAboutUser" type="textarea" width="85%" height="100px;" [(ngModel)]="textValue" required> -->
                                     <div class="text-edit-footer">
                                         <button class="btn btn-primary" (click)="saveupdatedabout()">Update</button>
@@ -60,10 +61,17 @@
                                                     <div class="box p-t-each">
                                                         <img [src]="item.imgUrl" id="img1"
                                                             (click)="checkevent(item.imgUrl, template, item.galType,item.altUrl)">
-                                                            <a *ngIf="(item.galType != 2)" (click)="removeGalleryicbyid(item.id)"><span class="trash_post" title="Delete Post" *ngIf = "isEditbale"><i class="fa fa-trash"></i></span></a>
+                                                        <a *ngIf="(item.galType != 2)"
+                                                            (click)="removeGalleryicbyid(item.id)"><span
+                                                                class="trash_post" title="Delete Post"
+                                                                *ngIf="isEditbale"><i
+                                                                    class="fa fa-trash"></i></span></a>
                                                     </div>
                                                 </div>
-                                            </a>                                            
+                                            </a>
+                                        </div>
+                                        <div class="" *ngIf="imgGallery.length == 0">
+                                            <p>Gallery is not available</p>
                                         </div>
                                     </div>
                                     <ng-template #template>

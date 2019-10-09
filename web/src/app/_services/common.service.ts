@@ -55,4 +55,8 @@ export class CommonService {
             observe: 'events'
           })
     }
+
+    GetUnReadMessagesCountByUserId(UserId: number): Observable<any>{
+        return this.http.get(`${consts.DomainURL}ProfileInfo/GetUnReadMessagesCountByUserId/${UserId}`);
+      }
 }
