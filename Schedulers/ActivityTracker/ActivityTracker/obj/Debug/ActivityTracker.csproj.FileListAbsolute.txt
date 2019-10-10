@@ -1,0 +1,13 @@
+E:\Projects\Samples\Mysellff\Schedulers\ActivityTracker\ActivityTracker\bin\Debug\ActivityTracker.exe.config
+E:\Projects\Samples\Mysellff\Schedulers\ActivityTracker\ActivityTracker\bin\Debug\ActivityTracker.exe
+E:\Projects\Samples\Mysellff\Schedulers\ActivityTracker\ActivityTracker\bin\Debug\ActivityTracker.pdb
+E:\Projects\Samples\Mysellff\Schedulers\ActivityTracker\ActivityTracker\bin\Debug\log4net.dll
+E:\Projects\Samples\Mysellff\Schedulers\ActivityTracker\ActivityTracker\bin\Debug\sqlHelper.dll
+E:\Projects\Samples\Mysellff\Schedulers\ActivityTracker\ActivityTracker\bin\Debug\log4net.xml
+E:\Projects\Samples\Mysellff\Schedulers\ActivityTracker\ActivityTracker\obj\Debug\ActivityTracker.csprojAssemblyReference.cache
+E:\Projects\Samples\Mysellff\Schedulers\ActivityTracker\ActivityTracker\obj\Debug\ActivityTracker.Properties.Resources.resources
+E:\Projects\Samples\Mysellff\Schedulers\ActivityTracker\ActivityTracker\obj\Debug\ActivityTracker.csproj.GenerateResource.cache
+E:\Projects\Samples\Mysellff\Schedulers\ActivityTracker\ActivityTracker\obj\Debug\ActivityTracker.csproj.CoreCompileInputs.cache
+E:\Projects\Samples\Mysellff\Schedulers\ActivityTracker\ActivityTracker\obj\Debug\ActivityTracker.csproj.CopyComplete
+E:\Projects\Samples\Mysellff\Schedulers\ActivityTracker\ActivityTracker\obj\Debug\ActivityTracker.exe
+E:\Projects\Samples\Mysellff\Schedulers\ActivityTracker\ActivityTracker\obj\Debug\ActivityTracker.pdb

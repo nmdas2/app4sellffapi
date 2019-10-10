@@ -1,0 +1,2 @@
+2019-10-10 17:48:19,272 [1] INFO ActivityTracker.Program - Just Info
+2019-10-10 17:49:03,358 [1] INFO ActivityTracker.Program - Just Info

@@ -1,0 +1,3 @@
+2019-10-10 17:49:56,931 [1] INFO ActivityTracker.Program - Just Info
+2019-10-10 17:50:57,357 [1] INFO ActivityTracker.Program - Execution Started:10-10-2019 17:50:57
+2019-10-10 17:50:57,457 [1] INFO ActivityTracker.Program - Execution Ended:10-10-2019 17:50:57
