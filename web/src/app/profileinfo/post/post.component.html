@@ -94,7 +94,12 @@
                                 <div class="e-p-img" *ngFor="let post of posts.objPostsList">
                                    
                                         <div *ngIf="post.ContentType==1" class="p-t-each" >
-                                            <a href="javascript:void(0)" (click)="getUserContent(post.UserContent, post.Title, contentTemplate)"><img  src="../../../assets/selfprflimages/doc_icon.png"></a>
+                                            <a href="javascript:void(0)" (click)="getUserContent(post.UserContent, post.Title, contentTemplate)">
+                                                <span class="postspcltextclass">
+                                                    {{post.Title}} <br><br>
+                                                    {{post.UserContent}}
+                                                </span>
+                                            </a>
                                             <a (click)="removepostbyid(post.UserId,post.AutoId)"><span class="trash_post" title="Delete Post" *ngIf = "isAboutInEditMode"><i class="fa fa-trash"></i></span></a>
                                         </div>
                                         <div *ngIf="post.ContentType==2" class="p-t-each">
