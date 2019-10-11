@@ -12,7 +12,7 @@
                 <a (click)="uploadbannerpic(Bannerpictemplate)"> <span>update banner photo</span></a>
             </div>
             <img src="{{bannerpicpath}}" class="user-banner" alt="Banner Image" *ngIf = "bannerpicpath">
-            <img src="../assets/images/Default_Banner.jpg" class="user-banner" alt="Banner Image" *ngIf = "!bannerpicpath">
+            <img src="http://4sellff.com/sellffapi/AppImages/bannerpics/defbannerpic.jpg" class="user-banner" alt="Banner Image" *ngIf = "!bannerpicpath">
         </div>
         <div class="header-details">
                 <div class="ranking-circle">
@@ -23,7 +23,7 @@
                     <div class="profile-img" *ngIf="dataDisplayProfile">
                         <div class="profile-change">
                             <img src='{{profilePic}}' class="img-responsive" *ngIf = "profilePic">
-                            <img src='../assets/images/defaultpic.jpg' class="img-responsive" *ngIf = "!profilePic">
+                            <img src='http://4sellff.com/sellffapi/AppImages/profilepics/dprfpic.jpg' class="img-responsive" *ngIf = "!profilePic">
                             <a (click)="uploadprofilepic(Profilepictemplate)" *ngIf="isEditbale"> <span>Update profile Photo</span></a>
                         </div>
                         <h3 *ngIf="dataDisplayProfile">{{dataDisplayProfile.DisplayName}}</h3>
