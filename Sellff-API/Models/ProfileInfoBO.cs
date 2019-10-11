@@ -81,7 +81,7 @@ namespace Sellff_API.Models
         [DataMember]
         public int MessageFrom { get; set; }
         [DataMember]
-        public int Rank { get; set; }
+        public decimal Rank { get; set; }
         [DataMember]
         public string CreatedOn { get; set; }
         [DataMember]
