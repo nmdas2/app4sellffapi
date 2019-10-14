@@ -359,7 +359,7 @@ namespace Sellff_API.Models
         [DataMember]
         public string ErrorMessage { get; set; }
         [DataMember]
-        public decimal PercentageValue { get; set; }
+        public decimal PercentageValue { get; set; } = 0;
         [DataMember]
         public Int64 CreatedTicks { get; set; }
         [DataMember]
@@ -376,6 +376,8 @@ namespace Sellff_API.Models
         public decimal ProfitRLoss { get; set; }
         [DataMember]
         public decimal ProfitRLossPercentage { get; set; }
+        [DataMember]
+        public decimal pricechange { get; set; }
     }
 
     public class UserShareDetailsBO

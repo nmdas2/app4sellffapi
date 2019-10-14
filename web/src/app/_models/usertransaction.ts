@@ -23,6 +23,8 @@ export interface UserTransaction{
     Investors?: number;
     ProfitRLoss?: number;
     ProfitRLossPercentage?: number;
+    pricechange?: number;
+    PercentageValue?: number;
     //    BuySellActionType - sell 1, buy - 2
     //    UserId - loggedIn User Id
     //    UserProfileId - profile Id

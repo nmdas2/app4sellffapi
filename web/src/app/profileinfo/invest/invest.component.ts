@@ -35,15 +35,12 @@ chartOptions = {
 };
 
   showBuySell: boolean; askPrice: number; buyPrice: number;
-  loggedInUser: ProfileInfo;
-  profileInfo: ProfileInfo;
+  loggedInUser: ProfileInfo; profileInfo: ProfileInfo;
   buyShares: number = consts.BuyShares;
   sellShares: number = consts.SellShares;
-  buySharesStr: string;
-  sellSharesStr: string;
-  userTransactionDetails: UserTransaction;
-  successMsg: string = "";
-  errorMsg: string = "";
+  buySharesStr: string; sellSharesStr: string;
+  userTransactionDetails: UserTransaction; UserProfileChangeValsForPercentageCalc: UserTransaction;
+  successMsg: string = ""; errorMsg: string = "";
   constructor(
     private profileService: ProfileinfoService,
     private router: Router
@@ -114,7 +111,11 @@ chartOptions = {
   getLoggedInUserTranctions() {
     this.profileService.getUserInvestimentDetailsByUserId(this.loggedInUser.UserId)
       .subscribe(res => {
-        //console.log(res);
+        this.UserProfileChangeValsForPercentageCalc = res;
+        console.log(this.UserProfileChangeValsForPercentageCalc);
+        console.log(this.userTransactionDetails);
+        this.userTransactionDetails.PercentageValue = this.UserProfileChangeValsForPercentageCalc.PercentageValue;
+        this.userTransactionDetails.pricechange = this.UserProfileChangeValsForPercentageCalc.pricechange
       })
   }
 

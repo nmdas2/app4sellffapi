@@ -210,10 +210,13 @@ namespace Sellff_API.Services
                 decimal currentLastTradePrice = Convert.ToDecimal(objResponseBO.LastTradeSharePrice);
                 try
                 {
+                    objResponseBO.pricechange = currentLastTradePrice - previousdayLastTradePrice;
                     objResponseBO.PercentageValue = ((currentLastTradePrice - previousdayLastTradePrice) / previousdayLastTradePrice) * 100;
+                    objResponseBO.PercentageValue = Math.Floor(objResponseBO.PercentageValue * 100) / 100;
                 }
                 catch (Exception)
                 {
+                    objResponseBO.pricechange = 0;
                     objResponseBO.PercentageValue = 0;
                 }
                 objResponseBO.color = "red";
