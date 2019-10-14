@@ -19,9 +19,9 @@ export class AboutComponent implements OnInit, OnDestroy {
   AllowImageUpload: boolean = false; loggedInUserInfo: ProfileInfo; altrPath: string; fileData: File = null;
   previewUrl: any = null; fileUploadProgress: string = null; uploadedFilePath: string = null;
   dynamicImg: string = ""; modalRef: BsModalRef; imgGallery = []; userProfileInfo: ProfileInfo;
-  dataDisplayProfile: ProfileInfo; readonlyUserInfo: ProfileInfo;
-  profileSubscription: Subscription; svrfilepath: string = "";
-  isEditbale: boolean = false;
+  dataDisplayProfile: ProfileInfo; readonlyUserInfo: ProfileInfo; userCity: string = '';
+  profileSubscription: Subscription; svrfilepath: string = ""; UserOccupation: string = '';
+  isEditbale: boolean = false; isCityInEditMode: boolean = false; isOccupationInEditMode: boolean = false;
   html: string = `<span class="btn btn-danger">Never trust not sanitized HTML!!!</span>`;
   serviceOffered: UserServiceTypes[];
 
@@ -45,13 +45,21 @@ export class AboutComponent implements OnInit, OnDestroy {
     if (localStorage.getItem('profileviewUser') != null) {
       this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
       this.isAboutInEditMode = false;
+      this.isCityInEditMode= false;
+      this.isOccupationInEditMode = false;
       if (this.loggedInUserInfo)
         this.updateProfileViewsCount();
     }
     if (this.dataDisplayProfile)
       this.getServiceOffered();
     this.textValue = this.dataDisplayProfile.ProfileSummary;
+    this.userCity = this.dataDisplayProfile.City;
+    this.UserOccupation = this.dataDisplayProfile.Occupation;
+    console.log(this.userCity);
+    console.log(this.UserOccupation);
     this.getUserAboutText();
+    console.log(this.userCity);
+    console.log(this.UserOccupation);
   }
   updateProfileViewsCount() {
     this.dataDisplayProfile.UserRefProfileId = this.loggedInUserInfo.UserId;
@@ -65,6 +73,16 @@ export class AboutComponent implements OnInit, OnDestroy {
   logText(): void {
     this.isAboutInEditMode = true;
   }
+  enablecityedit(): void{
+    this.isCityInEditMode = true;
+    console.log(this.userCity);
+    console.log(this.UserOccupation);
+  }
+  enableoccupationedit(): void{
+    this.isOccupationInEditMode = true;
+    console.log(this.userCity);
+    console.log(this.UserOccupation);
+  }
   getServiceOffered() {
     this.serviceOffered = [];
     this.profileInfoService.getUserServiceTypesByUserIdServiceId(this.dataDisplayProfile.UserId, 1)
@@ -76,13 +94,40 @@ export class AboutComponent implements OnInit, OnDestroy {
       })
   }
   saveupdatedabout(): void {
-    console.log(this.dataDisplayProfile.UserId);
     this.isAboutInEditMode = false;
     if (this.textValue) {
       let userAboutInfoBO = <userAboutInfo>{};
       userAboutInfoBO.About = this.textValue;
       userAboutInfoBO.UserId = this.dataDisplayProfile.UserId;
       this.profileInfoService.postUserAboutText(userAboutInfoBO)
+        .subscribe(res => {
+          this.getUserAboutText();
+        }, error => {
+          console.log(error);
+        })
+    }
+  }
+  updatecityvalue(): void {
+    this.isCityInEditMode = false;
+    if (this.userCity) {
+      let userAboutInfoBO = <userAboutInfo>{};
+      userAboutInfoBO.City = this.userCity;
+      userAboutInfoBO.UserId = this.dataDisplayProfile.UserId;
+      this.profileInfoService.updateusercityvalue(userAboutInfoBO)
+        .subscribe(res => {
+          this.getUserAboutText();
+        }, error => {
+          console.log(error);
+        })
+    }
+  }
+  updateoccupationvalue(): void {
+    this.isOccupationInEditMode = false;
+    if (this.UserOccupation) {
+      let userAboutInfoBO = <userAboutInfo>{};
+      userAboutInfoBO.Occupation = this.UserOccupation;
+      userAboutInfoBO.UserId = this.dataDisplayProfile.UserId;
+      this.profileInfoService.updateuseroccupationvalue(userAboutInfoBO)
         .subscribe(res => {
           this.getUserAboutText();
         }, error => {
@@ -114,8 +159,9 @@ export class AboutComponent implements OnInit, OnDestroy {
             }
           }
           this.textValue = this.userAboutInfoList[0].About;
+          this.userCity = this.userAboutInfoList[0].City;
+          this.UserOccupation = this.userAboutInfoList[0].Occupation;
         }
-
       }, error => {
         console.log(error);
       })
@@ -199,6 +245,12 @@ export class AboutComponent implements OnInit, OnDestroy {
 
   onCancel() {
     this.isAboutInEditMode = false;
+  }
+  oncitycancel(){
+    this.isCityInEditMode = false;
+  }
+  onoccupationcancel(){
+    this.isOccupationInEditMode = false;
   }
   ngOnDestroy() {
     if (this.profileSubscription)

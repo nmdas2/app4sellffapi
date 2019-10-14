@@ -37,6 +37,7 @@ namespace Sellff_API.ADO
                         objProfileInfoBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
                         objProfileInfoBO.Rank = Convert.ToDecimal(objDataRow["Rank"]);
                         objProfileInfoBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
+                        objProfileInfoBO.City = Convert.ToString(objDataRow["City"]);
                         objProfileInfoBO.Reviews = Convert.ToInt32(objDataRow["Reviews"]);
                         objProfilesList.Add(objProfileInfoBO);
                     }
@@ -576,6 +577,8 @@ namespace Sellff_API.ADO
                         objResponseBOAbout.Views = Convert.ToInt32(objDataRow["Views"]);
                         objResponseBOAbout.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
                         objResponseBOAbout.Posts = Convert.ToInt32(objDataRow["Posts"]);
+                        objResponseBOAbout.City = Convert.ToString(objDataRow["City"]);
+                        objResponseBOAbout.Occupation = Convert.ToString(objDataRow["Occupation"]);
                     }
                     if (_objDataSet.Tables[0].Rows.Count > 0)
                     {
@@ -956,6 +959,50 @@ namespace Sellff_API.ADO
         public long ToJsonTicks(DateTime value)
         {
             return (value.ToUniversalTime().Ticks - ((new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).Ticks)) / 10000;
+        }
+
+        public bool UpdateUserCityValue(UserAboutBO objUserAboutBO)
+        {
+            var result = true;
+            try
+            {
+                var sqlParams = new SqlParameter[3];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = objUserAboutBO.UserId };
+                sqlParams[1] = new SqlParameter("@City", SqlDbType.VarChar) { Value = objUserAboutBO.City };
+                if (string.IsNullOrEmpty(objUserAboutBO.CreatedIP))
+                    objUserAboutBO.CreatedIP = "::1";
+                sqlParams[2] = new SqlParameter("@CreatedIP", SqlDbType.VarChar) { Value = objUserAboutBO.CreatedIP };
+
+                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_SaveUserCityText", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                log4netlogger.Error(ex);
+            }
+            return result;
+        }
+
+        public bool UpdateUserOccupationValue(UserAboutBO objUserAboutBO)
+        {
+            var result = true;
+            try
+            {
+                var sqlParams = new SqlParameter[3];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = objUserAboutBO.UserId };
+                sqlParams[1] = new SqlParameter("@Occupation", SqlDbType.VarChar) { Value = objUserAboutBO.Occupation };
+                if (string.IsNullOrEmpty(objUserAboutBO.CreatedIP))
+                    objUserAboutBO.CreatedIP = "::1";
+                sqlParams[2] = new SqlParameter("@CreatedIP", SqlDbType.VarChar) { Value = objUserAboutBO.CreatedIP };
+
+                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_SaveUserOccupationText", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                log4netlogger.Error(ex);
+            }
+            return result;
         }
 
     }

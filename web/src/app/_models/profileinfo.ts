@@ -28,7 +28,7 @@ export interface ProfileInfo{
     MessageTo?: number;
     Views?: number;
     Posts?: number;
-    City?: number;
+    City?: string;
     Occupation?: string;
     socialLinkType?: number;
     socialLink?: string;
@@ -54,6 +54,8 @@ export interface userAboutInfo{
     Views: number;
     ProfilePicPath: string;
     Posts: number;
+    City: string;
+    Occupation: string;
 }
 export interface userPostInfo{
     UserId: number;

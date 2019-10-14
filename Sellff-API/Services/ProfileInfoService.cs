@@ -240,5 +240,15 @@ namespace Sellff_API.Services
         {
             return objProfileInfoDAO.UpdateUserProfilePicById(userId, Profilefilepath, PicType);
         }
+
+        public bool UpdateUserCityValue(UserAboutBO objUserAboutBO)
+        {
+            return objProfileInfoDAO.UpdateUserCityValue(objUserAboutBO);
+        }
+
+        public bool UpdateUserOccupationValue(UserAboutBO objUserAboutBO)
+        {
+            return objProfileInfoDAO.UpdateUserOccupationValue(objUserAboutBO);
+        }
     }
 }

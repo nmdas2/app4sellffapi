@@ -68,7 +68,12 @@ export class ProfileinfoService {
   postUserAboutText(data: userAboutInfo): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/SaveUserAboutText`, data);
   }
-
+  updateusercityvalue(data: userAboutInfo): Observable<any>{
+    return this.http.post(`${consts.DomainURL}ProfileInfo/updateusercityvalue`, data);
+  }
+  updateuseroccupationvalue(data: userAboutInfo): Observable<any>{
+    return this.http.post(`${consts.DomainURL}ProfileInfo/updateuseroccupationvalue`, data);
+  }
   postUserImagesNDocs(data: userAboutInfo): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/SaveUserGalleryImagesPath`, data);
   }

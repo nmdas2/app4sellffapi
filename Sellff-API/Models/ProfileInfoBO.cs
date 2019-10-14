@@ -199,6 +199,10 @@ namespace Sellff_API.Models
         public string ProfilePicPath { get; set; }
         [DataMember]
         public int Posts { get; set; }
+        [DataMember]
+        public string City { get; set; }
+        [DataMember]
+        public string Occupation { get; set; }
     }
 
     public class UserPostBO

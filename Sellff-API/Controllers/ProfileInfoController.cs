@@ -418,6 +418,16 @@ namespace Sellff_API.Controllers
             return response;
         }
 
+        [HttpPost, Route("api/ProfileInfo/updateusercityvalue")]
+        public IHttpActionResult updateusercityvalue([FromBody]UserAboutBO objUserAboutBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.UpdateUserCityValue(objUserAboutBO)));
+        }
 
+        [HttpPost, Route("api/ProfileInfo/updateuseroccupationvalue")]
+        public IHttpActionResult updateuseroccupationvalue([FromBody]UserAboutBO objUserAboutBO)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.UpdateUserOccupationValue(objUserAboutBO)));
+        }
     }
 }
