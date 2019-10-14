@@ -35,7 +35,7 @@ namespace Sellff_API.ADO
                         objProfileInfoBO.Email = Convert.ToString(objDataRow["Email"]);
                         objProfileInfoBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
                         objProfileInfoBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
-                        objProfileInfoBO.Rank = Convert.ToDecimal(objDataRow["Rank"]);
+                        objProfileInfoBO.Rank = Convert.ToInt32(objDataRow["Rank"]);
                         objProfileInfoBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
                         objProfileInfoBO.City = Convert.ToString(objDataRow["City"]);
                         objProfileInfoBO.Reviews = Convert.ToInt32(objDataRow["Reviews"]);
@@ -499,7 +499,7 @@ namespace Sellff_API.ADO
                     objResponseBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
                     objResponseBO.Views = Convert.ToInt32(objDataRow["Views"]);
                     objResponseBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
-                    objResponseBO.Rank = Convert.ToDecimal(objDataRow["Rank"]);
+                    objResponseBO.Rank = Convert.ToInt32(objDataRow["Rank"]);
                     objResponseBO.ProfileSummary = Convert.ToString(objDataRow["ProfileSummary"]);
                     objResponseBO.FacebookLink = Convert.ToString(objDataRow["FacebookLink"]);
                     objResponseBO.LinkedInLink = Convert.ToString(objDataRow["LinkedInLink"]);

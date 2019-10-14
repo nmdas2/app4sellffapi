@@ -44,7 +44,7 @@ namespace Sellff_API.ADO
                     objAuthenticationBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
                     objAuthenticationBO.Views = Convert.ToInt32(objDataRow["Views"]);
                     objAuthenticationBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
-                    objAuthenticationBO.Rank = Convert.ToDecimal(objDataRow["Rank"]);
+                    objAuthenticationBO.Rank = Convert.ToInt32(objDataRow["Rank"]);
                     objAuthenticationBO.ProfileSummary = Convert.ToString(objDataRow["ProfileSummary"]);
                     objAuthenticationBO.FacebookLink = Convert.ToString(objDataRow["FacebookLink"]);
                     objAuthenticationBO.LinkedInLink = Convert.ToString(objDataRow["LinkedInLink"]);
