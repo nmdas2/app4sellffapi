@@ -326,6 +326,16 @@ namespace Sellff_API.ADO
                     objResponseBO.MarketCap = Convert.ToDecimal(objResponseBO.TotalPurchasedShareQty * objResponseBO.LastTradeSharePrice);
                     objResponseBO.ProfitRLoss = Convert.ToDecimal(objResponseBO.TotalValueAtCurrentPrice - objResponseBO.TotalValueAtPurchasedPrice);
                     objResponseBO.ProfitRLossPercentage = Convert.ToDecimal((objResponseBO.TotalValueAtCurrentPrice * 100) / objResponseBO.TotalValueAtPurchasedPrice) - 100;
+                    objResponseBO.ProfitRLossPercentage = Math.Floor(objResponseBO.ProfitRLossPercentage * 100) / 100;
+                    objResponseBO.profitlossinnegitive = false;
+                    objResponseBO.profitlosscolor = "text-green";
+                    if (objResponseBO.ProfitRLoss < 0)
+                    {
+                        objResponseBO.profitlossinnegitive = true;
+                        objResponseBO.profitlosscolor = "text-red";
+                        objResponseBO.ProfitRLoss = Math.Abs(objResponseBO.ProfitRLoss);
+                        objResponseBO.ProfitRLossPercentage = Math.Abs(objResponseBO.ProfitRLossPercentage);
+                    }
                     objResponseBO.ErrorMessage = "";
                 }
                 if (_objDataSet.Tables[1].Rows.Count > 0)
@@ -595,6 +605,8 @@ namespace Sellff_API.ADO
                             objResponseBO.Views = Convert.ToInt32(objDataRow["Views"]);
                             objResponseBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
                             objResponseBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
+                            objResponseBO.City = Convert.ToString(objDataRow["City"]);
+                            objResponseBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
                             objAboutList.Add(objResponseBO);
                         }
                     }

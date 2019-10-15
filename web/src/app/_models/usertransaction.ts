@@ -25,6 +25,10 @@ export interface UserTransaction{
     ProfitRLossPercentage?: number;
     pricechange?: number;
     PercentageValue?: number;
+    profitlossinnegitive?: boolean;
+    profitlosscolor?: string;
+    color?: string;
+    pricechangeinnegitive?: boolean;
     //    BuySellActionType - sell 1, buy - 2
     //    UserId - loggedIn User Id
     //    UserProfileId - profile Id

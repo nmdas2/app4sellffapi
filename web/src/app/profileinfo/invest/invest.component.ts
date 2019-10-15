@@ -35,10 +35,10 @@ chartOptions = {
 };
 
   showBuySell: boolean; askPrice: number; buyPrice: number;
-  loggedInUser: ProfileInfo; profileInfo: ProfileInfo;
-  buyShares: number = consts.BuyShares;
-  sellShares: number = consts.SellShares;
-  buySharesStr: string; sellSharesStr: string;
+  loggedInUser: ProfileInfo; profileInfo: ProfileInfo; dataDisplayProfile: ProfileInfo;
+  buyShares: number = consts.BuyShares; pricechangeinnegitive: boolean = false;
+  sellShares: number = consts.SellShares; profitlossinnegitive: boolean = false;
+  buySharesStr: string; sellSharesStr: string; crntshrs: number;
   userTransactionDetails: UserTransaction; UserProfileChangeValsForPercentageCalc: UserTransaction;
   successMsg: string = ""; errorMsg: string = "";
   constructor(
@@ -48,9 +48,9 @@ chartOptions = {
 
   ngOnInit() {
     if (localStorage.getItem('currentUser')) {
-      this.loggedInUser = JSON.parse(localStorage.getItem('currentUser'));
+      this.dataDisplayProfile = this.loggedInUser = JSON.parse(localStorage.getItem('currentUser'));
       if (localStorage.getItem('profileviewUser')) {
-        this.profileInfo = JSON.parse(localStorage.getItem('profileviewUser'));
+        this.dataDisplayProfile = this.profileInfo = JSON.parse(localStorage.getItem('profileviewUser'));
       }
 
       this.buySharesStr = this.formatNumber(this.buyShares);
@@ -64,15 +64,11 @@ chartOptions = {
 
   BindDefaultValues()
   {
-    this.getSharesDetails();
-      this.getLoggedInUserTranctions();
-      this.getSchedularData();
+    this.getSharesDetails();      
   }
-
   formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
   }
-
   getSchedularData(){
     this.profileService.getSharePriceValuesByUserId(this.loggedInUser.UserId)
     .subscribe(res => {
@@ -96,24 +92,24 @@ chartOptions = {
     else {
       profileId = this.loggedInUser.UserId;
     }
-
-    this.profileService.getUserProfileDetailsByUserIdNUserProfileId(this.loggedInUser.UserId, profileId)
+    this.profileService.getUserProfileDetailsByUserIdNUserProfileId(this.loggedInUser.UserId, this.dataDisplayProfile.UserId)
       .subscribe(res => {
         this.userTransactionDetails = res
         this.askPrice = this.userTransactionDetails.AskPrice;
         this.buyPrice = this.userTransactionDetails.BuyPrice;
+        this.pricechangeinnegitive = this.userTransactionDetails.pricechangeinnegitive;
+        this.profitlossinnegitive = this.userTransactionDetails.profitlossinnegitive;
+        //this.crntshrs = this.userTransactionDetails.LastTradeSharePrice;
+        //this.getLoggedInUserTranctions();
+        this.getSchedularData();
       }, error => {
-
       })
-
   }
 
   getLoggedInUserTranctions() {
-    this.profileService.getUserInvestimentDetailsByUserId(this.loggedInUser.UserId)
+    this.profileService.getUserInvestimentDetailsByUserId(this.dataDisplayProfile.UserId,1)
       .subscribe(res => {
         this.UserProfileChangeValsForPercentageCalc = res;
-        console.log(this.UserProfileChangeValsForPercentageCalc);
-        console.log(this.userTransactionDetails);
         this.userTransactionDetails.PercentageValue = this.UserProfileChangeValsForPercentageCalc.PercentageValue;
         this.userTransactionDetails.pricechange = this.UserProfileChangeValsForPercentageCalc.pricechange
       })

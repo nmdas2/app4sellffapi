@@ -197,17 +197,13 @@ namespace Sellff_API.Services
 
         public UserTransactionsBO GetUserProfileDetailsByUserIdNUserProfileId(int userId, int userProfileId)
         {
-            return objProfileInfoDAO.GetUserProfileDetailsByUserIdNUserProfileId(userId, userProfileId);
-        }
-
-        public UserTransactionsBO GetUserInvestimentDetailsByUserId(int userId)
-        {
-            UserTransactionsBO objResponseBO = objProfileInfoDAO.GetUserInvestimentDetailsByUserId(userId);
-            UserTransactionsBO objPartialResponseBO = GetUserProfileChangeValsForPercentageCalc(userId, objResponseBO.LastTradeSharePrice);
-            if (objResponseBO.LastTradeSharePrice > 0)
+            UserTransactionsBO objResponseBO = objProfileInfoDAO.GetUserProfileDetailsByUserIdNUserProfileId(userId, userProfileId);
+            decimal cuprice = objResponseBO.LastTradeSharePrice;
+            UserTransactionsBO objPartialResponseBO = GetUserProfileChangeValsForPercentageCalc(userId, cuprice);
+            if (cuprice > 0)
             {
                 decimal previousdayLastTradePrice = objPartialResponseBO.LastTradeSharePrice;
-                decimal currentLastTradePrice = Convert.ToDecimal(objResponseBO.LastTradeSharePrice);
+                decimal currentLastTradePrice = Convert.ToDecimal(cuprice);
                 try
                 {
                     objResponseBO.pricechange = currentLastTradePrice - previousdayLastTradePrice;
@@ -218,12 +214,47 @@ namespace Sellff_API.Services
                 {
                     objResponseBO.pricechange = 0;
                     objResponseBO.PercentageValue = 0;
-                }
-                objResponseBO.color = "red";
+                }                
                 if (currentLastTradePrice >= previousdayLastTradePrice)
-                    objResponseBO.color = "green";
+                {
+                    objResponseBO.color = "text-green";
+                    objResponseBO.pricechangeinnegitive = false;
+                }
+                else
+                {
+                    objResponseBO.color = "text-red";
+                    objResponseBO.pricechange = Math.Abs(objResponseBO.pricechange);
+                    objResponseBO.PercentageValue = Math.Abs(objResponseBO.pricechange);
+                    objResponseBO.pricechangeinnegitive = true;
+                }
             }
             return objResponseBO;
+        }
+
+        public UserTransactionsBO GetUserInvestimentDetailsByUserId(int userId, decimal cuprice)
+        {
+            //UserTransactionsBO objResponseBO = objProfileInfoDAO.GetUserInvestimentDetailsByUserId(userId);
+            UserTransactionsBO objPartialResponseBO = GetUserProfileChangeValsForPercentageCalc(userId, cuprice);
+            if (cuprice > 0)
+            {
+                decimal previousdayLastTradePrice = objPartialResponseBO.LastTradeSharePrice;
+                decimal currentLastTradePrice = Convert.ToDecimal(cuprice);
+                try
+                {
+                    objPartialResponseBO.pricechange = currentLastTradePrice - previousdayLastTradePrice;
+                    objPartialResponseBO.PercentageValue = ((currentLastTradePrice - previousdayLastTradePrice) / previousdayLastTradePrice) * 100;
+                    objPartialResponseBO.PercentageValue = Math.Floor(objPartialResponseBO.PercentageValue * 100) / 100;
+                }
+                catch (Exception)
+                {
+                    objPartialResponseBO.pricechange = 0;
+                    objPartialResponseBO.PercentageValue = 0;
+                }
+                objPartialResponseBO.color = "red";
+                if (currentLastTradePrice >= previousdayLastTradePrice)
+                    objPartialResponseBO.color = "green";
+            }
+            return objPartialResponseBO;
         }
         public UserTransactionsBO GetUserProfileChangeValsForPercentageCalc(int userId, decimal currentLastTradePrice)
         {

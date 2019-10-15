@@ -368,10 +368,10 @@ namespace Sellff_API.Controllers
         /// This method will get all users Posts info based on UserId
         ///</summary>
         /// <param name="UserId"></param>
-        [HttpGet, Route("api/ProfileInfo/GetUserInvestimentDetailsByUserId/{UserId}")]
-        public IHttpActionResult GetUserInvestimentDetailsByUserId(int UserId)
+        [HttpGet, Route("api/ProfileInfo/GetUserInvestimentDetailsByUserId/{UserId}/{cuprice}")]
+        public IHttpActionResult GetUserInvestimentDetailsByUserId(int UserId,decimal cuprice)
         {
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserInvestimentDetailsByUserId(UserId)));
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserInvestimentDetailsByUserId(UserId, cuprice)));
         }
 
         ///summary

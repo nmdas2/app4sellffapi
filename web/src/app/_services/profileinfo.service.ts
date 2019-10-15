@@ -134,8 +134,8 @@ export class ProfileinfoService {
   getUserProfileDetailsByUserIdNUserProfileId(userId: number, profileId: number): Observable<any>{
     return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserProfileDetailsByUserIdNUserProfileId/${userId}/${profileId}`)
   }
-  getUserInvestimentDetailsByUserId(userId: number): Observable<any>{
-    return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserInvestimentDetailsByUserId/${userId}`)
+  getUserInvestimentDetailsByUserId(userId: number, cuprice: number): Observable<any>{
+    return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserInvestimentDetailsByUserId/${userId}/${cuprice}`)
   }
   saveUserBuySellTransactionDetails(data: UserTransaction): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/SaveUserBuySellTransactionDetails`, data)

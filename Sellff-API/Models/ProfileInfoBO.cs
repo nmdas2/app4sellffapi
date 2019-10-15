@@ -378,6 +378,12 @@ namespace Sellff_API.Models
         public decimal ProfitRLossPercentage { get; set; }
         [DataMember]
         public decimal pricechange { get; set; }
+        [DataMember]
+        public bool profitlossinnegitive { get; set; } = false;
+        [DataMember]
+        public string profitlosscolor { get; set; }
+        [DataMember]
+        public bool pricechangeinnegitive { get; set; } = false;
     }
 
     public class UserShareDetailsBO
