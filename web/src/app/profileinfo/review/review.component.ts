@@ -17,8 +17,8 @@ import { CommonService } from 'src/app/_services/common.service';
 })
 export class ReviewComponent implements OnInit {
   
-  ratefive: number = 5;
-  max = 5; rate = 0; communicationRate = 0; QOWRate = 0; isReadonly = false; overStar: number | undefined; percent: number;
+  ratefive: number = 0;
+  max = 5; rate = 0; communicationRate = 0; QOWRate = 0; isReadonly = true; overStar: number | undefined; percent: number;
   ViewUserInfo: User; modalRef: BsModalRef; loggedInUserInfo: ProfileInfo; ratingGivenTo: number; reviewUserForm: FormGroup
   canReview: boolean = false; idToGetReviews: number; userReviews: Review[]; searchProfileUserId: number = 0; currentRating: Review;
   readonlyUserInfo: ProfileInfo; submitted = false; totalRatings: number = 0; dataDisplayProfile: ProfileInfo; reviewAlreadyGiven: boolean = false;
@@ -46,6 +46,7 @@ export class ReviewComponent implements OnInit {
       .subscribe((res: any) => {
         this.currentRating = res;
         this.totalRatings = this.currentRating.Starts5 + this.currentRating.Starts4 + this.currentRating.Starts3 + this.currentRating.Starts2 + this.currentRating.Starts1
+        this.ratefive = this.currentRating.TotalRatingsCount;
       }, error => {
         console.log(error);
       })
@@ -80,6 +81,7 @@ export class ReviewComponent implements OnInit {
     this.profileInfoService.SaveReview(postReview)
       .subscribe((res: any) => {
         this.getUserReviews(this.dataDisplayProfile.UserId, this.loggedInUserId);
+        this.FilterListForCurrentuserRating(this.dataDisplayProfile.UserId);
         this.onReset();
       }, error => {
         console.log(error);
@@ -124,7 +126,6 @@ export class ReviewComponent implements OnInit {
     this.commonService.socialAndHeaderWidgetsTracker.next(true);
   }
   sayhelpful(review: Review) { 
-    console.log(review);
     this.commonService.loadingShow();
     let reviewObj = review;
     reviewObj.CreatedIP = '127.0.0.1';
