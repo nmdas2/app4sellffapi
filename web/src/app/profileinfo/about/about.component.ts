@@ -174,7 +174,7 @@ export class AboutComponent implements OnInit, OnDestroy {
 
   fileProgress(fileInput: any) {
     this.fileData = <File>fileInput.target.files[0];
-    this.preview();
+    //this.preview();
   }
 
   preview() {

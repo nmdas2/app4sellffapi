@@ -2,38 +2,34 @@
     <div class="content-wrapper">
         <section class="content">
             <ng-template #templateForPostGallary>
-                    <form [formGroup]="postGalleryForm" (ngSubmit)="saveGalleryPost(postGalleryForm.value)">
-                <div class="modal-body">
-                   
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="add-p-w">
-                                    
-                                    <div class="form-group file-upload-wrapper justify-content-center" data-text="Select your file!">
-                                        <input type="file" name="image" (change)="attachToFormControl($event)" value="" />
-                                    </div>
-                                    <label>Select Photo</label>
+                <form [formGroup]="postGalleryForm" (ngSubmit)="saveGalleryPost(postGalleryForm.value)">
+                <div class="modal-body">                   
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="add-p-w">                                    
+                                <div class="upload-img">
+                                    <input type="file" name="image" (change)="attachToFormControl($event)" />
                                 </div>
+                                <div style="height: 50px;"></div>
+                                <label>upload photos</label>
+                            </div>                            
+                        </div>                                                     
+                        <div class="col-md-6">
+                                <div class="add-p-w">                                
+                            <div class="form-group justify-content-center">
+                                <input type="text" class="form-control" formControlName="webUrl" placeholder="https://www.google.com/images/branding/googleimage.png" />
                             </div>
-                                                     
-                            <div class="col-md-6">
-                                    <div class="add-p-w">
-                                
-                                <div class="form-group justify-content-center">
-                                    <input type="text" class="form-control" formControlName="webUrl" placeholder="https://www.google.com/images/branding/googleimage.png" />
-                                </div>
-                                <label>Add a photo url from web</label>
-                                </div>
+                            <div style="height: 25px;"></div>
+                            <label>add photo from web</label>
                             </div>
                         </div>
-                        
-                   
+                    </div>                   
                 </div>
                 <div class="modal-footer">
-                        <button type="button" class="btn btn-custom pull-left" aria-label="Close" (click)="resetPostGalleryForm()">
-                                Close
-                         </button>
-                         <button class="btn btn-custom btn-primary pull-right" type="submit" [disabled]="postGalleryForm.invalid">Submit Post</button>
+                    <button type="button" class="btn btn-custom pull-left" aria-label="Close" (click)="resetPostGalleryForm()">
+                            Close
+                        </button>
+                        <button class="btn btn-custom btn-primary pull-right" type="submit" [disabled]="postGalleryForm.invalid">Submit Post</button>
                 </div>
             </form>
             </ng-template>
