@@ -149,6 +149,7 @@ export class PostComponent implements OnInit {
         this.profileInfoService.postText(galleryPost)
           .subscribe((res: any) => {
             this.getUserPosts();
+            this.commonService.socialAndHeaderWidgetsTracker.next(true);
             this.resetPostGalleryForm();
           }, error => {
             console.log(error);

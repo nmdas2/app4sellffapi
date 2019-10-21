@@ -23,4 +23,5 @@ export class Review {
     OverallRating?: number = 0;
     TotalRatingsCount?: number = 0;
     NoofRatingsGiven?: number = 0;
+    HelpId?: boolean = false;
 }

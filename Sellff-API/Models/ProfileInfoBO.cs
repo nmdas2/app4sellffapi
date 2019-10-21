@@ -278,6 +278,8 @@ namespace Sellff_API.Models
         public int TotalRatingsCount { get; set; }
         [DataMember]
         public int NoofRatingsGiven { get; set; }
+        [DataMember]
+        public bool HelpId { get; set; } = false;
     }
     public class UserLocalStorageBO
     {

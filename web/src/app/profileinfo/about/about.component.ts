@@ -55,11 +55,7 @@ export class AboutComponent implements OnInit, OnDestroy {
     this.textValue = this.dataDisplayProfile.ProfileSummary;
     this.userCity = this.dataDisplayProfile.City;
     this.UserOccupation = this.dataDisplayProfile.Occupation;
-    console.log(this.userCity);
-    console.log(this.UserOccupation);
     this.getUserAboutText();
-    console.log(this.userCity);
-    console.log(this.UserOccupation);
   }
   updateProfileViewsCount() {
     this.dataDisplayProfile.UserRefProfileId = this.loggedInUserInfo.UserId;

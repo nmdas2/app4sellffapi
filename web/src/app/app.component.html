@@ -87,20 +87,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-
-                
+                </div>                
             </div>
         </div>
-
-
-
     </div>
 </div>
 <ng-template #Bannerpictemplate>
-        <form [formGroup]="postGalleryForm" (ngSubmit)="saveGalleryPost(postGalleryForm.value)">
-           
+        <form [formGroup]="postGalleryForm" (ngSubmit)="saveGalleryPost(postGalleryForm.value)">           
             <div class="modal-body">
                 <div class="upload-file">
                     <div>
@@ -114,11 +107,9 @@
                                 <div *ngIf="fileUploadProgress">
                                     Upload progress: {{ fileUploadProgress }}
                                 </div>
-                               
-                               <!--<button class="btn btn-danger ml-3" (click)="onCancel()">Cancel</button>--> 
                             </div>
                         </div>
-                        <div class="image-preview mb-3" *ngIf="previewUrl">
+                        <div class="image-preview mb-3" *ngIf="previewUrl" style="display: none;">
                                 <img [src]="previewUrl" class="m-100" />
                             </div>
                     </div>
@@ -133,8 +124,7 @@
         </form>
     </ng-template>
 <ng-template #Profilepictemplate>
-    <form [formGroup]="postProfileForm" (ngSubmit)="saveProfilePost(postProfileForm.value)">
-       
+    <form [formGroup]="postProfileForm" (ngSubmit)="saveProfilePost(postProfileForm.value)">       
         <div class="modal-body">
             <div class="upload-file">
                 <div>
@@ -148,11 +138,9 @@
                             <div *ngIf="fileUploadProgress">
                                 Upload progress: {{ fileUploadProgress }}
                             </div>
-                            
-                            <!--<button class="btn btn-danger ml-3" (click)="AllowImageUpload = false">Cancel</button>-->
                         </div>
                    
-                        <div class="image-preview mb-3" *ngIf="previewUrl">
+                        <div class="image-preview mb-3" *ngIf="previewUrl" style="display: none;">
                                 <img [src]="previewUrl" class="m-100"  />
                             </div>
                 </div>

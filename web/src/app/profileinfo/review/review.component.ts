@@ -18,11 +18,14 @@ import { CommonService } from 'src/app/_services/common.service';
 export class ReviewComponent implements OnInit {
   
   ratefive: number = 0;
-  max = 5; rate = 0; communicationRate = 0; QOWRate = 0; isReadonly = true; overStar: number | undefined; percent: number;
+  max = 5; rate = 0; communicationRate = 0; QOWRate = 0; isReadonly = false; overStar: number | undefined; percent: number;
   ViewUserInfo: User; modalRef: BsModalRef; loggedInUserInfo: ProfileInfo; ratingGivenTo: number; reviewUserForm: FormGroup
   canReview: boolean = false; idToGetReviews: number; userReviews: Review[]; searchProfileUserId: number = 0; currentRating: Review;
   readonlyUserInfo: ProfileInfo; submitted = false; totalRatings: number = 0; dataDisplayProfile: ProfileInfo; reviewAlreadyGiven: boolean = false;
   loggedInUserId: number = 0;
+  isValidRating: boolean = false;
+  dismissible = true;
+  timeOut = 30000;
   constructor(
     private profileInfoService: ProfileinfoService,
     private formBuilder: FormBuilder,
@@ -65,7 +68,8 @@ export class ReviewComponent implements OnInit {
     this.overStar = void 0;
   }
   onSubmit() {
-    if (this.reviewUserForm.invalid) {
+    this.submitted = true;
+    if (this.reviewUserForm.invalid || !this.checkRating()) {
       return;
     }
     let postReview: Review = {
@@ -100,6 +104,11 @@ export class ReviewComponent implements OnInit {
   }
   onReset() {
     this.modalRef.hide();
+    this.submitted = false;
+    this.isValidRating = false;
+    this.rate = 0;
+    this.communicationRate = 0;
+    this.QOWRate = 0;
     this.reviewUserForm.reset();
   }
   SetLocalStorageInfo() {
@@ -138,4 +147,14 @@ export class ReviewComponent implements OnInit {
     })
   }
   resetPostTextForm() { }
+
+  checkRating(): boolean{
+    
+    this.isValidRating = false;
+    if(this.rate > 0 && this.communicationRate > 0 && this.QOWRate > 0){
+      this.isValidRating = true;
+    }
+
+    return this.isValidRating;
+  }
 }
