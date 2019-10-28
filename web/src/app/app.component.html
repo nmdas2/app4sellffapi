@@ -12,7 +12,7 @@
                 <a (click)="uploadbannerpic(Bannerpictemplate)"> <span>update banner photo</span></a>
             </div>
             <img src="{{bannerpicpath}}" class="user-banner" alt="Banner Image" *ngIf = "bannerpicpath">
-            <img src="http://4sellff.com/sellffapi/AppImages/bannerpics/defbannerpic.jpg" class="user-banner" alt="Banner Image" *ngIf = "!bannerpicpath">
+            <img src="http://4sellff.com/sellffapi/AppImages/bannerpics/defbannerpic.jpg" class="user-banner" alt="Banner Pic" *ngIf = "!bannerpicpath">
         </div>
         <div class="header-details">
             <div class="ranking-circle">
@@ -104,7 +104,7 @@
                                 <div class="" *ngIf="uploadedFilePath">
                                     {{uploadedFilePath}}
                                 </div>
-                                <div *ngIf="fileUploadProgress">
+                                <div style="display: none;">
                                     Upload progress: {{ fileUploadProgress }}
                                 </div>
                             </div>
@@ -135,7 +135,7 @@
                             <div class="" *ngIf="uploadedFilePath">
                                 {{uploadedFilePath}}
                             </div>
-                            <div *ngIf="fileUploadProgress">
+                            <div style="display: none;">
                                 Upload progress: {{ fileUploadProgress }}
                             </div>
                         </div>

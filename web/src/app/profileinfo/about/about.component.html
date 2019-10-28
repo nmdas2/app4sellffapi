@@ -103,7 +103,7 @@
                                                 <div class="" *ngIf="uploadedFilePath">
                                                     {{uploadedFilePath}}
                                                 </div>
-                                                <div *ngIf="fileUploadProgress">
+                                                <div style="display: none;">
                                                     Upload progress: {{ fileUploadProgress }}
                                                 </div>
                                                 <button class="btn btn-primary" (click)="onSubmit()">Submit</button>

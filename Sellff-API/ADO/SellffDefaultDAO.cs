@@ -35,10 +35,10 @@ namespace Sellff_API.ADO
                     objAuthenticationBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
                     objAuthenticationBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
                     if (string.IsNullOrEmpty(objAuthenticationBO.ProfilePicPath))
-                        objAuthenticationBO.ProfilePicPath = "./././assets/images/defaultpic.jpg";
+                        objAuthenticationBO.ProfilePicPath = "http://4sellff.com/sellffapi/AppImages/profilepics/dprfpic.jpg";
                     objAuthenticationBO.BannerPicPath = Convert.ToString(objDataRow["BannerPicPath"]);
                     if (string.IsNullOrEmpty(objAuthenticationBO.BannerPicPath))
-                        objAuthenticationBO.BannerPicPath = "./././assets/images/defaultpic.jpg";
+                        objAuthenticationBO.BannerPicPath = "http://4sellff.com/sellffapi/AppImages/bannerpics/defbannerpic.jpg";
                     objAuthenticationBO.UserRefProfileId = 0;
                     objAuthenticationBO.City = Convert.ToString(objDataRow["City"]);
                     objAuthenticationBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);

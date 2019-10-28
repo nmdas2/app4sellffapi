@@ -123,11 +123,12 @@ export class MessageComponent implements OnInit {
     this.guestIdToSendMessage = messageFromId;
   }
   showpreviousmessages(messageFromId: number, messageToId: number, mdisName: string, template: TemplateRef<any>) {
-    this.profileInfoService.GetUserMessagesBetween2Users(messageToId, messageFromId)
+    this.profileInfoService.GetHistoryUserId(messageToId, messageFromId)
         .subscribe(res => {
           if (res && res.length)
             this.usersCommMessages = res;
             this.modalRef = this.modalService.show(template);
+            this.commonService.MessagesReadTracker.next(true);
         }, error => {
           console.log(error);
         })

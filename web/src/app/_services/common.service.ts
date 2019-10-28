@@ -59,4 +59,10 @@ export class CommonService {
     GetUnReadMessagesCountByUserId(UserId: number): Observable<any>{
         return this.http.get(`${consts.DomainURL}ProfileInfo/GetUnReadMessagesCountByUserId/${UserId}`);
       }
+      
+    MessagesReadTracker = new BehaviorSubject<boolean>(true)
+    get MessagesReadTracker$() {
+        return this.MessagesReadTracker.asObservable();
+    }
+
 }

@@ -62,6 +62,16 @@ namespace Sellff_API.Controllers
         }
 
         ///summary
+        /// This method will get all users Messages info based on UserId
+        ///</summary>
+        /// <param name="UserId"></param>
+        [HttpGet, Route("api/ProfileInfo/GetUserMessagesHistory/{messageToId}/{messageFromId}")]
+        public IHttpActionResult GetUserMessagesHistory(int messageToId, int messageFromId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserMessagesHistory(messageToId, messageFromId)));
+        }
+
+        ///summary
         /// This method will get all users promotions info based on UserId
         ///</summary>
         /// <param name="UserId"></param>

@@ -33,6 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
   profilePic: string;
   unReadMsgsCount: number = 0;
   profilePicSub : Subscription;
+  messageReadSub: Subscription;
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -52,6 +53,11 @@ export class AppComponent implements OnInit, OnDestroy {
     else {
       this.authenticationService.isLogin.next(false);
     }
+    this.messageReadSub = this.commonService.MessagesReadTracker$.subscribe(status=> {
+      if (localStorage.getItem('currentUser')){
+        this.GetUnReadMessagesCount(JSON.parse(localStorage.getItem('currentUser')).UserId);
+      }
+    })
     this.profilePicSub = this.commonService.profilePicTracker$.subscribe(imgPath => {
       this.profilePic = imgPath;
     })
@@ -82,9 +88,11 @@ export class AppComponent implements OnInit, OnDestroy {
           this.showheadsection = true;
           this.commonService.profilePicTracker.next(this.dataDisplayProfile.ProfilePicPath);
           //localStorage.setItem('profilepic', this.profilePic)
-        }
-        //if (this.dataDisplayProfile && this.dataDisplayProfile.BannerPicPath)
           //this.bannerpicpath = this.dataDisplayProfile.BannerPicPath;
+        }
+        if (this.dataDisplayProfile && this.dataDisplayProfile.BannerPicPath)
+          this.bannerpicpath = this.dataDisplayProfile.BannerPicPath;
+        
           this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
             setTimeout(() => {
               this.isSummaryPage = status;
@@ -182,6 +190,8 @@ export class AppComponent implements OnInit, OnDestroy {
       this.trackerSub.unsubscribe();
     if(this.profilePicSub)
       this.profilePicSub.unsubscribe();
+    if(this.messageReadSub)
+      this.messageReadSub.unsubscribe();
   }
 
   postLayoutType: string = "";
@@ -346,8 +356,7 @@ export class AppComponent implements OnInit, OnDestroy {
   GetUnReadMessagesCount(userId: number) {
     this.commonService.GetUnReadMessagesCountByUserId(userId)
       .subscribe(data => {
-        if (data > 0)
-          this.unReadMsgsCount = data;
+        this.unReadMsgsCount = data;
       },
         error => {
         });

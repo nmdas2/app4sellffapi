@@ -35,6 +35,7 @@ namespace Sellff_API.ADO
                         objProfileInfoBO.Email = Convert.ToString(objDataRow["Email"]);
                         objProfileInfoBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
                         objProfileInfoBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                        objProfileInfoBO.BannerPicPath = Convert.ToString(objDataRow["BannerPicPath"]);
                         objProfileInfoBO.Rank = Convert.ToInt32(objDataRow["Rank"]);
                         objProfileInfoBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
                         objProfileInfoBO.City = Convert.ToString(objDataRow["City"]);
@@ -504,6 +505,7 @@ namespace Sellff_API.ADO
                     objResponseBO.Email = Convert.ToString(objDataRow["Email"]);
                     objResponseBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
                     objResponseBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                    objResponseBO.BannerPicPath = Convert.ToString(objDataRow["BannerPicPath"]);
                     objResponseBO.UserRefProfileId = 0;
                     objResponseBO.City = Convert.ToString(objDataRow["City"]);
                     objResponseBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
@@ -586,6 +588,7 @@ namespace Sellff_API.ADO
                         objResponseBOAbout.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
                         objResponseBOAbout.Views = Convert.ToInt32(objDataRow["Views"]);
                         objResponseBOAbout.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                        objResponseBOAbout.BannerPicPath = Convert.ToString(objDataRow["BannerPicPath"]);
                         objResponseBOAbout.Posts = Convert.ToInt32(objDataRow["Posts"]);
                         objResponseBOAbout.City = Convert.ToString(objDataRow["City"]);
                         objResponseBOAbout.Occupation = Convert.ToString(objDataRow["Occupation"]);
@@ -604,6 +607,7 @@ namespace Sellff_API.ADO
                             objResponseBO.Type = Convert.ToInt32(objDataRow["Type"]);
                             objResponseBO.Views = Convert.ToInt32(objDataRow["Views"]);
                             objResponseBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                            objResponseBO.BannerPicPath = Convert.ToString(objDataRow["BannerPicPath"]);
                             objResponseBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
                             objResponseBO.City = Convert.ToString(objDataRow["City"]);
                             objResponseBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
@@ -894,6 +898,38 @@ namespace Sellff_API.ADO
                 sqlParams[1] = new SqlParameter("@RecepId", SqlDbType.Int) { Value = recepId };
 
                 DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetUserMessagesBetween2Users", sqlParams);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    for (int i = 0; i < _objDataSet.Tables[0].Rows.Count; i++)
+                    {
+                        ProfileInfoBO objResponseBO = new ProfileInfoBO();
+                        var objDataRow = _objDataSet.Tables[0].Rows[i];
+                        objResponseBO.Message = Convert.ToString(objDataRow["Message"]);
+                        objResponseBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
+                        objResponseBO.MessageSentTime = Convert.ToString(objDataRow["MessageSentTime"]);
+                        objResponseBO.MessageTo = Convert.ToInt32(objDataRow["MessageTo"]);
+                        objResponseBO.MessageFrom = Convert.ToInt32(objDataRow["MessageFrom"]);
+                        objProfilesList.Add(objResponseBO);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objProfilesList;
+        }
+
+        public List<ProfileInfoBO> GetUserMessagesHistory(int messageToId, int messageFromId)
+        {
+            List<ProfileInfoBO> objProfilesList = new List<ProfileInfoBO>();
+            try
+            {
+                var sqlParams = new SqlParameter[2];
+                sqlParams[0] = new SqlParameter("@messageToId", SqlDbType.Int) { Value = messageToId };
+                sqlParams[1] = new SqlParameter("@messageFromId", SqlDbType.Int) { Value = messageFromId };
+
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetUserMessagesHistory", sqlParams);
                 if (_objDataSet.Tables[0].Rows.Count > 0)
                 {
                     for (int i = 0; i < _objDataSet.Tables[0].Rows.Count; i++)
