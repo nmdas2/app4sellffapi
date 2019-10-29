@@ -51,8 +51,8 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            displayName: ['', Validators.required],
-            email: ['', Validators.required],
+            displayName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(25), Validators.pattern("^[A-Za-z0-9]*$")]],
+            email: ['', [Validators.required, Validators.maxLength(50)]],
             password: ['', [Validators.required, Validators.minLength(6)]],
             // age: ['', [Validators.required, Validators.min(1), Validators.max(130)]],
             termsandconditions: ['', [Validators.required]],
@@ -66,11 +66,12 @@ export class RegisterComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
         if (this.registerForm.invalid) { return; }
-        this.userService.CheckIfUserExists(this.registerForm.value.email)
+        this.userService.CheckIfUserExists(this.registerForm.value.email,this.registerForm.value.displayName)
             .subscribe(
                 data => {
-                    if (data > 0) {
-                        this.errorMsg = 'This user already registered with Sellff.';
+                    console.log('reg chk'+data);
+                    if (data != "") {                        
+                        this.errorMsg = data;
                         setTimeout(() => {
                             this.errorMsg = "";
                         }, 30000)

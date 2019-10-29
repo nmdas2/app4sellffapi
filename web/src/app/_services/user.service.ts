@@ -21,8 +21,8 @@ export class UserService {
         return this.http.delete(`${config.apiUrl}/users/${id}`);
     }
     
-    CheckIfUserExists(keystring: string){
-        return this.http.get<number>(`${consts.DomainURL}SellffDefault/CheckIfUserAlreadyEsists/${keystring}/1`);
+    CheckIfUserExists(keystring: string, displayname: string){
+        return this.http.get<string>(`${consts.DomainURL}SellffDefault/CheckIfUserAlreadyEsists/${keystring}/${displayname}/1`);
     }
 
     ActivateUserAccunt(keystring: string): Observable<any>{

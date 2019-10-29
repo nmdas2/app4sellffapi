@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
   loggedInUserId: number;
   loggedInUserName: string;
   hasActiveSession: boolean = false;
-
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -28,7 +27,8 @@ export class HomeComponent implements OnInit {
       this.loggedInUserId = this.loggedInUserInfo.UserId;
       this.loggedInUserName = this.loggedInUserInfo.DisplayName;
       this.hasActiveSession = true;
-      this.router.navigate([this.returnUrl]);
+      console.log("/"+this.loggedInUserInfo.DisplayName+this.returnUrl);
+      this.router.navigate(["/"+this.loggedInUserInfo.DisplayName+this.returnUrl]);
     }
   }
 

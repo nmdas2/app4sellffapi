@@ -60,10 +60,10 @@ namespace Sellff_API.Controllers
         ///</summary>
         /// <param name="keystring"></param>
         /// <param name="hashky"></param>
-        [HttpGet, Route("api/SellffDefault/CheckIfUserAlreadyEsists/{keystring}/{hashky}")]
-        public IHttpActionResult CheckIfUserAlreadyEsists(string keystring)
+        [HttpGet, Route("api/SellffDefault/CheckIfUserAlreadyEsists/{keystring}/{displayname}/{hashky}")]
+        public IHttpActionResult CheckIfUserAlreadyEsists(string keystring, string displayname)
         {
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.CheckIfUserAlreadyEsists(keystring)));
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.CheckIfUserAlreadyEsists(keystring, displayname)));
         }
 
         ///summary

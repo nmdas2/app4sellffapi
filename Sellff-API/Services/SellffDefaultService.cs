@@ -138,9 +138,9 @@ namespace Sellff_API.Services
         {
             return objSellffDefaultDAO.CheckIfUserAlreadyInvited(EmailId, UserId);
         }
-        public int CheckIfUserAlreadyEsists(string keystring)
+        public string CheckIfUserAlreadyEsists(string keystring, string displayname)
         {
-            return objSellffDefaultDAO.CheckIfUserAlreadyEsists(keystring);
+            return objSellffDefaultDAO.CheckIfUserAlreadyEsists(keystring, displayname);
         }
         public bool ActivateUserAccunt(string keystring)
         {

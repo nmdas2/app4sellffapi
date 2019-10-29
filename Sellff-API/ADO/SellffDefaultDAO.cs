@@ -335,15 +335,16 @@ namespace Sellff_API.ADO
             return result;
         }
 
-        public int CheckIfUserAlreadyEsists(string keystring)
+        public string CheckIfUserAlreadyEsists(string keystring, string displayname)
         {
-            int result = 0;
+            string result = "";
             try
             {
-                var sqlParams = new SqlParameter[1];
+                var sqlParams = new SqlParameter[2];
                 sqlParams[0] = new SqlParameter("@Email", SqlDbType.VarChar) { Value = keystring };
+                sqlParams[1] = new SqlParameter("@displayname", SqlDbType.VarChar) { Value = displayname };
 
-                result = Convert.ToInt32(SqlHelper.SqlHelper.ExecuteScalar(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "CheckIfEmailExists", sqlParams));
+                result = Convert.ToString(SqlHelper.SqlHelper.ExecuteScalar(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "CheckIfEmailExists", sqlParams));
             }
             catch (Exception ex)
             {
