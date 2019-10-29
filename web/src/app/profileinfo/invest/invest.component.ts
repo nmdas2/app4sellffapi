@@ -5,6 +5,7 @@ import { ProfileInfo } from 'src/app/_models/profileinfo';
 import { constants as consts } from '../../constants';
 import { UserTransaction } from 'src/app/_models/usertransaction';
 import * as Highcharts from 'highcharts';
+import { CommonService } from 'src/app/_services/common.service';
 
 @Component({
   selector: 'app-invest',
@@ -43,7 +44,8 @@ chartOptions = {
   successMsg: string = ""; errorMsg: string = "";
   constructor(
     private profileService: ProfileinfoService,
-    private router: Router
+    private router: Router,
+    private commonService: CommonService
   ) { }
 
   ngOnInit() {
@@ -125,6 +127,7 @@ chartOptions = {
     .subscribe(res => {
       this.successMsg = 'Transaction details has been submitted successfully';
       this.BindDefaultValues();
+      this.commonService.socialAndHeaderWidgetsTracker.next(true);
       setTimeout(() => {
         this.successMsg = ''
       }, 10000)
