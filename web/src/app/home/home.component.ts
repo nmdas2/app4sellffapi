@@ -46,6 +46,8 @@ export class HomeComponent implements OnInit {
           if(res.UserId>0)
           {
             localStorage.setItem('profileviewUser', JSON.stringify(res));
+            console.log(JSON.stringify(res));
+            this.commonService.isUserChanged('yes');
             this.router.navigate(["/"+res.DisplayName + consts.AboutPath]);
             this.commonService.isProfileSelected.next(true);
           }

@@ -199,6 +199,7 @@
     <div class="row">
         <div class="" [ngClass]="showheadsection ? 'col-sm-2 col-md-1' : ''">
             <ul class="sidebar-menu" data-widget="tree" *ngIf="showheadsection">
+                <li [ngClass]='aboutactive'><a (click)="navigateusertopage('/profileinfo/about')">About</a></li>
                 <li class="" [ngClass]="activeUrl == '/profileinfo/about' ? 'active' : ''"><a routerLink="/profileinfo/about">About</a></li>
                 <li class="" [ngClass]="activeUrl == '/profileinfo/post' ? 'active' : ''"><a class= "" [ngClass] = "!isLogin? 'disabled' : ''" routerLink="/profileinfo/post">Posts</a></li>
                 <li class="" [ngClass]="activeUrl == '/profileinfo/message' ? 'active' : ''"><a class= "" [ngClass] = "!isLogin? 'disabled' : ''" routerLink="/profileinfo/message">Message <span *ngIf = "unReadMsgsCount > 0">({{unReadMsgsCount}})</span></a></li>

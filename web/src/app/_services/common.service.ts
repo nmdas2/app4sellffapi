@@ -17,7 +17,10 @@ export class CommonService {
     constructor(private http: HttpClient) {
 
     }
-
+    userChangeSubject= new Subject<string>();
+    isUserChanged(val:any){
+        this.userChangeSubject.next(val);
+    }
     isProfileSelected = new BehaviorSubject<boolean>(false);
     get isProfileSelected$() {
         return this.isProfileSelected.asObservable();

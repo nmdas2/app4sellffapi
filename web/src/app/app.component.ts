@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { ProfileInfo } from './_models/profileinfo';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { createOfflineCompileUrlResolver } from '@angular/compiler';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isSummarySub: Subscription; postGalleryForm: FormGroup; postProfileForm: FormGroup;
   isSummaryPage: boolean; AllowImageUpload: boolean = false;
   profileSubscription: Subscription; urldisplayname: string = "";
-  showheadsection: boolean;
+  showheadsection: boolean; aboutactive: string = "";
   dataDisplayProfile: ProfileInfo;
   isEditbale: boolean; modalRef: BsModalRef;
   userProfileInfo: ProfileInfo;
@@ -46,6 +47,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log(localStorage.getItem('currentUser'));
+    console.log(localStorage.getItem('profileviewUser'));
+    if (localStorage.getItem('currentUser') != null) {
+      this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));   
+      this.urldisplayname = this.dataDisplayProfile.DisplayName;   
+    }
+    if (localStorage.getItem('profileviewUser') != null) {
+      this.dataDisplayProfile = JSON.parse(localStorage.getItem('profileviewUser'));
+      this.urldisplayname = this.dataDisplayProfile.DisplayName;
+    }
+    
     if (localStorage.getItem('currentUser')) {
       this.authenticationService.isLogin.next(true);
     }
@@ -148,7 +160,23 @@ export class AppComponent implements OnInit, OnDestroy {
 
           })
       }
-    })
+    })    
+
+    this.commonService.userChangeSubject.subscribe(val=>{
+      let userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
+      this.authenticationService.socialLinksByUserId(userId)
+      .subscribe(res => {
+        this.socialIconsDetails = res;
+      }, error => {
+
+      });
+    this.authenticationService.headerWidgetsCountByUserId(userId)
+      .subscribe(res => {
+        this.headerWidgetsDetails = res;
+      }, error => {
+
+      })
+    });
   }
 
   logout() {
@@ -357,5 +385,11 @@ export class AppComponent implements OnInit, OnDestroy {
       },
         error => {
         });
+  }
+  navigateusertopage(pageurl)
+  {
+    this.aboutactive = "active";
+    this.router.navigate(["/"+this.urldisplayname+pageurl]);
+    
   }
 }
