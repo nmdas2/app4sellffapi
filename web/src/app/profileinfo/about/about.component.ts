@@ -31,7 +31,7 @@ export class AboutComponent implements OnInit, OnDestroy {
     private modalService: BsModalService,
     private commonService: CommonService
   ) { }
-  ngOnInit() {
+  ngOnInit() { 
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
       this.isEditbale = true;
       if (localStorage.getItem('profileviewUser') && status) {
@@ -71,13 +71,9 @@ export class AboutComponent implements OnInit, OnDestroy {
   }
   enablecityedit(): void{
     this.isCityInEditMode = true;
-    console.log(this.userCity);
-    console.log(this.UserOccupation);
   }
   enableoccupationedit(): void{
     this.isOccupationInEditMode = true;
-    console.log(this.userCity);
-    console.log(this.UserOccupation);
   }
   getServiceOffered() {
     this.serviceOffered = [];

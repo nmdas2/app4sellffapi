@@ -21,7 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
   showSideNav: boolean = false; fileUploadProgress: string = null; uploadedFilePath: string = null;
   isSummarySub: Subscription; postGalleryForm: FormGroup; postProfileForm: FormGroup;
   isSummaryPage: boolean; AllowImageUpload: boolean = false;
-  profileSubscription: Subscription;
+  profileSubscription: Subscription; urldisplayname: string = "";
   showheadsection: boolean;
   dataDisplayProfile: ProfileInfo;
   isEditbale: boolean; modalRef: BsModalRef;
@@ -46,7 +46,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     if (localStorage.getItem('currentUser')) {
       this.authenticationService.isLogin.next(true);
     }
@@ -82,7 +81,6 @@ export class AppComponent implements OnInit, OnDestroy {
         if (localStorage.getItem('bannerpic') && this.isEditbale) {
           this.bannerpicpath = localStorage.getItem('bannerpic')
         }
-
         if (localStorage.getItem('profileviewUser')) {
           this.dataDisplayProfile = JSON.parse(localStorage.getItem('profileviewUser'));
           this.showheadsection = true;
@@ -118,9 +116,9 @@ export class AppComponent implements OnInit, OnDestroy {
         // document.getElementById("main").style.marginLeft = "0";
       }
     });
+
     if (localStorage.getItem('profileviewUser')) {
       this.commonService.isProfileSelected.next(true);
-
     }
     else {
       this.commonService.isProfileSelected.next(false);
@@ -150,7 +148,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
           })
       }
-
     })
   }
 

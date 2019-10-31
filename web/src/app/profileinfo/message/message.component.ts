@@ -94,7 +94,8 @@ export class MessageComponent implements OnInit {
         if (localStorage.getItem('currentUser')) {
           let user = JSON.parse(localStorage.getItem('currentUser'));
           if (user.UserId == res.UserId) {
-            this.router.navigate([consts.AboutPath]);
+            //this.router.navigate([consts.AboutPath]);
+            this.router.navigate(["/"+this.readonlyUserInfo.DisplayName+consts.AboutPath]);
             this.commonService.isProfileSelected.next(false);
           }
           else {

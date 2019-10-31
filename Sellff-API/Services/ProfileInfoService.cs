@@ -18,6 +18,10 @@ namespace Sellff_API.Services
         {
             return objProfileInfoDAO.GetUsersInfoBySearchTerm(searchTerm);
         }
+        public ProfileInfoBO getUserProfileByURLString(string searchTerm)
+        {
+            return objProfileInfoDAO.getUserProfileByURLString(searchTerm);
+        }
         public List<ProfileInfoBO> SaveUserMessages(ProfileInfoBO objProfileInfoBO)
         {
             return objProfileInfoDAO.SaveUserMessages(objProfileInfoBO);

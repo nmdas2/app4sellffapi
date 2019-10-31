@@ -33,7 +33,6 @@ export class SearchsummaryComponent implements OnInit, OnDestroy {
     private commonService: CommonService
   ) {
     this.tempSearchResults = [];
-
   }
   ngOnInit() {
     this.commonService.isSummaryPage.next(true);
@@ -65,17 +64,20 @@ export class SearchsummaryComponent implements OnInit, OnDestroy {
       let user = JSON.parse(localStorage.getItem('currentUser'));
       if (user.UserId == this.readonlyUserInfo.UserId) {
         this.commonService.isProfileSelected.next(false);
-        this.router.navigate([consts.AboutPath]);
+        //this.router.navigate([consts.AboutPath]);
+        this.router.navigate(["/"+this.readonlyUserInfo.DisplayName+consts.AboutPath]);
       }
       else {
         localStorage.setItem('profileviewUser', JSON.stringify(this.readonlyUserInfo));
-        this.router.navigate([consts.AboutPath]);
+        //this.router.navigate([consts.AboutPath]);
+        this.router.navigate(["/"+this.readonlyUserInfo.DisplayName+consts.AboutPath]);
         this.commonService.isProfileSelected.next(true);
       }
     }
     else{
       localStorage.setItem('profileviewUser', JSON.stringify(this.readonlyUserInfo));
-      this.router.navigate([consts.AboutPath]);
+      //this.router.navigate([consts.AboutPath]);
+      this.router.navigate(["/"+this.readonlyUserInfo.DisplayName+consts.AboutPath]);
       this.commonService.isProfileSelected.next(true);
     }
     this.commonService.socialAndHeaderWidgetsTracker.next(true);

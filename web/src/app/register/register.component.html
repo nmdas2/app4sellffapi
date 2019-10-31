@@ -45,6 +45,16 @@
                             <div
                                 *ngIf="(submitted || f.displayName.dirty || f.displayName.touched) && f.displayName.errors.required">
                                 user name is required</div>
+                                <div
+                                *ngIf="(submitted || f.displayName.dirty || f.displayName.touched) && f.displayName.errors.minlength">
+                                minimum length is 4</div>
+                                <div
+                                *ngIf="(submitted || f.displayName.dirty || f.displayName.touched) && f.displayName.errors.minlength">
+                                maximum length is 25</div>
+                                <div
+                                *ngIf="(submitted || f.displayName.dirty || f.displayName.touched) && f.displayName.errors.pattern">
+                                special characters are not allowed
+                            </div>
                         </div>
                     </div>
                     <!-- <div class="form-group">

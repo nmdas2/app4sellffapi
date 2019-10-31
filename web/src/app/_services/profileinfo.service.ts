@@ -45,6 +45,9 @@ export class ProfileinfoService {
   getUsersBySearchTerm(parttext: string) {
     return this.http.get<searchRes[]>(`${consts.DomainURL}ProfileInfo/GetSummaryResults?parttext=${parttext}`);
   }
+  getUserProfileByURLString(UrlString: string) {
+    return this.http.get<searchRes>(`${consts.DomainURL}ProfileInfo/getUserProfileByURLString/${UrlString}`);
+  }
 
   getAllUsersMessages(userId: number): Observable<any>{
     return this.http.get(`${consts.DomainURL}ProfileInfo/GetAllUserMessages/${userId}`);

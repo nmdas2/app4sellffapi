@@ -51,6 +51,35 @@ namespace Sellff_API.ADO
             return objProfilesList;
         }
 
+        public ProfileInfoBO getUserProfileByURLString(string searchTerm)
+        {
+            ProfileInfoBO objProfileInfoBO = new ProfileInfoBO();
+            SqlParameter[] objSqlParam = new SqlParameter[1];
+            try
+            {
+                objSqlParam[0] = new SqlParameter("@SearchTerm", SqlDbType.VarChar) { Value = searchTerm };
+
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetUserProfileByURLString", objSqlParam);
+                if (_objDataSet.Tables[0].Rows.Count == 1)
+                {
+                    var objDataRow = _objDataSet.Tables[0].Rows[0];
+                    objProfileInfoBO.UserId = Convert.ToInt32(objDataRow["UserId"]);
+                    objProfileInfoBO.Email = Convert.ToString(objDataRow["Email"]);
+                    objProfileInfoBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
+                    objProfileInfoBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                    objProfileInfoBO.BannerPicPath = Convert.ToString(objDataRow["BannerPicPath"]);
+                    objProfileInfoBO.Rank = Convert.ToInt32(objDataRow["Rank"]);
+                    objProfileInfoBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
+                    objProfileInfoBO.City = Convert.ToString(objDataRow["City"]);
+                    objProfileInfoBO.Reviews = Convert.ToInt32(objDataRow["Reviews"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objProfileInfoBO;
+        }
         public List<ProfileInfoBO> SaveUserMessages(ProfileInfoBO objProfileInfoBO)
         {
             List<ProfileInfoBO> objProfilesList = new List<ProfileInfoBO>();

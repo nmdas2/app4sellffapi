@@ -192,6 +192,16 @@ namespace Sellff_API.Controllers
         }
 
         ///summary
+        /// This method will get all users info based on Usernaem from URL
+        ///</summary>
+        /// <param name="UrlString"></param>
+        [HttpGet, Route("api/ProfileInfo/getUserProfileByURLString/{UrlString}")]
+        public IHttpActionResult getUserProfileByURLString(string UrlString)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.getUserProfileByURLString(UrlString)));
+        }
+
+        ///summary
         /// This method will Save user Post section text messgaes info  based on UserId
         ///</summary>
         /// <param name="objUserAboutBO"></param>

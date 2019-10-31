@@ -13,6 +13,8 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
+  
+  
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgotpassword', component: ForgotpasswordComponent },
@@ -24,6 +26,7 @@ export const routes: Routes = [
     path: 'editprofile',
     component: EditProfileComponent
   },
+  { path: ':uname', component: HomeComponent },
   {
     path: '**',
     component: PageNotFoundComponent
