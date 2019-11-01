@@ -16,25 +16,16 @@ import { createOfflineCompileUrlResolver } from '@angular/compiler';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  currentUser: User; bannerpicpath: string = '';
-  title = 'sellff-app'; previewUrl: any = null;
+  currentUser: User; bannerpicpath: string = '';  title = 'sellff-app'; previewUrl: any = null;
   isLogin: boolean = false; fileData: File = null;
   showSideNav: boolean = false; fileUploadProgress: string = null; uploadedFilePath: string = null;
   isSummarySub: Subscription; postGalleryForm: FormGroup; postProfileForm: FormGroup;
-  isSummaryPage: boolean; AllowImageUpload: boolean = false;
-  profileSubscription: Subscription; urldisplayname: string = "";
-  showheadsection: boolean; aboutactive: string = "";
-  dataDisplayProfile: ProfileInfo;
-  isEditbale: boolean; modalRef: BsModalRef;
-  userProfileInfo: ProfileInfo;
-  loggedInUserInfo: ProfileInfo;
-  socialIconsDetails: ProfileInfo;
-  headerWidgetsDetails: ProfileInfo;
-  trackerSub: Subscription;
-  profilePic: string;
-  unReadMsgsCount: number = 0;
-  profilePicSub : Subscription;
-  messageReadSub: Subscription;
+  isSummaryPage: boolean; AllowImageUpload: boolean = false; profileSubscription: Subscription; urldisplayname: string = "";
+  showheadsection: boolean; dataDisplayProfile: ProfileInfo;  isEditbale: boolean; modalRef: BsModalRef;
+  userProfileInfo: ProfileInfo; loggedInUserInfo: ProfileInfo; socialIconsDetails: ProfileInfo; headerWidgetsDetails: ProfileInfo;
+  trackerSub: Subscription; profilePic: string; unReadMsgsCount: number = 0; profilePicSub : Subscription; messageReadSub: Subscription;
+  aboutactive: string = ""; postactive: string=""; messageactive: string=""; reviewactive: string=""; investactive: string="";
+  inviteactive: string=""; matchactive: string="";
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -47,8 +38,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(localStorage.getItem('currentUser'));
-    console.log(localStorage.getItem('profileviewUser'));
     if (localStorage.getItem('currentUser') != null) {
       this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));   
       this.urldisplayname = this.dataDisplayProfile.DisplayName;   
@@ -200,8 +189,43 @@ export class AppComponent implements OnInit, OnDestroy {
   activeUrl: string;
   ngAfterViewInit() {
     this.router.events.subscribe(event => {
-      if (event instanceof NavigationStart) {
-        this.activeUrl = event.url
+        if (event instanceof NavigationStart) {
+          this.activeUrl = event.url
+        if(this.activeUrl.includes('about'))
+        {
+          this.aboutactive = "active";
+          this.postactive = this.messageactive = this.reviewactive = this.investactive = this.inviteactive = this.matchactive = "";
+        }
+        else if(this.activeUrl.includes('post'))
+        {
+          this.postactive = "active";
+          this.aboutactive = this.messageactive = this.reviewactive = this.investactive = this.inviteactive = this.matchactive = "";
+        }
+        else if(this.activeUrl.includes('message'))
+        {
+          this.messageactive = "active";
+          this.aboutactive = this.postactive = this.reviewactive = this.investactive = this.inviteactive = this.matchactive = "";
+        }
+        else if(this.activeUrl.includes('review'))
+        {
+          this.reviewactive = "active";
+          this.aboutactive = this.postactive = this.messageactive = this.investactive = this.inviteactive = this.matchactive = "";
+        }
+        else if(this.activeUrl.includes('invest'))
+        {
+          this.investactive = "active";
+          this.aboutactive = this.postactive = this.messageactive = this.reviewactive = this.inviteactive = this.matchactive = "";
+        }
+        else if(this.activeUrl.includes('invite'))
+        {
+          this.inviteactive = "active";
+          this.aboutactive = this.postactive = this.messageactive = this.reviewactive = this.investactive = this.matchactive = "";
+        }
+        else if(this.activeUrl.includes('match'))
+        {
+          this.matchactive = "active";
+          this.aboutactive = this.postactive = this.messageactive = this.reviewactive = this.investactive = this.inviteactive = "";
+        }
       }
     })
 
