@@ -200,12 +200,12 @@
         <div class="" [ngClass]="showheadsection ? 'col-sm-2 col-md-1' : ''">
             <ul class="sidebar-menu" data-widget="tree" *ngIf="showheadsection">
                 <li [ngClass]='aboutactive'><a (click)="navigateusertopage('/profileinfo/about')">about</a></li>
-                <li [ngClass]='postactive'><a (click)="navigateusertopage('/profileinfo/post')">post</a></li>
-                <li [ngClass]='messageactive'><a (click)="navigateusertopage('/profileinfo/message')">message <span *ngIf = "unReadMsgsCount > 0">({{unReadMsgsCount}})</span></a></li>
-                <li [ngClass]='reviewactive'><a (click)="navigateusertopage('/profileinfo/review')">review</a></li>
-                <li [ngClass]='investactive'><a (click)="navigateusertopage('/profileinfo/invest')">invest</a></li>
-                <li *ngIf="isEditbale" [ngClass]='inviteactive'><a (click)="navigateusertopage('/profileinfo/invite')">invite</a></li>
-                <li *ngIf="isEditbale" [ngClass]='matchactive'><a (click)="navigateusertopage('/profileinfo/match')">match</a></li>
+                <li [ngClass]='postactive'><a routerLink="/profileinfo/post">post</a></li>
+                <li [ngClass]='messageactive'><a routerLink="/profileinfo/message">message <span *ngIf = "unReadMsgsCount > 0">({{unReadMsgsCount}})</span></a></li>
+                <li [ngClass]='reviewactive'><a routerLink="/profileinfo/review">review</a></li>
+                <li [ngClass]='investactive'><a routerLink="/profileinfo/invest">invest</a></li>
+                <li *ngIf="isEditbale" [ngClass]='inviteactive'><a routerLink="/profileinfo/invite">invite</a></li>
+                <li *ngIf="isEditbale" [ngClass]='matchactive'><a routerLink="/profileinfo/match">match</a></li>
 
                 <!-- <li class="" [ngClass]="activeUrl == '/profileinfo/about' ? 'active' : ''"><a routerLink="/profileinfo/about">About</a></li>
                 <li class="" [ngClass]="activeUrl == '/profileinfo/post' ? 'active' : ''"><a class= "" [ngClass] = "!isLogin? 'disabled' : ''" routerLink="/profileinfo/post">Posts</a></li>

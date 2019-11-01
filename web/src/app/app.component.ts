@@ -22,7 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isSummarySub: Subscription; postGalleryForm: FormGroup; postProfileForm: FormGroup;
   isSummaryPage: boolean; AllowImageUpload: boolean = false; profileSubscription: Subscription; urldisplayname: string = "";
   showheadsection: boolean; dataDisplayProfile: ProfileInfo;  isEditbale: boolean; modalRef: BsModalRef;
-  userProfileInfo: ProfileInfo; loggedInUserInfo: ProfileInfo; socialIconsDetails: ProfileInfo; headerWidgetsDetails: ProfileInfo;
+  userProfileInfo: ProfileInfo; loggedInUserInfo: ProfileInfo = null; socialIconsDetails: ProfileInfo; headerWidgetsDetails: ProfileInfo;
   trackerSub: Subscription; profilePic: string; unReadMsgsCount: number = 0; profilePicSub : Subscription; messageReadSub: Subscription;
   aboutactive: string = ""; postactive: string=""; messageactive: string=""; reviewactive: string=""; investactive: string="";
   inviteactive: string=""; matchactive: string="";
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (localStorage.getItem('currentUser') != null) {
       this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));   
-      this.urldisplayname = this.dataDisplayProfile.DisplayName;   
+      this.urldisplayname = this.dataDisplayProfile.DisplayName;
     }
     if (localStorage.getItem('profileviewUser') != null) {
       this.dataDisplayProfile = JSON.parse(localStorage.getItem('profileviewUser'));
@@ -190,11 +190,13 @@ export class AppComponent implements OnInit, OnDestroy {
   ngAfterViewInit() {
     this.router.events.subscribe(event => {
         if (event instanceof NavigationStart) {
-          this.activeUrl = event.url
+          this.activeUrl = event.url        
         if(this.activeUrl.includes('about'))
         {
           this.aboutactive = "active";
           this.postactive = this.messageactive = this.reviewactive = this.investactive = this.inviteactive = this.matchactive = "";
+          if (localStorage.getItem('currentUser') == null)
+            this.postactive = this.messageactive = this.reviewactive = this.investactive = this.inviteactive = this.matchactive = "disabled";
         }
         else if(this.activeUrl.includes('post'))
         {
@@ -412,8 +414,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   navigateusertopage(pageurl)
   {
-    this.aboutactive = "active";
-    this.router.navigate(["/"+this.urldisplayname+pageurl]);
-    
+    if(this.activeUrl.includes('about'))
+      this.router.navigate(["/"+this.urldisplayname+pageurl]);
+    else
+      this.router.navigate(["/"+pageurl]);
   }
 }
