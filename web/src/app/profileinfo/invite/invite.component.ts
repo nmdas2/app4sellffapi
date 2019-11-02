@@ -136,6 +136,35 @@ export class InviteComponent implements OnInit {
       })
   }
 
+  sortDirection: string = "";
+  sortingSearch(field: string) {
+    this.sortDirection = this.sortDirection == 'asc' ? 'des' : 'asc';
+    if (this.tempInviteUsersList && this.tempInviteUsersList.length > 0) {
+
+      this.tempInviteUsersList = this.tempInviteUsersList.sort((a, b) => {
+        if (this.sortDirection == 'asc') {
+          if (a[field]) {
+            if (a[field].toString().toLowerCase() > b[field].toString().toLowerCase())
+              return -1;
+            if (b[field].toString().toLowerCase() > a[field].toString().toLowerCase())
+              return 1;
+            return 0;
+          }
+        }
+        else {
+          if (a[field]) {
+            if (a[field].toString().toLowerCase() > b[field].toString().toLowerCase())
+              return 1;
+            if (b[field].toString().toLowerCase() > a[field].toString().toLowerCase())
+              return -1;
+            return 0;
+          }
+        }
+        return 0;
+      })
+    }
+  }
+
   sendInvitation(inviteUser: InviteUsers) {
     this.profileService.updateUserInvitationSentDate(inviteUser.InviteGuid)
       .subscribe(res => {

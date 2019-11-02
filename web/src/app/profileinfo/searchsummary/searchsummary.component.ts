@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ProfileinfoService, searchRes } from 'src/app/_services/profileinfo.service';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/_models/user';
@@ -26,6 +26,10 @@ export class SearchsummaryComponent implements OnInit, OnDestroy {
 
   currentPage: number = 1;
   itemsPerPage: number = 10;
+
+  sortDirection: string = 'asc';
+
+
 
   constructor(private pfrlsrvs: ProfileinfoService,
     private router: Router,
@@ -65,39 +69,68 @@ export class SearchsummaryComponent implements OnInit, OnDestroy {
       if (user.UserId == this.readonlyUserInfo.UserId) {
         this.commonService.isProfileSelected.next(false);
         //this.router.navigate([consts.AboutPath]);
-        this.router.navigate(["/"+this.readonlyUserInfo.DisplayName+consts.AboutPath]);
+        this.router.navigate(["/" + this.readonlyUserInfo.DisplayName + consts.AboutPath]);
       }
       else {
         localStorage.setItem('profileviewUser', JSON.stringify(this.readonlyUserInfo));
         //this.router.navigate([consts.AboutPath]);
-        this.router.navigate(["/"+this.readonlyUserInfo.DisplayName+consts.AboutPath]);
+        this.router.navigate(["/" + this.readonlyUserInfo.DisplayName + consts.AboutPath]);
         this.commonService.isProfileSelected.next(true);
       }
     }
-    else{
+    else {
       localStorage.setItem('profileviewUser', JSON.stringify(this.readonlyUserInfo));
       //this.router.navigate([consts.AboutPath]);
-      this.router.navigate(["/"+this.readonlyUserInfo.DisplayName+consts.AboutPath]);
+      this.router.navigate(["/" + this.readonlyUserInfo.DisplayName + consts.AboutPath]);
       this.commonService.isProfileSelected.next(true);
     }
     this.commonService.socialAndHeaderWidgetsTracker.next(true);
   }
 
+  sortingSearch(field: string) {
+    this.sortDirection = this.sortDirection == 'asc' ? 'des' : 'asc';
+    if (this.tempSearchResults && this.tempSearchResults.length > 0) {
+
+      this.tempSearchResults = this.tempSearchResults.sort((a, b) => {
+        if (this.sortDirection == 'asc') {
+          if (a[field] && b[field]) {
+            if (a[field].toString().toLowerCase() > b[field].toString().toLowerCase())
+              return -1;
+            if (b[field].toString().toLowerCase() > a[field].toString().toLowerCase())
+              return 1;
+            return 0;
+          }
+        }
+        else {
+          if (a[field] && b[field]) {
+            if (a[field].toString().toLowerCase() > b[field].toString().toLowerCase())
+              return 1;
+            if (b[field].toString().toLowerCase() > a[field].toString().toLowerCase())
+              return -1;
+            return 0;
+          }
+        }
+        return 0;
+      })
+    }
+
+  }
+
   getSearchResult() {
     this.pfrlsrvs.getUsersBySearchTerm(this.srchParam)
       .subscribe(res => {
-        if(res && res.length > 0){
+        if (res && res.length > 0) {
           this.searchResults = res;
-          this.pageChanged({page: this.currentPage, itemsPerPage: this.itemsPerPage})
+          this.pageChanged({ page: this.currentPage, itemsPerPage: this.itemsPerPage })
         }
         else
           this.searchResults = [];
-        
+
       });
   }
-  pageChanged(event){
+  pageChanged(event) {
     this.currentPage = event.page - 1
     let itemsPerPage = event.itemsPerPage;
-    this.tempSearchResults = this.searchResults.slice((this.currentPage ) * itemsPerPage, (this.currentPage + 1) *  itemsPerPage);
+    this.tempSearchResults = this.searchResults.slice((this.currentPage) * itemsPerPage, (this.currentPage + 1) * itemsPerPage);
   }
 }

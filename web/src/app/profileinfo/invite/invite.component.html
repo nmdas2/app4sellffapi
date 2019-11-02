@@ -15,11 +15,11 @@
                 <table class="table custom-table">
                     <thead>
                         <tr class="table-head-bg">
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Invitation Date</th>
-                            <th width="140">Status</th>
+                            <th><a (click) = "sortingSearch('Name')">Name</a></th>
+                            <th><a (click) = "sortingSearch('EmailId')">Email</a></th>
+                            <th><a (click) = "sortingSearch('Phone')">Phone</a></th>
+                            <th><a (click) = "sortingSearch('InvitationSentDate')">Invitation Date</a></th>
+                            <th width="140"><a>Status</a></th>
                         </tr>
                     </thead>
                     <tbody>
