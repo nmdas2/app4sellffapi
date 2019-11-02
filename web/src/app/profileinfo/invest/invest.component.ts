@@ -29,8 +29,10 @@ export class InvestComponent implements OnInit {
 loading:boolean= false;
 Highcharts = Highcharts;
 chartOptions = {
+  title: { text: "" },
   xAxis:{categories:[] },
-  series: [{
+  yAxis: { title:{ text:"share price" } },
+  series: [{name: 'day',
     data: []
   }]
 };

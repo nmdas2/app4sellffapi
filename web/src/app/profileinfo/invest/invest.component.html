@@ -43,11 +43,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">shares traded</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b>{{userTransactionDetails.TotalPurchasedShareQty}}</b></label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b>{{userTransactionDetails.TotalPurchasedShareQty | number}}</b></label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">market cap</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b>{{userTransactionDetails.MarketCap}}</b></label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b>{{userTransactionDetails.MarketCap | number}}</b></label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5"># investors</label>
@@ -81,11 +81,11 @@
                         <div class="form-horizontal no-margin" *ngIf="userTransactionDetails">
                             <div class="form-group">
                                 <label class="text-left col-sm-5">shares owned</label>
-                                <label class="text-right col-sm-7">{{userTransactionDetails.PurchasedShareQty}}</label>
+                                <label class="text-right col-sm-7">{{userTransactionDetails.PurchasedShareQty | number}}</label>
                             </div>
                             <div class="form-group">
                                 <label class="text-left col-sm-5">profit/loss</label>
-                                <label class="text-right col-sm-7"><b class="{{userTransactionDetails.profitlosscolor}}"><span *ngIf="profitlossinnegitive">(</span>{{userTransactionDetails.ProfitRLoss}}<span *ngIf="profitlossinnegitive">)</span></b></label>
+                                <label class="text-right col-sm-7"><b class="{{userTransactionDetails.profitlosscolor}}"><span *ngIf="profitlossinnegitive">(</span>{{userTransactionDetails.ProfitRLoss | number}}<span *ngIf="profitlossinnegitive">)</span></b></label>
                             </div>
                             <div class="form-group">
                                 <label class="text-left col-sm-5">% profit/loss</label>
