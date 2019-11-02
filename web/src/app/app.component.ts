@@ -414,7 +414,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   navigateusertopage(pageurl)
   {
-    if(this.activeUrl.includes('about'))
+    if(pageurl.includes('about'))
       this.router.navigate(["/"+this.urldisplayname+pageurl]);
     else
       this.router.navigate(["/"+pageurl]);
