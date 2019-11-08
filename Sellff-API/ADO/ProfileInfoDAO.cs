@@ -852,7 +852,7 @@ namespace Sellff_API.ADO
                         objResponseBO.Performance = Convert.ToInt32(objDataRow["Performance"]);
                         objResponseBO.Communication = Convert.ToInt32(objDataRow["Communication"]);
                         objResponseBO.QOW = Convert.ToInt32(objDataRow["QOW"]);
-                        if(Convert.ToInt32(objDataRow["HelpId"]) > 0)
+                        if(Convert.ToInt32(objDataRow["HelpId"]) > 0 || loggedInUserId == objResponseBO.UserId)
                             objResponseBO.HelpId = true;
                         objResponseBO.ReviewAlreadyGiven = reviewAlreadyGiven;
                         objResponseList.Add(objResponseBO);

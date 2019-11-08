@@ -138,6 +138,7 @@ export class ReviewComponent implements OnInit {
     this.commonService.loadingShow();
     let reviewObj = review;
     reviewObj.CreatedIP = '127.0.0.1';
+    reviewObj.UserId = this.loggedInUserInfo.UserId;
     this.profileInfoService.updateHelpfulCount(reviewObj)
     .subscribe(res => {
       this.commonService.loadingHide();
