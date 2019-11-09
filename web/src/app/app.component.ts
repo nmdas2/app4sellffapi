@@ -16,8 +16,8 @@ import { createOfflineCompileUrlResolver } from '@angular/compiler';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  currentUser: User; bannerpicpath: string = '';  title = 'sellff-app'; previewUrl: any = null;
-  isLogin: boolean = false; fileData: File = null;
+  currentUser: User; bannerpicpath: string;  title = 'sellff-app'; previewUrl: any = null;
+  isLogin: boolean = false; fileData: File = null;  bannerPicSub : Subscription;
   showSideNav: boolean = false; fileUploadProgress: string = null; uploadedFilePath: string = null;
   isSummarySub: Subscription; postGalleryForm: FormGroup; postProfileForm: FormGroup;
   isSummaryPage: boolean; AllowImageUpload: boolean = false; profileSubscription: Subscription; urldisplayname: string = "";
@@ -40,11 +40,19 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (localStorage.getItem('currentUser') != null) {
       this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));   
-      this.urldisplayname = this.dataDisplayProfile.DisplayName;
+      this.urldisplayname = this.dataDisplayProfile.DisplayName;      
+      this.bannerpicpath = this.dataDisplayProfile.BannerPicPath;
+      this.profilePic = this.dataDisplayProfile.ProfilePicPath;
+      if(localStorage.getItem('bannerpic') && this.bannerpicpath == "http://4sellff.com/sellffapi/AppImages/bannerpics/defbannerpic.jpg")
+        this.bannerpicpath=localStorage.getItem('bannerpic');
+      if(localStorage.getItem('profilepic') && this.profilePic == "http://4sellff.com/sellffapi/AppImages/profilepics/dprfpic.jpg")
+        this.profilePic=localStorage.getItem('profilepic');
     }
     if (localStorage.getItem('profileviewUser') != null) {
       this.dataDisplayProfile = JSON.parse(localStorage.getItem('profileviewUser'));
       this.urldisplayname = this.dataDisplayProfile.DisplayName;
+      this.bannerpicpath = this.dataDisplayProfile.BannerPicPath;
+      this.profilePic = this.dataDisplayProfile.ProfilePicPath;
     }
     
     if (localStorage.getItem('currentUser')) {
@@ -54,43 +62,49 @@ export class AppComponent implements OnInit, OnDestroy {
       this.authenticationService.isLogin.next(false);
     }
     this.messageReadSub = this.commonService.MessagesReadTracker$.subscribe(status=> {
-      if (localStorage.getItem('currentUser')){
-        this.GetUnReadMessagesCount(JSON.parse(localStorage.getItem('currentUser')).UserId);
+      if (localStorage.getItem('currentUser') || localStorage.getItem('profileviewUser'))
+      {
+        this.GetUnReadMessagesCount(this.dataDisplayProfile.UserId);
       }
     })
     this.profilePicSub = this.commonService.profilePicTracker$.subscribe(imgPath => {
       this.profilePic = imgPath;
+    })
+    this.bannerPicSub = this.commonService.bannerPicTracker$.subscribe(imgPath => {
+      this.bannerpicpath = imgPath;
     })
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
       setTimeout(() => {
         this.isEditbale = true;
         if (localStorage.getItem('profileviewUser') && status) {
           this.isEditbale = false;
-          this.bannerpicpath = JSON.parse(localStorage.getItem('profileviewUser')).BannerPicPath
         }
         this.showheadsection = false;
         if (localStorage.getItem('currentUser')) {
           this.dataDisplayProfile = JSON.parse(localStorage.getItem('currentUser'));
           this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
           this.showheadsection = true;
-          this.GetUnReadMessagesCount(this.loggedInUserInfo.UserId);
+          // this.GetUnReadMessagesCount(this.loggedInUserInfo.UserId);
         }
 
         if (localStorage.getItem('profilepic') && this.isEditbale) {
           this.commonService.profilePicTracker.next(localStorage.getItem('profilepic'));
         }
         if (localStorage.getItem('bannerpic') && this.isEditbale) {
-          this.bannerpicpath = localStorage.getItem('bannerpic')
+          this.commonService.bannerPicTracker.next(localStorage.getItem('bannerpic'));
         }
         if (localStorage.getItem('profileviewUser')) {
           this.dataDisplayProfile = JSON.parse(localStorage.getItem('profileviewUser'));
           this.showheadsection = true;
           this.commonService.profilePicTracker.next(this.dataDisplayProfile.ProfilePicPath);
+          this.commonService.bannerPicTracker.next(this.dataDisplayProfile.BannerPicPath);
           //localStorage.setItem('profilepic', this.profilePic)
           //this.bannerpicpath = this.dataDisplayProfile.BannerPicPath;
         }
-        if (this.dataDisplayProfile && this.dataDisplayProfile.BannerPicPath)
-          this.bannerpicpath = this.dataDisplayProfile.BannerPicPath;
+    if (localStorage.getItem('currentUser') || localStorage.getItem('profileviewUser'))
+    {
+      this.GetUnReadMessagesCount(this.dataDisplayProfile.UserId);
+    }
         
           this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
             setTimeout(() => {
@@ -149,7 +163,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
           })
       }
-    })    
+    })
 
     this.commonService.userChangeSubject.subscribe(val=>{
       let userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
@@ -366,7 +380,7 @@ export class AppComponent implements OnInit, OnDestroy {
               if (res.UserId > 0) {
                 
                 localStorage.setItem('bannerpic', res.BannerPicPath);
-                
+                this.commonService.bannerPicTracker.next(res.bannerpicpath)
                 this.bannerpicpath = res.BannerPicPath;
               }
             })

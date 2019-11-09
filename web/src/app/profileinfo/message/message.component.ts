@@ -75,13 +75,13 @@ export class MessageComponent implements OnInit {
           this.successMsg = "Your message has been submitted successfully";
           setTimeout(() => {
             this.successMsg = "";
-          }, 2000);
+          }, 10000);
           this.getAllUserMessages();
         }, error => {
           this.errorMsg = "Error occured";
           setTimeout(() => {
             this.errorMsg = "";
-          }, 2000);
+          }, 10000);
           console.log(error);
         })
     }

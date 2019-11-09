@@ -35,6 +35,11 @@ export class CommonService {
         return this.profilePicTracker.asObservable();
     }
 
+    bannerPicTracker = new BehaviorSubject<string>('');
+    get bannerPicTracker$(){
+        return this.bannerPicTracker.asObservable();
+    }
+
     socialAndHeaderWidgetsTracker = new BehaviorSubject<boolean>(true)
     get socialAndHeaderWidgetsTracker$() {
         return this.socialAndHeaderWidgetsTracker.asObservable();
