@@ -16,7 +16,7 @@ export class MessageComponent implements OnInit {
   isAboutInEditMode: boolean = false; usersCommMessages: ProfileInfo[]; readonlyUserInfo: ProfileInfo;
   showcommunicationbox: boolean = false; guestIdToSendMessage: number = 0; messageDisplayName: string = "";
   dataDisplayProfile: ProfileInfo; modalRef: BsModalRef;
-  successMsg: string;
+  successMsg: string; isnameclickable: boolean = true;
   errorMsg: string
   constructor(private profileInfoService: ProfileinfoService,
     private router: Router,
@@ -65,7 +65,7 @@ export class MessageComponent implements OnInit {
       messageInfo.UserId = this.loggedInUserInfo.UserId;
       if (this.guestIdToSendMessage > 0) {
         messageInfo.userRefId = this.guestIdToSendMessage;
-        this.guestIdToSendMessage = 0;
+        //this.guestIdToSendMessage = 0;
       }
       else { messageInfo.userRefId = this.dataDisplayProfile.UserId }
       this.profileInfoService.postUserMessage(messageInfo)
@@ -76,7 +76,10 @@ export class MessageComponent implements OnInit {
           setTimeout(() => {
             this.successMsg = "";
           }, 10000);
-          this.getAllUserMessages();
+          if(this.loggedInUserInfo.UserId == this.dataDisplayProfile.UserId)
+            this.displaycommessages(this.loggedInUserInfo.UserId,messageInfo.userRefId);
+          else
+            this.getAllUserMessages();
         }, error => {
           this.errorMsg = "Error occured";
           setTimeout(() => {
@@ -122,7 +125,21 @@ export class MessageComponent implements OnInit {
       this.messageDisplayName = mdisName;
     }
     this.guestIdToSendMessage = messageFromId;
+    this.displaycommessages(messageFromId,messageToId);
   }
+
+  displaycommessages(messageFromId: number, messageToId: number)
+  {
+    this.profileInfoService.GetHistoryUserId(messageToId, messageFromId)
+        .subscribe(res => {
+          if (res && res.length)
+            this.usersCommMessages = res;
+            this.commonService.MessagesReadTracker.next(true);
+        }, error => {
+          console.log(error);
+        })
+  }
+
   showpreviousmessages(messageFromId: number, messageToId: number, mdisName: string, template: TemplateRef<any>) {
     this.profileInfoService.GetHistoryUserId(messageToId, messageFromId)
         .subscribe(res => {

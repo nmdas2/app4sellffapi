@@ -561,8 +561,8 @@ p {
 .post-btns ul li a {}
 
 .post-btns ul li:after {
-    content: "|";
-    padding: 0px 15px;
+    content: " ";
+    padding: 0px 30px;
 }
 
 .post-btns Ul li:last-child:after {
@@ -1967,7 +1967,7 @@ li.dropdown.user.user-menu span .notification span{
     border: 1px dotted #d0d0d0;
     padding: 15px;
     border-radius: 20px;
-    min-height: 250px;
+    min-height: 150px;
     margin-bottom: 20px;
 }
 .large_yellow_btn {
