@@ -388,6 +388,8 @@ namespace Sellff_API.Models
         public string profitlosscolor { get; set; }
         [DataMember]
         public bool pricechangeinnegitive { get; set; } = false;
+        [DataMember]
+        public decimal LastDayClosePrice { get; set; }
     }
 
     public class UserShareDetailsBO

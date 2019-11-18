@@ -33,6 +33,6 @@ export interface UserTransaction{
     //    UserId - loggedIn User Id
     //    UserProfileId - profile Id
     //    BuySellQty
-
+    LastDayClosePrice: number;
 
 }

@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">open price</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b>{{userTransactionDetails.AskPrice | number:'1.4-4'}}</b></label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b>{{userTransactionDetails.LastDayClosePrice | number:'1.4-4'}}</b></label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">price change</label>
@@ -52,7 +52,8 @@
                     <div class="box">
                         <div class="invest-graph" *ngIf="loading">
 
-                            <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions" style="width: 100%; height: 400px; display: block;"></highcharts-chart>
+                            <highcharts-chart [Highcharts]="Highcharts" [options]="cahrtOptions" 
+                            style="width: 100%; height: 400px; display: block;"></highcharts-chart>
 
                             <!-- <highcharts-chart
                                 [Highcharts] = "highcharts" 
@@ -109,9 +110,9 @@
                                     {{errorMsg}}
                                 </alert>
                             </div>
-                            <div class="status-open">
+                            <!-- <div class="status-open">
                                 <p>Trade status open</p>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

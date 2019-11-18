@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef,ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first, max } from 'rxjs/operators';
@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit {
     inviteGuid: string;
     captchaSuccess: boolean = false;
     modalRef: BsModalRef;
+    @ViewChild('UserName',{static: false}) inputEl:ElementRef;
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
@@ -48,7 +49,7 @@ export class RegisterComponent implements OnInit {
         })
 
     }
-
+  
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
             displayName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(25), Validators.pattern("^[A-Za-z0-9]*$")]],
@@ -127,6 +128,7 @@ export class RegisterComponent implements OnInit {
            // http://localhost:4200/register?InviteGuid=782A0DCD-5456-44F6-90EE-1A6EFC00F834
             this.getInvitedUserInfo();
         }
+        setTimeout(() => this.inputEl.nativeElement.focus());
     }
 
     getInvitedUserInfo(){

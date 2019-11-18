@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ElementRef, ViewChild, AfterViewInit} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
@@ -18,14 +18,25 @@ export class ForgotpasswordComponent implements OnInit {
   invalidLogin: boolean = false;
   successMsg: string = ''; //constants.forgetMsgSuccess;
   errorMsg: string = '';
-
+  @ViewChild('UserName',{static: false}) inputEl:ElementRef;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
     private commonService: CommonService
   ) { }
-
+  ngAfterViewInit() {
+    setTimeout(() => this.inputEl.nativeElement.focus());
+ }
+ routrLogin(e){
+   debugger;
+   e.preventDefault();
+  this.router.navigate(['/login']);
+  setTimeout(function(){
+    this.router.navigate(['/login']);
+  },100)
+ 
+ }
   ngOnInit() {
       this.loginForm = this.formBuilder.group({
       username: ['', Validators.required]

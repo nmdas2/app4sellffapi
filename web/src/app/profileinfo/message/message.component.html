@@ -44,13 +44,18 @@
                 </div>
                 <div class="col-md-5 p-l-d-40 b-d-left" *ngIf="!isAboutInEditMode || showcommunicationbox">
                     <h3>message detail</h3>
-                    <div class="modal-body max-height-modal">
-                        <div style="border-radius: 10px;" *ngFor="let commmessage of usersCommMessages">
-                            <div class="row">
-                                    <label class="text-left col-sm-6" *ngIf="commmessage.DisplayName">{{commmessage.DisplayName}}</label>
-                                    <label class="text-right col-sm-6" *ngIf="commmessage.MessageSentTime">{{commmessage.MessageSentTime}}</label>
-                            </div>           
-                            <p *ngIf="commmessage.Message">{{commmessage.Message}}</p>
+                    <div class="messge-detail-list">
+                        <div  *ngFor="let commmessage of usersCommMessages">
+                            <ul>
+                                <li>
+                                        <div class="row">
+                                                <label class="text-left col-sm-6" *ngIf="commmessage.DisplayName">{{commmessage.DisplayName}}</label>
+                                                <label class="text-right col-sm-6" *ngIf="commmessage.MessageSentTime">{{commmessage.MessageSentTime}}</label>
+                                        </div>           
+                                        <p class="messge-detail" *ngIf="commmessage.Message">{{commmessage.Message}}</p>
+                                </li>
+                            </ul>
+                           
                         </div>
                     </div>
                     <div class="box new-mg-box message-box">

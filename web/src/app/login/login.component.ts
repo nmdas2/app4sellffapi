@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy,ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first} from 'rxjs/operators';
@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     invalidLogin: boolean = false;
     stateMsg: string = "";
     regSub: Subscription;
+    @ViewChild('UserName',{static: false}) inputEl:ElementRef;
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
@@ -29,7 +30,15 @@ export class LoginComponent implements OnInit, OnDestroy {
         private commonService: CommonService
     ) {
     }
-
+    ngAfterViewInit() {
+        setTimeout(() => this.inputEl.nativeElement.focus());
+     }
+     routrForgot(e){
+        debugger;
+        e.preventDefault();
+       this.router.navigate(['/forgotpassword']);
+      
+      }
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],

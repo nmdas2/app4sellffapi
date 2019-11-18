@@ -5946,7 +5946,9 @@ table.text-center th {
 hr {
     border-top: 1px solid #555
 }
-
+.cursor-pointer {
+    cursor: pointer;
+}
 @media print {
     .no-print,
     .main-sidebar,

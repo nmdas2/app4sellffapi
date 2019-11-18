@@ -706,7 +706,7 @@ p {
 
 //Messege Box CSS
 .msg-box {
-    border: 1px solid #d0d0d0;
+    border: 1px dotted #d0d0d0;
     color: #333333;
     font-weight: normal;
     letter-spacing: 0.3px;
@@ -716,17 +716,34 @@ p {
     transition: all 0.4s ease 0s;
     margin-bottom: 10px;
 }
-
+.msg-box.active {
+    background: #f2f2f2;
+    border-color: #000;
+}
+.messge-detail {
+    font-size: 14px;
+    line-height: normal;
+    margin-bottom: 15px;
+    margin-top: 2px;
+    border: 1px dotted #d0d0d0;
+    color: #333333;
+    font-weight: normal;
+    letter-spacing: 0.3px;
+    padding: 10px;
+    background: #f2f2f2;
+}
 .msg-box:hover {
     background: #FFF;
     color: #fff;
     padding-left: 15px;
 }
-
+.messge-detail.active {
+    margin-left: 20%;
+    background: #fff;
+}
 .msg-box:hover li label {
     color: #000;
 }
-
 .msg-box:hover a {
     color: #0070c0;
 }
@@ -784,8 +801,18 @@ p {
 .msg-box p {
     font-size: 14px;
     margin: 0;
+    color: #000;    
+    line-height: normal;
 }
-
+.messge-detail-list ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.messge-detail-list label {
+    color: #777777;
+    margin: 0;
+}
 //Table CSS
 .table {
     width: 100%;
@@ -1298,6 +1325,7 @@ span.bs-rating-star.active {
 }
 .socail-links img{
     width: 25px;
+    margin-top: 3px;
 }
 .socail-links a i{
     border-radius: 100%;
@@ -1306,6 +1334,7 @@ span.bs-rating-star.active {
     width: 30px;
     height: 30px;
     line-height: 30px;
+    font-size: 13px;
 }
 .socail-links a.twitter i{ 
     background: rgba(9,201,254,1);
@@ -1358,14 +1387,11 @@ span.bs-rating-star.active {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fc1b2c', endColorstr='#970102', GradientType=0 );
 }
 .social-inputbox{ 
-    text-align: right;
     position: relative;
-    float: right;
 }
 .social-inputbox .input-group{
     position: absolute;
-    right: 0;
-    top: -40px;
+    left: 0;
     width: 250px;
 }
 .social-inputbox .input-group input{
@@ -1849,6 +1875,8 @@ li.dropdown.user.user-menu span .notification span{
     font-size: 18px;
     line-height: 1.5;
     text-transform: initial;
+    color: #000;
+    margin-bottom: 5px;
 }
 .pull-right-header {
     float:right;
@@ -2191,4 +2219,21 @@ li.dropdown.user.user-menu span .notification span{
 }
 .about-textarea {
     font-family: "Lato", sans-serif !important;    
+}
+.custom-hr {
+    margin-top:0;
+    border-top-color:#d0d0d0
+}
+.p-b-0 {
+    padding-bottom: 0;
+}
+.box .l-o-icon {
+    width: 23px;
+    height: 31px;
+    margin-right: 10px;
+}
+.box .occupation-icon {
+    width: 28px;
+    height: 32px;
+    margin-left: 15px;
 }

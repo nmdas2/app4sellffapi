@@ -26,12 +26,26 @@ export class InvestComponent implements OnInit {
 //        }
 //     ]
 //  };
+
+cahrtOptions = {
+  title: {text: '' },
+  xAxis: { categories: [] },
+  yAxis: { min: 0,
+    title: { text: 'share price'  }
+  },
+  legend: { reversed: true  },
+  plotOptions: {
+    series: { stacking: 'normal' }
+  },
+  series: [{ name: 'data', data: [] }]
+};
+
 loading:boolean= false;
 Highcharts = Highcharts;
 chartOptions = {
   title: { text: "" },
   xAxis:{categories:[] },
-  yAxis: { title:{ text:"share price" } },
+  //yAxis: { title:{ text:"share price" }},
   series: [{name: 'day',
     data: []
   }]
@@ -74,13 +88,25 @@ chartOptions = {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
   }
   getSchedularData(){
-    this.profileService.getSharePriceValuesByUserId(this.loggedInUser.UserId)
+    this.profileService.getSharePriceValuesByUserId(this.dataDisplayProfile.UserId)
     .subscribe(res => {
-      this.chartOptions.xAxis.categories=[];
-     this.chartOptions.series[0].data=[];
+      this.cahrtOptions.xAxis.categories=[];
+      
+      this.cahrtOptions.series[0].data=[];
+      let index:number=0;
       for(let sc of res){
-       this.chartOptions.xAxis.categories.push(sc.onlyDate);
-       this.chartOptions.series[0].data.push(sc.SharePriceValue);
+        //console.log(sc.SharePriceValue)
+       this.cahrtOptions.xAxis.categories.push(sc.onlyDate.toString());
+       this.cahrtOptions.series[0].data.push(sc.SharePriceValue);
+      // if(index==0){
+      //   this.cahrtOptions.series[0].data.push(1.0040);
+      // }
+      // else if(index==1){
+      //   this.cahrtOptions.series[0].data.push(2.0030);
+      // }else{
+      //   this.cahrtOptions.series[0].data.push(sc.SharePriceValue);
+      // }
+      index=index+1;
       };
       this.loading=true;
       //alert(JSON.stringify(this.chartOptions));

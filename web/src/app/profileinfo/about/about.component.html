@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="box">
-                        <div class="box-header with-border p-lr-0-d">
+                        <div class="box-header with-border p-lr-0-d p-b-0">
                             <div class="edit-text-box">
                                 <div *ngIf="!isAboutInEditMode; else elseBlock">
                                     <p class="edit-btn" style="text-justify: distribute-all-lines;">
@@ -46,15 +46,47 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="box">
                         <section class="upload-img-section">
                             <div class="">
-                                <div class="box-header with-border p-lr-0-d">
-                                    <a class="accordian_menu" role="button" data-toggle="collapse" href="#gallery_main"
-                                        aria-expanded="true" aria-controls="Gallery">
-                                        <span class="accordian_title">Gallery</span>
-                                    </a>
-                                    <div class="collapse in" id="gallery_main">
+                                <div class="box-header with-border p-lr-0-d p-b-0">
+                                    <hr class="custom-hr">
+                                    <div class="services_main p-r-d-50">
+                                        <img src="../../../assets/images/location.svg" class="l-o-icon" />
+                                        <button class="btn service-offered" *ngIf="!isCityInEditMode; else elseCityBlock || isEditbale" (click)="enablecityedit()">{{userCity}}</button>
+                                       
+                                   
+                                    
+                                        <img src="../../../assets/images/time.svg" class="l-o-icon occupation-icon" />    
+                                                    
+                                                    <button class="btn service-offered" *ngIf="!isOccupationInEditMode; else elseOccBlock || isEditbale" (click)="enableoccupationedit()">
+                                                            {{UserOccupation}}</button>
+                                            
+                                            
+                                      
+                                    </div>
+                                    <ng-template #elseCityBlock>
+                                        <div class="edit-box">
+                                            <input type="text" [(ngModel)]="userCity" class="form-control" required>
+                                            <div class="text-edit-footer">
+                                                <button class="btn btn-primary" (click)="updatecityvalue()">Update</button>
+                                                <button class="btn btn-custom ml-3" (click)="oncitycancel()">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template #elseOccBlock>
+                                            <div class="edit-box">
+                                                <input type="text" [(ngModel)]="UserOccupation" class="form-control" required>
+                                                <div class="text-edit-footer">
+                                                    <button class="btn btn-primary" (click)="updateoccupationvalue()">Update</button>
+                                                    <button class="btn btn-custom ml-3" (click)="onoccupationcancel()">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                     
+                                       
+                                    <div id="gallery_main">
                                         <div class="e-p-main">
                                             <a *ngFor="let item of imgGallery" id="link1" href="javascript:void(0)">
                                                 <div class="e-p-img">
@@ -121,50 +153,10 @@
                                     </div>
                                 </div>
                             </ng-template>
-                            <div style="height: 25px;">&nbsp;</div>
-                            <hr>
-                            <div class="edit-text-box">
-                                <h3>Location: </h3>
-                                <div *ngIf="!isCityInEditMode; else elseCityBlock">
-                                    <p class="edit-btn" style="text-justify: distribute-all-lines;">
-                                        {{userCity}}
-                                    </p>
-                                    <div class="text-right">
-                                        <button class="btn btn-primary" *ngIf="isEditbale" (click)="enablecityedit()"><i
-                                                class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <ng-template #elseCityBlock>
-                                <div class="edit-box">
-                                    <input type="text" [(ngModel)]="userCity" class="form-control" required>
-                                    <div class="text-edit-footer">
-                                        <button class="btn btn-primary" (click)="updatecityvalue()">Update</button>
-                                        <button class="btn btn-custom ml-3" (click)="oncitycancel()">Cancel</button>
-                                    </div>
-                                </div>
-                            </ng-template>
-                            <div class="edit-text-box">
-                                <h3>Occupation: </h3>
-                                <div *ngIf="!isOccupationInEditMode; else elseOccBlock">
-                                    <p class="edit-btn" style="text-justify: distribute-all-lines;">
-                                        {{UserOccupation}}
-                                    </p>
-                                    <div class="text-right">
-                                        <button class="btn btn-primary" *ngIf="isEditbale" (click)="enableoccupationedit()"><i
-                                                class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <ng-template #elseOccBlock>
-                                <div class="edit-box">
-                                    <input type="text" [(ngModel)]="UserOccupation" class="form-control" required>
-                                    <div class="text-edit-footer">
-                                        <button class="btn btn-primary" (click)="updateoccupationvalue()">Update</button>
-                                        <button class="btn btn-custom ml-3" (click)="onoccupationcancel()">Cancel</button>
-                                    </div>
-                                </div>
-                            </ng-template>
+                            
+                            
+                                
+                            
                         </section>
                     </div>
                 </div>

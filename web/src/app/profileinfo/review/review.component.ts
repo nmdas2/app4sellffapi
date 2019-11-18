@@ -22,7 +22,7 @@ export class ReviewComponent implements OnInit {
   ViewUserInfo: User; modalRef: BsModalRef; loggedInUserInfo: ProfileInfo; ratingGivenTo: number; reviewUserForm: FormGroup
   canReview: boolean = false; idToGetReviews: number; userReviews: Review[]; searchProfileUserId: number = 0; currentRating: Review;
   readonlyUserInfo: ProfileInfo; submitted = false; totalRatings: number = 0; dataDisplayProfile: ProfileInfo; reviewAlreadyGiven: boolean = false;
-  loggedInUserId: number = 0;
+  loggedInUserId: number = 0; percentage5: number = 0; percentage4: number = 0; percentage3: number = 0; percentage2: number = 0; percentage1: number = 0;
   isValidRating: boolean = false;
   dismissible = true;
   timeOut = 30000;
@@ -50,6 +50,16 @@ export class ReviewComponent implements OnInit {
         this.currentRating = res;
         this.totalRatings = this.currentRating.Starts5 + this.currentRating.Starts4 + this.currentRating.Starts3 + this.currentRating.Starts2 + this.currentRating.Starts1
         this.ratefive = this.currentRating.TotalRatingsCount;
+        if(this.currentRating.Starts5 > 0) 
+          this.percentage5 = (this.currentRating.Starts5 / this.totalRatings)*100;
+        if(this.currentRating.Starts4 > 0) 
+          this.percentage4 = (this.currentRating.Starts4 / this.totalRatings)*100;
+        if(this.currentRating.Starts3 > 0) 
+          this.percentage3 = (this.currentRating.Starts3 / this.totalRatings)*100;
+        if(this.currentRating.Starts2 > 0) 
+          this.percentage2 = (this.currentRating.Starts2 / this.totalRatings)*100;
+        if(this.currentRating.Starts1 > 0) 
+          this.percentage1 = (this.currentRating.Starts1 / this.totalRatings)*100;
       }, error => {
         console.log(error);
       })
