@@ -45,6 +45,13 @@ export class CommonService {
         return this.socialAndHeaderWidgetsTracker.asObservable();
     }
 
+    
+    userNotifications = new BehaviorSubject<any>('')
+    get userNotifications$() {
+        return this.userNotifications.asObservable();
+    }
+
+
     loadingShow() {
         document.getElementById('_loading').style.display = "block";
     }

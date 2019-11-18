@@ -9,6 +9,7 @@ import { HttpClient, HttpEventType } from '@angular/common/http';
 import { constants as consts } from '../../constants';
 import { ProfileInfo } from 'src/app/_models/profileinfo';
 import { CommonService } from 'src/app/_services/common.service';
+import { SignalRService } from 'src/app/_services/signal-r.service';
 
 @Component({
   selector: 'app-post',
@@ -32,8 +33,11 @@ export class PostComponent implements OnInit {
     private modalService: BsModalService,
     private fb: FormBuilder,
     private http: HttpClient,
-    private commonService: CommonService
-  ) { }
+    private commonService: CommonService,
+    private _signalRService: SignalRService
+  ) { 
+    this._signalRService.initializeSignalRConnection();
+  }
 
   ngOnInit() {
     this.userPosts = [];
@@ -102,6 +106,7 @@ export class PostComponent implements OnInit {
     this.profileInfoService.postText(post)
       .subscribe((res: any) => {
         this.getUserPosts();
+        this._signalRService.sendUserInfo(this.loggedInUserInfo.UserId);
         this.commonService.socialAndHeaderWidgetsTracker.next(true);
         this.resetPostTextForm();
       }, error => {

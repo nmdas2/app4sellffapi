@@ -9,6 +9,7 @@ import { ProfileInfo } from './_models/profileinfo';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { createOfflineCompileUrlResolver } from '@angular/compiler';
+import { SignalRService } from './_services/signal-r.service';
 
 @Component({
   selector: 'app-root',
@@ -33,8 +34,10 @@ export class AppComponent implements OnInit, OnDestroy {
     private modalService: BsModalService,
     private commonService: CommonService,
     private fb: FormBuilder
+    private _signalRService: SignalRService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this._signalRService.initializeSignalRConnection();
   }
 
   ngOnInit() {
@@ -165,7 +168,12 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     })
 
-    this.commonService.userChangeSubject.subscribe(val=>{
+    this.commonService.userNotifications$.subscribe(res => {
+      this.headerWidgetsDetails = res;
+      console.log(res);
+    })
+
+    this.commonService.userChangeSubject.subscribe(val => {
       let userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
       this.authenticationService.socialLinksByUserId(userId)
       .subscribe(res => {
