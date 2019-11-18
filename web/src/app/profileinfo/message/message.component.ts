@@ -31,7 +31,10 @@ export class MessageComponent implements OnInit {
     if (localStorage.getItem('profileviewUser') != null) {
       this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
       this.isAboutInEditMode = false;
+    
     }
+    console.log(this.loggedInUserInfo)
+    console.log(this.dataDisplayProfile)
     this.getAllUserMessages();
   }
 

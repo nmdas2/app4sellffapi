@@ -11,7 +11,7 @@
                             <h3 class="normal-title no-margin">{{currentRating.NoofRatingsGiven}} customer reviews</h3>
                             <div class="customer_reviews">
                                 <rating [(ngModel)]="ratefive" [max]="max" [readonly]="true"></rating> <span
-                                    class="f-22 p-l-20">{{currentRating.OverallRating}} out of 5 stars</span>
+                                    class="f-22 p-l-20">{{currentRating.OverallRating | number:'1.2-2'}} out of 5 stars</span>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
@@ -19,7 +19,7 @@
                                         <span>5 Star</span>
                                         <progressbar max="{{currentRating.NoofRatingsGiven}}"
                                             [value]=currentRating.Starts5 type="warning"></progressbar>
-                                        {{percentage5}}%
+                                        {{percentage5 | number:'1.2-2'}}%
                                     </div>
                                 </div>
                             </div>
@@ -29,7 +29,7 @@
                                         <span>4 Star</span>
                                         <progressbar max="{{currentRating.NoofRatingsGiven}}"
                                             [value]=currentRating.Starts4 type="warning"></progressbar>
-                                        {{percentage4}}%
+                                        {{percentage4 | number:'1.2-2'}}%
                                     </div>
                                 </div> 
                             </div>
@@ -39,7 +39,7 @@
                                         <span>3 Star</span>
                                         <progressbar max="{{currentRating.NoofRatingsGiven}}"
                                             [value]=currentRating.Starts3 type="warning"></progressbar>
-                                        {{percentage3}}%
+                                        {{percentage3 | number:'1.2-2'}}%
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                         <span>2 Star</span>
                                         <progressbar max="{{currentRating.NoofRatingsGiven}}"
                                             [value]=currentRating.Starts2 type="warning"></progressbar>
-                                        {{percentage2}}%
+                                        {{percentage2 | number:'1.2-2'}}%
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                                         <span>1 Star</span>
                                         <progressbar max="{{currentRating.NoofRatingsGiven}}"
                                             [value]=currentRating.Starts1 type="warning"></progressbar>
-                                        {{percentage1}}%
+                                        {{percentage1 | number:'1.2-2'}}%
                                     </div>
                                 </div>
                             </div>

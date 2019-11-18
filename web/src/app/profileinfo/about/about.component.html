@@ -11,7 +11,7 @@
                                         {{textValue}}
                                     </p>
                                     <div class="text-right">
-                                        <button class="btn btn-primary" *ngIf="isEditbale" (click)="logText()"><i
+                                        <button class="btn btn-link" *ngIf="isEditbale" (click)="logText()"><i
                                                 class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
                                     </div>
                                 </div>
@@ -45,8 +45,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>                    
                     <div class="box">
                         <section class="upload-img-section">
                             <div class="">
@@ -55,16 +54,11 @@
                                     <div class="services_main p-r-d-50">
                                         <img src="../../../assets/images/location.svg" class="l-o-icon" />
                                         <button class="btn service-offered" *ngIf="!isCityInEditMode; else elseCityBlock || isEditbale" (click)="enablecityedit()">{{userCity}}</button>
-                                       
-                                   
-                                    
-                                        <img src="../../../assets/images/time.svg" class="l-o-icon occupation-icon" />    
-                                                    
-                                                    <button class="btn service-offered" *ngIf="!isOccupationInEditMode; else elseOccBlock || isEditbale" (click)="enableoccupationedit()">
-                                                            {{UserOccupation}}</button>
-                                            
-                                            
-                                      
+                                       <img src="../../../assets/images/time.svg" class="l-o-icon occupation-icon" />
+                                        <button class="btn service-offered" *ngIf="!isOccupationInEditMode; else elseOccBlock || isEditbale" (click)="enableoccupationedit()">
+                                                {{UserOccupation}}</button>
+                                        <img src="../../../assets/images/time.svg" class="l-o-icon occupation-icon" />
+                                        <p class="service-offered">{{dataDisplayProfile.CreatedOn}}</p>
                                     </div>
                                     <ng-template #elseCityBlock>
                                         <div class="edit-box">
@@ -109,11 +103,15 @@
                                     <ng-template #template>
                                         <div class="modal-header" style="padding: 0;">
                                         </div>
-                                        <div class="modal-body" style="padding: 0;">
+                                        <div class="modal-body">
                                             <div *ngIf="dynamicImg">
                                                 <img [src]="dynamicImg" class="rounded" alt="">
                                             </div>
-
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-custom pull-left" aria-label="Close" (click)="modalRef.hide()">
+                                                        Close
+                                                </button>
+                                            </div>
                                         </div>
                                     </ng-template>
                                 </div>
@@ -121,7 +119,7 @@
                             <div class="col-md-12">
                                 <div *ngIf="!AllowImageUpload; else upldelseBlock"
                                     style="text-justify: distribute-all-lines;">
-                                    <button class="btn btn-primary" *ngIf="isEditbale" (click)="ShowGalUpPop()"><span><i
+                                    <button class="btn btn-link" *ngIf="isEditbale" (click)="ShowGalUpPop()"><span><i
                                                 class="fa fa-cloud-upload"></i> Upload Image</span></button>
                                 </div>
                             </div>                            
@@ -153,10 +151,6 @@
                                     </div>
                                 </div>
                             </ng-template>
-                            
-                            
-                                
-                            
                         </section>
                     </div>
                 </div>

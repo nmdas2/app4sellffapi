@@ -48,14 +48,13 @@
                         <div  *ngFor="let commmessage of usersCommMessages">
                             <ul>
                                 <li>
-                                        <div class="row">
-                                                <label class="text-left col-sm-6" *ngIf="commmessage.DisplayName">{{commmessage.DisplayName}}</label>
-                                                <label class="text-right col-sm-6" *ngIf="commmessage.MessageSentTime">{{commmessage.MessageSentTime}}</label>
-                                        </div>           
-                                        <p class="messge-detail" *ngIf="commmessage.Message">{{commmessage.Message}}</p>
+                                    <div class="row">
+                                        <label class="text-left col-sm-6" *ngIf="commmessage.DisplayName != loggedInUserInfo.DisplayName">{{commmessage.DisplayName}}</label>
+                                        <label class="text-right col-sm-6" *ngIf="commmessage.MessageSentTime">{{commmessage.MessageSentTime}}</label>
+                                    </div>           
+                                    <p class="messge-detail" *ngIf="commmessage.Message">{{commmessage.Message}}</p>
                                 </li>
-                            </ul>
-                           
+                            </ul>                           
                         </div>
                     </div>
                     <div class="box new-mg-box message-box">
