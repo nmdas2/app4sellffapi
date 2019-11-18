@@ -3,6 +3,7 @@ export const constants = {
     AppName: "Sellff",
     //DomainURL: 'http://localhost:50517/api/',
     DomainURL: 'http://apollostage2.quad1test.com/practice/api/',
+    SignalRURL:'http://localhost:50517/signalr/',
     //DomainURL: 'http://4sellff.com/sellffapi/api/',
     ImagesPath: './././assets/selfprflimages/',
     PostImagesPath: './././assets/selfprflimages/postimages/',
