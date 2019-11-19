@@ -75,10 +75,10 @@ export class MessageComponent implements OnInit {
         .subscribe(res => {
           this.isSubmitted = false;
           this.userMsg = "";
-          this.successMsg = "Your message has been submitted successfully";
-          setTimeout(() => {
-            this.successMsg = "";
-          }, 10000);
+          // this.successMsg = "Your message has been submitted successfully";
+          // setTimeout(() => {
+          //   this.successMsg = "";
+          // }, 10000);
           if(this.loggedInUserInfo.UserId == this.dataDisplayProfile.UserId)
             this.displaycommessages(this.loggedInUserInfo.UserId,messageInfo.userRefId);
           else

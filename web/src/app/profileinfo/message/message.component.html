@@ -3,11 +3,11 @@
         <section class="content">            <div class="row">
                 <div class="col-md-6"></div>
             </div>
-            <div *ngIf="successMsg">
+            <!-- <div *ngIf="successMsg">
                 <alert type="success">
                     <strong>Success!</strong> {{successMsg}}
                 </alert>
-            </div>
+            </div> -->
             <div *ngIf="errorMsg">
                 <alert type="danger">
                     <strong>Error!</strong> {{errorMsg}}
@@ -44,15 +44,15 @@
                 </div>
                 <div class="col-md-5 p-l-d-40 b-d-left" *ngIf="!isAboutInEditMode || showcommunicationbox">
                     <h3>message detail</h3>
-                    <div class="messge-detail-list">
+                    <div class="messge-detail-list msgdetail">
                         <div  *ngFor="let commmessage of usersCommMessages">
                             <ul>
                                 <li>
                                     <div class="row">
                                         <label class="text-left col-sm-6" *ngIf="commmessage.DisplayName != loggedInUserInfo.DisplayName">{{commmessage.DisplayName}}</label>
-                                        <label class="text-right col-sm-6" *ngIf="commmessage.MessageSentTime">{{commmessage.MessageSentTime}}</label>
+                                        <label [ngClass]="{'text-right col-sm-6': commmessage.DisplayName != loggedInUserInfo.DisplayName, 'text-right col-sm-12':commmessage.DisplayName == loggedInUserInfo.DisplayName }" *ngIf="commmessage.MessageSentTime">{{commmessage.MessageSentTime}}</label>
                                     </div>           
-                                    <p class="messge-detail" *ngIf="commmessage.Message">{{commmessage.Message}}</p>
+                                    <p [ngClass]="{'messge-detail': commmessage.DisplayName != loggedInUserInfo.DisplayName, 'messge-detail active':commmessage.DisplayName == loggedInUserInfo.DisplayName }" *ngIf="commmessage.Message">{{commmessage.Message}}</p>
                                 </li>
                             </ul>                           
                         </div>
