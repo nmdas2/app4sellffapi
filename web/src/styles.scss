@@ -1039,13 +1039,16 @@ table tbody tr td.lalign {
     margin-bottom: 5px;
 }
 
-.progress-box .p-box span {
+.progress-box .p-box .star-label {
     white-space: nowrap;
     float: left;
     margin-right: 20px;
     color: #0070c0;
 }
-
+.rating-p-count {
+    min-width: 56px;
+    display: inline-block;
+}
 .review-box h4:after {
     display: none;
 }
@@ -1322,6 +1325,7 @@ span.bs-rating-star.active {
     margin-right: 8px;
     font-size: 16px;
     padding: 0px !important;
+    cursor: pointer;
 }
 .socail-links img{
     width: 25px;
@@ -1391,7 +1395,7 @@ span.bs-rating-star.active {
 }
 .social-inputbox .input-group{
     position: absolute;
-    left: 0;
+    right: 240px;
     width: 250px;
 }
 .social-inputbox .input-group input{
@@ -1496,7 +1500,10 @@ li.dropdown.user.user-menu span .notification span{
 @media only screen and (max-width: 800px) {}
 
 @media only screen and (max-width: 767px) {
-    
+   body .social-inputbox .input-group {
+        right: 0;
+        top: -40px;
+    }
     .home-screen {
         -webkit-transform: scale(1);
         transform: scale(1);
@@ -2231,9 +2238,46 @@ li.dropdown.user.user-menu span .notification span{
     width: 23px;
     height: 31px;
     margin-right: 10px;
+    border: none;
 }
 .box .occupation-icon {
     width: 28px;
     height: 32px;
     margin-left: 15px;
+}
+.l-t-o-link {
+    text-align: left;
+    padding: 6px 12px;
+    line-height: 1.42857143;
+}
+.align-items-top {
+    align-items: start;
+}
+.btn-normal-link {
+    font-size: 15px;
+    border: none;
+    background: transparent;
+    vertical-align: middle;
+    color: #337ab7;
+    float:right;
+    margin-top: 2px;
+}
+typeahead-container .dropdown-menu {
+    width: 100%;
+    border-color: #eee;
+    margin-left: -4px;
+    border-radius: 0;
+    margin-top: 3px;
+    box-shadow: 0 1px 6px 0 rgba(32,33,36,0.28);
+    max-height: 250px;
+    font-family: "Lato", sans-serif !important;
+}
+.table-td-dotted td {
+    position: relative;
+}
+typeahead-container.dropdown{
+    width: 100%;
+}
+typeahead-container .dropdown-menu li>a {
+    color: #000;
 }
