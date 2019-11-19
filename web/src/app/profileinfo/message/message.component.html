@@ -20,7 +20,9 @@
                     <div class="box">
                         <h3 class="normal-title">messages</h3>
                         <div class="message-m-b">
-                        <div class="msg-box" *ngFor="let message of userMessages">
+                        <div class="custom-scroll max-msg-scroll">
+                        <div *ngFor="let message of userMessages">
+                            <div class="msg-box" [ngClass]="{'':message.IsRead, 'active':!message.IsRead }">
                             <ul>
                                 <li>
                                     <a *ngIf="message.MessageFrom != loggedInUserInfo.UserId" (click)="showcommunication(message.MessageFrom,message.MessageTo,message.DisplayName)" style="margin-right: 15px;"><span *ngIf="message.DisplayName">{{message.DisplayName}}</span></a>
@@ -35,24 +37,27 @@
                                 </li>
                             </ul>
                             <p *ngIf="message.Message">{{message.Message}}</p>
+                            </div>
                         </div>
                         <div *ngIf = "userMessages.length == 0">
                             no messages are available
                         </div>
                     </div>
                     </div>
+                    </div>
                 </div>
                 <div class="col-md-5 p-l-d-40 b-d-left" *ngIf="!isAboutInEditMode || showcommunicationbox">
-                    <h3>message detail</h3>
+                    <h3 class="normal-title">message detail</h3>
+                    <div class="message-m-b">
                     <div class="messge-detail-list msgdetail">
-                        <div  *ngFor="let commmessage of usersCommMessages">
+                        <div  *ngFor="let commmessage of usersCommMessages">    
                             <ul>
                                 <li>
                                     <div class="row">
                                         <label class="text-left col-sm-6" *ngIf="commmessage.DisplayName != loggedInUserInfo.DisplayName">{{commmessage.DisplayName}}</label>
-                                        <label [ngClass]="{'text-right col-sm-6': commmessage.DisplayName != loggedInUserInfo.DisplayName, 'text-right col-sm-12':commmessage.DisplayName == loggedInUserInfo.DisplayName }" *ngIf="commmessage.MessageSentTime">{{commmessage.MessageSentTime}}</label>
+                                        <label  class="text-right" [ngClass]="{'col-sm-6':commmessage.DisplayName != loggedInUserInfo.DisplayName, 'col-sm-12':commmessage.DisplayName == loggedInUserInfo.DisplayName }" *ngIf="commmessage.MessageSentTime">{{commmessage.MessageSentTime}}</label>
                                     </div>           
-                                    <p [ngClass]="{'messge-detail': commmessage.DisplayName != loggedInUserInfo.DisplayName, 'messge-detail active':commmessage.DisplayName == loggedInUserInfo.DisplayName }" *ngIf="commmessage.Message">{{commmessage.Message}}</p>
+                                    <p  class="messge-detail" [ngClass]="{'':commmessage.DisplayName != loggedInUserInfo.DisplayName, 'active':commmessage.DisplayName == loggedInUserInfo.DisplayName }" *ngIf="commmessage.Message">{{commmessage.Message}}</p>
                                 </li>
                             </ul>                           
                         </div>
@@ -63,10 +68,12 @@
                         <textarea [(ngModel)]="userMsg" class="message-m-b" placeholder="...type message"></textarea>
                         <span *ngIf="isSubmitted && !userMsg" style="color: red">Please enter the message</span>
                         </div>
-                        <div class="text-right" *ngIf="!isAboutInEditMode || showcommunicationbox">
-                            <button type="button" (click)="sendMessage()" class="btn btn-warning large_yellow_btn">Send
-                                    Message</button>
-                        </div>
+                        
+                    </div>
+                </div>
+                    <div class="text-right" *ngIf="!isAboutInEditMode || showcommunicationbox">
+                        <button type="button" (click)="sendMessage()" class="btn btn-warning large_yellow_btn">Send
+                                Message</button>
                     </div>
                 </div>
             </div>

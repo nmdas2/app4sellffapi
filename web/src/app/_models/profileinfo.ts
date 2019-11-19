@@ -42,6 +42,7 @@ export interface ProfileInfo{
     MessagesDateForSorting?: string;
     MessageToName?: string;
     IsMsgFromLoggedInUser?: boolean;
+    IsRead?:boolean;
 }
 export interface userAboutInfo{
     AutoId?: number;

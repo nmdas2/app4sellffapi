@@ -525,10 +525,11 @@ p {
 .message-box textarea {
     width: 100%;
     border: 1px solid #cecece;
-    margin-bottom: 15px;
-    height: 150px;
+    margin-bottom: 0;
+    height: 100px;
     outline: none;
     padding: 15px;
+    min-height: 100px;
 }
 
 .new-mg-box h4 {
@@ -2281,3 +2282,17 @@ typeahead-container.dropdown{
 typeahead-container .dropdown-menu li>a {
     color: #000;
 }
+.msgdetail::-webkit-scrollbar, .custom-scroll::-webkit-scrollbar {
+    width: 5px;
+  }
+   
+  .msgdetail::-webkit-scrollbar-track,  .custom-scroll::-webkit-scrollbar-track {
+    background: #ddd;
+  }
+   
+  .msgdetail::-webkit-scrollbar-thumb, .custom-scroll::-webkit-scrollbar-thumb {
+    background: #666; 
+  }
+  .custom-scroll {
+    padding-right: 5px;
+  }

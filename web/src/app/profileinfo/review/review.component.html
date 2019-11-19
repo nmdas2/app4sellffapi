@@ -125,8 +125,10 @@
                                     <span class="p-l-20 f-16 text-initial">{{review.ReviewTitle}}</span>
                                 </div>
                                 <div class="review-date">{{review.CreatedOn}}</div>
-                                <p class="font-fjalla-one review-des text-initial reviewcontenttextdisplay" ng-class="{show: show}">{{review.ReviewContent}}</p>
-                                <div style="float: right;"> <a ng-click="show = true">more</a></div>
+                                <div class="reviewcontenttextdisplay" [class.show]="show">
+                                    <p class="font-fjalla-one review-des text-initial">{{review.ReviewContent}}</p>
+                                </div>
+                                <div style="float: right;"><button class="btn btn-link" (click)="show = !show">{{ show ? 'less': 'more' }}</button></div>
                                 <!-- <button ng-click="show = true">more</button> -->
                                 <button class="btn btn-primary btn-xs" [disabled]="review.HelpId"
                                     (click)="sayhelpful(review)"><i class="fa fa-thumbs-up" aria-hidden="true"></i>

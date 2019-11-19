@@ -132,6 +132,7 @@ namespace Sellff_API.ADO
                         objResponseBO.MessageTo = Convert.ToInt32(objDataRow["MessageTo"]);
                         objResponseBO.MessageFrom = Convert.ToInt32(objDataRow["MessageFrom"]);
                         objResponseBO.MessageToName = Convert.ToString(objDataRow["MessageToName"]);
+                        objResponseBO.IsRead = Convert.ToBoolean(objDataRow["IsRead"]); 
                         if (UserId == objResponseBO.MessageFrom)
                             objResponseBO.IsMsgFromLoggedInUser = true;
                         objProfilesList.Add(objResponseBO);
