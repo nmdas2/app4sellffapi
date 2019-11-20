@@ -952,14 +952,15 @@ namespace Sellff_API.ADO
             return objProfilesList;
         }
 
-        public List<ProfileInfoBO> GetUserMessagesHistory(int messageToId, int messageFromId)
+        public List<ProfileInfoBO> GetUserMessagesHistory(int messageToId, int messageFromId, int readNotReq)
         {
             List<ProfileInfoBO> objProfilesList = new List<ProfileInfoBO>();
             try
             {
-                var sqlParams = new SqlParameter[2];
+                var sqlParams = new SqlParameter[3];
                 sqlParams[0] = new SqlParameter("@messageToId", SqlDbType.Int) { Value = messageToId };
                 sqlParams[1] = new SqlParameter("@messageFromId", SqlDbType.Int) { Value = messageFromId };
+                sqlParams[2] = new SqlParameter("@readNotReq", SqlDbType.Int) { Value = readNotReq };
 
                 DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetUserMessagesHistory", sqlParams);
                 if (_objDataSet.Tables[0].Rows.Count > 0)

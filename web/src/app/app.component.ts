@@ -64,10 +64,12 @@ export class AppComponent implements OnInit, OnDestroy {
       this.authenticationService.isLogin.next(false);
     }
     this.messageReadSub = this.commonService.MessagesReadTracker$.subscribe(status=> {
-      if (localStorage.getItem('currentUser') || localStorage.getItem('profileviewUser'))
-      {
+      
+      //if (localStorage.getItem('currentUser') || localStorage.getItem('profileviewUser'))
+      if(localStorage.getItem('currentUser') && !localStorage.getItem('profileviewUser'))
         this.GetUnReadMessagesCount(this.dataDisplayProfile.UserId);
-      }
+      else
+      this.unReadMsgsCount = 0;
     })
     this.profilePicSub = this.commonService.profilePicTracker$.subscribe(imgPath => {
       this.profilePic = imgPath;
@@ -103,10 +105,12 @@ export class AppComponent implements OnInit, OnDestroy {
           //localStorage.setItem('profilepic', this.profilePic)
           //this.bannerpicpath = this.dataDisplayProfile.BannerPicPath;
         }
-    if (localStorage.getItem('currentUser') || localStorage.getItem('profileviewUser'))
-    {
+    //if (localStorage.getItem('currentUser') || localStorage.getItem('profileviewUser'))
+    
+    if(localStorage.getItem('currentUser') && !localStorage.getItem('profileviewUser'))
       this.GetUnReadMessagesCount(this.dataDisplayProfile.UserId);
-    }
+    else
+      this.unReadMsgsCount = 0;
         
           this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
             setTimeout(() => {
@@ -169,7 +173,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.commonService.userNotifications$.subscribe(res => {
       this.headerWidgetsDetails = res;
-      console.log(res);
     })
 
     this.commonService.userChangeSubject.subscribe(val => {

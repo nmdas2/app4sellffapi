@@ -207,7 +207,10 @@ export class AboutComponent implements OnInit, OnDestroy {
     let userAboutInfoBO = <userAboutInfo>{};
     userAboutInfoBO.About = this.textValue;
     userAboutInfoBO.UserId = this.loggedInUserInfo.UserId;
-    userAboutInfoBO.Type = UploadType.Image;
+    if(flname.indexOf('.pdf') !== -1)
+      userAboutInfoBO.Type = UploadType.Document;
+    else
+      userAboutInfoBO.Type = UploadType.Image;
     userAboutInfoBO.Section = ProfileSection.About;
     userAboutInfoBO.ImagePath = consts.ImagesPath + flname
     this.profileInfoService.postUserImagesNDocs(userAboutInfoBO)

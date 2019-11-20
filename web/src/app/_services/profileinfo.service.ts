@@ -56,8 +56,8 @@ export class ProfileinfoService {
   GetUserMessagesBetween2Users(userId: number,userRecepId: number): Observable<any>{
     return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserMessagesBetween2Users/${userId}/${userRecepId}`);
   }
-  GetHistoryUserId(messageToId: number,messageFromId: number): Observable<any>{
-    return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserMessagesHistory/${messageToId}/${messageFromId}`);
+  GetHistoryUserId(messageToId: number,messageFromId: number,readNotReq: number): Observable<any>{
+    return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserMessagesHistory/${messageToId}/${messageFromId}/${readNotReq}`);
   }
   postUserMessage(data: ProfileInfo): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/SaveUserMessages`, data);

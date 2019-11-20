@@ -33,8 +33,6 @@ export class MessageComponent implements OnInit {
       this.isAboutInEditMode = false;
     
     }
-    console.log(this.loggedInUserInfo)
-    console.log(this.dataDisplayProfile)
     this.getAllUserMessages();
   }
 
@@ -80,7 +78,7 @@ export class MessageComponent implements OnInit {
           //   this.successMsg = "";
           // }, 10000);
           if(this.loggedInUserInfo.UserId == this.dataDisplayProfile.UserId)
-            this.displaycommessages(this.loggedInUserInfo.UserId,messageInfo.userRefId);
+            this.displaycommessages(this.loggedInUserInfo.UserId,messageInfo.userRefId,0);
           else
             this.getAllUserMessages();
         }, error => {
@@ -128,12 +126,13 @@ export class MessageComponent implements OnInit {
       this.messageDisplayName = mdisName;
     }
     this.guestIdToSendMessage = messageFromId;
-    this.displaycommessages(messageFromId,messageToId);
+    this.displaycommessages(messageFromId,messageToId,1);
+    this.getAllUserMessages();
   }
 
-  displaycommessages(messageFromId: number, messageToId: number)
+  displaycommessages(messageFromId: number, messageToId: number,readNotReq: number)
   {
-    this.profileInfoService.GetHistoryUserId(messageToId, messageFromId)
+    this.profileInfoService.GetHistoryUserId(messageToId, messageFromId,readNotReq)
         .subscribe(res => {
           if (res && res.length)
             this.usersCommMessages = res;
@@ -144,7 +143,7 @@ export class MessageComponent implements OnInit {
   }
 
   showpreviousmessages(messageFromId: number, messageToId: number, mdisName: string, template: TemplateRef<any>) {
-    this.profileInfoService.GetHistoryUserId(messageToId, messageFromId)
+    this.profileInfoService.GetHistoryUserId(messageToId, messageFromId,1)
         .subscribe(res => {
           if (res && res.length)
             this.usersCommMessages = res;
