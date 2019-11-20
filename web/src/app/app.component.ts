@@ -37,7 +37,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private _signalRService: SignalRService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    this._signalRService.initializeSignalRConnection();
   }
 
   ngOnInit() {

@@ -11,29 +11,20 @@ export class SignalRService {
   private connection: any;
   private proxy: any;
 
-  constructor(private commonService:CommonService) {
-    
-   }
+  constructor(private commonService: CommonService) {
+    this.initializeSignalRConnection();
+  }
 
-  public initializeSignalRConnection(): void {    
-    
+  public initializeSignalRConnection(): void {
     this.connection = $.hubConnection(`${consts.SignalRURL}`);
     this.proxy = this.connection.createHubProxy('NotificationHub');
-
     // register on server events  
-    this.registerOnServerEvents();
+    this.GetUserNotificationInfo();
+    this.GetUserPostInfo();
     // call the connecion start method to start the connection to send and receive events.  
     this.startConnection();
 
   }
-
-  // method to hit from client  
-  public sendUserInfo(userId: number) {
-    this.startConnection();
-    // server side hub method using proxy.invoke with method name pass as param  
-    this.proxy.invoke('GetUserNotification', userId);
-  }
-
   // check in the browser console for either signalr connected or not  
   private startConnection(): void {
     this.connection.start().done((data: any) => {
@@ -45,12 +36,34 @@ export class SignalRService {
       //this.connectionEstablished.emit(false);
     });
   }
+  // method to hit from client  
+  public SendUserNotificationInfo(userId: number) {
+    //this.startConnection();
+    // server side hub method using proxy.invoke with method name pass as param  
+    this.proxy.invoke('GetUserNotification', userId);
+  }
 
-  private  registerOnServerEvents(): void {
+  private GetUserNotificationInfo(): void {
     this.proxy.on('SetUserNotification', (data: ProfileInfo) => {
       console.log('received in SignalRService: ' + JSON.stringify(data));
       this.commonService.userNotifications.next(data);
       // this.messageReceived.emit(data);
     });
   }
+
+  // method to hit from client  
+  public SendUserPostInfo(userId: number) {
+    //this.startConnection();
+    // server side hub method using proxy.invoke with method name pass as param  
+    this.proxy.invoke('GetUserPosts', userId);
+  }
+
+  private GetUserPostInfo(): void {
+    this.proxy.on('SetUserPosts', (data: ProfileInfo) => {
+      console.log('received in SignalRService: ' + JSON.stringify(data));
+      this.commonService.userPosts.next(data);
+      // this.messageReceived.emit(data);
+    });
+  }
+
 }

@@ -15,5 +15,12 @@ namespace Sellff_API.Hubs
             var userData = objSellffDefaultService.HeaderWidgetsCountByUserId(UserId);
             Clients.All.SetUserNotification(userData);
         }
+
+        public void GetUserPosts(int UserId)
+        {
+            ProfileInfoService objProfileInfoService = new ProfileInfoService();
+            var userData = objProfileInfoService.GetUserPostsAsGroups(UserId);
+            Clients.All.SetUserPosts(userData);
+        }
     }
 }

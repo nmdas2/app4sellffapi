@@ -36,7 +36,7 @@ export class PostComponent implements OnInit {
     private commonService: CommonService,
     private _signalRService: SignalRService
   ) { 
-    this._signalRService.initializeSignalRConnection();
+    
   }
 
   ngOnInit() {
@@ -52,6 +52,9 @@ export class PostComponent implements OnInit {
     this.createPostTextForm();
     this.createPostGallryForm();
     this.getUserPosts();
+    this.commonService.userPosts$.subscribe((posts: any) =>{
+      this.PostsByGroups = posts;
+    });
   }
 
   //get user posts
@@ -106,7 +109,8 @@ export class PostComponent implements OnInit {
     this.profileInfoService.postText(post)
       .subscribe((res: any) => {
         this.getUserPosts();
-        this._signalRService.sendUserInfo(this.loggedInUserInfo.UserId);
+        this._signalRService.SendUserNotificationInfo(this.loggedInUserInfo.UserId);
+        this._signalRService.SendUserPostInfo(this.loggedInUserInfo.UserId);
         this.commonService.socialAndHeaderWidgetsTracker.next(true);
         this.resetPostTextForm();
       }, error => {
