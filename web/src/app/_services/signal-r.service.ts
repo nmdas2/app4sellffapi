@@ -21,6 +21,7 @@ export class SignalRService {
     // register on server events  
     this.GetUserNotificationInfo();
     this.GetUserPostInfo();
+    this.GetUserReviewInfo();
     // call the connecion start method to start the connection to send and receive events.  
     this.startConnection();
 
@@ -62,6 +63,20 @@ export class SignalRService {
     this.proxy.on('SetUserPosts', (data: ProfileInfo) => {
       console.log('received in SignalRService: ' + JSON.stringify(data));
       this.commonService.userPosts.next(data);
+      // this.messageReceived.emit(data);
+    });
+  }
+
+  // method to hit from client  
+  public SendUserReviewInfo(displayUserID: number, userId: number) {
+    // server side hub method using proxy.invoke with method name pass as param  
+    this.proxy.invoke('GetUserReview', displayUserID, userId);
+  }
+
+  private GetUserReviewInfo(): void {
+    this.proxy.on('SetUserReview', (data: ProfileInfo) => {
+      // console.log('received in SignalRService: ' + JSON.stringify(data));
+      this.commonService.userReviews.next(data);
       // this.messageReceived.emit(data);
     });
   }

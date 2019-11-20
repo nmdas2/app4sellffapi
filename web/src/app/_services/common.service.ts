@@ -56,6 +56,11 @@ export class CommonService {
         return this.userPosts.asObservable();
     }
 
+    userReviews = new BehaviorSubject<any>('')
+    get userReviews$() {
+        return this.userReviews.asObservable();
+    }
+
 
     loadingShow() {
         document.getElementById('_loading').style.display = "block";

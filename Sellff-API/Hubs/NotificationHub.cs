@@ -22,5 +22,12 @@ namespace Sellff_API.Hubs
             var userData = objProfileInfoService.GetUserPostsAsGroups(UserId);
             Clients.All.SetUserPosts(userData);
         }
+
+        public void GetUserReview(int Infoval, int loggedInUserId)
+        {
+            ProfileInfoService objProfileInfoService = new ProfileInfoService();
+            var userData = objProfileInfoService.GetAllUserReviewsByUser(Infoval, loggedInUserId);
+            Clients.All.SetUserReview(userData);
+        }
     }
 }

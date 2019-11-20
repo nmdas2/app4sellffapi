@@ -9,6 +9,7 @@ import { constants as consts } from '../../constants';
 import { ReadOnlyInfo } from 'src/app/_models/readonlyinfo';
 import { ProfileInfo } from 'src/app/_models/profileinfo';
 import { CommonService } from 'src/app/_services/common.service';
+import { SignalRService } from 'src/app/_services/signal-r.service';
 
 @Component({
   selector: 'app-review',
@@ -32,6 +33,7 @@ export class ReviewComponent implements OnInit {
     private modalService: BsModalService,
     private router: Router,
     private commonService: CommonService,
+    private _signalRService: SignalRService
   ) { }
 
   ngOnInit() {
@@ -43,6 +45,14 @@ export class ReviewComponent implements OnInit {
     if (this.loggedInUserInfo) { this.loggedInUserId = this.loggedInUserInfo.UserId }
     this.getUserReviews(this.dataDisplayProfile.UserId, this.loggedInUserId);
     this.FilterListForCurrentuserRating(this.dataDisplayProfile.UserId);
+    this.commonService.userReviews$.subscribe((res: any) => {
+        if (res && res.length)
+          this.userReviews = res;
+        if(this.userReviews && this.userReviews.length > 0)
+          this.reviewAlreadyGiven = this.userReviews[0].ReviewAlreadyGiven;
+      }, error => {
+        console.log(error);
+      })
   }
   FilterListForCurrentuserRating(idToGetReviews: number) {
     this.profileInfoService.GetCurrentUserRatingById(idToGetReviews)
@@ -94,6 +104,8 @@ export class ReviewComponent implements OnInit {
     };
     this.profileInfoService.SaveReview(postReview)
       .subscribe((res: any) => {
+        this._signalRService.SendUserNotificationInfo(this.dataDisplayProfile.UserId);
+        this._signalRService.SendUserReviewInfo(this.dataDisplayProfile.UserId,this.loggedInUserId);
         this.getUserReviews(this.dataDisplayProfile.UserId, this.loggedInUserId);
         this.FilterListForCurrentuserRating(this.dataDisplayProfile.UserId);
         this.onReset();
