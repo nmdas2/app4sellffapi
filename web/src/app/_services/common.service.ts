@@ -51,6 +51,11 @@ export class CommonService {
         return this.userNotifications.asObservable();
     }
 
+    userPosts = new BehaviorSubject<any>('')
+    get userPosts$() {
+        return this.userPosts.asObservable();
+    }
+
 
     loadingShow() {
         document.getElementById('_loading').style.display = "block";

@@ -33,11 +33,10 @@ export class AppComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService,
     private modalService: BsModalService,
     private commonService: CommonService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
     private _signalRService: SignalRService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    this._signalRService.initializeSignalRConnection();
   }
 
   ngOnInit() {
