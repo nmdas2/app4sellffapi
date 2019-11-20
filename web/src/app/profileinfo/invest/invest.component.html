@@ -24,12 +24,12 @@
                                     <label class="text-right col-sm-7" style="font-weight: normal !important;"><b>{{userTransactionDetails.LastDayClosePrice | number:'1.4-4'}}</b></label>
                                 </div>
                                 <div class="form-group">
-                                    <label class="text-left col-sm-5">price change</label>
+                                    <label class="text-left col-sm-5">$ change</label>
                                     <label class="text-right col-sm-7" style="font-weight: normal !important;"><b class="{{userTransactionDetails.color}}"><span *ngIf="pricechangeinnegitive">(</span>${{userTransactionDetails.pricechange | number:'1.4-4'}}<span *ngIf="pricechangeinnegitive">)</span></b></label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">% change</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b class="{{userTransactionDetails.color}}"><span *ngIf="pricechangeinnegitive">(</span>${{userTransactionDetails.PercentageValue | number:'1.4-4'}}<span *ngIf="pricechangeinnegitive">)</span></b></label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b class="{{userTransactionDetails.color}}"><span *ngIf="pricechangeinnegitive">(</span>{{userTransactionDetails.PercentageValue | number:'1.4-4'}}%<span *ngIf="pricechangeinnegitive">)</span></b></label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">shares traded</label>
@@ -54,7 +54,7 @@
 
                             <highcharts-chart [Highcharts]="Highcharts" [options]="cahrtOptions" 
                             style="width: 100%; height: 400px; display: block;"></highcharts-chart>
-
+                            
                             <!-- <highcharts-chart
                                 [Highcharts] = "highcharts" 
                                 [options] = "chartOptions" 
@@ -75,12 +75,12 @@
                                 <label class="text-right col-sm-7">{{userTransactionDetails.PurchasedShareQty | number}}</label>
                             </div>
                             <div class="form-group">
-                                <label class="text-left col-sm-5">profit/loss</label>
+                                <label class="text-left col-sm-5">$ profit/loss</label>
                                 <label class="text-right col-sm-7"><b class="{{userTransactionDetails.profitlosscolor}}"><span *ngIf="profitlossinnegitive">(</span>${{userTransactionDetails.ProfitRLoss | number:'1.4-4'}}<span *ngIf="profitlossinnegitive">)</span></b></label>
                             </div>
                             <div class="form-group">
                                 <label class="text-left col-sm-5">% profit/loss</label>
-                                <label class="text-right col-sm-7"><b class="{{userTransactionDetails.profitlosscolor}}"><span *ngIf="profitlossinnegitive">(</span>${{userTransactionDetails.ProfitRLossPercentage | number:'1.4-4'}}<span *ngIf="profitlossinnegitive">)</span></b></label>
+                                <label class="text-right col-sm-7"><b class="{{userTransactionDetails.profitlosscolor}}"><span *ngIf="profitlossinnegitive">(</span>{{userTransactionDetails.ProfitRLossPercentage | number:'1.4-4'}}%<span *ngIf="profitlossinnegitive">)</span></b></label>
                             </div>
                         </div>
                     </div>

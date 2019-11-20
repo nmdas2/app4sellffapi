@@ -32,11 +32,10 @@
                         <button [disabled]="loading" class="btn btn-default">
                             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                             login
-                        </button>
-                       
+                        </button>                        
                     </div>
-                </form>
-                <input type="button" (click)="routrForgot($event)" value="forgot password?"/>
+                    <div><input type="button" class="btn btn-link" (click)="routrForgot($event)" value="forgot password?"/></div>
+                </form>                
             </div>
         </div>
     </div>

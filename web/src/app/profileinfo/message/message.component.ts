@@ -31,7 +31,10 @@ export class MessageComponent implements OnInit {
     if (localStorage.getItem('profileviewUser') != null) {
       this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
       this.isAboutInEditMode = false;
+    
     }
+    console.log(this.loggedInUserInfo)
+    console.log(this.dataDisplayProfile)
     this.getAllUserMessages();
   }
 
@@ -72,10 +75,10 @@ export class MessageComponent implements OnInit {
         .subscribe(res => {
           this.isSubmitted = false;
           this.userMsg = "";
-          this.successMsg = "Your message has been submitted successfully";
-          setTimeout(() => {
-            this.successMsg = "";
-          }, 10000);
+          // this.successMsg = "Your message has been submitted successfully";
+          // setTimeout(() => {
+          //   this.successMsg = "";
+          // }, 10000);
           if(this.loggedInUserInfo.UserId == this.dataDisplayProfile.UserId)
             this.displaycommessages(this.loggedInUserInfo.UserId,messageInfo.userRefId);
           else

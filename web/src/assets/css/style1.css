@@ -106,8 +106,9 @@ font-weight: bold;
     height: 100px;
     width: 100px;
     overflow: hidden;
-    object-fit: cover;
-    -o-object-fit: cover;
+    object-fit: contain;
+	-o-object-fit: contain;
+	border: 1px solid #cccccc;
 }
 
 .gal-item a:focus {

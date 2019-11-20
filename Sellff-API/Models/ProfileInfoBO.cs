@@ -94,6 +94,8 @@ namespace Sellff_API.Models
         public string MessageToName { get; set; }
         [DataMember]
         public bool IsMsgFromLoggedInUser { get; set; } = false;
+        [DataMember]
+        public bool IsRead { get; set; } = true;
     }
 
     public class PromotionsBO

@@ -7,6 +7,7 @@ import { UserTransaction } from 'src/app/_models/usertransaction';
 import * as Highcharts from 'highcharts';
 import { CommonService } from 'src/app/_services/common.service';
 
+
 @Component({
   selector: 'app-invest',
   templateUrl: './invest.component.html',
@@ -30,7 +31,7 @@ export class InvestComponent implements OnInit {
 cahrtOptions = {
   title: {text: '' },
   xAxis: { categories: [] },
-  yAxis: { min: 0,
+  yAxis: { min: 1, tickInterval:0.0001,
     title: { text: 'share price'  }
   },
   legend: { reversed: true  },

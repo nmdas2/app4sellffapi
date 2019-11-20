@@ -11,55 +11,55 @@
                             <h3 class="normal-title no-margin">{{currentRating.NoofRatingsGiven}} customer reviews</h3>
                             <div class="customer_reviews">
                                 <rating [(ngModel)]="ratefive" [max]="max" [readonly]="true"></rating> <span
-                                    class="f-22 p-l-20">{{currentRating.OverallRating}} out of 5 stars</span>
+                                    class="f-22 p-l-20">{{currentRating.OverallRating | number:'1.2-2'}} out of 5 stars</span>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="p-box">
-                                        <span>5 Star</span>
+                                        <span class="star-label">5 Star</span>
                                         <progressbar max="{{currentRating.NoofRatingsGiven}}"
                                             [value]=currentRating.Starts5 type="warning"></progressbar>
-                                        {{percentage5}}%
+                                       <span class="rating-p-count">{{percentage5 | number:'1.2-2'}}%</span> 
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="p-box">
-                                        <span>4 Star</span>
+                                        <span class="star-label">4 Star</span>
                                         <progressbar max="{{currentRating.NoofRatingsGiven}}"
                                             [value]=currentRating.Starts4 type="warning"></progressbar>
-                                        {{percentage4}}%
+                                            <span class="rating-p-count">{{percentage4 | number:'1.2-2'}}%</span> 
                                     </div>
                                 </div> 
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="p-box">
-                                        <span>3 Star</span>
+                                        <span class="star-label">3 Star</span>
                                         <progressbar max="{{currentRating.NoofRatingsGiven}}"
                                             [value]=currentRating.Starts3 type="warning"></progressbar>
-                                        {{percentage3}}%
+                                            <span class="rating-p-count">{{percentage3 | number:'1.2-2'}}%</span>  
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="p-box">
-                                        <span>2 Star</span>
+                                        <span  class="star-label">2 Star</span>
                                         <progressbar max="{{currentRating.NoofRatingsGiven}}"
                                             [value]=currentRating.Starts2 type="warning"></progressbar>
-                                        {{percentage2}}%
+                                            <span class="rating-p-count">{{percentage2 | number:'1.2-2'}}%</span>  
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="p-box">
-                                        <span>1 Star</span>
+                                        <span class="star-label">1 Star</span>
                                         <progressbar max="{{currentRating.NoofRatingsGiven}}"
                                             [value]=currentRating.Starts1 type="warning"></progressbar>
-                                        {{percentage1}}%
+                                            <span class="rating-p-count">{{percentage1 | number:'1.2-2'}}%</span>  
                                     </div>
                                 </div>
                             </div>
@@ -125,8 +125,10 @@
                                     <span class="p-l-20 f-16 text-initial">{{review.ReviewTitle}}</span>
                                 </div>
                                 <div class="review-date">{{review.CreatedOn}}</div>
-                                <p class="font-fjalla-one review-des text-initial reviewcontenttextdisplay" ng-class="{show: show}">{{review.ReviewContent}}</p>
-                                <div style="float: right;"> <a ng-click="show = true">more</a></div>
+                                <div class="reviewcontenttextdisplay" [class.show]="show">
+                                    <p class="font-fjalla-one review-des text-initial">{{review.ReviewContent}}</p>
+                                </div>
+                                <div style="float: right;"><button class="btn btn-link" (click)="show = !show">{{ show ? 'less': 'more' }}</button></div>
                                 <!-- <button ng-click="show = true">more</button> -->
                                 <button class="btn btn-primary btn-xs" [disabled]="review.HelpId"
                                     (click)="sayhelpful(review)"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
