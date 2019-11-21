@@ -206,7 +206,7 @@ namespace Sellff_API.Services
         {
             UserTransactionsBO objResponseBO = objProfileInfoDAO.GetUserProfileDetailsByUserIdNUserProfileId(userId, userProfileId);
             decimal cuprice = objResponseBO.LastTradeSharePrice;
-            UserTransactionsBO objPartialResponseBO = GetUserProfileChangeValsForPercentageCalc(userId, cuprice);
+            UserTransactionsBO objPartialResponseBO = GetUserProfileChangeValsForPercentageCalc(userProfileId, cuprice);
             if (cuprice > 0)
             {
                 decimal previousdayLastTradePrice = objPartialResponseBO.LastTradeSharePrice;
