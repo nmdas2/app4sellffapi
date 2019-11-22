@@ -20,7 +20,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'forgotpassword', component: ForgotpasswordComponent },
   { path: 'confirmuseracc/:hashkey', component: ConfirmuseraccComponent },
-  { path: 'profileinfo', loadChildren: './profileinfo//profileinfo.module#ProfileinfoModule', canActivate: [OauthGuard] },
+  { path: 'profileinfo', loadChildren: './profileinfo//profileinfo.module#ProfileinfoModule' },
   { path: ':dname/profileinfo', loadChildren: './profileinfo//profileinfo.module#ProfileinfoModule' },
   // { path: 'profileinfo', loadChildren: () => import(`./profileinfo/profileinfo.module`).then(m => m.ProfileinfoModule) },
   // otherwise redirect to home  , canActivate: [AuthGuard]

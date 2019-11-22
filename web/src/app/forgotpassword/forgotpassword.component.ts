@@ -29,7 +29,6 @@ export class ForgotpasswordComponent implements OnInit {
     setTimeout(() => this.inputEl.nativeElement.focus());
  }
  routrLogin(e){
-   debugger;
    e.preventDefault();
   this.router.navigate(['/login']);
   setTimeout(function(){

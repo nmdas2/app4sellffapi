@@ -24,7 +24,7 @@ namespace Sellff_API.Controllers
         ///</summary>
         /// <param name="AuthenticationBO"></param>
 
-        [HttpPost,Authorize, Route("api/SellffDefault/AuthenticateSellffUserInfo")]
+        [HttpPost, Authorize, Route("api/SellffDefault/AuthenticateSellffUserInfo")]
         public IHttpActionResult AuthenticateSellffUserInfo([FromBody]ProfileInfoBO objAuthenticationBO)
         {
             var response = objSellffDefaultService.AuthenticateSellffUser(objAuthenticationBO.UserName, objAuthenticationBO.Password);
@@ -39,7 +39,7 @@ namespace Sellff_API.Controllers
         /// This method will check user infomation, if not there in DB, registers users
         ///</summary>
         /// <param name="AuthenticationBO"></param>
-        [HttpPost, Route("api/SellffDefault/RegisterSellffUserInfo")]
+        [HttpPost, AllowAnonymous, Route("api/SellffDefault/RegisterSellffUserInfo")]
         public IHttpActionResult RegisterSellffUserInfo([FromBody]AuthenticationBO objAuthenticationBO)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.RegisterSellffUserInfo(objAuthenticationBO)));
@@ -60,7 +60,7 @@ namespace Sellff_API.Controllers
         ///</summary>
         /// <param name="keystring"></param>
         /// <param name="hashky"></param>
-        [HttpGet, Route("api/SellffDefault/CheckIfUserAlreadyEsists/{keystring}/{displayname}/{hashky}")]
+        [HttpGet, AllowAnonymous, Route("api/SellffDefault/CheckIfUserAlreadyEsists/{keystring}/{displayname}/{hashky}")]
         public IHttpActionResult CheckIfUserAlreadyEsists(string keystring, string displayname)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.CheckIfUserAlreadyEsists(keystring, displayname)));
@@ -156,8 +156,8 @@ namespace Sellff_API.Controllers
         /// <param name="email"></param>
         /// <param name="noval"></param>
         /// <returns></returns>
-        [HttpGet, Route("api/SellffDefault/forgotpasswordinfo/{email}/{noval}")]
-        public IHttpActionResult Forgotpasswordinfo(string email,int noval)
+        [HttpGet, AllowAnonymous, Route("api/SellffDefault/forgotpasswordinfo/{email}/{noval}")]
+        public IHttpActionResult Forgotpasswordinfo(string email, int noval)
         {
             if (objSellffDefaultService.Forgotpasswordinfo(email))
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, true));

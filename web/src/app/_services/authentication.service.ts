@@ -69,7 +69,8 @@ export class AuthenticationService {
         return this.http.get<ProfileInfo>(`${consts.DomainURL}SellffDefault/HeaderWidgetsCountByUserId/${userId}`);
     }
     forgotpasswordinfo(email: string): Observable<any> {
-        return this.http.get(`${consts.DomainURL}SellffDefault/Forgotpasswordinfo/${email}/1`);
+        var reqHeader = new HttpHeaders({'No-Auth':'True'});
+        return this.http.get(`${consts.DomainURL}SellffDefault/Forgotpasswordinfo/${email}/1`, { headers: reqHeader });
     }
     changepasswordinfo(email: string, UserId: number): Observable<any> {
         return this.http.get(`${consts.DomainURL}SellffDefault/Changepasswordinfo/${email}/${UserId}`);

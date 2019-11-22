@@ -25,16 +25,16 @@ namespace Sellff_API
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             SellffDefaultService objSellffDefaultService = new SellffDefaultService();
+            var user = objSellffDefaultService.AuthenticateSellffUser(context.UserName, context.Password);
             if (string.IsNullOrWhiteSpace(context.UserName) || string.IsNullOrWhiteSpace(context.Password) ||
-                objSellffDefaultService.AuthenticateSellffUser(context.UserName, context.Password) == null)
+                user == null)
             {
                 context.Rejected();
                 context.SetError("invalid_grant", "The user name or password is incorrect.");              
             }
 
-            List<Claim> claims = new List<Claim>() { new Claim("sub", context.UserName) };
-            claims.AddRange(context.Scope.Select(x => new Claim("urn:oauth:scope", x)));
-            var identity = new ClaimsIdentity(claims, "Application", "sub", "role");
+            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+            identity.AddClaim(new Claim("username", user.UserName));
             context.Validated(identity);
         }
     }

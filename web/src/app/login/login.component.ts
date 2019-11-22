@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         setTimeout(() => this.inputEl.nativeElement.focus());
      }
      routrForgot(e){
-        debugger;
         e.preventDefault();
        this.router.navigate(['/forgotpassword']);
       

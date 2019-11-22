@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { constants as consts, constants } from '../constants';
 import { ProfileInfo, userAboutInfo } from '../_models/profileinfo';
 import { Post } from 'src/app/_models/post';
@@ -43,7 +43,8 @@ export class ProfileinfoService {
   constructor(private http: HttpClient) { }
 
   getUsersBySearchTerm(parttext: string) {
-    return this.http.get<searchRes[]>(`${consts.DomainURL}ProfileInfo/GetSummaryResults?parttext=${parttext}`);
+    var reqHeader = new HttpHeaders({'No-Auth':'True'});
+    return this.http.get<searchRes[]>(`${consts.DomainURL}ProfileInfo/GetSummaryResults?parttext=${parttext}`, { headers: reqHeader });
   }
   getUserProfileByURLString(UrlString: string) {
     return this.http.get<searchRes>(`${consts.DomainURL}ProfileInfo/getUserProfileByURLString/${UrlString}`);

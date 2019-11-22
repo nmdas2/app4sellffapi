@@ -103,7 +103,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   saveProfilePost() {
-    debugger
     this.commonService.uploadImages(this.loggedInUserInfo.UserId, 1, this.fileData)
       .subscribe(events => {
         if (events.type === HttpEventType.UploadProgress) {
