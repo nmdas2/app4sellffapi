@@ -49,7 +49,13 @@ import { OauthGuard } from './oauth/oauth.guard';
     AlertModule.forRoot()
   ],
   providers: [
-    CommonService,OauthGuard,OAuthInterceptor
+    CommonService,
+    OauthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: OAuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../_models/user';
 import { constants as consts } from '../constants'
 import { Observable } from 'rxjs';
@@ -14,7 +14,8 @@ export class UserService {
     }
 
     register(user: User) {
-        return this.http.post(`${consts.DomainURL}SellffDefault/RegisterSellffUserInfo`, user);
+        var reqHeader = new HttpHeaders({'No-Auth':'True'});
+        return this.http.post(`${consts.DomainURL}SellffDefault/RegisterSellffUserInfo`, user, { headers: reqHeader });
     }
 
     delete(id: number) {
@@ -22,7 +23,8 @@ export class UserService {
     }
     
     CheckIfUserExists(keystring: string, displayname: string){
-        return this.http.get<string>(`${consts.DomainURL}SellffDefault/CheckIfUserAlreadyEsists/${keystring}/${displayname}/1`);
+        var reqHeader = new HttpHeaders({'No-Auth':'True'});
+        return this.http.get<string>(`${consts.DomainURL}SellffDefault/CheckIfUserAlreadyEsists/${keystring}/${displayname}/1`, { headers: reqHeader });
     }
 
     ActivateUserAccunt(keystring: string): Observable<any>{

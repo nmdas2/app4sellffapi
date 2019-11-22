@@ -24,7 +24,7 @@ namespace Sellff_API.Controllers
         ///</summary>
         /// <param name="AuthenticationBO"></param>
 
-        [HttpPost, Route("api/SellffDefault/AuthenticateSellffUserInfo")]
+        [HttpPost,Authorize, Route("api/SellffDefault/AuthenticateSellffUserInfo")]
         public IHttpActionResult AuthenticateSellffUserInfo([FromBody]ProfileInfoBO objAuthenticationBO)
         {
             var response = objSellffDefaultService.AuthenticateSellffUser(objAuthenticationBO.UserName, objAuthenticationBO.Password);

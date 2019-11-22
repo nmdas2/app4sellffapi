@@ -72,31 +72,30 @@ export class LoginComponent implements OnInit, OnDestroy {
         //this.authenticationService.login(this.f.username.value, this.f.password.value)
         this.commonService.loadingShow();
         console.log(this.loginForm.value)
-        this.authenticationService.userAuthentication(this.loginForm.value.username, this.loginForm.value.password).subscribe((data: any) => {
-            localStorage.setItem('userToken', data.access_token);
-            this.router.navigate(['/home']);
-        },
-            (error: HttpErrorResponse) => {
-                this.commonService.loadingHide();
-                console.log(error);
-                //this.alertService.error(error);
-                this.invalidLogin = true;
-                setTimeout(() => {
-                    this.invalidLogin = false;
-                }, 10000)
-                this.loading = false;
-            });
-
-        this.authenticationService.login(this.loginForm.value)
-            .pipe(first())
-            .subscribe(
-                (data: User) => {
-                    this.commonService.loadingHide();
-                    this.authenticationService.isLogin.next(true);
-                    this.commonService.socialAndHeaderWidgetsTracker.next(true);
-                    this.router.navigate(['/home']);
-                },
-                error => {
+        this.authenticationService.userAuthentication(this.loginForm.value.username, this.loginForm.value.password)
+            .subscribe((data: any) => {
+                localStorage.setItem('userToken', data.access_token);
+                this.authenticationService.login(this.loginForm.value)
+                    .pipe(first())
+                    .subscribe(
+                        (data: User) => {
+                            this.commonService.loadingHide();
+                            this.authenticationService.isLogin.next(true);
+                            this.commonService.socialAndHeaderWidgetsTracker.next(true);
+                            this.router.navigate(['/home']);
+                        },
+                        error => {
+                            this.commonService.loadingHide();
+                            console.log(error);
+                            //this.alertService.error(error);
+                            this.invalidLogin = true;
+                            setTimeout(() => {
+                                this.invalidLogin = false;
+                            }, 10000)
+                            this.loading = false;
+                        });
+            },
+                (error: HttpErrorResponse) => {
                     this.commonService.loadingHide();
                     console.log(error);
                     //this.alertService.error(error);

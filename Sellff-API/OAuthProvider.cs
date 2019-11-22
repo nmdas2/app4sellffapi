@@ -26,7 +26,7 @@ namespace Sellff_API
         {
             SellffDefaultService objSellffDefaultService = new SellffDefaultService();
             if (string.IsNullOrWhiteSpace(context.UserName) || string.IsNullOrWhiteSpace(context.Password) ||
-                objSellffDefaultService.AuthenticateSellffUser(context.UserName, context.Password) != null)
+                objSellffDefaultService.AuthenticateSellffUser(context.UserName, context.Password) == null)
             {
                 context.Rejected();
                 context.SetError("invalid_grant", "The user name or password is incorrect.");              

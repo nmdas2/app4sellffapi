@@ -29,8 +29,8 @@ export class AuthenticationService {
 
     userAuthentication(userName: string, password: string) {
         var data = `username=${userName}&password=${password}&grant_type=password`;
-        var reqHeader = new HttpHeaders({ 'Content-type': 'application/x-www-urlencoded' });
-        return this.http.post(`${consts.DomainURL}token`, data, { headers: reqHeader });
+        var reqHeader = new HttpHeaders({'No-Auth':'True','Content-type': 'application/x-www-urlencoded' });
+        return this.http.post(`${consts.TokenURL}`, data, { headers: reqHeader });
     }
 
     login(user: ProfileInfo) {

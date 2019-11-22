@@ -13,20 +13,21 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent, canActivate: [OauthGuard] },
+  { path: 'home', component: HomeComponent },
 
 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgotpassword', component: ForgotpasswordComponent },
   { path: 'confirmuseracc/:hashkey', component: ConfirmuseraccComponent },
-  { path: 'profileinfo', loadChildren: './profileinfo//profileinfo.module#ProfileinfoModule' },
+  { path: 'profileinfo', loadChildren: './profileinfo//profileinfo.module#ProfileinfoModule', canActivate: [OauthGuard] },
   { path: ':dname/profileinfo', loadChildren: './profileinfo//profileinfo.module#ProfileinfoModule' },
   // { path: 'profileinfo', loadChildren: () => import(`./profileinfo/profileinfo.module`).then(m => m.ProfileinfoModule) },
   // otherwise redirect to home  , canActivate: [AuthGuard]
   {
     path: 'editprofile',
-    component: EditProfileComponent
+    component: EditProfileComponent,
+    canActivate: [OauthGuard]
   },
   { path: ':uname', component: HomeComponent },
   {

@@ -16,6 +16,7 @@ import { UploadComponent } from './upload/upload.component';
 import { InviteComponent } from './invite/invite.component';
 import { MatchComponent } from './match/match.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { OauthGuard } from '../oauth/oauth.guard';
 
 
 export const routes: Routes = [
