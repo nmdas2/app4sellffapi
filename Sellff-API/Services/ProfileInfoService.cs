@@ -139,7 +139,7 @@ namespace Sellff_API.Services
                 objFinalResponse.NoofRatingsGiven = resultlist.Count; //objFinalResponse.Starts5 + objFinalResponse.Starts4 + objFinalResponse.Starts3 + objFinalResponse.Starts2 + objFinalResponse.Starts1;
                 objFinalResponse.TotalRatingsCount = 5 * objFinalResponse.Starts5 + 4 * objFinalResponse.Starts4 + 3 * objFinalResponse.Starts3 + 2 * objFinalResponse.Starts2 + objFinalResponse.Starts1;
                 if (objFinalResponse.NoofRatingsGiven > 0)
-                    objFinalResponse.OverallRating = Convert.ToDecimal(objFinalResponse.TotalRatingsCount) / Convert.ToDecimal(objFinalResponse.NoofRatingsGiven);
+                    objFinalResponse.OverallRating = Math.Round((Convert.ToDecimal(objFinalResponse.TotalRatingsCount) / Convert.ToDecimal(objFinalResponse.NoofRatingsGiven)) * 4, MidpointRounding.ToEven) / 4;
                 else
                     objFinalResponse.OverallRating = 0;
             }

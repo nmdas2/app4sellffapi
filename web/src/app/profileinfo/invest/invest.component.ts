@@ -4,9 +4,8 @@ import { Router } from '@angular/router';
 import { ProfileInfo } from 'src/app/_models/profileinfo';
 import { constants as consts } from '../../constants';
 import { UserTransaction } from 'src/app/_models/usertransaction';
-import * as Highcharts from 'highcharts';
 import { CommonService } from 'src/app/_services/common.service';
-
+import { StockChart } from 'angular-highcharts';
 
 @Component({
   selector: 'app-invest',
@@ -14,51 +13,14 @@ import { CommonService } from 'src/app/_services/common.service';
   styleUrls: ['./invest.component.scss']
 })
 export class InvestComponent implements OnInit {
-//   highcharts = Highcharts;
-//   chartOptions = {   
-//     chart: { type: "spline" },
-//     title: { text: "" },
-//     subtitle: { text: "" },
-//     xAxis:{categories:[] },
-//     yAxis: { title:{ text:"Share Price" } },
-//     tooltip: {valueSuffix:""},
-//     series: [{name: 'Day',
-//           data: []
-//        }
-//     ]
-//  };
-
-cahrtOptions = {
-  title: {text: '' },
-  xAxis: { categories: [] },
-  yAxis: { min: 1, tickInterval:0.0001,
-    title: { text: 'share price'  }
-  },
-  legend: { reversed: true  },
-  plotOptions: {
-    series: { stacking: 'normal' }
-  },
-  series: [{ name: 'data', data: [] }]
-};
-
 loading:boolean= false;
-Highcharts = Highcharts;
-chartOptions = {
-  title: { text: "" },
-  xAxis:{categories:[] },
-  //yAxis: { title:{ text:"share price" }},
-  series: [{name: 'day',
-    data: []
-  }]
-};
-
   showBuySell: boolean; askPrice: number; buyPrice: number;
   loggedInUser: ProfileInfo; profileInfo: ProfileInfo; dataDisplayProfile: ProfileInfo;
   buyShares: number = consts.BuyShares; pricechangeinnegitive: boolean = false;
   sellShares: number = consts.SellShares; profitlossinnegitive: boolean = false;
   buySharesStr: string; sellSharesStr: string; crntshrs: number;
   userTransactionDetails: UserTransaction; UserProfileChangeValsForPercentageCalc: UserTransaction;
-  successMsg: string = ""; errorMsg: string = "";
+  successMsg: string = ""; errorMsg: string = ""; stock: StockChart; valnumbers: number[][];
   constructor(
     private profileService: ProfileinfoService,
     private router: Router,
@@ -91,26 +53,30 @@ chartOptions = {
   getSchedularData(){
     this.profileService.getSharePriceValuesByUserId(this.dataDisplayProfile.UserId)
     .subscribe(res => {
-      this.cahrtOptions.xAxis.categories=[];
-      
-      this.cahrtOptions.series[0].data=[];
-      let index:number=0;
+      this.valnumbers = []
       for(let sc of res){
-        //console.log(sc.SharePriceValue)
-       this.cahrtOptions.xAxis.categories.push(sc.onlyDate.toString());
-       this.cahrtOptions.series[0].data.push(sc.SharePriceValue);
-      // if(index==0){
-      //   this.cahrtOptions.series[0].data.push(1.0040);
-      // }
-      // else if(index==1){
-      //   this.cahrtOptions.series[0].data.push(2.0030);
-      // }else{
-      //   this.cahrtOptions.series[0].data.push(sc.SharePriceValue);
-      // }
-      index=index+1;
+        let val :number[] = [];
+        val.push(sc.SharePriceValue);
+        this.valnumbers.push(val);
       };
       this.loading=true;
-      //alert(JSON.stringify(this.chartOptions));
+      this.stock = new StockChart({ 
+        rangeSelector: {
+          selected: 1
+        },
+        title: {
+          text: ''
+        },
+        series: [{
+          tooltip: {
+            valueDecimals: 2
+          },
+          name: 'share value',
+          data: this.valnumbers          
+          ,
+          type: undefined
+        }]
+        });
     }, error => {
 
     })
@@ -123,6 +89,8 @@ chartOptions = {
     else {
       profileId = this.loggedInUser.UserId;
     }
+    console.log("loggedInUser: "+this.loggedInUser.UserId)
+    console.log("dataDisplayProfile: "+this.dataDisplayProfile.UserId)
     this.profileService.getUserProfileDetailsByUserIdNUserProfileId(this.loggedInUser.UserId, this.dataDisplayProfile.UserId)
       .subscribe(res => {
         this.userTransactionDetails = res

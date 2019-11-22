@@ -26,6 +26,8 @@ import { MatchComponent } from './match/match.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { ChartModule,HIGHCHARTS_MODULES  } from 'angular-highcharts';
+import * as highstock from 'highcharts/modules/stock.src';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,11 @@ import { ChangepasswordComponent } from './changepassword/changepassword.compone
     PaginationModule.forRoot(),
     DataTablesModule,
     TypeaheadModule.forRoot(),
-    HighchartsChartModule
+    HighchartsChartModule,
+    ChartModule
+  ],
+  providers:[
+    { provide: HIGHCHARTS_MODULES, useFactory: () => [ highstock ] }
   ]
 })
 export class ProfileinfoModule { }

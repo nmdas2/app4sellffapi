@@ -4,6 +4,7 @@ using Sellff_API.Services;
 using System;
 using System.Net;
 using System.Net.Http;
+using System.ServiceModel.Channels;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -19,6 +20,33 @@ namespace Sellff_API.Controllers
         public ProfileInfoController()
         {
             objProfileInfoService = new ProfileInfoService();
+        }
+
+        private string GetClientIp(HttpRequestMessage request = null)
+        {
+            request = request ?? Request;
+            log4netlogger.Info("Checking for IP: ");
+            if (request.Properties.ContainsKey("MS_HttpContext"))
+            {
+                log4netlogger.Info("IP MS_HttpContext - Request.UserHostAddress: " + ((HttpContextWrapper)request.Properties["MS_HttpContext"]).Request.UserHostAddress);
+                return ((HttpContextWrapper)request.Properties["MS_HttpContext"]).Request.UserHostAddress;
+            }
+            else if (request.Properties.ContainsKey(RemoteEndpointMessageProperty.Name))
+            {
+                RemoteEndpointMessageProperty prop = (RemoteEndpointMessageProperty)request.Properties[RemoteEndpointMessageProperty.Name];
+                log4netlogger.Info("IP prop.Address: " + prop.Address);
+                return prop.Address;
+            }
+            else if (HttpContext.Current != null)
+            {
+                log4netlogger.Info("IP HttpContext.Current.Request.UserHostAddress: " + HttpContext.Current.Request.UserHostAddress);
+                return HttpContext.Current.Request.UserHostAddress;
+            }
+            else
+            {
+                log4netlogger.Info("Nothing to return");
+                return null;
+            }
         }
 
         ///summary
@@ -48,6 +76,14 @@ namespace Sellff_API.Controllers
         [HttpGet, Route("api/ProfileInfo/GetAllUserMessages/{UserId}")]
         public IHttpActionResult GetAllUserMessages(int UserId)
         {
+            try
+            {
+                GetClientIp();
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetAllUserMessages(UserId)));
         }
 

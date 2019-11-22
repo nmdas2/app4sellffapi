@@ -94,18 +94,18 @@ export class SearchsummaryComponent implements OnInit, OnDestroy {
       this.tempSearchResults = this.tempSearchResults.sort((a, b) => {
         if (this.sortDirection == 'asc') {
           if (a[field] && b[field]) {
-            if (a[field].toString().toLowerCase() > b[field].toString().toLowerCase())
+            if (a[field] > b[field])
               return -1;
-            if (b[field].toString().toLowerCase() > a[field].toString().toLowerCase())
+            if (b[field] > a[field])
               return 1;
             return 0;
           }
         }
         else {
           if (a[field] && b[field]) {
-            if (a[field].toString().toLowerCase() > b[field].toString().toLowerCase())
+            if (a[field] > b[field])
               return 1;
-            if (b[field].toString().toLowerCase() > a[field].toString().toLowerCase())
+            if (b[field] > a[field])
               return -1;
             return 0;
           }
