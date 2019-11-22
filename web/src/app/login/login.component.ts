@@ -6,6 +6,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { User } from '../_models/user';
 import { CommonService } from '../_services/common.service';
 import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -70,6 +71,22 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.loading = true;
         //this.authenticationService.login(this.f.username.value, this.f.password.value)
         this.commonService.loadingShow();
+        console.log(this.loginForm.value)
+        this.authenticationService.userAuthentication(this.loginForm.value.username, this.loginForm.value.password).subscribe((data: any) => {
+            localStorage.setItem('userToken', data.access_token);
+            this.router.navigate(['/home']);
+        },
+            (error: HttpErrorResponse) => {
+                this.commonService.loadingHide();
+                console.log(error);
+                //this.alertService.error(error);
+                this.invalidLogin = true;
+                setTimeout(() => {
+                    this.invalidLogin = false;
+                }, 10000)
+                this.loading = false;
+            });
+
         this.authenticationService.login(this.loginForm.value)
             .pipe(first())
             .subscribe(

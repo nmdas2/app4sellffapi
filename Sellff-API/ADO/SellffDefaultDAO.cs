@@ -18,17 +18,19 @@ namespace Sellff_API.ADO
         {
 
         }
-        public ProfileInfoBO AuthenticateSellffUserInfo(ProfileInfoBO objAuthenticationBO)
+        public ProfileInfoBO AuthenticateSellffUserInfo(string userName, string password)
         {
             SqlParameter[] objSqlParam = new SqlParameter[2];
+            ProfileInfoBO objAuthenticationBO = null;
             try
             {
-                objSqlParam[0] = new SqlParameter("@UserName", SqlDbType.VarChar) { Value = objAuthenticationBO.UserName };
-                objSqlParam[1] = new SqlParameter("@Password", SqlDbType.VarChar) { Value = objAuthenticationBO.Password };
+                objSqlParam[0] = new SqlParameter("@UserName", SqlDbType.VarChar) { Value = userName };
+                objSqlParam[1] = new SqlParameter("@Password", SqlDbType.VarChar) { Value = password };
 
                 DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_AuthenticateSellffUserInfo", objSqlParam);
                 if (_objDataSet.Tables[0].Rows.Count > 0)
                 {
+                    objAuthenticationBO = new ProfileInfoBO();
                     var objDataRow = _objDataSet.Tables[0].Rows[0];
                     objAuthenticationBO.UserId = Convert.ToInt32(objDataRow["UserId"]);
                     objAuthenticationBO.Email = Convert.ToString(objDataRow["Email"]);

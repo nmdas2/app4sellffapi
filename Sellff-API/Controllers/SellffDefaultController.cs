@@ -27,7 +27,7 @@ namespace Sellff_API.Controllers
         [HttpPost, Route("api/SellffDefault/AuthenticateSellffUserInfo")]
         public IHttpActionResult AuthenticateSellffUserInfo([FromBody]ProfileInfoBO objAuthenticationBO)
         {
-            var response = objSellffDefaultService.AuthenticateSellffUser(objAuthenticationBO);
+            var response = objSellffDefaultService.AuthenticateSellffUser(objAuthenticationBO.UserName, objAuthenticationBO.Password);
             if(!string.IsNullOrEmpty(response.ErrorMessage))
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.Unauthorized, response));
             else

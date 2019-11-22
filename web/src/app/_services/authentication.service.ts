@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../_models/user';
@@ -25,6 +25,12 @@ export class AuthenticationService {
 
     public get currentUserValue(): User {
         return this.currentUserSubject.value;
+    }
+
+    userAuthentication(userName: string, password: string) {
+        var data = `username=${userName}&password=${password}&grant_type=password`;
+        var reqHeader = new HttpHeaders({ 'Content-type': 'application/x-www-urlencoded' });
+        return this.http.post(`${consts.DomainURL}token`, data, { headers: reqHeader });
     }
 
     login(user: ProfileInfo) {

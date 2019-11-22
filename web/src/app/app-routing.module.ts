@@ -1,3 +1,4 @@
+import { OauthGuard } from './oauth/oauth.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
@@ -12,13 +13,13 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
-  
-  
+  { path: 'home', component: HomeComponent, canActivate: [OauthGuard] },
+
+
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgotpassword', component: ForgotpasswordComponent },
-  { path: 'confirmuseracc/:hashkey', component:ConfirmuseraccComponent  },
+  { path: 'confirmuseracc/:hashkey', component: ConfirmuseraccComponent },
   { path: 'profileinfo', loadChildren: './profileinfo//profileinfo.module#ProfileinfoModule' },
   { path: ':dname/profileinfo', loadChildren: './profileinfo//profileinfo.module#ProfileinfoModule' },
   // { path: 'profileinfo', loadChildren: () => import(`./profileinfo/profileinfo.module`).then(m => m.ProfileinfoModule) },

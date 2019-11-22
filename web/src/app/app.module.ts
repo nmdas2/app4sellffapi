@@ -1,3 +1,4 @@
+import { OAuthInterceptor } from './oauth/oauth.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -18,6 +19,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { OauthGuard } from './oauth/oauth.guard';
 
 
 @NgModule({
@@ -47,7 +49,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
     AlertModule.forRoot()
   ],
   providers: [
-    CommonService
+    CommonService,OauthGuard,OAuthInterceptor
   ],
   bootstrap: [AppComponent]
 })
