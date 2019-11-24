@@ -34,7 +34,8 @@ namespace Sellff_API
             }
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            identity.AddClaim(new Claim("username", user.UserName));
+            identity.AddClaim(new Claim("email", user.Email));
+            identity.AddClaim(new Claim("username", user.DisplayName));
             context.Validated(identity);
         }
     }

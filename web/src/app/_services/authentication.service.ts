@@ -53,6 +53,7 @@ export class AuthenticationService {
 
     logout() {
         // remove user from local storage and set current user to null
+        localStorage.removeItem('userToken');
         localStorage.removeItem('currentUser');
         localStorage.removeItem('profileviewUser');
         localStorage.removeItem('profilepic');

@@ -4,11 +4,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/do';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Injectable()
 export class OAuthInterceptor implements HttpInterceptor {
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, private authenticationService: AuthenticationService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (req.headers.get('No-Auth') == "True") {
@@ -25,13 +26,14 @@ export class OAuthInterceptor implements HttpInterceptor {
                 succ => {},
                 err => {
                     if (err.status == 401) {
-                        this.router.navigateByUrl('/login');
+                        this.authenticationService.logout();
+                        this.router.navigate(['/login']);
                     }
                 }
             );
         }
         else{
-            this.router.navigateByUrl('/login');
+            this.router.navigate(['/login']);
         }
     }
 

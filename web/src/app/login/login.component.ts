@@ -70,7 +70,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.loading = true;
         //this.authenticationService.login(this.f.username.value, this.f.password.value)
         this.commonService.loadingShow();
-        console.log(this.loginForm.value)
         this.authenticationService.userAuthentication(this.loginForm.value.username, this.loginForm.value.password)
             .subscribe((data: any) => {
                 localStorage.setItem('userToken', data.access_token);
