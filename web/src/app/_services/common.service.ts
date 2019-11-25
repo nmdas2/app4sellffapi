@@ -61,6 +61,11 @@ export class CommonService {
         return this.userReviews.asObservable();
     }
 
+    profileData = new BehaviorSubject<any>(null);
+    get profileData$() {
+        return this.profileData.asObservable();
+    }
+
 
     loadingShow() {
         document.getElementById('_loading').style.display = "block";

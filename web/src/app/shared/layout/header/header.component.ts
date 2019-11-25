@@ -109,10 +109,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   get f() { return this.searchForm.controls; }
 
-  signoutplz() {
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('profileviewUser');
+  signoutplz() {    
     this.authenticationService.logout();
     this.hasActiveSession = false;
     this.router.navigate([this.returnUrl]);

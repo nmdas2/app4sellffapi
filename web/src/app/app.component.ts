@@ -10,6 +10,7 @@ import { HttpClient, HttpEventType } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { createOfflineCompileUrlResolver } from '@angular/compiler';
 import { SignalRService } from './_services/signal-r.service';
+import { ProfileinfoService } from './_services/profileinfo.service';
 
 @Component({
   selector: 'app-root',
@@ -34,7 +35,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private modalService: BsModalService,
     private commonService: CommonService,
     private fb: FormBuilder,
-    private _signalRService: SignalRService
+    private _signalRService: SignalRService,
+    private profileInfoService: ProfileinfoService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
@@ -119,7 +121,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
           })
       }, 1)
-    });
+    });    
     this.postGalleryForm = this.fb.group({
       image: ['', []]
     });
@@ -155,13 +157,7 @@ export class AppComponent implements OnInit, OnDestroy {
         userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
 
       }
-      if (userId > 0) {
-        this.authenticationService.socialLinksByUserId(userId)
-          .subscribe(res => {
-            this.socialIconsDetails = res;
-          }, error => {
-
-          });
+      if (userId > 0) {      
         this.authenticationService.headerWidgetsCountByUserId(userId)
           .subscribe(res => {
             this.headerWidgetsDetails = res;
@@ -176,13 +172,7 @@ export class AppComponent implements OnInit, OnDestroy {
     })
 
     this.commonService.userChangeSubject.subscribe(val => {
-      let userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
-      this.authenticationService.socialLinksByUserId(userId)
-      .subscribe(res => {
-        this.socialIconsDetails = res;
-      }, error => {
-
-      });
+      let userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;    
     this.authenticationService.headerWidgetsCountByUserId(userId)
       .subscribe(res => {
         this.headerWidgetsDetails = res;
@@ -190,6 +180,27 @@ export class AppComponent implements OnInit, OnDestroy {
 
       })
     });
+
+    this.commonService.profileData$.subscribe(res => {      
+      let userId = 0;
+      if (localStorage.getItem('currentUser')) {
+        userId = JSON.parse(localStorage.getItem('currentUser')).UserId;
+
+      }
+      if (localStorage.getItem('profileviewUser')) {
+        userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
+
+      }
+      if (userId > 0) {      
+        this.profileInfoService.GetUserProfileInfoByUserId(this.dataDisplayProfile.UserId)
+        .subscribe(res => {
+          this.dataDisplayProfile = res;
+        }, error => {
+          console.log(error);
+        })
+      }
+    })
+
   }
 
   logout() {
@@ -267,91 +278,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.profilePicSub.unsubscribe();
     if(this.messageReadSub)
       this.messageReadSub.unsubscribe();
-  }
-
-  postLayoutType: string = "";
-  socialLink: string = "";
-  showSocialLayout(type: string) {
-    this.socialLink = "";
-    this.postLayoutType = type;
-    switch (type) {
-      case "g":
-        this.socialLink = this.socialIconsDetails.WebsiteLink;
-        break;
-      case "tw":
-        this.socialLink = this.socialIconsDetails.TwitterLink;
-        break;
-      case "em":
-        this.socialLink = this.socialIconsDetails.SocialEmail;
-        break;
-      case "fb":
-        this.socialLink = this.socialIconsDetails.FacebookLink;
-        break;
-      case "gp":
-        this.socialLink = this.socialIconsDetails.LinkedInLink;
-        break;
-      case "sem":
-        this.socialLink = this.socialIconsDetails.YouTubeLink;
-        break;
-      case "ig":
-        this.socialLink = this.socialIconsDetails.InstagramLink;
-        break;
-      default:
-        break;
-    }
-  }
-
-  onCancelSocial() {
-    this.postLayoutType = '';
-  }
-  SubmitSocialLink() {
-    this.userProfileInfo = <ProfileInfo>{};
-    this.userProfileInfo.UserId = this.loggedInUserInfo.UserId;
-    this.userProfileInfo.socialLink = this.socialLink;
-    this.userProfileInfo.socialLinkType = this.mapSocialLinkLegends(this.postLayoutType);
-    this.commonService.UpdateUserSocialLinkInfo(this.userProfileInfo)
-      .subscribe(res => {
-        this.authenticationService.socialLinksByUserId(this.loggedInUserInfo.UserId)
-          .subscribe(res => {
-            this.socialIconsDetails = res;
-          })
-      }, error => {
-        console.log(error);
-      })
-    //this.postLayoutType = 1;
-  }
-  //end social link section
-
-  mapSocialLinkLegends(type: string): number {
-    let postLayoutType = 0;
-    switch (type) {
-      case "g":
-        postLayoutType = 1;
-        break;
-      case "tw":
-        postLayoutType = 2;
-        break;
-      case "em":
-        postLayoutType = 3;
-        break;
-      case "fb":
-        postLayoutType = 4;
-        break;
-      case "gp":
-        postLayoutType = 5;
-        break;
-      case "sem":
-        postLayoutType = 6;
-        break;
-      case "ig":
-        postLayoutType = 7;
-        break;
-      default:
-        break;
-    }
-
-    return postLayoutType;
-  }
+  } 
 
   uploadbannerpic(Bannerpictemplate) {
     this.modalRef = this.modalService.show(Bannerpictemplate);

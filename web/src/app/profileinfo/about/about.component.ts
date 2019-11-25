@@ -21,7 +21,7 @@ export class AboutComponent implements OnInit, OnDestroy {
   dynamicImg: string = ""; modalRef: BsModalRef; imgGallery = []; userProfileInfo: ProfileInfo;
   dataDisplayProfile: ProfileInfo; readonlyUserInfo: ProfileInfo; userCity: string = '';
   profileSubscription: Subscription; svrfilepath: string = ""; UserOccupation: string = '';
-  isEditbale: boolean = false; isCityInEditMode: boolean = false; isOccupationInEditMode: boolean = false;
+  isEditbale: boolean = false; 
   html: string = `<span class="btn btn-danger">Never trust not sanitized HTML!!!</span>`;
   serviceOffered: UserServiceTypes[];
 
@@ -45,8 +45,6 @@ export class AboutComponent implements OnInit, OnDestroy {
     if (localStorage.getItem('profileviewUser') != null) {
       this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
       this.isAboutInEditMode = false;
-      this.isCityInEditMode= false;
-      this.isOccupationInEditMode = false;
       if (this.loggedInUserInfo)
         this.updateProfileViewsCount();
     }
@@ -69,12 +67,7 @@ export class AboutComponent implements OnInit, OnDestroy {
   logText(): void {
     this.isAboutInEditMode = true;
   }
-  enablecityedit(): void{
-    this.isCityInEditMode = true;
-  }
-  enableoccupationedit(): void{
-    this.isOccupationInEditMode = true;
-  }
+  
   getServiceOffered() {
     this.serviceOffered = [];
     this.profileInfoService.getUserServiceTypesByUserIdServiceId(this.dataDisplayProfile.UserId, 1)
@@ -92,34 +85,6 @@ export class AboutComponent implements OnInit, OnDestroy {
       userAboutInfoBO.About = this.textValue;
       userAboutInfoBO.UserId = this.dataDisplayProfile.UserId;
       this.profileInfoService.postUserAboutText(userAboutInfoBO)
-        .subscribe(res => {
-          this.getUserAboutText();
-        }, error => {
-          console.log(error);
-        })
-    }
-  }
-  updatecityvalue(): void {
-    this.isCityInEditMode = false;
-    if (this.userCity) {
-      let userAboutInfoBO = <userAboutInfo>{};
-      userAboutInfoBO.City = this.userCity;
-      userAboutInfoBO.UserId = this.dataDisplayProfile.UserId;
-      this.profileInfoService.updateusercityvalue(userAboutInfoBO)
-        .subscribe(res => {
-          this.getUserAboutText();
-        }, error => {
-          console.log(error);
-        })
-    }
-  }
-  updateoccupationvalue(): void {
-    this.isOccupationInEditMode = false;
-    if (this.UserOccupation) {
-      let userAboutInfoBO = <userAboutInfo>{};
-      userAboutInfoBO.Occupation = this.UserOccupation;
-      userAboutInfoBO.UserId = this.dataDisplayProfile.UserId;
-      this.profileInfoService.updateuseroccupationvalue(userAboutInfoBO)
         .subscribe(res => {
           this.getUserAboutText();
         }, error => {
@@ -241,12 +206,7 @@ export class AboutComponent implements OnInit, OnDestroy {
   onCancel() {
     this.isAboutInEditMode = false;
   }
-  oncitycancel(){
-    this.isCityInEditMode = false;
-  }
-  onoccupationcancel(){
-    this.isOccupationInEditMode = false;
-  }
+
   ngOnDestroy() {
     if (this.profileSubscription)
       this.profileSubscription.unsubscribe();
