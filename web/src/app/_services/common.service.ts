@@ -10,15 +10,15 @@ import { constants as consts } from '../constants';
 export class CommonService {
 
     regSuccessMsg = new BehaviorSubject<string>('');
-    get regSuccessMsg$(){
+    get regSuccessMsg$() {
         return this.regSuccessMsg.asObservable();
     }
 
     constructor(private http: HttpClient) {
 
     }
-    userChangeSubject= new Subject<string>();
-    isUserChanged(val:any){
+    userChangeSubject = new Subject<string>();
+    isUserChanged(val: any) {
         this.userChangeSubject.next(val);
     }
     isProfileSelected = new BehaviorSubject<boolean>(false);
@@ -31,12 +31,12 @@ export class CommonService {
     }
 
     profilePicTracker = new BehaviorSubject<string>('');
-    get profilePicTracker$(){
+    get profilePicTracker$() {
         return this.profilePicTracker.asObservable();
     }
 
     bannerPicTracker = new BehaviorSubject<string>('');
-    get bannerPicTracker$(){
+    get bannerPicTracker$() {
         return this.bannerPicTracker.asObservable();
     }
 
@@ -45,7 +45,7 @@ export class CommonService {
         return this.socialAndHeaderWidgetsTracker.asObservable();
     }
 
-    
+
     userNotifications = new BehaviorSubject<any>('')
     get userNotifications$() {
         return this.userNotifications.asObservable();
@@ -80,19 +80,74 @@ export class CommonService {
     uploadImages(userId: any, type: number, file: any): Observable<any> {
         const formData = new FormData();
         formData.append('files', file);
-        return this.http.post(`${consts.DomainURL}ProfileInfo/SaveUserProfilePic/${type}/${userId}`, formData,  {
+        return this.http.post(`${consts.DomainURL}ProfileInfo/SaveUserProfilePic/${type}/${userId}`, formData, {
             reportProgress: true,
             observe: 'events'
-          })
+        })
     }
 
-    GetUnReadMessagesCountByUserId(UserId: number): Observable<any>{
+    GetUnReadMessagesCountByUserId(UserId: number): Observable<any> {
         return this.http.get(`${consts.DomainURL}ProfileInfo/GetUnReadMessagesCountByUserId/${UserId}`);
-      }
-      
+    }
+
     MessagesReadTracker = new BehaviorSubject<boolean>(true)
     get MessagesReadTracker$() {
         return this.MessagesReadTracker.asObservable();
+    }
+
+    sortStrings(a, b, order) {
+
+        if (order == 'asc') {
+            if (a && b) {
+                if (a.toString().toLowerCase() > b.toString().toLowerCase())
+                    return -1;
+                if (b.toString().toLowerCase() > a.toString().toLowerCase())
+                    return 1;
+                return 0;
+            }
+
+        }
+        else {
+            if (a && b) {
+                if (a.toString().toLowerCase() > b.toString().toLowerCase())
+                    return 1;
+                if (b.toString().toLowerCase() > a.toString().toLowerCase())
+                    return -1;
+                return 0;
+            }
+        }
+
+        return 0;
+    }
+    sortNumbers(a, b, order) {
+        if (order == 'asc') {
+            if (a && b) {
+                return (a - b);
+            }
+
+        }
+        else {
+            if (a && b) {
+                return (b - a);
+            }
+        }
+
+        return 0;
+    }
+    sortBoolean(a, b, order) {
+        if (order == 'asc') {
+            if (a && b) {
+                return a === b ? 0 : a ? -1 : 1;
+            }
+
+        }
+        else {
+            if (a && b) {
+                return a === b ? 0 : a ? 1 : -1;
+            }
+        }
+
+        return 0;
     }
 
 }

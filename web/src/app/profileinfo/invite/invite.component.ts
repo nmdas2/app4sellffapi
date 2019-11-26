@@ -7,6 +7,7 @@ import { InviteUsers } from 'src/app/_models/inviteusers';
 import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+import { CommonService } from 'src/app/_services/common.service';
 
 @Component({
   selector: 'app-invite',
@@ -29,7 +30,8 @@ export class InviteComponent implements OnInit {
     private modalService: BsModalService,
     private fb: FormBuilder,
     private router: Router,
-    private profileService: ProfileinfoService
+    private profileService: ProfileinfoService,
+    private commonService: CommonService
   ) {
     this.inviteUsersList = [];
     this.tempInviteUsersList = [];
@@ -142,25 +144,12 @@ export class InviteComponent implements OnInit {
     if (this.tempInviteUsersList && this.tempInviteUsersList.length > 0) {
 
       this.tempInviteUsersList = this.tempInviteUsersList.sort((a, b) => {
-        if (this.sortDirection == 'asc') {
-          if (a[field]) {
-            if (a[field].toString().toLowerCase() > b[field].toString().toLowerCase())
-              return -1;
-            if (b[field].toString().toLowerCase() > a[field].toString().toLowerCase())
-              return 1;
-            return 0;
-          }
+        if(isNaN(a[field]) && isNaN(b[field])){
+          return this.commonService.sortStrings(a[field], b[field], this.sortDirection);
         }
-        else {
-          if (a[field]) {
-            if (a[field].toString().toLowerCase() > b[field].toString().toLowerCase())
-              return 1;
-            if (b[field].toString().toLowerCase() > a[field].toString().toLowerCase())
-              return -1;
-            return 0;
-          }
+        else{
+          return this.commonService.sortNumbers(a[field], b[field], this.sortDirection);
         }
-        return 0;
       })
     }
   }
