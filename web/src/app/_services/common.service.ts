@@ -120,19 +120,18 @@ export class CommonService {
         return 0;
     }
     sortNumbers(a, b, order) {
-        if (order == 'asc') {
-            if (a && b) {
+        if (typeof (a) != undefined && a != null && typeof (b) != undefined && b != null) {
+            if (order == 'asc') {
                 return (a - b);
-            }
 
-        }
-        else {
-            if (a && b) {
+            }
+            else {
                 return (b - a);
             }
-        }
 
+        }
         return 0;
+
     }
     sortBoolean(a, b, order) {
         if (order == 'asc') {

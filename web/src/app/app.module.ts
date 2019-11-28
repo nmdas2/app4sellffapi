@@ -20,6 +20,7 @@ import { ChangepasswordComponent } from './changepassword/changepassword.compone
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { OauthGuard } from './oauth/oauth.guard';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { OauthGuard } from './oauth/oauth.guard';
       provide: HTTP_INTERCEPTORS,
       useClass: OAuthInterceptor,
       multi: true
-    }
+    },
+    BnNgIdleService 
   ],
   bootstrap: [AppComponent]
 })

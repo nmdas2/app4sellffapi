@@ -11,6 +11,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { createOfflineCompileUrlResolver } from '@angular/compiler';
 import { SignalRService } from './_services/signal-r.service';
 import { ProfileinfoService } from './_services/profileinfo.service';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +37,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private commonService: CommonService,
     private fb: FormBuilder,
     private _signalRService: SignalRService,
-    private profileInfoService: ProfileinfoService
+    private profileInfoService: ProfileinfoService,
+    private bnIdle: BnNgIdleService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
@@ -131,12 +133,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authenticationService.isLogin$.subscribe(status => {
       this.isLogin = status;
       if (this.isLogin) {
-        // document.getElementById("mySidenav").style.width = "228px";
-        // document.getElementById("main").style.marginLeft = "228px";
+        this.bnIdle.resetTimer();
       }
       else {
-        // document.getElementById("mySidenav").style.width = "0";
-        // document.getElementById("main").style.marginLeft = "0";
       }
     });
 
@@ -223,6 +222,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   activeUrl: string;
   ngAfterViewInit() {
+
+    this.bnIdle.startWatching(180).subscribe((timeOutCheck: boolean) => {
+      if(timeOutCheck && this.isLogin){
+        this.bnIdle.stopTimer();
+        this.authenticationService.logout();
+        alert('Your session has expired! Please login again')
+      }
+    })
     this.router.events.subscribe(event => {
         if (event instanceof NavigationStart) {
           this.activeUrl = event.url        
