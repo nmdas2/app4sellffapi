@@ -223,7 +223,7 @@ export class AppComponent implements OnInit, OnDestroy {
   activeUrl: string;
   ngAfterViewInit() {
 
-    this.bnIdle.startWatching(180).subscribe((timeOutCheck: boolean) => {
+    this.bnIdle.startWatching(1800).subscribe((timeOutCheck: boolean) => {
       if(timeOutCheck && this.isLogin){
         this.bnIdle.stopTimer();
         this.authenticationService.logout();

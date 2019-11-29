@@ -13,7 +13,6 @@ import { ConsultComponent } from './consult/consult.component';
 import { BumpComponent } from './bump/bump.component';
 import { ReferComponent } from './refer/refer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MytestingComponent } from './mytesting/mytesting.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { UploadComponent } from './upload/upload.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -44,7 +43,6 @@ import { OAuthInterceptor } from '../oauth/oauth.interceptor';
     ConsultComponent, 
     BumpComponent, 
     ReferComponent, 
-    MytestingComponent, 
     UploadComponent, InviteComponent, MatchComponent, ChangepasswordComponent
     //,HighchartsChartComponent
   ],

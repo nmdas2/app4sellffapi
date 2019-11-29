@@ -11,7 +11,6 @@ import { InvestComponent } from './invest/invest.component';
 import { ConsultComponent } from './consult/consult.component';
 import { BumpComponent } from './bump/bump.component';
 import { ReferComponent } from './refer/refer.component';
-import { MytestingComponent } from './mytesting/mytesting.component';
 import { UploadComponent } from './upload/upload.component';
 import { InviteComponent } from './invite/invite.component';
 import { MatchComponent } from './match/match.component';
@@ -31,7 +30,6 @@ export const routes: Routes = [
   { path: 'consult', component: ConsultComponent },
   { path: 'bump', component: BumpComponent },
   { path: 'refer', component: ReferComponent },
-  { path: 'mytesting', component: MytestingComponent },
   { path: 'upload', component: UploadComponent },
   { path: 'invite', component: InviteComponent },
   { path: 'match', component: MatchComponent },

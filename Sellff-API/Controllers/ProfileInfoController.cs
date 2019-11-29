@@ -76,14 +76,14 @@ namespace Sellff_API.Controllers
         [HttpGet, Route("api/ProfileInfo/GetAllUserMessages/{UserId}")]
         public IHttpActionResult GetAllUserMessages(int UserId)
         {
-            try
-            {
-                GetClientIp();
-            }
-            catch (Exception ex)
-            {
-                log4netlogger.Error(ex);
-            }
+            //try
+            //{
+            //    GetClientIp();
+            //}
+            //catch (Exception ex)
+            //{
+            //    log4netlogger.Error(ex);
+            //}
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetAllUserMessages(UserId)));
         }
 
