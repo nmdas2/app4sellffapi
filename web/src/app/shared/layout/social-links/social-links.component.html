@@ -1,5 +1,8 @@
-<div class="col-md-12 " *ngIf="displayDataProfile">
-    <div class="services_main align-items-top p-r-d-50">
+<div class="socail-links ">
+<div class="row">
+    <div class="col-md-7 ">
+<div class="location_top"  *ngIf="displayDataProfile">
+    <div class="services_main align-items-top">
         <img src="../../../assets/images/location.svg" class="l-o-icon" />
         <div class="btn service-offered l-t-o-link" *ngIf="!isCityInEditMode; else elseCityBlock">{{displayDataProfile.City}} <button
                 class="btn-normal-link" *ngIf="isEditbale" (click)="enablecityedit()">
@@ -32,19 +35,22 @@
             </div>
         </div>
     </ng-template>
-    <div class="social-inputbox" *ngIf="postLayoutType!='' && isEditbale">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="link.." name="link" [(ngModel)]="socialLink"
-                aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="submit" (click)="SubmitSocialLink()"><i
-                        class="fa fa-check" aria-hidden="true"></i></button>
-                <button class="btn btn-outline-secondary" type="button" (click)="onCancelSocial()"><i
-                        class="fa fa-remove"></i></button>
-            </div>
-        </div>
+    
+</div>
     </div>
-    <div class="socail-links text-center pull-right">
+    <div class="col-md-5 right-socail-links text-right">
+            <div class="social-inputbox" *ngIf="postLayoutType!='' && isEditbale">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="link.." name="link" [(ngModel)]="socialLink"
+                            aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit" (click)="SubmitSocialLink()"><i
+                                    class="fa fa-check" aria-hidden="true"></i></button>
+                            <button class="btn btn-outline-secondary" type="button" (click)="onCancelSocial()"><i
+                                    class="fa fa-remove"></i></button>
+                        </div>
+                    </div>
+                </div>
         <div *ngIf="isEditbale">
             <a (click)="showSocialLayout('g')" class="web"><img src="../assets/images/globe.svg"></a>
             <a (click)="showSocialLayout('tw')" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
@@ -68,4 +74,6 @@
                 class="pint"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
         </div>
     </div>
+
+</div>
 </div>

@@ -1328,7 +1328,7 @@ span.bs-rating-star.active {
     padding: 0px !important;
     cursor: pointer;
 }
-.socail-links img{
+.right-socail-links img{
     width: 25px;
     margin-top: 3px;
 }
@@ -2263,6 +2263,10 @@ li.dropdown.user.user-menu span .notification span{
     float:right;
     margin-top: 2px;
 }
+.location_top .l-o-icon {
+    max-width: 22px;
+    margin-right: 5px;
+}
 typeahead-container .dropdown-menu {
     width: 100%;
     border-color: #eee;
@@ -2296,3 +2300,12 @@ typeahead-container .dropdown-menu li>a {
   .custom-scroll {
     padding-right: 5px;
   }
+  .location_top .service-offered {
+    margin-bottom: 0;   
+    flex: 0 0 auto;
+    max-width: initial;
+    margin-right: 15px;
+}
+.location_top .l-t-o-link {
+    padding: 1px 12px;
+}
