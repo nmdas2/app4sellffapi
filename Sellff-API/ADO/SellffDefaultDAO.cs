@@ -62,10 +62,6 @@ namespace Sellff_API.ADO
                     objAuthenticationBO.Investments = Convert.ToInt32(objDataRow["Investments"]);
                     objAuthenticationBO.ErrorMessage = "";
                 }
-                else
-                {
-                    objAuthenticationBO.ErrorMessage = "Invalid user name / password";
-                }
             }
             catch (Exception ex)
             {

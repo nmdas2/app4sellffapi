@@ -30,13 +30,15 @@ namespace Sellff_API
                 user == null)
             {
                 context.Rejected();
-                context.SetError("invalid_grant", "The user name or password is incorrect.");              
+                context.SetError("invalid_grant", "The user name or password is incorrect.");
             }
-
-            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            identity.AddClaim(new Claim("email", user.Email));
-            identity.AddClaim(new Claim("username", user.DisplayName));
-            context.Validated(identity);
+            else
+            {
+                var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+                identity.AddClaim(new Claim("email", user.Email));
+                identity.AddClaim(new Claim("username", user.DisplayName));
+                context.Validated(identity);
+            }
         }
     }
 }
