@@ -213,8 +213,8 @@ namespace Sellff_API.Services
                 decimal currentLastTradePrice = Convert.ToDecimal(cuprice);
                 try
                 {
-                    objResponseBO.pricechange = currentLastTradePrice - previousdayLastTradePrice;
-                    objResponseBO.PercentageValue = ((currentLastTradePrice - previousdayLastTradePrice) / previousdayLastTradePrice) * 100;
+                    objResponseBO.pricechange = objResponseBO.LastTradeSharePrice - objResponseBO.LastDayClosePrice; //currentLastTradePrice - previousdayLastTradePrice;
+                    objResponseBO.PercentageValue = ((objResponseBO.LastTradeSharePrice - objResponseBO.LastDayClosePrice) / objResponseBO.LastDayClosePrice) * 100;
                     objResponseBO.PercentageValue = Math.Floor(objResponseBO.PercentageValue * 100) / 100;
                 }
                 catch (Exception)
@@ -222,7 +222,7 @@ namespace Sellff_API.Services
                     objResponseBO.pricechange = 0;
                     objResponseBO.PercentageValue = 0;
                 }                
-                if (currentLastTradePrice >= previousdayLastTradePrice)
+                if (objResponseBO.LastTradeSharePrice >= objResponseBO.LastDayClosePrice)
                 {
                     objResponseBO.color = "text-green";
                     objResponseBO.pricechangeinnegitive = false;

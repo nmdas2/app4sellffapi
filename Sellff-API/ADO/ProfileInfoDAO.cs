@@ -358,7 +358,10 @@ namespace Sellff_API.ADO
                     //objResponseBO.MarketCap = Convert.ToDecimal(objResponseBO.TotalPurchasedShareQty * objResponseBO.LastTradeSharePrice);
                     objResponseBO.MarketCap = Convert.ToDecimal(objDataRow["MarketCap"]);
                     objResponseBO.ProfitRLoss = Convert.ToDecimal(objResponseBO.TotalValueAtCurrentPrice - objResponseBO.TotalValueAtPurchasedPrice);
-                    objResponseBO.ProfitRLossPercentage = Convert.ToDecimal((objResponseBO.TotalValueAtCurrentPrice * 100) / objResponseBO.TotalValueAtPurchasedPrice) - 100;
+                    if (objResponseBO.TotalValueAtPurchasedPrice > 0)
+                        objResponseBO.ProfitRLossPercentage = Convert.ToDecimal((objResponseBO.TotalValueAtCurrentPrice * 100) / objResponseBO.TotalValueAtPurchasedPrice) - 100;
+                    else
+                        objResponseBO.ProfitRLossPercentage = 0;
                     objResponseBO.ProfitRLossPercentage = Math.Floor(objResponseBO.ProfitRLossPercentage * 100) / 100;
                     objResponseBO.profitlossinnegitive = false;
                     objResponseBO.profitlosscolor = "text-green";
