@@ -22,6 +22,7 @@ export class SignalRService {
     this.GetUserNotificationInfo();
     this.GetUserPostInfo();
     this.GetUserReviewInfo();
+    this.GetUserInvestmentInfo();
     // call the connecion start method to start the connection to send and receive events.  
     this.startConnection();
 
@@ -80,5 +81,18 @@ export class SignalRService {
       // this.messageReceived.emit(data);
     });
   }
+
+    // method to hit from client  
+    public SendUserInvestmentInfo(userId: number, profileId: number) {
+      // server side hub method using proxy.invoke with method name pass as param  
+      this.proxy.invoke('GetUserInvestmentDetails', userId, profileId);
+    }
+  
+    private GetUserInvestmentInfo(): void {
+      this.proxy.on('SetUserInvestmentDetails', (data: any) => {
+        // console.log('received in SignalRService: ' + JSON.stringify(data));
+        this.commonService.userInvestments.next(data);
+      });
+    }
 
 }

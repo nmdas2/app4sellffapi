@@ -126,9 +126,9 @@
                                 </div>
                                 <div class="review-date">{{review.CreatedOn}}</div>
                                 <div class="reviewcontenttextdisplay" [class.show]="show">
-                                    <p class="font-fjalla-one review-des text-initial">{{review.ReviewContent}}</p>
+                                    <p class="font-fjalla-one review-des text-initial">{{review.ReviewContent}}</p>                                    
                                 </div>
-                                <div style="float: right;"><button class="btn btn-link" (click)="show = !show">{{ show ? 'less': 'more' }}</button></div>
+                                <div style="float: right;" *ngIf="review.ReviewContent.length > 180"><button class="btn btn-link" (click)="show = !show">{{ show ? 'less': 'more' }}</button></div>
                                 <!-- <button ng-click="show = true">more</button> -->
                                 <button class="btn btn-primary btn-xs" [disabled]="review.HelpId"
                                     (click)="sayhelpful(review)"><i class="fa fa-thumbs-up" aria-hidden="true"></i>

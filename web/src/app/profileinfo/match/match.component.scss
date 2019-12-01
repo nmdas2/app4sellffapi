@@ -34,7 +34,9 @@ td {
 
 .inner__ td {
     width: 192px;
-    padding: 5px
+    padding: 5px;
+    border: none;
+    text-align: left;
 }
 
 tr {
@@ -44,4 +46,26 @@ tr {
 tr td input {
     border: none;
     width: 100%;
+}
+.inner__ tr td div{
+    border:1px dotted #9b9b9b;
+    height: 35px;
+}
+.inner__ tr td div { position: relative; }
+.inner__ tr td div a{ padding-left:10px; }
+.servicecount { 
+    position: absolute; 
+    right: 0;
+    bottom: 25px;
+    border: 1px solid  #D3D3D3;
+    height: 20px;
+    width: 50px; 
+    background:#D3D3D3;
+    font-size: 14px;
+    text-align: center;
+}
+.servicetrash{
+    position: absolute; 
+    right: 0;
+    top: 12px;
 }

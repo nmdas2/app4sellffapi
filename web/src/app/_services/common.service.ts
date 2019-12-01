@@ -61,6 +61,11 @@ export class CommonService {
         return this.userReviews.asObservable();
     }
 
+    userInvestments = new BehaviorSubject<any>('')
+    get userInvetments$() {
+        return this.userInvestments.asObservable();
+    }
+
     profileData = new BehaviorSubject<any>(null);
     get profileData$() {
         return this.profileData.asObservable();
