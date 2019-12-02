@@ -38,7 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private _signalRService: SignalRService,
     private profileInfoService: ProfileinfoService,
-    private bnIdle: BnNgIdleService
+    //private bnIdle: BnNgIdleService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
@@ -133,7 +133,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authenticationService.isLogin$.subscribe(status => {
       this.isLogin = status;
       if (this.isLogin) {
-        this.bnIdle.resetTimer();
+        //this.bnIdle.resetTimer();
       }
       else {
       }
@@ -223,13 +223,13 @@ export class AppComponent implements OnInit, OnDestroy {
   activeUrl: string;
   ngAfterViewInit() {
 
-    this.bnIdle.startWatching(1800).subscribe((timeOutCheck: boolean) => {
-      if(timeOutCheck && this.isLogin){
-        this.bnIdle.stopTimer();
-        this.authenticationService.logout();
-        alert('Your session has expired! Please login again')
-      }
-    })
+    // this.bnIdle.startWatching(7200).subscribe((timeOutCheck: boolean) => {
+    //   if(timeOutCheck && this.isLogin){
+    //     this.bnIdle.stopTimer();
+    //     this.authenticationService.logout();
+    //     alert('Your session has expired! Please login again')
+    //   }
+    // })
     this.router.events.subscribe(event => {
         if (event instanceof NavigationStart) {
           this.activeUrl = event.url        

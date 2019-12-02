@@ -215,7 +215,7 @@ namespace Sellff_API.Services
                 {
                     objResponseBO.pricechange = objResponseBO.LastTradeSharePrice - objResponseBO.LastDayClosePrice; //currentLastTradePrice - previousdayLastTradePrice;
                     objResponseBO.PercentageValue = ((objResponseBO.LastTradeSharePrice - objResponseBO.LastDayClosePrice) / objResponseBO.LastDayClosePrice) * 100;
-                    objResponseBO.PercentageValue = Math.Floor(objResponseBO.PercentageValue * 100) / 100;
+                    //objResponseBO.PercentageValue = Math.Round(objResponseBO.PercentageValue); //Math.Floor(objResponseBO.PercentageValue * 100) / 100;
                 }
                 catch (Exception)
                 {

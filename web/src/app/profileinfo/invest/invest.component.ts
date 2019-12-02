@@ -20,7 +20,7 @@ loading:boolean= false;
   sellShares: number = consts.SellShares; profitlossinnegitive: boolean = false;
   buySharesStr: string; sellSharesStr: string; crntshrs: number;
   userTransactionDetails: UserTransaction; UserProfileChangeValsForPercentageCalc: UserTransaction;
-  successMsg: string = ""; errorMsg: string = ""; stock: StockChart; valnumbers: number[][];
+  successMsg: string = ""; errorMsg: string = ""; stock: StockChart; valnumbers: (Date | number)[][];
   constructor(
     private profileService: ProfileinfoService,
     private router: Router,
@@ -53,13 +53,18 @@ loading:boolean= false;
   getSchedularData(){
     this.profileService.getSharePriceValuesByUserId(this.dataDisplayProfile.UserId)
     .subscribe(res => {
-      this.valnumbers = []
+      let graphData=[];
+      this.valnumbers = [];
       for(let sc of res){
         let val :number[] = [];
         val.push(sc.SharePriceValue);
-        this.valnumbers.push(val);
+        let dayOfDate :number[] = [];
+        dayOfDate.push(sc.onlyDate);
+        this.valnumbers.push(dayOfDate,val);
+        graphData.push([sc.DayDate,sc.SharePriceValue]);
       };
       this.loading=true;
+      console.log(graphData);
       this.stock = new StockChart({ 
         rangeSelector: {
           selected: 1
@@ -69,10 +74,10 @@ loading:boolean= false;
         },
         series: [{
           tooltip: {
-            valueDecimals: 2
+            valueDecimals: 4
           },
           name: 'share value',
-          data: this.valnumbers          
+          data: graphData        
           ,
           type: undefined
         }]

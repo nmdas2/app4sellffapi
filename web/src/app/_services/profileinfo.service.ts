@@ -86,7 +86,8 @@ export class ProfileinfoService {
   }
 
   getUsersAboutNGalleryInfo(userId: number): Observable<any>{
-    return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserAboutNGalleryInfo/${userId}`);
+    var reqHeader = new HttpHeaders({'No-Auth':'True'});
+    return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserAboutNGalleryInfo/${userId}`, { headers: reqHeader });
   }
   postText(post: Post): Observable<any>{
     return this.http.post(`${consts.DomainURL}ProfileInfo/SaveUserPostTextMessages`, post);
@@ -136,7 +137,8 @@ export class ProfileinfoService {
   }
 
   getUserServiceTypesByUserIdServiceId(userId: number, serviceId: number): Observable<UserServiceTypes[]>{
-    return this.http.get<UserServiceTypes[]>(`${consts.DomainURL}ProfileInfo/GetUserServiceTypesByUserIdNTypeId/${userId}/${serviceId}`)
+    var reqHeader = new HttpHeaders({'No-Auth':'True'});
+    return this.http.get<UserServiceTypes[]>(`${consts.DomainURL}ProfileInfo/GetUserServiceTypesByUserIdNTypeId/${userId}/${serviceId}`, { headers: reqHeader })
   }
   getUserProfileDetailsByUserIdNUserProfileId(userId: number, profileId: number): Observable<any>{
     return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserProfileDetailsByUserIdNUserProfileId/${userId}/${profileId}`)

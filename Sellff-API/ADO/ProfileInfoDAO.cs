@@ -354,7 +354,8 @@ namespace Sellff_API.ADO
                     objResponseBO.TotalValueAtCurrentPrice = Convert.ToDecimal(objDataRow["TotalValueAtCurrentPrice"]);
                     objResponseBO.TotalValueAtPurchasedPrice = Convert.ToDecimal(objDataRow["TotalValueAtPurchasedPrice"]);
                     objResponseBO.LastDayClosePrice = Convert.ToDecimal(objDataRow["LastTradePrice"]);
-                    objResponseBO.TotalPurchasedShareQty = Convert.ToInt32(objDataRow["InitialShareQty"]) - Convert.ToInt32(objDataRow["AvailableShareQty"]);
+                    objResponseBO.TotalPurchasedShareQty = Convert.ToInt32(objDataRow["TotalPurchasedShareQty"]);
+                    //objResponseBO.TotalPurchasedShareQty = Convert.ToInt32(objDataRow["InitialShareQty"]) - Convert.ToInt32(objDataRow["AvailableShareQty"]);
                     //objResponseBO.MarketCap = Convert.ToDecimal(objResponseBO.TotalPurchasedShareQty * objResponseBO.LastTradeSharePrice);
                     objResponseBO.MarketCap = Convert.ToDecimal(objDataRow["MarketCap"]);
                     objResponseBO.ProfitRLoss = Convert.ToDecimal(objResponseBO.TotalValueAtCurrentPrice - objResponseBO.TotalValueAtPurchasedPrice);
@@ -1002,7 +1003,7 @@ namespace Sellff_API.ADO
                     {
                         UserShareDetailsBO objPriceValuesBO = new UserShareDetailsBO();
                         var objDataRow = _objDataSet.Tables[0].Rows[i];
-                        //objPriceValuesBO.DayDate = ToJsonTicks(Convert.ToDateTime(objDataRow["dt"])).ToString();
+                        objPriceValuesBO.DayDate = ToJsonTicks(Convert.ToDateTime(objDataRow["dt"]));
                         objPriceValuesBO.onlyDate = Convert.ToDateTime(objDataRow["dt"]).Day;
                         objPriceValuesBO.SharePriceValue = Convert.ToDecimal(objDataRow["SharePrice"]);
                         PriceList.Add(objPriceValuesBO);
