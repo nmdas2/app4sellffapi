@@ -40,6 +40,7 @@ namespace Sellff_API.ADO
                         objProfileInfoBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
                         objProfileInfoBO.City = Convert.ToString(objDataRow["City"]);
                         objProfileInfoBO.Reviews = Convert.ToInt32(objDataRow["Reviews"]);
+                        objProfileInfoBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
                         objProfilesList.Add(objProfileInfoBO);
                     }
                 }

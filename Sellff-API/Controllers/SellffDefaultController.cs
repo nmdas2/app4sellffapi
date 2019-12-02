@@ -145,7 +145,7 @@ namespace Sellff_API.Controllers
         /// This method will Get all the users invited by UserId
         ///</summary>
         /// <param name="UserId"></param>
-        [HttpGet, Route("api/SellffDefault/HeaderWidgetsCountByUserId/{UserId}")]
+        [HttpGet,AllowAnonymous, Route("api/SellffDefault/HeaderWidgetsCountByUserId/{UserId}")]
         public IHttpActionResult HeaderWidgetsCountByUserId(int UserId)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.HeaderWidgetsCountByUserId(UserId)));

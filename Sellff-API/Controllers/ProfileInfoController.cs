@@ -131,7 +131,7 @@ namespace Sellff_API.Controllers
         /// This method will get user About info and gallery info based on UserId
         ///</summary>
         /// <param name="UserId"></param>
-        [HttpGet, Route("api/ProfileInfo/GetUserAboutNGalleryInfo/{UserId}")]
+        [HttpGet,AllowAnonymous, Route("api/ProfileInfo/GetUserAboutNGalleryInfo/{UserId}")]
         public IHttpActionResult GetUserAboutNGalleryInfo(int UserId)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserAboutNGalleryInfo(UserId)));
@@ -383,7 +383,7 @@ namespace Sellff_API.Controllers
         ///</summary>
         /// <param name="UserId"></param>
         /// <param name="TypeId"></param>
-        [HttpGet, Route("api/ProfileInfo/GetUserServiceTypesByUserIdNTypeId/{UserId}/{TypeId}")]
+        [HttpGet,AllowAnonymous, Route("api/ProfileInfo/GetUserServiceTypesByUserIdNTypeId/{UserId}/{TypeId}")]
         public IHttpActionResult GetUserServiceTypesByUserIdNTypeId(int UserId, int TypeId)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserServiceTypesByUserIdNTypeId(UserId, TypeId)));
