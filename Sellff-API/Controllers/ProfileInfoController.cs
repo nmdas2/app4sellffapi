@@ -322,7 +322,7 @@ namespace Sellff_API.Controllers
         /// This method will get all users info based on search term
         ///</summary>
         /// <param name="searchTerm"></param>
-        [HttpGet, Route("api/ProfileInfo/GetUserProfileInfoByUserId/{loginUser}")]
+        [HttpGet,AllowAnonymous, Route("api/ProfileInfo/GetUserProfileInfoByUserId/{loginUser}")]
         public IHttpActionResult GetUserProfileInfoByUserId(int loginUser)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserProfileInfoByUserId(loginUser)));

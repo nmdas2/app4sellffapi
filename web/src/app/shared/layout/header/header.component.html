@@ -54,7 +54,7 @@
                                 <!-- <span>{{loggedInUserInfo.Occupation}}</span> -->
                                 <!-- <span *ngIf="unReadMsgsCount >0" class="notification">[<span>{{unReadMsgsCount}}</span>]</span> -->
                                 </span>
-                                <span class="visible-xs">VB
+                                <span class="visible-xs">{{loggedInUserInfo.DisplayName | slice : 0:2}}
                                     
                                         <!-- <span>{{loggedInUserInfo.Occupation}}</span> -->
                                         <span *ngIf="unReadMsgsCount >0" class="notification">[<span>{{unReadMsgsCount}}</span>]</span>

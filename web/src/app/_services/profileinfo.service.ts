@@ -108,7 +108,8 @@ export class ProfileinfoService {
     return this.http.get(`${consts.DomainURL}ProfileInfo/GetCurrentUserRatingById/${Infoval}`);
   }
   GetUserProfileInfoByUserId(loginUser: number): Observable<any>{
-    return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserProfileInfoByUserId/${loginUser}`);
+    var reqHeader = new HttpHeaders({'No-Auth':'True'});
+    return this.http.get(`${consts.DomainURL}ProfileInfo/GetUserProfileInfoByUserId/${loginUser}`, { headers: reqHeader });
   }
   
   getUserPostsByGroups(userId: number): Observable<any>{
