@@ -72,6 +72,12 @@ loading:boolean= false;
         title: {
           text: ''
         },
+        navigator: {
+          enabled: false
+        },
+        credits: {
+          enabled: false
+        },
         series: [{
           tooltip: {
             valueDecimals: 4
@@ -127,7 +133,13 @@ loading:boolean= false;
     obj.BuySellQty = type == 2 ? this.buyShares : type == 1 ? this.sellShares : 0;
     this.profileService.saveUserBuySellTransactionDetails(obj)
     .subscribe(res => {
-      this.successMsg = 'Transaction details has been submitted successfully';
+      if ( type == 1) {
+        this.successMsg = `trade completed: sell ${this.sellSharesStr} shares at ${this.askPrice}`;
+      }
+      if ( type == 2) {
+        this.successMsg = `trade completed: buy ${this.buySharesStr} shares at ${this.buyPrice}`;
+      }
+
       this.BindDefaultValues();
       this.commonService.socialAndHeaderWidgetsTracker.next(true);
       setTimeout(() => {

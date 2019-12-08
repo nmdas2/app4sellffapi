@@ -44,6 +44,10 @@ namespace Sellff_API.ADO
                     objAuthenticationBO.UserRefProfileId = 0;
                     objAuthenticationBO.City = Convert.ToString(objDataRow["City"]);
                     objAuthenticationBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
+                    if (!string.IsNullOrEmpty(objAuthenticationBO.CreatedOn))
+                    {
+                        objAuthenticationBO.CreatedOn = DateTime.Parse(objAuthenticationBO.CreatedOn).ToString("MM'/'dd'/'yyyy");
+                    }
                     objAuthenticationBO.Views = Convert.ToInt32(objDataRow["Views"]);
                     objAuthenticationBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
                     objAuthenticationBO.Rank = Convert.ToInt32(objDataRow["Rank"]);

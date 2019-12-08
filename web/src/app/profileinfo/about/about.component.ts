@@ -9,6 +9,7 @@ import { CommonService } from 'src/app/_services/common.service';
 import { Subscription } from 'rxjs';
 import { UserServiceTypes } from 'src/app/_models/userservicetypes';
 import { strictEqual } from 'assert';
+import { SignalRService } from 'src/app/_services/signal-r.service';
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
@@ -29,7 +30,8 @@ export class AboutComponent implements OnInit, OnDestroy {
     private profileInfoService: ProfileinfoService,
     private http: HttpClient,
     private modalService: BsModalService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private _signalRService: SignalRService
   ) { }
   ngOnInit() { 
     this.profileSubscription = this.commonService.isProfileSelected$.subscribe(status => {
@@ -59,6 +61,7 @@ export class AboutComponent implements OnInit, OnDestroy {
     this.dataDisplayProfile.UserRefProfileId = this.loggedInUserInfo.UserId;
     this.profileInfoService.UpdateUserViewsCount(this.dataDisplayProfile)
       .subscribe(res => {
+        this._signalRService.SendUserNotificationInfo(this.dataDisplayProfile.UserId);
         this.dataDisplayProfile.UserRefProfileId = 0;
       }, error => {
         console.log(error);

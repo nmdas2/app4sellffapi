@@ -84,15 +84,8 @@
                     <div class="box">
                         <div class="box-center">
                             <h3 class="title-border">Select buy or sell to make a trade</h3>
-                            <div class="row">
-                                
-                                <div class="col-sm-6">
-                                    <button class="btn btn-success button-large" (click)="saveUserBuySellTransactionDetails(2)"><div class="larget-text">{{buyPrice | number:'1.4-4'}}</div> Buy {{buySharesStr}} shares</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <button class="btn btn-danger button-large" (click)="saveUserBuySellTransactionDetails(1)"><div class="larget-text">{{askPrice | number:'1.4-4'}}</div> Sell {{sellSharesStr}} shares</button>
-                                </div>
-                                
+                            <div class="alert tradestaus">
+                                trade status: ready
                             </div>
                             <div *ngIf="successMsg" class="mb-3 mt-3" style="padding-top: 8px;">
                                 <alert type="success">
@@ -103,6 +96,15 @@
                                 <alert type="danger">
                                     {{errorMsg}}
                                 </alert>
+                            </div>
+                            <div class="row">                                
+                                <div class="col-sm-6">
+                                    <button class="btn btn-success button-large" (click)="saveUserBuySellTransactionDetails(2)"><div class="larget-text">{{buyPrice | number:'1.4-4'}}</div> Buy {{buySharesStr}} shares</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button class="btn btn-danger button-large" (click)="saveUserBuySellTransactionDetails(1)"><div class="larget-text">{{askPrice | number:'1.4-4'}}</div> Sell {{sellSharesStr}} shares</button>
+                                </div>
+                                
                             </div>
                             <!-- <div class="status-open">
                                 <p>Trade status open</p>

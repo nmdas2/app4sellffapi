@@ -25,7 +25,7 @@ namespace Sellff_API
             {
                 TokenEndpointPath = new PathString("/token"),
                 Provider = new OAuthProvider(),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(60),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(720),
                 AllowInsecureHttp = true
             };
 

@@ -82,17 +82,17 @@ export class SignalRService {
     });
   }
 
-    // method to hit from client  
-    public SendUserInvestmentInfo(userId: number, profileId: number) {
-      // server side hub method using proxy.invoke with method name pass as param  
-      this.proxy.invoke('GetUserInvestmentDetails', userId, profileId);
-    }
-  
-    private GetUserInvestmentInfo(): void {
-      this.proxy.on('SetUserInvestmentDetails', (data: any) => {
-        // console.log('received in SignalRService: ' + JSON.stringify(data));
-        this.commonService.userInvestments.next(data);
-      });
-    }
+  // method to hit from client  
+  public SendUserInvestmentInfo(userId: number, profileId: number) {
+    // server side hub method using proxy.invoke with method name pass as param  
+    this.proxy.invoke('GetUserInvestmentDetails', userId, profileId);
+  }
+
+  private GetUserInvestmentInfo(): void {
+    this.proxy.on('SetUserInvestmentDetails', (data: any) => {
+      // console.log('received in SignalRService: ' + JSON.stringify(data));
+      this.commonService.userInvestments.next(data);
+    });
+  }
 
 }

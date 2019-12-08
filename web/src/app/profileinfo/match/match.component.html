@@ -21,7 +21,7 @@
                                 <div *ngFor="let service of servicesOffered; let i = index">
                                     <tr *ngIf="i % 4 == 0">
                                         <td *ngFor="let item of [0,1,2,3];">
-                                            <div *ngIf="i + item < servicesOffered.length">
+                                            <div class="service" *ngIf="i + item < servicesOffered.length">
                                                 <a class="" [routerLink]="['/profileinfo/searchsummary']"
                                                     [queryParams]="{ searchTerm: servicesOffered[i+item].ServiceName}">
                                                     {{servicesOffered[i+item].ServiceName}}
@@ -56,7 +56,7 @@
                                 <div *ngFor="let service of servicesNeeded; let i = index">
                                     <tr *ngIf="i % 4 == 0">
                                         <td *ngFor="let item of [0,1,2,3];">
-                                            <div *ngIf="i + item < servicesNeeded.length">
+                                            <div class="service" *ngIf="i + item < servicesNeeded.length">
                                                 <a class="" [routerLink]="['/profileinfo/searchsummary']"
                                                     [queryParams]="{ searchTerm: servicesNeeded[i+item].ServiceName}">
                                                     {{servicesNeeded[i+item].ServiceName}}
