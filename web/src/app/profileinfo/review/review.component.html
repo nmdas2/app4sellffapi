@@ -148,8 +148,6 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12 invalid-feedback rating-err"
                                 *ngIf="submitted && !isValidRating">
-
-
                                 <alert type="danger" [dismissible]="dismissible" [dismissOnTimeout]="timeOut">
                                     provide a star rating
                                 </alert>
@@ -220,7 +218,7 @@
                                     <div class="text-right">
                                         <button class="btn btn-custom" style="margin-right:10px;" type="reset"
                                             (click)="onReset()">Cancel</button>
-                                        <button class="btn btn-primary">Submit Review</button>
+                                        <button class="btn btn-primary" [disabled]="disablebutton">Submit Review</button>
                                     </div>
                                 </form>
                             </div>

@@ -27,6 +27,7 @@ export class ReviewComponent implements OnInit {
   isValidRating: boolean = false; show = false;
   dismissible = true;
   timeOut = 30000;
+  disablebutton:boolean = false;
   constructor(
     private profileInfoService: ProfileinfoService,
     private formBuilder: FormBuilder,
@@ -92,6 +93,7 @@ export class ReviewComponent implements OnInit {
     if (this.reviewUserForm.invalid || !this.checkRating()) {
       return;
     }
+    this.disablebutton = true;
     let postReview: Review = {
       ReviewTitle: this.reviewUserForm.value.reviewTitle,
       ReviewContent: this.reviewUserForm.value.reviewContent,
@@ -131,6 +133,7 @@ export class ReviewComponent implements OnInit {
     this.rate = 0;
     this.communicationRate = 0;
     this.QOWRate = 0;
+    this.disablebutton = false;
     this.reviewUserForm.reset();
   }
   SetLocalStorageInfo() {
