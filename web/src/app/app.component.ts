@@ -36,7 +36,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private modalService: BsModalService,
     private commonService: CommonService,
     private fb: FormBuilder,
-    private _signalRService: SignalRService,
     private profileInfoService: ProfileinfoService,
     //private bnIdle: BnNgIdleService
   ) {
@@ -164,10 +163,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
           })
       }
-    })
-
-    this.commonService.userNotifications$.subscribe(res => {
-      this.headerWidgetsDetails = res;
     })
 
     this.commonService.userChangeSubject.subscribe(val => {

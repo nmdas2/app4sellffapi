@@ -31,61 +31,8 @@
                     </div>
                 </div>
                 <div class="col-sm-10 col-md-10">
-                    <div class="main" id="main">
-                        <div class="row" *ngIf="showheadsection">
-                            <div class="col-sm-2  col-xs-4">
-                                <div class="info-box">
-
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">Views</span>
-                                        <span class="info-box-number" *ngIf="headerWidgetsDetails">{{headerWidgetsDetails.Views}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-2  col-xs-4">
-                                <div class="info-box">
-
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">Posts</span>
-                                        <span class="info-box-number" *ngIf="headerWidgetsDetails">{{headerWidgetsDetails.Posts}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-2  col-xs-4">
-                                <div class="info-box">
-
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">Reviews</span>
-                                        <span class="info-box-number" *ngIf="headerWidgetsDetails">{{headerWidgetsDetails.Reviews}}</span>
-                                    </div>
-                                    <!-- /.info-box-content -->
-                                </div>
-                                <!-- /.info-box -->
-                            </div>
-                            <div class="col-sm-2  col-xs-4">
-                                <div class="info-box">
-
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">Investors</span>
-                                        <span class="info-box-number" *ngIf="headerWidgetsDetails">
-                                                            {{headerWidgetsDetails.Investors}}</span>
-                                    </div>
-                                    <!-- /.info-box-content -->
-                                </div>
-                                <!-- /.info-box -->
-                            </div>
-                            <div class="col-sm-2  col-xs-4">
-                                <div class="info-box">
-
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">Investments</span>
-                                        <span class="info-box-number" *ngIf="headerWidgetsDetails">{{headerWidgetsDetails.Investments}}</span>
-                                    </div>
-                                    <!-- /.info-box-content -->
-                                </div>
-                                <!-- /.info-box -->
-                            </div>
-                        </div>
+                    <div class="main" id="main" *ngIf="showheadsection">
+                       <app-user-notifications [notificationData]="headerWidgetsDetails"></app-user-notifications>
                     </div>
                 </div>                
             </div>

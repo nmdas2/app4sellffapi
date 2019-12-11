@@ -36,5 +36,12 @@ namespace Sellff_API.Hubs
             var userData = objProfileInfoService.GetUserProfileDetailsByUserIdNUserProfileId(userId, profileId);
             Clients.All.SetUserInvestmentDetails(userData);
         }
+
+        public void GetUserUnReadMessagesCount(int userId)
+        {
+            ProfileInfoService objProfileInfoService = new ProfileInfoService();
+            int userCount = objProfileInfoService.GetUnReadMessagesCountByUserId(userId);
+            Clients.All.SetUserUnReadMessagesCount(userCount);
+        }
     }
 }

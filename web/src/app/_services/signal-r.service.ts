@@ -1,5 +1,5 @@
 import { CommonService } from 'src/app/_services/common.service';
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { ProfileInfo } from '../_models/profileinfo';
 import { constants as consts } from './../constants';
 
@@ -11,7 +11,9 @@ export class SignalRService {
   private connection: any;
   private proxy: any;
 
-  constructor(private commonService: CommonService) {
+  constructor(
+    private commonService: CommonService,
+    private ngZone: NgZone) {
     this.initializeSignalRConnection();
   }
 
@@ -22,7 +24,8 @@ export class SignalRService {
     this.GetUserNotificationInfo();
     this.GetUserPostInfo();
     this.GetUserReviewInfo();
-    this.GetUserInvestmentInfo();
+    this.GetUserUnReadMessagesCount();
+    // this.GetUserInvestmentInfo();
     // call the connecion start method to start the connection to send and receive events.  
     this.startConnection();
 
@@ -48,7 +51,7 @@ export class SignalRService {
   private GetUserNotificationInfo(): void {
     this.proxy.on('SetUserNotification', (data: ProfileInfo) => {
       console.log('received in SignalRService: ' + JSON.stringify(data));
-      this.commonService.userNotifications.next(data);
+      this.ngZone.run(() => this.commonService.userNotifications.next(data));
       // this.messageReceived.emit(data);
     });
   }
@@ -63,7 +66,7 @@ export class SignalRService {
   private GetUserPostInfo(): void {
     this.proxy.on('SetUserPosts', (data: ProfileInfo) => {
       console.log('received in SignalRService: ' + JSON.stringify(data));
-      this.commonService.userPosts.next(data);
+      this.ngZone.run(() =>this.commonService.userPosts.next(data));
       // this.messageReceived.emit(data);
     });
   }
@@ -77,7 +80,7 @@ export class SignalRService {
   private GetUserReviewInfo(): void {
     this.proxy.on('SetUserReview', (data: ProfileInfo) => {
       // console.log('received in SignalRService: ' + JSON.stringify(data));
-      this.commonService.userReviews.next(data);
+      this.ngZone.run(() =>this.commonService.userReviews.next(data));
       // this.messageReceived.emit(data);
     });
   }
@@ -90,6 +93,19 @@ export class SignalRService {
 
   private GetUserInvestmentInfo(): void {
     this.proxy.on('SetUserInvestmentDetails', (data: any) => {
+      // console.log('received in SignalRService: ' + JSON.stringify(data));
+      this.commonService.userInvestments.next(data);
+    });
+  }
+
+  // method to hit from client  
+  public SendUserUnReadMessagesCount(userId: number) {
+    // server side hub method using proxy.invoke with method name pass as param  
+    this.proxy.invoke('GetUserUnReadMessagesCount', userId);
+  }
+
+  private GetUserUnReadMessagesCount(): void {
+    this.proxy.on('SetUserUnReadMessagesCount', (data: any) => {
       // console.log('received in SignalRService: ' + JSON.stringify(data));
       this.commonService.userInvestments.next(data);
     });
