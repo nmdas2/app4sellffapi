@@ -24,6 +24,7 @@ export interface ProfileInfo{
     YouTubeLink?: string;
     GooglePlusLink?:string;
     SocialEmail?:string;
+    PinInterestLink?:string;
     MessageFrom?: number;
     MessageTo?: number;
     Views?: number;

@@ -424,6 +424,7 @@ namespace Sellff_API.ADO
                     objAuthenticationBO.YouTubeLink = Convert.ToString(objDataRow["YouTubeLink"]);
                     objAuthenticationBO.WebsiteLink = Convert.ToString(objDataRow["WebsiteLink"]);
                     objAuthenticationBO.GooglePlusLink = Convert.ToString(objDataRow["GooglePlusLink"]);
+                    objAuthenticationBO.PinInterestLink = Convert.ToString(objDataRow["PininterestLink"]);
                 }
             }
             catch (Exception ex)

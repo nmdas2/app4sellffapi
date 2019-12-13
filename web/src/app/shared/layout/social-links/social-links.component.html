@@ -47,7 +47,7 @@
         <div class="col-md-5 right-socail-links text-right">
             <div class="social-inputbox" *ngIf="postLayoutType!='' && isEditbale">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="link.." name="link" [(ngModel)]="socialLink"
+                    <input type="text" class="form-control" placeholder="{{PlaceHolder}}" name="link" [(ngModel)]="socialLink"
                         aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="submit" (click)="SubmitSocialLink()"><i
@@ -60,10 +60,10 @@
             <div *ngIf="isEditbale">
                 <a (click)="showSocialLayout('g')" class="web"><img src="../assets/images/globe.svg"></a>
                 <a (click)="showSocialLayout('tw')" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                <a (click)="showSocialLayout('fb')" class="bell"><i class="fa fa-bell" aria-hidden="true"></i></a>
-                <a (click)="showSocialLayout('em')" class="in"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                <a (click)="showSocialLayout('gp')" class="insta"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a (click)="showSocialLayout('sem')" class="pint"><i class="fa fa-pinterest-p"
+                <a (click)="showSocialLayout('fb')" class="facebook"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                <a (click)="showSocialLayout('lnk')" class="in"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                <a (click)="showSocialLayout('ins')" class="insta"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <a (click)="showSocialLayout('pin')" class="pint"><i class="fa fa-pinterest-p"
                         aria-hidden="true"></i></a>
             </div>
             <div *ngIf="!isEditbale && socialIconsDetails">
@@ -72,12 +72,12 @@
                 <a *ngIf="socialIconsDetails.TwitterLink" href="{{socialIconsDetails.TwitterLink}}" target="_blank"
                     class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                 <a *ngIf="socialIconsDetails.FacebookLink" href="{{socialIconsDetails.FacebookLink}}" target="_blank"
-                    class="bell"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
+                    class="bell"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
                 <a *ngIf="socialIconsDetails.LinkedInLink" href="{{socialIconsDetails.LinkedInLink}}" target="_blank"
                     class="in"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
                 <a *ngIf="socialIconsDetails.InstagramLink" href="{{socialIconsDetails.InstagramLink}}" target="_blank"
                     class="insta"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a *ngIf="socialIconsDetails.YouTubeLink" href="{{socialIconsDetails.YouTubeLink}}" target="_blank"
+                <a *ngIf="socialIconsDetails.PinInterestLink" href="{{socialIconsDetails.PinInterestLink}}" target="_blank"
                     class="pint"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
             </div>
         </div>

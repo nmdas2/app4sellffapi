@@ -1,3 +1,4 @@
+import { SignalRService } from 'src/app/_services/signal-r.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -19,16 +20,16 @@ import { BnNgIdleService } from 'bn-ng-idle';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  currentUser: User; bannerpicpath: string;  title = 'sellff-app'; previewUrl: any = null;
-  isLogin: boolean = false; fileData: File = null;  bannerPicSub : Subscription;
+  currentUser: User; bannerpicpath: string; title = 'sellff-app'; previewUrl: any = null;
+  isLogin: boolean = false; fileData: File = null; bannerPicSub: Subscription;
   showSideNav: boolean = false; fileUploadProgress: string = null; uploadedFilePath: string = null;
   isSummarySub: Subscription; postGalleryForm: FormGroup; postProfileForm: FormGroup;
   isSummaryPage: boolean; AllowImageUpload: boolean = false; profileSubscription: Subscription; urldisplayname: string = "";
-  showheadsection: boolean; dataDisplayProfile: ProfileInfo;  isEditbale: boolean; modalRef: BsModalRef;
+  showheadsection: boolean; dataDisplayProfile: ProfileInfo; isEditbale: boolean; modalRef: BsModalRef;
   userProfileInfo: ProfileInfo; loggedInUserInfo: ProfileInfo = null; socialIconsDetails: ProfileInfo; headerWidgetsDetails: ProfileInfo;
-  trackerSub: Subscription; profilePic: string; unReadMsgsCount: number = 0; profilePicSub : Subscription; messageReadSub: Subscription;
-  aboutactive: string = ""; postactive: string=""; messageactive: string=""; reviewactive: string=""; investactive: string="";
-  inviteactive: string=""; matchactive: string="";
+  trackerSub: Subscription; profilePic: string; unReadMsgsCount: number = 0; profilePicSub: Subscription; messageReadSub: Subscription;
+  aboutactive: string = ""; postactive: string = ""; messageactive: string = ""; reviewactive: string = ""; investactive: string = "";
+  inviteactive: string = ""; matchactive: string = "";
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private commonService: CommonService,
     private fb: FormBuilder,
     private profileInfoService: ProfileinfoService,
+    private signalRService:SignalRService
     //private bnIdle: BnNgIdleService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
@@ -44,14 +46,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (localStorage.getItem('currentUser') != null) {
-      this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));   
-      this.urldisplayname = this.dataDisplayProfile.DisplayName;      
+      this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));
+      this.urldisplayname = this.dataDisplayProfile.DisplayName;
       this.bannerpicpath = this.dataDisplayProfile.BannerPicPath;
       this.profilePic = this.dataDisplayProfile.ProfilePicPath;
-      if(localStorage.getItem('bannerpic') && this.bannerpicpath == "http://4sellff.com/sellffapi/AppImages/bannerpics/defbannerpic.jpg")
-        this.bannerpicpath=localStorage.getItem('bannerpic');
-      if(localStorage.getItem('profilepic') && this.profilePic == "http://4sellff.com/sellffapi/AppImages/profilepics/dprfpic.jpg")
-        this.profilePic=localStorage.getItem('profilepic');
+      if (localStorage.getItem('bannerpic') && this.bannerpicpath == "http://4sellff.com/sellffapi/AppImages/bannerpics/defbannerpic.jpg")
+        this.bannerpicpath = localStorage.getItem('bannerpic');
+      if (localStorage.getItem('profilepic') && this.profilePic == "http://4sellff.com/sellffapi/AppImages/profilepics/dprfpic.jpg")
+        this.profilePic = localStorage.getItem('profilepic');
     }
     if (localStorage.getItem('profileviewUser') != null) {
       this.dataDisplayProfile = JSON.parse(localStorage.getItem('profileviewUser'));
@@ -59,20 +61,20 @@ export class AppComponent implements OnInit, OnDestroy {
       this.bannerpicpath = this.dataDisplayProfile.BannerPicPath;
       this.profilePic = this.dataDisplayProfile.ProfilePicPath;
     }
-    
+
     if (localStorage.getItem('currentUser')) {
       this.authenticationService.isLogin.next(true);
     }
     else {
       this.authenticationService.isLogin.next(false);
     }
-    this.messageReadSub = this.commonService.MessagesReadTracker$.subscribe(status=> {
-      
+    this.messageReadSub = this.commonService.MessagesReadTracker$.subscribe(status => {
+
       //if (localStorage.getItem('currentUser') || localStorage.getItem('profileviewUser'))
-      if(localStorage.getItem('currentUser') && !localStorage.getItem('profileviewUser'))
+      if (localStorage.getItem('currentUser') && !localStorage.getItem('profileviewUser'))
         this.GetUnReadMessagesCount(this.dataDisplayProfile.UserId);
       else
-      this.unReadMsgsCount = 0;
+        this.unReadMsgsCount = 0;
     })
     this.profilePicSub = this.commonService.profilePicTracker$.subscribe(imgPath => {
       this.profilePic = imgPath;
@@ -108,21 +110,21 @@ export class AppComponent implements OnInit, OnDestroy {
           //localStorage.setItem('profilepic', this.profilePic)
           //this.bannerpicpath = this.dataDisplayProfile.BannerPicPath;
         }
-    //if (localStorage.getItem('currentUser') || localStorage.getItem('profileviewUser'))
-    
-    if(localStorage.getItem('currentUser') && !localStorage.getItem('profileviewUser'))
-      this.GetUnReadMessagesCount(this.dataDisplayProfile.UserId);
-    else
-      this.unReadMsgsCount = 0;
-        
-          this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
-            setTimeout(() => {
-              this.isSummaryPage = status;
-            }, 3)
+        //if (localStorage.getItem('currentUser') || localStorage.getItem('profileviewUser'))
 
-          })
+        if (localStorage.getItem('currentUser') && !localStorage.getItem('profileviewUser'))
+          this.GetUnReadMessagesCount(this.dataDisplayProfile.UserId);
+        else
+          this.unReadMsgsCount = 0;
+
+        this.isSummarySub = this.commonService.isSummaryPage$.subscribe(status => {
+          setTimeout(() => {
+            this.isSummaryPage = status;
+          }, 3)
+
+        })
       }, 1)
-    });    
+    });
     this.postGalleryForm = this.fb.group({
       image: ['', []]
     });
@@ -155,7 +157,7 @@ export class AppComponent implements OnInit, OnDestroy {
         userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
 
       }
-      if (userId > 0) {      
+      if (userId > 0) {
         this.authenticationService.headerWidgetsCountByUserId(userId)
           .subscribe(res => {
             this.headerWidgetsDetails = res;
@@ -166,16 +168,16 @@ export class AppComponent implements OnInit, OnDestroy {
     })
 
     this.commonService.userChangeSubject.subscribe(val => {
-      let userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;    
-    this.authenticationService.headerWidgetsCountByUserId(userId)
-      .subscribe(res => {
-        this.headerWidgetsDetails = res;
-      }, error => {
+      let userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
+      this.authenticationService.headerWidgetsCountByUserId(userId)
+        .subscribe(res => {
+          this.headerWidgetsDetails = res;
+        }, error => {
 
-      })
+        })
     });
 
-    this.commonService.profileData$.subscribe(res => {      
+    this.commonService.profileData$.subscribe(res => {
       let userId = 0;
       if (localStorage.getItem('currentUser')) {
         userId = JSON.parse(localStorage.getItem('currentUser')).UserId;
@@ -185,15 +187,31 @@ export class AppComponent implements OnInit, OnDestroy {
         userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
 
       }
-      if (userId > 0) {      
+      if (userId > 0) {
         this.profileInfoService.GetUserProfileInfoByUserId(this.dataDisplayProfile.UserId)
-        .subscribe(res => {
-          this.dataDisplayProfile = res;
-        }, error => {
-          console.log(error);
-        })
+          .subscribe(res => {
+            this.dataDisplayProfile = res;
+          }, error => {
+            console.log(error);
+          })
       }
     })
+
+    this.commonService.userUnReadMessagesCount$.subscribe(msgCountData => {
+      let userId = 0;
+      if (localStorage.getItem('currentUser')) {
+        userId = JSON.parse(localStorage.getItem('currentUser')).UserId;
+
+      }
+      if (localStorage.getItem('profileviewUser')) {
+        userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
+
+      }
+      
+      if (userId == msgCountData.userId) {
+        this.unReadMsgsCount = msgCountData.msgUnReadCount;
+      }
+    });
 
   }
 
@@ -226,42 +244,35 @@ export class AppComponent implements OnInit, OnDestroy {
     //   }
     // })
     this.router.events.subscribe(event => {
-        if (event instanceof NavigationStart) {
-          this.activeUrl = event.url        
-        if(this.activeUrl.includes('about'))
-        {
+      if (event instanceof NavigationStart) {
+        this.activeUrl = event.url
+        if (this.activeUrl.includes('about')) {
           this.aboutactive = "active";
           this.postactive = this.messageactive = this.reviewactive = this.investactive = this.inviteactive = this.matchactive = "";
           if (localStorage.getItem('currentUser') == null)
             this.postactive = this.messageactive = this.reviewactive = this.investactive = this.inviteactive = this.matchactive = "disabled";
         }
-        else if(this.activeUrl.includes('post'))
-        {
+        else if (this.activeUrl.includes('post')) {
           this.postactive = "active";
           this.aboutactive = this.messageactive = this.reviewactive = this.investactive = this.inviteactive = this.matchactive = "";
         }
-        else if(this.activeUrl.includes('message'))
-        {
+        else if (this.activeUrl.includes('message')) {
           this.messageactive = "active";
           this.aboutactive = this.postactive = this.reviewactive = this.investactive = this.inviteactive = this.matchactive = "";
         }
-        else if(this.activeUrl.includes('review'))
-        {
+        else if (this.activeUrl.includes('review')) {
           this.reviewactive = "active";
           this.aboutactive = this.postactive = this.messageactive = this.investactive = this.inviteactive = this.matchactive = "";
         }
-        else if(this.activeUrl.includes('invest'))
-        {
+        else if (this.activeUrl.includes('invest')) {
           this.investactive = "active";
           this.aboutactive = this.postactive = this.messageactive = this.reviewactive = this.inviteactive = this.matchactive = "";
         }
-        else if(this.activeUrl.includes('invite'))
-        {
+        else if (this.activeUrl.includes('invite')) {
           this.inviteactive = "active";
           this.aboutactive = this.postactive = this.messageactive = this.reviewactive = this.investactive = this.matchactive = "";
         }
-        else if(this.activeUrl.includes('match'))
-        {
+        else if (this.activeUrl.includes('match')) {
           this.matchactive = "active";
           this.aboutactive = this.postactive = this.messageactive = this.reviewactive = this.investactive = this.inviteactive = "";
         }
@@ -276,11 +287,11 @@ export class AppComponent implements OnInit, OnDestroy {
       this.profileSubscription.unsubscribe();
     if (this.trackerSub)
       this.trackerSub.unsubscribe();
-    if(this.profilePicSub)
+    if (this.profilePicSub)
       this.profilePicSub.unsubscribe();
-    if(this.messageReadSub)
+    if (this.messageReadSub)
       this.messageReadSub.unsubscribe();
-  } 
+  }
 
   uploadbannerpic(Bannerpictemplate) {
     this.modalRef = this.modalService.show(Bannerpictemplate);
@@ -317,7 +328,7 @@ export class AppComponent implements OnInit, OnDestroy {
           this.authenticationService.loginForImages(user)
             .subscribe(res => {
               if (res.UserId > 0) {
-                
+
                 localStorage.setItem('bannerpic', res.BannerPicPath);
                 this.commonService.bannerPicTracker.next(res.bannerpicpath)
                 this.bannerpicpath = res.BannerPicPath;
@@ -347,9 +358,9 @@ export class AppComponent implements OnInit, OnDestroy {
             .subscribe(res => {
               if (res.UserId > 0) {
                 localStorage.setItem('profilepic', res.ProfilePicPath);
-                
+
                 this.commonService.profilePicTracker.next(res.ProfilePicPath)
-                
+
               }
             })
           this.fileUploadProgress = '';
@@ -365,11 +376,10 @@ export class AppComponent implements OnInit, OnDestroy {
         error => {
         });
   }
-  navigateusertopage(pageurl)
-  {
-    if(pageurl.includes('about'))
-      this.router.navigate(["/"+this.urldisplayname+pageurl]);
+  navigateusertopage(pageurl) {
+    if (pageurl.includes('about'))
+      this.router.navigate(["/" + this.urldisplayname + pageurl]);
     else
-      this.router.navigate(["/"+pageurl]);
+      this.router.navigate(["/" + pageurl]);
   }
 }

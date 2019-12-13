@@ -16,9 +16,10 @@ export class SocialLinksComponent implements OnInit {
   socialIconsDetails: ProfileInfo;
   userProfileInfo: ProfileInfo;
   postLayoutType: string = "";
+  PlaceHolder: string = "";
   socialLink: string = "";
 
-  isCityInEditMode: boolean = false; 
+  isCityInEditMode: boolean = false;
   isOccupationInEditMode: boolean = false;
   isAboutInEditMode: boolean = false;
   userCity: string = '';
@@ -30,7 +31,7 @@ export class SocialLinksComponent implements OnInit {
     private profileInfoService: ProfileinfoService,
   ) { }
 
-  ngOnInit() {   
+  ngOnInit() {
     this.commonService.socialAndHeaderWidgetsTracker$.subscribe(status => {
       let userId = 0;
       if (localStorage.getItem('currentUser')) {
@@ -61,8 +62,8 @@ export class SocialLinksComponent implements OnInit {
 
     if (localStorage.getItem('profileviewUser') != null) {
       this.isAboutInEditMode = false;
-      this.isCityInEditMode= false;
-      this.isOccupationInEditMode = false;     
+      this.isCityInEditMode = false;
+      this.isOccupationInEditMode = false;
     }
 
   }
@@ -73,24 +74,35 @@ export class SocialLinksComponent implements OnInit {
     switch (type) {
       case "g":
         this.socialLink = this.socialIconsDetails.WebsiteLink;
+        this.PlaceHolder = "Website Link";
         break;
       case "tw":
         this.socialLink = this.socialIconsDetails.TwitterLink;
+        this.PlaceHolder = "Twitter Link";
         break;
       case "em":
         this.socialLink = this.socialIconsDetails.SocialEmail;
+        this.PlaceHolder = "Social Email";
         break;
       case "fb":
         this.socialLink = this.socialIconsDetails.FacebookLink;
+        this.PlaceHolder = "Facebook Link";
         break;
-      case "gp":
+      case "lnk":
         this.socialLink = this.socialIconsDetails.LinkedInLink;
+        this.PlaceHolder = "LinkedIn Link";
         break;
       case "sem":
         this.socialLink = this.socialIconsDetails.YouTubeLink;
+        this.PlaceHolder = "YouTube Link";
         break;
-      case "ig":
+      case "ins":
         this.socialLink = this.socialIconsDetails.InstagramLink;
+        this.PlaceHolder = "Instagram Link";
+        break;
+      case "pin":
+        this.socialLink = this.socialIconsDetails.PinInterestLink;
+        this.PlaceHolder = "Pinterest Link";
         break;
       default:
         break;
@@ -108,6 +120,7 @@ export class SocialLinksComponent implements OnInit {
     this.userProfileInfo.socialLinkType = this.mapSocialLinkLegends(this.postLayoutType);
     this.commonService.UpdateUserSocialLinkInfo(this.userProfileInfo)
       .subscribe(res => {
+        this.postLayoutType = '';
         this.authenticationService.socialLinksByUserId(this.displayDataProfile.UserId)
           .subscribe(res => {
             this.socialIconsDetails = res;
@@ -132,14 +145,17 @@ export class SocialLinksComponent implements OnInit {
       case "fb":
         postLayoutType = 4;
         break;
-      case "gp":
+      case "lnk":
         postLayoutType = 5;
         break;
       case "sem":
         postLayoutType = 6;
         break;
-      case "ig":
+      case "ins":
         postLayoutType = 7;
+        break;
+      case "pin":
+        postLayoutType = 8;
         break;
       default:
         break;
@@ -148,10 +164,10 @@ export class SocialLinksComponent implements OnInit {
     return postLayoutType;
   }
 
-  enablecityedit(): void{
+  enablecityedit(): void {
     this.isCityInEditMode = true;
   }
-  enableoccupationedit(): void{
+  enableoccupationedit(): void {
     this.isOccupationInEditMode = true;
   }
 
@@ -163,7 +179,7 @@ export class SocialLinksComponent implements OnInit {
       userAboutInfoBO.UserId = this.displayDataProfile.UserId;
       this.profileInfoService.updateusercityvalue(userAboutInfoBO)
         .subscribe(res => {
-          if(res){
+          if (res) {
             this.commonService.profileData.next(true);
           }
         }, error => {
@@ -180,7 +196,7 @@ export class SocialLinksComponent implements OnInit {
       userAboutInfoBO.UserId = this.displayDataProfile.UserId;
       this.profileInfoService.updateuseroccupationvalue(userAboutInfoBO)
         .subscribe(res => {
-          if(res){
+          if (res) {
             this.commonService.profileData.next(true);
           }
         }, error => {
@@ -189,12 +205,12 @@ export class SocialLinksComponent implements OnInit {
     }
   }
 
-  oncitycancel(){
+  oncitycancel() {
     this.isCityInEditMode = false;
   }
-  onoccupationcancel(){
+  onoccupationcancel() {
     this.isOccupationInEditMode = false;
   }
-  
+
 
 }

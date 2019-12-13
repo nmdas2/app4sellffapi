@@ -1,3 +1,4 @@
+import { SignalRService } from './../../_services/signal-r.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
 import { ProfileInfo } from 'src/app/_models/profileinfo';
@@ -21,7 +22,8 @@ export class MessageComponent implements OnInit {
   constructor(private profileInfoService: ProfileinfoService,
     private router: Router,
     private modalService: BsModalService,
-    private commonService: CommonService) { }
+    private commonService: CommonService,
+    private signalRService:SignalRService) { }
 
   ngOnInit() {
     if (localStorage.getItem('currentUser') != null) {
@@ -34,6 +36,22 @@ export class MessageComponent implements OnInit {
     
     }
     this.getAllUserMessages();
+
+    this.commonService.userMessages$.subscribe(res => {     
+      let userId = 0;
+      if (localStorage.getItem('currentUser')) {
+        userId = JSON.parse(localStorage.getItem('currentUser')).UserId;
+
+      }
+      if (localStorage.getItem('profileviewUser')) {
+        userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
+
+      }
+      
+      if (userId == res.userId) {
+        this.userMessages = res
+      }
+    });
   }
 
   getAllUserMessages() {
@@ -73,6 +91,8 @@ export class MessageComponent implements OnInit {
         .subscribe(res => {
           this.isSubmitted = false;
           this.userMsg = "";
+          this.signalRService.SendUserUnReadMessagesCount(messageInfo.userRefId);
+          this.signalRService.SendUserMessagesInfo(messageInfo.userRefId);
           // this.successMsg = "Your message has been submitted successfully";
           // setTimeout(() => {
           //   this.successMsg = "";

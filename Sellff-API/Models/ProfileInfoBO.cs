@@ -57,6 +57,8 @@ namespace Sellff_API.Models
         [DataMember]
         public string GooglePlusLink { get; set; }
         [DataMember]
+        public string PinInterestLink { get; set; }
+        [DataMember]
         public string SocialEmail { get; set; }
         [DataMember]
         public int Views { get; set; }

@@ -25,6 +25,7 @@ export class SignalRService {
     this.GetUserPostInfo();
     this.GetUserReviewInfo();
     this.GetUserUnReadMessagesCount();
+    this.GetUserMessagesInfo();
     // this.GetUserInvestmentInfo();
     // call the connecion start method to start the connection to send and receive events.  
     this.startConnection();
@@ -34,23 +35,18 @@ export class SignalRService {
   private startConnection(): void {
     this.connection.start().done((data: any) => {
       console.log('Now connected ' + data.transport.name + ', connection ID= ' + data.id);
-      //this.connectionEstablished.emit(true);
-      //this.connectionExists = true;
     }).fail((error: any) => {
       console.log('Could not connect ' + error);
-      //this.connectionEstablished.emit(false);
     });
   }
   // method to hit from client  
   public SendUserNotificationInfo(userId: number) {
-    //this.startConnection();
-    // server side hub method using proxy.invoke with method name pass as param  
+    //this.startConnection(); 
     this.proxy.invoke('GetUserNotification', userId);
   }
 
   private GetUserNotificationInfo(): void {
     this.proxy.on('SetUserNotification', (data: ProfileInfo) => {
-      console.log('received in SignalRService: ' + JSON.stringify(data));
       this.ngZone.run(() => this.commonService.userNotifications.next(data));
       // this.messageReceived.emit(data);
     });
@@ -58,16 +54,13 @@ export class SignalRService {
 
   // method to hit from client  
   public SendUserPostInfo(userId: number) {
-    //this.startConnection();
     // server side hub method using proxy.invoke with method name pass as param  
     this.proxy.invoke('GetUserPosts', userId);
   }
 
   private GetUserPostInfo(): void {
     this.proxy.on('SetUserPosts', (data: ProfileInfo) => {
-      console.log('received in SignalRService: ' + JSON.stringify(data));
       this.ngZone.run(() =>this.commonService.userPosts.next(data));
-      // this.messageReceived.emit(data);
     });
   }
 
@@ -79,7 +72,6 @@ export class SignalRService {
 
   private GetUserReviewInfo(): void {
     this.proxy.on('SetUserReview', (data: ProfileInfo) => {
-      // console.log('received in SignalRService: ' + JSON.stringify(data));
       this.ngZone.run(() =>this.commonService.userReviews.next(data));
       // this.messageReceived.emit(data);
     });
@@ -93,8 +85,7 @@ export class SignalRService {
 
   private GetUserInvestmentInfo(): void {
     this.proxy.on('SetUserInvestmentDetails', (data: any) => {
-      // console.log('received in SignalRService: ' + JSON.stringify(data));
-      this.commonService.userInvestments.next(data);
+      this.ngZone.run(() => this.commonService.userInvestments.next(data));
     });
   }
 
@@ -105,9 +96,26 @@ export class SignalRService {
   }
 
   private GetUserUnReadMessagesCount(): void {
-    this.proxy.on('SetUserUnReadMessagesCount', (data: any) => {
-      // console.log('received in SignalRService: ' + JSON.stringify(data));
-      this.commonService.userInvestments.next(data);
+    this.proxy.on('SetUserUnReadMessagesCount', (userId:any,data: any) => {     
+      let msgData = {
+        userId: userId,
+        msgUnReadCount:data
+      }
+      this.ngZone.run(() => this.commonService.userUnReadMessagesCount.next(msgData));
+    });
+  }
+
+  // method to hit from client  
+  public SendUserMessagesInfo(userId: number) {
+    // server side hub method using proxy.invoke with method name pass as param  
+    this.proxy.invoke('GetUserMessages', userId);
+  }
+
+  private GetUserMessagesInfo(): void {
+    this.proxy.on('SetUserMessages', (userId: any,data: any) => {      
+      console.log('received in SignalRService: ' + JSON.stringify(userId,data));
+      data.userId = userId;
+      this.ngZone.run(() => this.commonService.userMessages.next(data));
     });
   }
 
