@@ -14,13 +14,14 @@ import { StockChart } from 'angular-highcharts';
 })
 export class InvestComponent implements OnInit {
 loading:boolean= false;
-  showBuySell: boolean; askPrice: number; buyPrice: number;
+  showBuySell: boolean; askPrice: number; buyPrice: number; DefaultMsgCss: string = "alert tradestaus";
   loggedInUser: ProfileInfo; profileInfo: ProfileInfo; dataDisplayProfile: ProfileInfo;
   buyShares: number = consts.BuyShares; pricechangeinnegitive: boolean = false;
   sellShares: number = consts.SellShares; profitlossinnegitive: boolean = false;
-  buySharesStr: string; sellSharesStr: string; crntshrs: number;
+  buySharesStr: string; sellSharesStr: string; crntshrs: number; defaultMsg: string = "trade status: ready";
   userTransactionDetails: UserTransaction; UserProfileChangeValsForPercentageCalc: UserTransaction;
   successMsg: string = ""; errorMsg: string = ""; stock: StockChart; valnumbers: (Date | number)[][];
+  displayMgs: string = "trade status: ready";
   constructor(
     private profileService: ProfileinfoService,
     private router: Router,
@@ -64,7 +65,7 @@ loading:boolean= false;
         graphData.push([sc.DayDate,sc.SharePriceValue]);
       };
       this.loading=true;
-      console.log(graphData);
+      //console.log(graphData);
       this.stock = new StockChart({ 
         rangeSelector: {
           selected: 1
@@ -100,8 +101,8 @@ loading:boolean= false;
     else {
       profileId = this.loggedInUser.UserId;
     }
-    console.log("loggedInUser: "+this.loggedInUser.UserId)
-    console.log("dataDisplayProfile: "+this.dataDisplayProfile.UserId)
+    // console.log("loggedInUser: "+this.loggedInUser.UserId)
+    // console.log("dataDisplayProfile: "+this.dataDisplayProfile.UserId)
     this.profileService.getUserProfileDetailsByUserIdNUserProfileId(this.loggedInUser.UserId, this.dataDisplayProfile.UserId)
       .subscribe(res => {
         this.userTransactionDetails = res
@@ -133,22 +134,25 @@ loading:boolean= false;
     obj.BuySellQty = type == 2 ? this.buyShares : type == 1 ? this.sellShares : 0;
     this.profileService.saveUserBuySellTransactionDetails(obj)
     .subscribe(res => {
+      this.DefaultMsgCss = "alert tradestaussuccess";
       if ( type == 1) {
-        this.successMsg = `trade completed: sell ${this.sellSharesStr} shares at ${this.askPrice}`;
+        this.displayMgs = `trade completed: sell ${this.sellSharesStr} shares at ${this.askPrice}`;        
       }
       if ( type == 2) {
-        this.successMsg = `trade completed: buy ${this.buySharesStr} shares at ${this.buyPrice}`;
+        this.displayMgs = `trade completed: buy ${this.buySharesStr} shares at ${this.buyPrice}`;
       }
 
       this.BindDefaultValues();
       this.commonService.socialAndHeaderWidgetsTracker.next(true);
       setTimeout(() => {
-        this.successMsg = ''
+        this.displayMgs = this.defaultMsg;
+        this.DefaultMsgCss = "alert tradestaus";
       }, 10000)
     }, error =>{
       this.errorMsg = 'Something went wrong';
       setTimeout(() => {
-        this.errorMsg = ''
+        this.displayMgs = this.defaultMsg;
+        this.DefaultMsgCss = "alert tradestaus";
       }, 10000)
     })
   }

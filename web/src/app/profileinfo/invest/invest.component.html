@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 text-right">sellff market exchnage opne 24 x 7x 365|new trading day starts @ 12am pacific time</div>
+                <div class="col-md-12 text-right">sellff market exchnage open 24 x 7x 365|new trading day starts @ 12am pacific time</div>
             </div>
             <hr class="custom-hr" style="margin-top:10px" />
             <div class="row">
@@ -69,10 +69,10 @@
                                 <label class="text-left col-sm-5">shares owned</label>
                                 <label class="text-right col-sm-7">{{userTransactionDetails.PurchasedShareQty | number}}</label>
                             </div>
-                            <!-- <div class="form-group">
-                                <label class="text-left col-sm-5">total invested</label>
-                                <label class="text-right col-sm-7"></label>
-                            </div> -->
+                            <div class="form-group">
+                                <label class="text-left col-sm-5">$ total invested</label>
+                                <label class="text-right col-sm-7">{{userTransactionDetails.TotalInvested | number}}</label>
+                            </div>
                             <div class="form-group">
                                 <label class="text-left col-sm-5">$ profit [loss]</label>
                                 <label class="text-right col-sm-7"><b class="{{userTransactionDetails.profitlosscolor}}"><span *ngIf="profitlossinnegitive">(</span>${{userTransactionDetails.ProfitRLoss | number:'1.4-4'}}<span *ngIf="profitlossinnegitive">)</span></b></label>
@@ -89,10 +89,10 @@
                     <div class="box">
                         <div class="box-center">
                             <!-- <h3 class="title-border">Select buy or sell to make a trade</h3> -->
-                            <div class="alert tradestaus">
-                                trade status: ready
+                            <div [ngClass]="DefaultMsgCss">
+                                {{displayMgs}}
                             </div>
-                            <div *ngIf="successMsg" class="mb-3 mt-3" style="padding-top: 8px;">
+                            <!-- <div *ngIf="successMsg" class="mb-3 mt-3" style="padding-top: 8px;">
                                 <alert type="success">
                                     {{successMsg}}
                                 </alert>
@@ -101,7 +101,7 @@
                                 <alert type="danger">
                                     {{errorMsg}}
                                 </alert>
-                            </div>
+                            </div> -->
                             <div class="row">                                
                                 <div class="col-sm-6">
                                     <button class="btn btn-success button-large" (click)="saveUserBuySellTransactionDetails(2)"><div class="larget-text">{{buyPrice | number:'1.4-4'}}</div> Buy {{buySharesStr}} shares</button>

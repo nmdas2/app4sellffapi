@@ -34,5 +34,5 @@ export interface UserTransaction{
     //    UserProfileId - profile Id
     //    BuySellQty
     LastDayClosePrice: number;
-
+    TotalInvested?: number;
 }

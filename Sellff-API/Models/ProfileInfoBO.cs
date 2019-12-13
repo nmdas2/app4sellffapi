@@ -394,6 +394,8 @@ namespace Sellff_API.Models
         public bool pricechangeinnegitive { get; set; } = false;
         [DataMember]
         public decimal LastDayClosePrice { get; set; }
+        [DataMember]
+        public decimal TotalInvested { get; set; }
     }
 
     public class UserShareDetailsBO

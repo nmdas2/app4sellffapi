@@ -356,6 +356,7 @@ namespace Sellff_API.ADO
                     objResponseBO.TotalValueAtPurchasedPrice = Convert.ToDecimal(objDataRow["TotalValueAtPurchasedPrice"]);
                     objResponseBO.LastDayClosePrice = Convert.ToDecimal(objDataRow["LastTradePrice"]);
                     objResponseBO.TotalPurchasedShareQty = Convert.ToInt32(objDataRow["TotalPurchasedShareQty"]);
+                    objResponseBO.TotalInvested = Convert.ToInt32(objDataRow["TotalValueAtPurchasedPrice"]);
                     //objResponseBO.TotalPurchasedShareQty = Convert.ToInt32(objDataRow["InitialShareQty"]) - Convert.ToInt32(objDataRow["AvailableShareQty"]);
                     //objResponseBO.MarketCap = Convert.ToDecimal(objResponseBO.TotalPurchasedShareQty * objResponseBO.LastTradeSharePrice);
                     objResponseBO.MarketCap = Convert.ToDecimal(objDataRow["MarketCap"]);
