@@ -10,7 +10,6 @@ import { ProfileInfo } from './_models/profileinfo';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { createOfflineCompileUrlResolver } from '@angular/compiler';
-import { SignalRService } from './_services/signal-r.service';
 import { ProfileinfoService } from './_services/profileinfo.service';
 import { BnNgIdleService } from 'bn-ng-idle';
 
