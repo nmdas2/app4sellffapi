@@ -91,6 +91,7 @@ export class MessageComponent implements OnInit {
         .subscribe(res => {
           this.isSubmitted = false;
           this.userMsg = "";
+          debugger;
           this.signalRService.SendUserUnReadMessagesCount(messageInfo.userRefId);
           this.signalRService.SendUserMessagesInfo(messageInfo.userRefId);
           // this.successMsg = "Your message has been submitted successfully";

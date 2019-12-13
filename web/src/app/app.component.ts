@@ -202,10 +202,6 @@ export class AppComponent implements OnInit, OnDestroy {
         userId = JSON.parse(localStorage.getItem('currentUser')).UserId;
 
       }
-      if (localStorage.getItem('profileviewUser')) {
-        userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
-
-      }
       
       if (userId == msgCountData.userId) {
         this.unReadMsgsCount = msgCountData.msgUnReadCount;

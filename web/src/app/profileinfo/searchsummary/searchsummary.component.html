@@ -17,7 +17,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let reslt of tempSearchResults">
-                                <td><img class="image-cover" src="{{reslt.ProfilePicPath}}" width="85%"></td>
+                                <td><img src="{{reslt.ProfilePicPath}}" width="85%"></td>
                                 <td><a style="cursor: pointer;" (click)=openotherprofile(reslt)>{{reslt.DisplayName}}</a></td>
                                 <td>{{reslt.City}}</td>
                                 <td>{{reslt.Occupation}}</td>

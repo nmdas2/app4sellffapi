@@ -46,7 +46,9 @@ export class ReviewComponent implements OnInit {
     if (this.loggedInUserInfo) { this.loggedInUserId = this.loggedInUserInfo.UserId }
     this.getUserReviews(this.dataDisplayProfile.UserId, this.loggedInUserId);
     this.FilterListForCurrentuserRating(this.dataDisplayProfile.UserId);
+
     this.commonService.userReviews$.subscribe((res: any) => {
+        this.FilterListForCurrentuserRating(res.UserId);
         if (res && res.length)
           this.userReviews = res;
         if(this.userReviews && this.userReviews.length > 0)
@@ -55,6 +57,7 @@ export class ReviewComponent implements OnInit {
         console.log(error);
       })
   }
+
   FilterListForCurrentuserRating(idToGetReviews: number) {
     this.profileInfoService.GetCurrentUserRatingById(idToGetReviews)
       .subscribe((res: any) => {

@@ -96,7 +96,7 @@ export class SignalRService {
   }
 
   private GetUserUnReadMessagesCount(): void {
-    this.proxy.on('SetUserUnReadMessagesCount', (userId:any,data: any) => {     
+    this.proxy.on('SetUserUnReadMessagesCount', (userId:any,data: any) => {   
       let msgData = {
         userId: userId,
         msgUnReadCount:data
@@ -113,7 +113,6 @@ export class SignalRService {
 
   private GetUserMessagesInfo(): void {
     this.proxy.on('SetUserMessages', (userId: any,data: any) => {      
-      console.log('received in SignalRService: ' + JSON.stringify(userId,data));
       data.userId = userId;
       this.ngZone.run(() => this.commonService.userMessages.next(data));
     });
