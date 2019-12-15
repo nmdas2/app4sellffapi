@@ -1,75 +1,54 @@
-ul {
-    columns: 3;
-    -webkit-columns: 3;
-    -moz-columns: 3;
-}
-
-ul li {
-    list-style: none;
-    padding: 10px;
-}
-
 .success-msg {
     font-size: 16px;
     color: #d4edda;
     margin-bottom: 10px;
 }
-
 .error-msg {
     font-size: 16px;
     color: red;
     margin-bottom: 10px;
 }
-
 .align-middle {
     margin-top: auto!important;
     margin-bottom: auto!important;
 }
-
-td {
-    border: 1px solid;
+.service{
+    border: 1px dotted #9b9b9b;
+    position: relative;
+    padding: 3px 10px;
+    min-height: 45px;
+    margin:10px 5px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    font-size: 16px;
+    -ms-flex-align: center!important;
+    align-items: center!important;
+}
+.service-link {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    color: #444;
     text-align: center;
-    font-size: 18px;
 }
-
-.inner__ td {
-    width: 192px;
-    padding: 5px;
-    border: none;
-    text-align: left;
-}
-
-tr {
-    border: 1px solid;
-}
-
-tr td input {
-    border: none;
-    width: 100%;
-}
-.inner__ tr td div{
-    border:1px dotted #9b9b9b;
-    height: 35px;
-}
-.inner__ tr td div { position: relative; }
-.inner__ tr td div a{ padding-left:10px; }
 .servicecount { 
-    position: absolute; 
-    right: 0;
-    bottom: 25px;
-    border: 1px solid  #D3D3D3;
-    height: 20px;
-    width: 50px; 
-    background:#D3D3D3;
-    font-size: 14px;
+    position: absolute;
+    right: -1px;
+    top: -7px;
+    border: 1px solid #D3D3D3;
+    min-width: 35px;
+    background: #D3D3D3;
+    font-size: 12px;
     text-align: center;
+    line-height: normal;
 }
 .servicetrash{
     position: absolute; 
-    right: 0;
-    top: 12px;
-}
-.service{
-    text-align: center;
-    white-space: nowrap;
+    right: -2px;
+    bottom: -5px;
+    color:#444;
 }
