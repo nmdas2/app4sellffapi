@@ -127,18 +127,24 @@
                                 </div>
                                 <div class="review-date">{{review.CreatedOn}}</div>
                                 <div class="reviewcontenttextdisplay">
-                                    <p class="font-fjalla-one review-des text-initial" *ngIf="!show">
-                                        {{review.ReviewContent | slice : 0:195 }} <span *ngIf="review.ReviewContent.length > 195">...</span></p>
-                                    <p class="font-fjalla-one review-des text-initial" *ngIf="show">
-                                        {{review.ReviewContent }}</p>
+                                    <p class="font-fjalla-one review-des text-initial">
+                                        <span *ngIf="!show">
+                                            {{review.ReviewContent | slice : 0:195 }} <span
+                                                *ngIf="review.ReviewContent.length > 195">... </span></span>
+                                        <span *ngIf="show">
+                                            {{review.ReviewContent }}</span>
+                                        <button *ngIf="review.ReviewContent.length > 195" class="btn btn-link"
+                                            (click)="show = !show">[{{ show ? 'less': 'more' }}]</button>
+                                    </p>
                                 </div>
-                                <button *ngIf="review.ReviewContent.length > 195" class="btn btn-link" (click)="show = !show">{{ show ? 'less': 'more' }}</button>
+
 
                                 <!-- <button ng-click="show = true">more</button> -->
                                 <button class="btn btn-primary btn-xs" [disabled]="review.HelpId"
                                     (click)="sayhelpful(review)"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
                                     <span *ngIf="review.helpful" style="margin-left: 5px;">
                                         ({{ review.helpful }})</span></button>
+
                             </div>
                         </div>
                     </div>
@@ -218,7 +224,8 @@
                                     <div class="text-right">
                                         <button class="btn btn-custom" style="margin-right:10px;" type="reset"
                                             (click)="onReset()">Cancel</button>
-                                        <button class="btn btn-primary" [disabled]="disablebutton">Submit Review</button>
+                                        <button class="btn btn-primary" [disabled]="disablebutton">Submit
+                                            Review</button>
                                     </div>
                                 </form>
                             </div>

@@ -2,13 +2,26 @@
     padding-right: 10px;
 }
 .msgdetail{
-    max-height: 60vh !important;
+    max-height: 58vh !important;
     overflow-y: auto;
     overflow-x: hidden;
-    padding-right: 5px
+    padding-right: 5px;
+    margin-bottom: 10px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column-reverse!important;
+    flex-direction: column-reverse!important;
+}
+.full-reverse {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
 }
 .max-msg-scroll {
     padding-right: 5px;
     max-height: 74vh;
     overflow-y: auto;
+}
+.messge-detail-list label {
+    font-size: 12px;
 }
