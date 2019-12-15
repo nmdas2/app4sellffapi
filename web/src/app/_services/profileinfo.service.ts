@@ -47,7 +47,8 @@ export class ProfileinfoService {
     return this.http.get<searchRes[]>(`${consts.DomainURL}ProfileInfo/GetSummaryResults?parttext=${parttext}`, { headers: reqHeader });
   }
   getUserProfileByURLString(UrlString: string) {
-    return this.http.get<searchRes>(`${consts.DomainURL}ProfileInfo/getUserProfileByURLString/${UrlString}`);
+    var reqHeader = new HttpHeaders({'No-Auth':'True'});
+    return this.http.get<searchRes>(`${consts.DomainURL}ProfileInfo/getUserProfileByURLString/${UrlString}`, { headers: reqHeader });
   }
 
   getAllUsersMessages(userId: number): Observable<any>{

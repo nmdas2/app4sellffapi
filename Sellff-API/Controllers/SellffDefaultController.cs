@@ -135,7 +135,7 @@ namespace Sellff_API.Controllers
         /// This method will Get all the users invited by UserId
         ///</summary>
         /// <param name="UserId"></param>
-        [HttpGet, Route("api/SellffDefault/SocialLinksByUserId/{UserId}")]
+        [HttpGet,AllowAnonymous,Route("api/SellffDefault/SocialLinksByUserId/{UserId}")]
         public IHttpActionResult SocialLinksByUserId(int UserId)
         {
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.SocialLinksByUserId(UserId)));

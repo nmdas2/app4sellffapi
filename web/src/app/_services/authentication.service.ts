@@ -64,7 +64,8 @@ export class AuthenticationService {
         this.currentUserSubject.next(null);
     }
     socialLinksByUserId(userId: number): Observable<ProfileInfo> {
-        return this.http.get<ProfileInfo>(`${consts.DomainURL}SellffDefault/SocialLinksByUserId/${userId}`);
+        var reqHeader = new HttpHeaders({'No-Auth':'True'});
+        return this.http.get<ProfileInfo>(`${consts.DomainURL}SellffDefault/SocialLinksByUserId/${userId}`, { headers: reqHeader });
     }
     headerWidgetsCountByUserId(userId: number): Observable<ProfileInfo> {
         var reqHeader = new HttpHeaders({'No-Auth':'True'});
