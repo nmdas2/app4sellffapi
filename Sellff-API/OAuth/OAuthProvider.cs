@@ -1,15 +1,12 @@
-﻿using Microsoft.Owin.Security.OAuth;
+﻿using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.OAuth;
 using Sellff_API.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 
-namespace Sellff_API
+namespace Sellff_API.OAuth
 {
-    public class OAuthProvider:OAuthAuthorizationServerProvider
+    public class OAuthProvider : OAuthAuthorizationServerProvider
     {
         /// <summary>
         /// This method validates the client device
@@ -30,7 +27,7 @@ namespace Sellff_API
                 user == null)
             {
                 context.Rejected();
-                context.SetError("invalid_grant", "The user name or password is incorrect.");              
+                context.SetError("invalid_grant", "The user name or password is incorrect.");
             }
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
@@ -38,5 +35,6 @@ namespace Sellff_API
             identity.AddClaim(new Claim("username", user.DisplayName));
             context.Validated(identity);
         }
+
     }
 }

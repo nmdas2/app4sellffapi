@@ -3,7 +3,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
+using Sellff_API.OAuth;
 using System;
+using System.Configuration;
 
 [assembly: OwinStartup(typeof(Sellff_API.Startup))]
 
@@ -25,8 +27,9 @@ namespace Sellff_API
             {
                 TokenEndpointPath = new PathString("/token"),
                 Provider = new OAuthProvider(),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(720),
-                AllowInsecureHttp = true
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(Convert.ToInt32(ConfigurationManager.AppSettings["TokenExpiry"])),
+                AllowInsecureHttp = true,
+                RefreshTokenProvider = new OAuthRefreshTokenProvider()
             };
 
             app.UseOAuthAuthorizationServer(option);

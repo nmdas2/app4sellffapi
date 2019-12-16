@@ -166,7 +166,6 @@
   <ItemGroup>
     <Compile Include="ADO\ProfileInfoDAO.cs" />
     <Compile Include="ADO\SellffDefaultDAO.cs" />
-    <Compile Include="OAuthProvider.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -210,6 +209,8 @@
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Models\AuthenticationBO.cs" />
     <Compile Include="Models\ProfileInfoBO.cs" />
+    <Compile Include="OAuth\OAuthProvider.cs" />
+    <Compile Include="OAuth\OAuthRefreshTokenProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ProfileInfoService.cs" />
     <Compile Include="Services\SellffDefaultService.cs" />
