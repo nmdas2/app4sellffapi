@@ -197,7 +197,7 @@ namespace Sellff_API.Services
             return objProfileInfoDAO.RemoveUserServiceByType(objUserServiceTypesBO);
         }
 
-        public bool SaveUserBuySellTransactionDetails(UserTransactionsBO objUserTransactionsBO)
+        public string SaveUserBuySellTransactionDetails(UserTransactionsBO objUserTransactionsBO)
         {
             return objProfileInfoDAO.SaveUserBuySellTransactionDetails(objUserTransactionsBO);
         }

@@ -390,9 +390,9 @@ namespace Sellff_API.ADO
             return objResponseBO;
         }
 
-        public bool SaveUserBuySellTransactionDetails(UserTransactionsBO objUserTransactionsBO)
+        public string SaveUserBuySellTransactionDetails(UserTransactionsBO objUserTransactionsBO)
         {
-            bool result = true;
+            string result = "";
             try
             {
                 var sqlParams = new SqlParameter[4];
@@ -400,11 +400,11 @@ namespace Sellff_API.ADO
                 sqlParams[1] = new SqlParameter("@UserId", SqlDbType.Int) { Value = objUserTransactionsBO.UserId };
                 sqlParams[2] = new SqlParameter("@Qty", SqlDbType.Int) { Value = objUserTransactionsBO.BuySellQty };
                 sqlParams[3] = new SqlParameter("@ActionType", SqlDbType.Int) { Value = objUserTransactionsBO.BuySellActionType };
-                SqlHelper.SqlHelper.ExecuteNonQuery(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "SaveUserTransactionDetails", sqlParams);
+                result = Convert.ToString(SqlHelper.SqlHelper.ExecuteScalar(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "SaveUserTransactionDetails", sqlParams));
             }
             catch (Exception ex)
             {
-                result = false;
+                result = "Error occured during transaction. Please try after some time.";
                 log4netlogger.Error(ex);
             }
             return result;

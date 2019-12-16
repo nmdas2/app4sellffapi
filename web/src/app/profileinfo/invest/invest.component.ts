@@ -134,14 +134,22 @@ loading:boolean= false;
     obj.BuySellQty = type == 2 ? this.buyShares : type == 1 ? this.sellShares : 0;
     this.profileService.saveUserBuySellTransactionDetails(obj)
     .subscribe(res => {
-      this.DefaultMsgCss = "alert tradestaussuccess";
-      if ( type == 1) {
-        this.displayMgs = `trade completed: sell ${this.sellSharesStr} shares at ${this.askPrice}`;        
+      console.log(res);
+      if(res != "")
+      {
+        this.DefaultMsgCss = "alert tradestausfail";
+        this.displayMgs = res;
       }
-      if ( type == 2) {
-        this.displayMgs = `trade completed: buy ${this.buySharesStr} shares at ${this.buyPrice}`;
+      else
+      {
+        this.DefaultMsgCss = "alert tradestaussuccess";
+        if ( type == 1) {
+          this.displayMgs = `trade completed: sell ${this.sellSharesStr} shares at ${this.askPrice}`;        
+        }
+        if ( type == 2) {
+          this.displayMgs = `trade completed: buy ${this.buySharesStr} shares at ${this.buyPrice}`;
+        }
       }
-
       this.BindDefaultValues();
       this.commonService.socialAndHeaderWidgetsTracker.next(true);
       setTimeout(() => {
