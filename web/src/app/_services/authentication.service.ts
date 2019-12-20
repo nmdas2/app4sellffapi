@@ -32,9 +32,7 @@ export class AuthenticationService {
         var reqHeader = new HttpHeaders({'No-Auth':'True','Content-type': 'application/x-www-urlencoded' });
         return this.http.post(`${consts.TokenURL}`, data, { headers: reqHeader });
     }
-    refreshToken(){
-        
-    }
+    
     login(user: ProfileInfo) {
         return this.http.post<any>(`${consts.DomainURL}SellffDefault/AuthenticateSellffUserInfo`, user)
             .pipe(map(user => {
