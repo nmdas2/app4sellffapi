@@ -13,15 +13,14 @@ export class UserNotificationsComponent implements OnInit {
 
   ngOnInit() {    
     this.commonService.userNotifications$.subscribe(res => {
-      let userId = 0;
+      let currentUserId = 0, profileViewUserId=0;
       if (localStorage.getItem('currentUser')) {        
-        userId = JSON.parse(localStorage.getItem('currentUser')).UserId;
+        currentUserId = JSON.parse(localStorage.getItem('currentUser')).UserId;
       }
       if (localStorage.getItem('profileviewUser')) {        
-        userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
-      }
-      if (userId == res.UserId) {
-        console.log(res);
+        profileViewUserId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
+      }     
+      if (currentUserId == res.UserId || profileViewUserId == res.UserId) {
         this.notificationData = res;
       }
       

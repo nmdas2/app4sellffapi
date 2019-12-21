@@ -17,7 +17,7 @@ import { SignalRService } from 'src/app/_services/signal-r.service';
   styleUrls: ['./review.component.scss']
 })
 export class ReviewComponent implements OnInit {
-  
+
   ratefive: number = 0;
   max = 5; rate = 0; communicationRate = 0; QOWRate = 0; isReadonly = false; overStar: number | undefined; percent: number;
   ViewUserInfo: User; modalRef: BsModalRef; loggedInUserInfo: ProfileInfo; ratingGivenTo: number; reviewUserForm: FormGroup
@@ -27,7 +27,7 @@ export class ReviewComponent implements OnInit {
   isValidRating: boolean = false; show = false;
   dismissible = true;
   timeOut = 30000;
-  disablebutton:boolean = false;
+  disablebutton: boolean = false;
   constructor(
     private profileInfoService: ProfileinfoService,
     private formBuilder: FormBuilder,
@@ -45,39 +45,67 @@ export class ReviewComponent implements OnInit {
     });
     if (this.loggedInUserInfo) { this.loggedInUserId = this.loggedInUserInfo.UserId }
     this.getUserReviews(this.dataDisplayProfile.UserId, this.loggedInUserId);
-    this.FilterListForCurrentuserRating(this.dataDisplayProfile.UserId);
+    this.GetUserRatingByUserId(this.dataDisplayProfile.UserId);
 
     this.commonService.userReviews$.subscribe((res: any) => {
-        this.FilterListForCurrentuserRating(res.UserId);
-        if (res && res.length)
-          this.userReviews = res;
-        if(this.userReviews && this.userReviews.length > 0)
+      let currentUserId = 0, profileViewUserId = 0;
+      if (localStorage.getItem('currentUser')) {
+        currentUserId = JSON.parse(localStorage.getItem('currentUser')).UserId;
+      }
+      if (localStorage.getItem('profileviewUser')) {
+        profileViewUserId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
+      }
+      if ((res && res.length) && (currentUserId == res[0].ProfileUserId || profileViewUserId == res[0].ProfileUserId)) {
+        this.userReviews = res;
+        if (this.userReviews && this.userReviews.length > 0) {
           this.reviewAlreadyGiven = this.userReviews[0].ReviewAlreadyGiven;
+        }
+      }
+    }, error => {
+      console.log(error);
+    });
+
+    this.commonService.userReviewRatings$.subscribe((res: any) => {
+      let currentUserId = 0, profileViewUserId = 0;
+      if (localStorage.getItem('currentUser')) {
+        currentUserId = JSON.parse(localStorage.getItem('currentUser')).UserId;
+      }
+      if (localStorage.getItem('profileviewUser')) {
+        profileViewUserId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
+      }
+      if (currentUserId == res.ProfileUserId || profileViewUserId == res.ProfileUserId) {       
+        this.FilterListForCurrentuserRating(res);
+      }
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  FilterListForCurrentuserRating(res: Review) {
+    this.currentRating = res;
+    this.totalRatings = this.currentRating.Starts5 + this.currentRating.Starts4 + this.currentRating.Starts3 + this.currentRating.Starts2 + this.currentRating.Starts1
+    this.ratefive = this.currentRating.TotalRatingsCount;
+    if (this.currentRating.Starts5 > 0)
+      this.percentage5 = (this.currentRating.Starts5 / this.totalRatings) * 100;
+    if (this.currentRating.Starts4 > 0)
+      this.percentage4 = (this.currentRating.Starts4 / this.totalRatings) * 100;
+    if (this.currentRating.Starts3 > 0)
+      this.percentage3 = (this.currentRating.Starts3 / this.totalRatings) * 100;
+    if (this.currentRating.Starts2 > 0)
+      this.percentage2 = (this.currentRating.Starts2 / this.totalRatings) * 100;
+    if (this.currentRating.Starts1 > 0)
+      this.percentage1 = (this.currentRating.Starts1 / this.totalRatings) * 100;
+  }
+
+  GetUserRatingByUserId(idToGetReviews: number) {
+    this.profileInfoService.GetCurrentUserRatingById(idToGetReviews)
+      .subscribe((res: any) => {
+        this.FilterListForCurrentuserRating(res);
       }, error => {
         console.log(error);
       })
   }
 
-  FilterListForCurrentuserRating(idToGetReviews: number) {
-    this.profileInfoService.GetCurrentUserRatingById(idToGetReviews)
-      .subscribe((res: any) => {
-        this.currentRating = res;
-        this.totalRatings = this.currentRating.Starts5 + this.currentRating.Starts4 + this.currentRating.Starts3 + this.currentRating.Starts2 + this.currentRating.Starts1
-        this.ratefive = this.currentRating.TotalRatingsCount;
-        if(this.currentRating.Starts5 > 0) 
-          this.percentage5 = (this.currentRating.Starts5 / this.totalRatings)*100;
-        if(this.currentRating.Starts4 > 0) 
-          this.percentage4 = (this.currentRating.Starts4 / this.totalRatings)*100;
-        if(this.currentRating.Starts3 > 0) 
-          this.percentage3 = (this.currentRating.Starts3 / this.totalRatings)*100;
-        if(this.currentRating.Starts2 > 0) 
-          this.percentage2 = (this.currentRating.Starts2 / this.totalRatings)*100;
-        if(this.currentRating.Starts1 > 0) 
-          this.percentage1 = (this.currentRating.Starts1 / this.totalRatings)*100;
-      }, error => {
-        console.log(error);
-      })
-  }
   // convenience getter for easy access to form fields
   get f() { return this.reviewUserForm.controls; }
   openModal(template: TemplateRef<any>) {
@@ -107,12 +135,14 @@ export class ReviewComponent implements OnInit {
       Communication: this.communicationRate,
       QOW: this.QOWRate,
     };
+
     this.profileInfoService.SaveReview(postReview)
       .subscribe((res: any) => {
-        this._signalRService.SendUserNotificationInfo(this.dataDisplayProfile.UserId);
-        this._signalRService.SendUserReviewInfo(this.dataDisplayProfile.UserId,this.loggedInUserId);
         this.getUserReviews(this.dataDisplayProfile.UserId, this.loggedInUserId);
-        this.FilterListForCurrentuserRating(this.dataDisplayProfile.UserId);
+        this.GetUserRatingByUserId(this.dataDisplayProfile.UserId);
+        this._signalRService.SendUserNotificationInfo(this.dataDisplayProfile.UserId);
+        this._signalRService.SendUserReviewInfo(this.dataDisplayProfile.UserId, this.loggedInUserId);
+        this._signalRService.SendUserReviewRatingsInfo(this.dataDisplayProfile.UserId);
         this.onReset();
       }, error => {
         console.log(error);
@@ -123,7 +153,7 @@ export class ReviewComponent implements OnInit {
       .subscribe((res: any) => {
         if (res && res.length)
           this.userReviews = res;
-        if(this.userReviews && this.userReviews.length > 0)
+        if (this.userReviews && this.userReviews.length > 0)
           this.reviewAlreadyGiven = this.userReviews[0].ReviewAlreadyGiven;
       }, error => {
         console.log(error);
@@ -162,25 +192,25 @@ export class ReviewComponent implements OnInit {
     this.commonService.isProfileSelected.next(true);
     this.commonService.socialAndHeaderWidgetsTracker.next(true);
   }
-  sayhelpful(review: Review) { 
+  sayhelpful(review: Review) {
     this.commonService.loadingShow();
     let reviewObj = review;
     reviewObj.CreatedIP = '127.0.0.1';
     reviewObj.UserId = this.loggedInUserInfo.UserId;
     this.profileInfoService.updateHelpfulCount(reviewObj)
-    .subscribe(res => {
-      this.commonService.loadingHide();
-      this.getUserReviews(this.dataDisplayProfile.UserId, this.loggedInUserId);
-    }, error => {
-      this.commonService.loadingHide();
-    })
+      .subscribe(res => {
+        this.commonService.loadingHide();
+        this.getUserReviews(this.dataDisplayProfile.UserId, this.loggedInUserId);
+      }, error => {
+        this.commonService.loadingHide();
+      })
   }
   resetPostTextForm() { }
 
-  checkRating(): boolean{
-    
+  checkRating(): boolean {
+
     this.isValidRating = false;
-    if(this.rate > 0 && this.communicationRate > 0 && this.QOWRate > 0){
+    if (this.rate > 0 && this.communicationRate > 0 && this.QOWRate > 0) {
       this.isValidRating = true;
     }
 

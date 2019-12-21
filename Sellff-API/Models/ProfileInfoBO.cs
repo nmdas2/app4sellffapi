@@ -286,6 +286,10 @@ namespace Sellff_API.Models
         public int NoofRatingsGiven { get; set; }
         [DataMember]
         public bool HelpId { get; set; } = false;
+
+        // Gets or Sets the userid for the reviews
+        [DataMember]
+        public int ProfileUserId { get; set; }
     }
     public class UserLocalStorageBO
     {

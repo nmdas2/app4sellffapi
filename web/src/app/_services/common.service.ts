@@ -61,9 +61,19 @@ export class CommonService {
         return this.userReviews.asObservable();
     }
 
+    userReviewRatings = new BehaviorSubject<any>('')
+    get userReviewRatings$() {
+        return this.userReviewRatings.asObservable();
+    }
+
     userInvestments = new BehaviorSubject<any>('')
     get userInvetments$() {
         return this.userInvestments.asObservable();
+    }
+
+    userGraphInvestments = new BehaviorSubject<any>('')
+    get userGraphInvestments$() {
+        return this.userGraphInvestments.asObservable();
     }
 
     userUnReadMessagesCount = new BehaviorSubject<any>('')

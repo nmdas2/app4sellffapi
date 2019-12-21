@@ -445,6 +445,7 @@ namespace Sellff_API.ADO
                 if (_objDataSet.Tables[0].Rows.Count > 0)
                 {
                     var objDataRow = _objDataSet.Tables[0].Rows[0];
+                    objAuthenticationBO.UserId = UserId;
                     objAuthenticationBO.Views = Convert.ToInt32(objDataRow["Views"]);
                     objAuthenticationBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
                     objAuthenticationBO.Reviews = Convert.ToInt32(objDataRow["Reviews"]);

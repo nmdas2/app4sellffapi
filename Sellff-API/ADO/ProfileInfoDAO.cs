@@ -853,6 +853,7 @@ namespace Sellff_API.ADO
                     {
                         UserReviewBO objResponseBO = new UserReviewBO();
                         var objDataRow = _objDataSet.Tables[0].Rows[i];
+                        objResponseBO.ProfileUserId = UserId;
                         objResponseBO.ReviewId = Convert.ToInt32(objDataRow["AutoId"]);
                         objResponseBO.ReviewTitle = Convert.ToString(objDataRow["ReviewHeadline"]);
                         objResponseBO.ReviewContent = Convert.ToString(objDataRow["ReviewDetails"]);

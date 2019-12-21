@@ -30,11 +30,25 @@ namespace Sellff_API.Hubs
             Clients.All.SetUserReview(userData);
         }
 
+        public void GetUserReviewRatings(int userId)
+        {
+            ProfileInfoService objProfileInfoService = new ProfileInfoService();
+            var userData = objProfileInfoService.GetCurrentUserRatingById(userId);
+            Clients.All.SetUserReviewRatings(userData);
+        }
+
         public void GetUserInvestmentDetails(int userId, int profileId)
         {
             ProfileInfoService objProfileInfoService = new ProfileInfoService();
             var userData = objProfileInfoService.GetUserProfileDetailsByUserIdNUserProfileId(userId, profileId);
             Clients.All.SetUserInvestmentDetails(userData);
+        }
+        
+        public void GetUserGraphDetails(int userId)
+        {
+            ProfileInfoService objProfileInfoService = new ProfileInfoService();
+            var userData = objProfileInfoService.FindSharePriceValuesByUserId(userId);
+            Clients.All.SetUserGraphDetails(userData);
         }
 
         public void GetUserUnReadMessagesCount(int userId)

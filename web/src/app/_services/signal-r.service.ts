@@ -2,6 +2,7 @@ import { CommonService } from 'src/app/_services/common.service';
 import { Injectable, NgZone } from '@angular/core';
 import { ProfileInfo } from '../_models/profileinfo';
 import { constants as consts } from './../constants';
+import { UserShareDetailsBO } from './profileinfo.service';
 
 declare var $: any;
 @Injectable({
@@ -24,9 +25,11 @@ export class SignalRService {
     this.GetUserNotificationInfo();
     this.GetUserPostInfo();
     this.GetUserReviewInfo();
+    this.GetUserReviewRatingsInfo();
     this.GetUserUnReadMessagesCount();
     this.GetUserMessagesInfo();
-    // this.GetUserInvestmentInfo();
+    this.GetUserInvestmentInfo();
+    this.GetUserGraphInvestmentInfo();
     // call the connecion start method to start the connection to send and receive events.  
     this.startConnection();
 
@@ -71,8 +74,21 @@ export class SignalRService {
   }
 
   private GetUserReviewInfo(): void {
-    this.proxy.on('SetUserReview', (data: ProfileInfo) => {
+    this.proxy.on('SetUserReview', (data: any) => {
       this.ngZone.run(() =>this.commonService.userReviews.next(data));
+      // this.messageReceived.emit(data);
+    });
+  }
+
+   // method to hit from client  
+   public SendUserReviewRatingsInfo(userId: number) {
+    // server side hub method using proxy.invoke with method name pass as param  
+    this.proxy.invoke('GetUserReviewRatings', userId);
+  }
+
+  private GetUserReviewRatingsInfo(): void {
+    this.proxy.on('SetUserReviewRatings', (data: any) => {
+      this.ngZone.run(() =>this.commonService.userReviewRatings.next(data));
       // this.messageReceived.emit(data);
     });
   }
@@ -86,6 +102,18 @@ export class SignalRService {
   private GetUserInvestmentInfo(): void {
     this.proxy.on('SetUserInvestmentDetails', (data: any) => {
       this.ngZone.run(() => this.commonService.userInvestments.next(data));
+    });
+  }
+
+  // method to hit from client  
+  public SendUserGraphInvestmentInfo(userId: number) {
+    // server side hub method using proxy.invoke with method name pass as param  
+    this.proxy.invoke('GetUserGraphDetails', userId);
+  }
+
+  private GetUserGraphInvestmentInfo(): void {
+    this.proxy.on('SetUserGraphDetails', (data: UserShareDetailsBO[]) => {
+      this.ngZone.run(() => this.commonService.userGraphInvestments.next(data));
     });
   }
 
