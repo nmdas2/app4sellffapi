@@ -24,7 +24,7 @@ export class ReviewComponent implements OnInit {
   canReview: boolean = false; idToGetReviews: number; userReviews: Review[]; searchProfileUserId: number = 0; currentRating: Review;
   readonlyUserInfo: ProfileInfo; submitted = false; totalRatings: number = 0; dataDisplayProfile: ProfileInfo; reviewAlreadyGiven: boolean = false;
   loggedInUserId: number = 0; percentage5: number = 0; percentage4: number = 0; percentage3: number = 0; percentage2: number = 0; percentage1: number = 0;
-  isValidRating: boolean = false; show = false;
+  isValidRating: boolean = false;
   dismissible = true;
   timeOut = 30000;
   disablebutton: boolean = false;
