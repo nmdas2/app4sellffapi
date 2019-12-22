@@ -37,7 +37,8 @@
                                     <label class="text-right" *ngIf="message.MessageSentTime"><span *ngIf="message.IsMsgFromLoggedInUser">To {{message.MessageToName}} at: </span> {{message.MessageSentTime}}</label>
                                 </li>
                             </ul>
-                            <p *ngIf="message.Message">{{message.Message}}</p>
+                            <p *ngIf="message.Message">{{message.Message | slice : 0:195}}
+                            <span *ngIf="message.Message.length > 195">... </span> </p> 
                             </div>
                             </a>
                         </div>
