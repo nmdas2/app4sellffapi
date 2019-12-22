@@ -116,7 +116,7 @@
                 </div>
                 <div class="col-md-8">
                     <div class="box message-box review-main">
-                        <div class="c-review-box" *ngFor="let review of userReviews; let show=false;">
+                        <div class="c-review-box" *ngFor="let review of userReviews;">
                             <div class="review-details">
                                 <img src="{{review.ProfilePicPath}}" class="review-img">
                                 <a class="reviewtitle" href="javascript:void(0)"
@@ -128,13 +128,13 @@
                                 <div class="review-date">{{review.CreatedOn}}</div>
                                 <div class="reviewcontenttextdisplay">
                                     <p class="font-fjalla-one review-des text-initial">
-                                        <span *ngIf="!show">
+                                        <span *ngIf="!review.show">
                                             {{review.ReviewContent | slice : 0:195 }} <span
                                                 *ngIf="review.ReviewContent.length > 195">... </span></span>
-                                        <span *ngIf="show">
+                                        <span *ngIf="review.show">
                                             {{review.ReviewContent }}</span>
                                         <button *ngIf="review.ReviewContent.length > 195" class="btn btn-link"
-                                            (click)="show = !show">[{{ show ? 'less': 'more' }}]</button>
+                                            (click)="review.show = !review.show">[{{ review.show ? 'less': 'more' }}]</button>
                                     </p>
                                 </div>                               
                                 <button class="btn btn-primary btn-xs" [disabled]="review.HelpId"

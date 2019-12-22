@@ -6,7 +6,7 @@
                 <table class="table" style="border-spacing: 5px;">
                     <tr>
                         <td style="border: none;" colspan="2">
-                            <h5 class="f-20 no-margin-top"><u>Math: connect you with other member based on the services
+                            <h5 class="f-20 no-margin-top"><u>Match: connect you with other member based on the services
                                     that you offer or need.</u></h5>
                             <p class="accordian_menu after-empty no-margin-i"><span class="accordian_title">Services
                                     Offered</span></p>
@@ -25,20 +25,17 @@
                         <td class="p-0-b-0 w-d-block">
                             <div class="min-height-196">
                                 <div class="offered-needed-main">
-                                <div class="service" *ngFor="let service of servicesOffered;">
-
-                                    
-                                        <span class="servicecount">{{service.ServiceMatchCount}}</span>
+                                    <div class="service" *ngFor="let service of servicesOffered;">
+                                        <span *ngIf="service.ServiceName" class="servicecount">{{service.ServiceMatchCount}}</span>
                                         <a class="service-link" [routerLink]="['/profileinfo/searchsummary']"
                                             [queryParams]="{ searchTerm: service.ServiceName}">
                                             {{service.ServiceName}}
                                         </a>
-
-                                        <a class="servicetrash" href="javascript:void(0)"
+                                        <a *ngIf="service.ServiceName" class="servicetrash" href="javascript:void(0)"
                                             (click)="removeServices(service)"><i class="fa fa-trash"
                                                 style="font-size: 15px;margin-left: 6px;"></i></a>
-                                   
-                                </div>
+
+                                    </div>
                                 </div>
                                 <!-- <table class="table inner__ no-margin" *ngFor="let service of servicesOffered; let i = index">
                                     
@@ -84,22 +81,19 @@
                         <td class="p-0-b-0 w-d-block">
                             <div class="min-height-196">
                                 <div class="offered-needed-main">
-                                        <div class="service" *ngFor="let service of servicesNeeded;">
+                                    <div class="service" *ngFor="let service of servicesNeeded;">
+                                        <span *ngIf="service.ServiceName" class="servicecount">{{service.ServiceMatchCount}}</span>
+                                        <a class="service-link" [routerLink]="['/profileinfo/searchsummary']"
+                                            [queryParams]="{ searchTerm: service.ServiceName}">
+                                            {{service.ServiceName}}
+                                        </a>
+                                        <a *ngIf="service.ServiceName" class="servicetrash" href="javascript:void(0)"
+                                            (click)="removeServices(service)"><i class="fa fa-trash"
+                                                style="font-size: 15px;margin-left: 6px;"></i></a>
+                                    </div>
 
-                                                
-                                                    <span class="servicecount">{{service.ServiceMatchCount}}</span>
-                                                    <a class="service-link" [routerLink]="['/profileinfo/searchsummary']"
-                                                        [queryParams]="{ searchTerm: service.ServiceName}">
-                                                        {{service.ServiceName}}
-                                                    </a>
-            
-                                                    <a class="servicetrash" href="javascript:void(0)"
-                                                        (click)="removeServices(service)"><i class="fa fa-trash"
-                                                            style="font-size: 15px;margin-left: 6px;"></i></a>
-                                                </div>
-                                           
                                 </div>
-                                
+
                             </div>
                         </td>
                     </tr>

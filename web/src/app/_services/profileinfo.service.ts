@@ -46,6 +46,11 @@ export class ProfileinfoService {
     var reqHeader = new HttpHeaders({'No-Auth':'True'});
     return this.http.get<searchRes[]>(`${consts.DomainURL}ProfileInfo/GetSummaryResults?parttext=${parttext}`, { headers: reqHeader });
   }
+
+  getAdvancedSearchBySearchTerm(parttext: string) {
+    return this.http.get<searchRes[]>(`${consts.DomainURL}ProfileInfo/GetAdvancedSearchResults?parttext=${parttext}`);
+  }
+
   getUserProfileByURLString(UrlString: string) {
     var reqHeader = new HttpHeaders({'No-Auth':'True'});
     return this.http.get<searchRes>(`${consts.DomainURL}ProfileInfo/getUserProfileByURLString/${UrlString}`, { headers: reqHeader });

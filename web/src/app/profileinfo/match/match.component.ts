@@ -129,10 +129,16 @@ export class MatchComponent implements OnInit {
           this.servicesNeeded = userServices.filter(service => service.ServiceType == 2);
           this.servicesInterested = userServices.filter(service => service.ServiceType == 3);
         }
-        // if (this.servicesOffered.length < 15)
-        //   this.servicesOffered.unshift({});
-        // if (this.servicesNeeded.length < 15)
-        //   this.servicesNeeded.unshift({});
+        if (this.servicesOffered.length < 15) {         
+          for (var i = this.servicesOffered.length; i < 15; i++) {
+            this.servicesOffered.push({});
+          }
+        }
+        if (this.servicesNeeded.length < 15){
+          for (var i = this.servicesNeeded.length; i < 15; i++) {
+            this.servicesNeeded.push({});
+          }
+        }
         // if (this.servicesInterested.length < 15)
         //   this.servicesInterested.unshift({});
       })

@@ -16,7 +16,7 @@ import { HttpClient, HttpEventType } from '@angular/common/http';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   returnUrl: string = "/home"; loggedInUserInfo: ProfileInfo; hasActiveSession: boolean = false;
-  searchForm: FormGroup; readonlyUserInfo: ProfileInfo; profileSubscription: Subscription;
+  readonlyUserInfo: ProfileInfo; profileSubscription: Subscription;
   submitted = false; modalRef: BsModalRef; showheadsection: boolean = false; previewUrl: any = null;
   dataDisplayProfile: ProfileInfo; toggler: boolean = false; unReadMsgsCount: number = 0;
   fileUploadProgress: string = null; uploadedFilePath: string = null; fileData: File = null;
@@ -30,8 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private authenticationService: AuthenticationService,
-    private formBuilder: FormBuilder,
+    private authenticationService: AuthenticationService,    
     private profileInfoService: ProfileinfoService,
     private modalService: BsModalService,
     private commonService: CommonService,
@@ -88,10 +87,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       }
 
-    });      
-    this.searchForm = this.formBuilder.group({
-      searchprofiles: ['', [Validators.required, Validators.maxLength(25)]]
-    });
+    });  
 
     this.postGalleryForm = this.fb.group({
       image: ['', []]
@@ -105,33 +101,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
       },
         error => {
         });
-  }
-
-  get f() { return this.searchForm.controls; }
+  } 
 
   signoutplz() {    
     this.authenticationService.logout();
     this.hasActiveSession = false;
     this.router.navigate([this.returnUrl]);
-  }
-
-  onSubmit() {
-    if (this.searchForm.invalid) {
-      return;
-    }
-    var sparam = this.searchForm.value["searchprofiles"];
-    this.router.navigate(['/profileinfo/searchsummary/'], { queryParams: { searchTerm: sparam } });
-    // this.profileService.getUsersBySearchTerm(this.searchForm.value)
-    // .subscribe(
-    //     data => {
-    //         //this.alertService.success('Registration successful', true);
-    //         this.router.navigate(['/login']);
-    //     },
-    //     error => {
-    //         // this.alertService.error(error);
-    //         // this.loading = false;
-    //     });
-  }
+  }  
 
   taketoActualProfile() {
     localStorage.removeItem('profileviewUser');

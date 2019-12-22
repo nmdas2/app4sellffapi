@@ -1,10 +1,10 @@
-export interface UserTransaction{
-    UserId? : number;
-    ShareOwnerId? : number;
+export interface UserTransaction {
+    UserId?: number;
+    ShareOwnerId?: number;
     UserProfileId?: number;
     DisplayName?: string;
     Age?: number;
-    City? : string;
+    City?: string;
     ShareSymbol?: string;
     AvailableShareQty?: number;
     LastTradeSharePrice?: number;
@@ -35,4 +35,12 @@ export interface UserTransaction{
     //    BuySellQty
     LastDayClosePrice: number;
     TotalInvested?: number;
+}
+
+export interface ProfileShareDetails {
+    PurchasedShareQty?: number;
+    TotalInvested?: number,
+    profitlosscolor?: string;
+    ProfitRLoss?: number;
+    ProfitRLossPercentage?: number;
 }

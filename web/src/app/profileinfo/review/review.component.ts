@@ -73,14 +73,14 @@ export class ReviewComponent implements OnInit {
       if (localStorage.getItem('profileviewUser')) {
         profileViewUserId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
       }
-      if (currentUserId == res.ProfileUserId || profileViewUserId == res.ProfileUserId) {       
+      if (currentUserId == res.ProfileUserId || profileViewUserId == res.ProfileUserId) {
         this.FilterListForCurrentuserRating(res);
       }
     }, error => {
       console.log(error);
     });
   }
-
+  
   FilterListForCurrentuserRating(res: Review) {
     this.currentRating = res;
     this.totalRatings = this.currentRating.Starts5 + this.currentRating.Starts4 + this.currentRating.Starts3 + this.currentRating.Starts2 + this.currentRating.Starts1
@@ -182,16 +182,17 @@ export class ReviewComponent implements OnInit {
   openotherprofile(RefsearchUserIdBo) {
     localStorage.removeItem('profileviewUser');
     this.readonlyUserInfo = <ProfileInfo>{};
-    this.profileInfoService.GetUserProfileInfoByUserId(this.dataDisplayProfile.UserId)
+    this.profileInfoService.GetUserProfileInfoByUserId(RefsearchUserIdBo.UserId)
       .subscribe(res => {
         localStorage.setItem('profileviewUser', JSON.stringify(res));
+        this.router.navigate([consts.AboutPath]);
+        this.commonService.isProfileSelected.next(true);
+        this.commonService.socialAndHeaderWidgetsTracker.next(true);
       }, error => {
         console.log(error);
       })
-    this.router.navigate([consts.AboutPath]);
-    this.commonService.isProfileSelected.next(true);
-    this.commonService.socialAndHeaderWidgetsTracker.next(true);
   }
+
   sayhelpful(review: Review) {
     this.commonService.loadingShow();
     let reviewObj = review;

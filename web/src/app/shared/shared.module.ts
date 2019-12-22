@@ -7,6 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { SocialLinksComponent } from './layout/social-links/social-links.component';
 import { UserNotificationsComponent } from './layout/user-notifications/user-notifications.component';
+import { SearchComponent } from './layout/search/search.component';
 
 @NgModule({
   declarations: [
@@ -14,14 +15,15 @@ import { UserNotificationsComponent } from './layout/user-notifications/user-not
     HeaderComponent, 
     LeftnavComponent, 
     SocialLinksComponent,  
-    UserNotificationsComponent
+    UserNotificationsComponent, SearchComponent
   ],
   exports:[
     FooterComponent,
     HeaderComponent, 
     LeftnavComponent, 
     SocialLinksComponent,
-    UserNotificationsComponent
+    UserNotificationsComponent,
+    SearchComponent
   ],
   imports: [
     FormsModule,

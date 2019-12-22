@@ -19,19 +19,7 @@
                 <nav class="navbar navbar-static-top">
 
                     <div class="navbar-custom-menu pull-left navmobile no-margin">
-                        <form [formGroup]=searchForm class="pull-left" (ngSubmit)="onSubmit()">
-                            <div class="input-group">
-                                <input type="text" formControlName="searchprofiles" class="form-control control1" placeholder="explore sellff..." [ngClass]="{ 'is-invalid': submitted && f.searchprofiles.errors }">
-                                <div *ngIf="submitted && f.searchprofiles.errors" class="invalid-feedback">
-                                    <div *ngIf="f.searchprofiles.errors.required">Search text is required</div>
-                                </div>
-                                <span class="input-group-btn">
-                      <button type="submit" name="search" id="search-btn " class="btn btn-flat sbtn">
-                        <i class="fa fa-search"></i>
-                      </button>
-                    </span>
-                            </div>
-                        </form>
+                      <app-search></app-search>
                     </div>
 
                 </nav>
