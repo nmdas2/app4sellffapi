@@ -22,7 +22,7 @@ export class InvestComponent implements OnInit {
   buySharesStr: string; sellSharesStr: string; crntshrs: number; defaultMsg: string = "trade status: ready";
   userTransactionDetails: UserTransaction; UserProfileChangeValsForPercentageCalc: UserTransaction;
   successMsg: string = ""; errorMsg: string = ""; stock: StockChart; valnumbers: (Date | number)[][];
-  displayMgs: string = "trade status: ready";
+  displayMgs: string = "trade status: ready"; marketCapVal: string;
   profileShareDetails:ProfileShareDetails;
 constructor(
   private profileService: ProfileinfoService,
@@ -125,6 +125,36 @@ setLabelData(res: UserTransaction) {
   this.buyPrice = this.userTransactionDetails.BuyPrice;
   this.pricechangeinnegitive = this.userTransactionDetails.pricechangeinnegitive;
   this.profitlossinnegitive = this.userTransactionDetails.profitlossinnegitive;
+  this.marketCapVal = this.ConvertValueInMilBils(this.userTransactionDetails.MarketCap);
+}
+
+ConvertValueInMilBils(mcMVal)
+{
+  let mcVal = mcMVal;
+  if(mcVal == 0) {
+    return 0;
+  }
+  else
+  {        
+    // hundreds
+    if(mcVal <= 999){
+      return mcVal ;
+    }
+    // thousands
+    else if(mcVal >= 1000 && mcVal <= 999999){
+      return (mcVal / 1000) + ' k';
+    }
+    // millions
+    else if(mcVal >= 1000000 && mcVal <= 999999999){
+      return (mcVal / 1000000) + ' million';
+    }
+    // billions
+    else if(mcVal >= 1000000000 && mcVal <= 999999999999){
+      return (mcVal / 1000000000) + ' billion';
+    }
+    else
+      return mcVal ;
+    }
 }
 
 setGraphData(res: UserShareDetailsBO[]) {
