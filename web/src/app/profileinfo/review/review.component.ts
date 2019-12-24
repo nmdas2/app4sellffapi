@@ -134,6 +134,7 @@ export class ReviewComponent implements OnInit {
       Performance: this.rate,
       Communication: this.communicationRate,
       QOW: this.QOWRate,
+      show:false
     };
 
     this.profileInfoService.SaveReview(postReview)
