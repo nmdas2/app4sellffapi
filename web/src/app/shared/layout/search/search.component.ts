@@ -12,6 +12,7 @@ export class SearchComponent implements OnInit {
   searchForm: FormGroup;
   results: any[] = [];
   searchprofiles: FormControl = new FormControl();
+  submitted = false;
   constructor(
     private profileService: ProfileinfoService,
     private router: Router,

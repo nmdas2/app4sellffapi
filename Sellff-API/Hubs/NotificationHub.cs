@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
+using Sellff_API.Models;
 using Sellff_API.Services;
 
 namespace Sellff_API.Hubs
@@ -58,10 +59,19 @@ namespace Sellff_API.Hubs
             Clients.All.SetUserUnReadMessagesCount(userId, userCount);
         }
 
-        public void GetUserMessages(int userId)
+        public void GetUserMessages(bool isEditMode,int displayUserId,int userId)
         {
             ProfileInfoService objProfileInfoService = new ProfileInfoService();
-            var userMessages = objProfileInfoService.GetAllUserMessages(userId);
+            List<ProfileInfoBO> userMessages = new List<ProfileInfoBO>();
+            if (isEditMode)
+            {
+                userMessages = objProfileInfoService.GetAllUserMessages(userId);
+            }
+            else
+            {
+                userMessages = objProfileInfoService.GetUserMessagesGroupBetween2Users(userId, displayUserId);
+            }
+            
             Clients.All.SetUserMessages(userId,userMessages);
         }
     }

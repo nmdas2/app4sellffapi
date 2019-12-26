@@ -15,19 +15,19 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">$ current price</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">{{userTransactionDetails.LastTradeSharePrice | number:'1.4-4'}}</label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;">{{userTransactionDetails.LastTradeSharePrice | number:'1.2-2'}}</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">$ open price</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b>{{userTransactionDetails.LastDayClosePrice | number:'1.4-4'}}</b></label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b>{{userTransactionDetails.LastDayClosePrice | number:'1.2-2'}}</b></label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">$ price change</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b class="{{userTransactionDetails.color}}"><span *ngIf="pricechangeinnegitive">(</span>${{userTransactionDetails.pricechange | number:'1.4-4'}}<span *ngIf="pricechangeinnegitive">)</span></b></label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b class="{{userTransactionDetails.color}}"><span *ngIf="pricechangeinnegitive">(</span>{{userTransactionDetails.pricechange | number:'1.2-2'}}<span *ngIf="pricechangeinnegitive">)</span></b></label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">% price change</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b class="{{userTransactionDetails.color}}"><span *ngIf="pricechangeinnegitive">(</span>{{userTransactionDetails.PercentageValue | number:'1.4-4'}}%<span *ngIf="pricechangeinnegitive">)</span></b></label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b class="{{userTransactionDetails.color}}"><span *ngIf="pricechangeinnegitive">(</span>{{userTransactionDetails.PercentageValue | number:'1.2-2'}}%<span *ngIf="pricechangeinnegitive">)</span></b></label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">shares traded</label>
@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5">$ market cap</label>
-                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b>{{userTransactionDetails.MarketCap | number}}</b></label>
+                                    <label class="text-right col-sm-7" style="font-weight: normal !important;"><b>${{marketCapVal}}</b></label>
                                 </div>
                                 <div class="form-group">
                                     <label class="text-left col-sm-5"># investors</label>
@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 text-right">sellff market exchange open 24 x 7x 365|new trading day starts @ 12am pacific time</div>
+                <div class="col-md-12 text-right">sellff market exchange open 24 x 7x 365 | new trading day starts @ 12am pacific time</div>
             </div>
             <hr class="custom-hr" style="margin-top:10px" />
             <div class="row">
@@ -71,15 +71,15 @@
                             </div>
                             <div class="form-group">
                                 <label class="text-left col-sm-5">$ total invested</label>
-                                <label class="text-right col-sm-7">{{profileShareDetails.TotalInvested | number}}</label>
+                                <label class="text-right col-sm-7">${{profileShareDetails.TotalInvested | number}}</label>
                             </div>
                             <div class="form-group">
                                 <label class="text-left col-sm-5">$ profit [loss]</label>
-                                <label class="text-right col-sm-7"><b class="{{profileShareDetails.profitlosscolor}}"><span *ngIf="profitlossinnegitive">(</span>${{profileShareDetails.ProfitRLoss | number:'1.4-4'}}<span *ngIf="profitlossinnegitive">)</span></b></label>
+                                <label class="text-right col-sm-7"><b class="{{profileShareDetails.profitlosscolor}}"><span *ngIf="profitlossinnegitive">(</span>${{profileShareDetails.ProfitRLoss | number:'1.2-2'}}<span *ngIf="profitlossinnegitive">)</span></b></label>
                             </div>
                             <div class="form-group">
                                 <label class="text-left col-sm-5">% profit [loss]</label>
-                                <label class="text-right col-sm-7"><b class="{{profileShareDetails.profitlosscolor}}"><span *ngIf="profitlossinnegitive">(</span>{{profileShareDetails.ProfitRLossPercentage | number:'1.4-4'}}%<span *ngIf="profitlossinnegitive">)</span></b></label>
+                                <label class="text-right col-sm-7"><b class="{{profileShareDetails.profitlosscolor}}"><span *ngIf="profitlossinnegitive">(</span>{{profileShareDetails.ProfitRLossPercentage | number:'1.2-2'}}%<span *ngIf="profitlossinnegitive">)</span></b></label>
                             </div>
                         </div>
                     </div>
@@ -104,10 +104,10 @@
                             </div> -->
                             <div class="row">                                
                                 <div class="col-sm-6">
-                                    <button class="btn btn-success button-large" (click)="saveUserBuySellTransactionDetails(2)"><div class="larget-text">{{buyPrice | number:'1.4-4'}}</div> Buy {{buySharesStr}} shares</button>
+                                    <button class="btn btn-success button-large bssharestext" (click)="saveUserBuySellTransactionDetails(2)"><div class="largebstext">Buy </div> {{buySharesStr}} shares @ {{buyPrice | number:'1.2-2'}}</button>
                                 </div>
                                 <div class="col-sm-6">
-                                    <button class="btn btn-danger button-large" (click)="saveUserBuySellTransactionDetails(1)"><div class="larget-text">{{askPrice | number:'1.4-4'}}</div> Sell {{sellSharesStr}} shares</button>
+                                    <button class="btn btn-danger button-large bssharestext" (click)="saveUserBuySellTransactionDetails(1)"><div class="largebstext">Sell </div> {{sellSharesStr}} shares @ {{askPrice | number:'1.2-2'}}</button>
                                 </div>
                                 
                             </div>

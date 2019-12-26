@@ -89,6 +89,10 @@ namespace Sellff_API.Services
         {
             return objProfileInfoDAO.GetUserMessagesBetween2Users(userId, recepId);
         }
+        public List<ProfileInfoBO> GetUserMessagesGroupBetween2Users(int userId, int recepId)
+        {
+            return objProfileInfoDAO.GetUserMessagesGroupBetween2Users(userId, recepId);
+        }
         public List<ProfileInfoBO> GetUserMessagesHistory(int messageToId, int messageFromId, int readNotReq)
         {
             return objProfileInfoDAO.GetUserMessagesHistory(messageToId, messageFromId, readNotReq);

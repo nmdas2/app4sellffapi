@@ -38,17 +38,19 @@ export class MessageComponent implements OnInit {
     this.getAllUserMessages();
 
     this.commonService.userMessages$.subscribe(res => {     
+      console.log(res)
       let userId = 0;
+      let profileUserId =0;
       if (localStorage.getItem('currentUser')) {
         userId = JSON.parse(localStorage.getItem('currentUser')).UserId;
 
       }
       if (localStorage.getItem('profileviewUser')) {
-        userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
+        profileUserId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
 
       }
       
-      if (userId == res.userId) {
+      if (userId == res.userId || profileUserId == res.userId) {
         this.userMessages = res
       }
     });
@@ -68,8 +70,9 @@ export class MessageComponent implements OnInit {
     else {
       this.profileInfoService.GetUserMessagesBetween2Users(this.dataDisplayProfile.UserId, (this.loggedInUserInfo)?this.loggedInUserInfo.UserId:0)
         .subscribe(res => {
-          if (res && res.length)
+          if (res && res.length)          
             this.userMessages = res;
+            console.log(this.userMessages);
         }, error => {
           console.log(error);
         })
@@ -93,7 +96,7 @@ export class MessageComponent implements OnInit {
           this.userMsg = "";
           debugger;
           this.signalRService.SendUserUnReadMessagesCount(messageInfo.userRefId);
-          this.signalRService.SendUserMessagesInfo(messageInfo.userRefId);
+          this.signalRService.SendUserMessagesInfo(this.isAboutInEditMode,this.dataDisplayProfile.UserId, (this.loggedInUserInfo)?this.loggedInUserInfo.UserId:0);
           // this.successMsg = "Your message has been submitted successfully";
           // setTimeout(() => {
           //   this.successMsg = "";

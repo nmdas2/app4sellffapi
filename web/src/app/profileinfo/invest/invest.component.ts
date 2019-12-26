@@ -141,11 +141,11 @@ ConvertValueInMilBils(mcMVal)
       return mcVal ;
     }
     // thousands
-    else if(mcVal >= 1000 && mcVal <= 999999){
-      return (mcVal / 1000) + ' k';
-    }
+    // else if(mcVal >= 1000 && mcVal <= 999999){
+    //   return (mcVal / 1000) + ' k';
+    // }
     // millions
-    else if(mcVal >= 1000000 && mcVal <= 999999999){
+    else if(mcVal >= 1000 && mcVal <= 999999999){
       return (mcVal / 1000000) + ' million';
     }
     // billions
