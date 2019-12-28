@@ -22,12 +22,12 @@
                         <div class="message-m-b">
                         <div class="custom-scroll max-msg-scroll">
                         <div *ngFor="let message of userMessages">
-                            <a *ngIf="message.MessageFrom != loggedInUserInfo.UserId" (click)="showcommunication(message.MessageFrom,message.MessageTo,message.DisplayName)" class="messageboxcss">
+                            <a [class.disabled]="message.MessageFrom == loggedInUserInfo.UserId" (click)="showcommunication(message.MessageFrom,message.MessageTo,message.DisplayName)" class="messageboxcss">
                             <div class="msg-box" [ngClass]="{'':message.IsRead, 'active':!message.IsRead }">
                             <ul>
                                 <li>
                                     <span *ngIf="message.DisplayName">{{message.DisplayName}}</span>
-                                    <label *ngIf="message.MessageFrom == loggedInUserInfo.UserId" >{{message.DisplayName}}</label>
+                                    <!-- <label *ngIf="message.MessageFrom == loggedInUserInfo.UserId" >{{message.DisplayName}}</label> -->
                                      <!-- <a title="New Message" class="create-history" *ngIf="isAboutInEditMode && !message.IsMsgFromLoggedInUser" (click)="showcommunication(message.MessageFrom,message.MessageTo,message.DisplayName)">
                                             <i class="fa fa-plus" aria-hidden="true"></i></a>
                                     <a class="create-history" title="Message History" *ngIf="isAboutInEditMode && !message.IsMsgFromLoggedInUser" (click)="showpreviousmessages(message.MessageFrom,message.MessageTo,message.DisplayName,template)">

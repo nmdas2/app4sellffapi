@@ -8,23 +8,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-
-  ngOnInit(): void {
-    
-  }
-
+  
   searchType: any = [{ 'value': 0, 'name': 'All' }, { 'value': 1, 'name': 'By Name' }, { 'value': 2, 'name': 'By Services offered' }, { 'value': 3, 'name': 'By Services needed' }]
   submitted = false;
-  constructor(
-    private router: Router,
-    private formBuilder: FormBuilder
-  ) { }
-
   searchForm = this.formBuilder.group({
     searchprofilesType:[this.searchType[0]],
     searchprofiles: ['', [Validators.required, Validators.maxLength(25)]]     
   });
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) { }
   
+  ngOnInit(): void {
+    
+  }
+
   onSubmit() {
     if (this.searchForm.invalid) {
       return;

@@ -101,6 +101,16 @@ namespace Sellff_API.Controllers
         /// This method will get all users Messages info based on UserId
         ///</summary>
         /// <param name="UserId"></param>
+        [HttpGet, Route("api/ProfileInfo/GetUserMessagesGroupBetween2Users/{UserId}/{RecepId}")]
+        public IHttpActionResult GetUserMessagesGroupBetween2Users(int UserId, int RecepId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUserMessagesGroupBetween2Users(UserId, RecepId)));
+        }
+
+        ///summary
+        /// This method will get all users Messages info based on UserId
+        ///</summary>
+        /// <param name="UserId"></param>
         [HttpGet, Route("api/ProfileInfo/GetUserMessagesHistory/{messageToId}/{messageFromId}/{readNotReq}")]
         public IHttpActionResult GetUserMessagesHistory(int messageToId, int messageFromId, int readNotReq)
         {

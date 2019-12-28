@@ -1,17 +1,32 @@
 .tradestaus{
     background-color: yellow;
     font-size: 25px;
-    height: 60px;
+    height: 40px;
+    font-family: 'Agency FB Bold' !important;
+    padding: 0px !important;
 }
 .tradestaussuccess{
     background-color: green;
     font-size: 25px;
-    height: 60px;
+    height: 40px;
     color:#fff;
+    font-family: 'Agency FB Bold' !important;
+    padding: 0px !important;
 }
 .tradestausfail{
     background-color: red;
     font-size: 25px;
-    height: 60px;
+    height: 40px;
     color:#fff;
+    font-family: 'Agency FB Bold' !important;
+    padding: 0px !important;
+}
+.largebstext{
+    font-family: 'Agency FB Bold' !important;
+    font-size: 65px;
+    line-height: normal;
+}
+.bssharestext{
+    font-family: 'Agency FB Bold' !important;
+    font-size: 18px !important;
 }

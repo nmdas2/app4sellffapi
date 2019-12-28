@@ -1173,5 +1173,38 @@ namespace Sellff_API.ADO
             return result;
         }
 
+        public List<ProfileInfoBO> GetUserMessagesGroupBetween2Users(int userId, int recepId)
+        {
+            List<ProfileInfoBO> objProfilesList = new List<ProfileInfoBO>();
+            try
+            {
+                var sqlParams = new SqlParameter[2];
+                sqlParams[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = userId };
+                sqlParams[1] = new SqlParameter("@RecepId", SqlDbType.Int) { Value = recepId };
+
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_GetUserMessagesGroupBetween2Users", sqlParams);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    for (int i = 0; i < _objDataSet.Tables[0].Rows.Count; i++)
+                    {
+                        ProfileInfoBO objResponseBO = new ProfileInfoBO();
+                        var objDataRow = _objDataSet.Tables[0].Rows[i];
+                        objResponseBO.Message = Convert.ToString(objDataRow["Message"]);
+                        objResponseBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
+                        objResponseBO.MessageSentTime = Convert.ToString(objDataRow["MessageSentTime"]);
+                        objResponseBO.MessageTo = Convert.ToInt32(objDataRow["MessageTo"]);
+                        objResponseBO.MessageFrom = Convert.ToInt32(objDataRow["MessageFrom"]);
+                        objResponseBO.MessageToName = Convert.ToString(objDataRow["MessageToName"]);
+                        objProfilesList.Add(objResponseBO);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            return objProfilesList;
+        }
+
     }
 }

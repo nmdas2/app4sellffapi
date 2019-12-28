@@ -134,9 +134,9 @@ export class SignalRService {
   }
 
   // method to hit from client  
-  public SendUserMessagesInfo(userId: number) {
+  public SendUserMessagesInfo(isEditMode:boolean,disPlayUserId: number,loggedInUserId:number) {
     // server side hub method using proxy.invoke with method name pass as param  
-    this.proxy.invoke('GetUserMessages', userId);
+    this.proxy.invoke('GetUserMessages', isEditMode,disPlayUserId,loggedInUserId);
   }
 
   private GetUserMessagesInfo(): void {
