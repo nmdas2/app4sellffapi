@@ -232,9 +232,9 @@ namespace Sellff_API.Controllers
         ///</summary>
         /// <param name="UserId"></param>
         [HttpGet, Route("api/ProfileInfo/GetAdvancedSearchResults")]
-        public IHttpActionResult GetAdvancedSearchResults(string parttext)
+        public IHttpActionResult GetAdvancedSearchResults(int partype,string parttext)
         {
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUsersInfoBySearchTerm(parttext)));
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.GetUsersInfoBySearchTypeAndTerm(partype, parttext)));
         }
 
         ///summary

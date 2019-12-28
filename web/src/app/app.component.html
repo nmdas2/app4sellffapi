@@ -102,11 +102,11 @@
     </form>
 </ng-template>
 <div class="" [ngClass]="showheadsection ? 'login-content' : 'main-content'">
-    <div  *ngIf="showheadsection">
+    <div  *ngIf="showheadsection && !isSummaryPage">
         <app-social-links [displayDataProfile] = "dataDisplayProfile" [isEditbale]="isEditbale"></app-social-links>       
     </div>
     <div class="row">
-        <div class="" [ngClass]="showheadsection ? 'col-sm-2 col-md-1' : ''">
+        <div class="" [ngClass]="showheadsection ? 'col-sm-2 col-md-1' : ''" *ngIf="!isSummaryPage">
             <ul class="sidebar-menu" data-widget="tree" *ngIf="showheadsection">
                 <li [ngClass]='aboutactive'><a (click)="navigateusertopage('/profileinfo/about')">about</a></li>
                 <li [ngClass]='postactive'><a routerLink="/profileinfo/post">post</a></li>

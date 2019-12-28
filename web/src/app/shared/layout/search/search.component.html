@@ -1,35 +1,29 @@
-<!-- <form [formGroup]=searchForm class="pull-left" (ngSubmit)="onSubmit()" autocomplete="off">
-    <div class="input-group">
-        <input type="text" [formControl]="searchprofiles" class="form-control control1"
-            placeholder="explore sellff..." [ngClass]="{ 'is-invalid': submitted && f.searchprofiles.errors }">
-        <div *ngIf="submitted && f.searchprofiles.errors" class="invalid-feedback">
-            <div *ngIf="f.searchprofiles.errors.required">Search text is required</div>
+<form [formGroup]=searchForm class="pull-left full_width" (ngSubmit)="onSubmit()" autocomplete="off">
+    <div class="global_search_main">
+        <div class="global_dropdown">
+            <select class="form-control global_select" formControlName="searchprofilesType">
+                <option *ngFor="let type of searchType; " [ngValue]="type" >{{type.name}}</option>
+            </select>
         </div>
-        <span class="input-group-btn">
-            <button type="submit" name="search" id="search-btn " class="btn btn-flat sbtn">
-                <i class="fa fa-search"></i>
-            </button>
-        </span>
-        <ul class="filter-select">
-            <li *ngFor="let result of results" class="filter-select-list"><img src="{{result.ProfilePicPath}}" alt=""
-                    width="50" height="50">
-                <p class="artist-name">
-                    {{result.DisplayName}}</p>
-                <span class="tags" *ngFor='let genre of result?.genres | slice:0:6'>{{genre}}</span>
-        </ul>
-    </div>
-</form> -->
-<form [formGroup]=searchForm class="pull-left" (ngSubmit)="onSubmit()">
-    <div class="input-group">
-        <input type="text" formControlName="searchprofiles" class="form-control control1"
-            placeholder="explore sellff..." [ngClass]="{ 'is-invalid': submitted && f.searchprofiles.errors }">
-        <div *ngIf="submitted && f.searchprofiles.errors" class="invalid-feedback">
-            <div *ngIf="f.searchprofiles.errors.required">Search text is required</div>
+        <div class="autocomplete">
+            <div class="input-group">
+                <input type="text" formControlName="searchprofiles" class="form-control control1"
+                    placeholder="explore sellff..." [ngClass]="{ 'is-invalid': submitted && f.searchprofiles.errors }">
+                <div *ngIf="submitted && f.searchprofiles.errors" class="invalid-feedback">
+                    <div *ngIf="f.searchprofiles.errors.required">Search text is required</div>
+                </div>
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn " class="btn btn-flat sbtn">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+                <!-- <ul class="filter-select">
+                    <li *ngFor="let result of results" class="filter-select-list">
+                        <p class="artist-name">
+                            {{result.DisplayName}}</p>
+                        <span class="tags" *ngFor='let genre of result?.genres | slice:0:6'>{{genre}}</span>
+                </ul> -->
+            </div>
         </div>
-        <span class="input-group-btn">
-            <button type="submit" name="search" id="search-btn " class="btn btn-flat sbtn">
-                <i class="fa fa-search"></i>
-            </button>
-        </span>
     </div>
 </form>

@@ -59,6 +59,11 @@ ngOnInit() {
       if (currentUserId == res.UserId){
         this.profileShareDetails = res;
       }
+      else {
+        this.profileShareDetails.profitlosscolor = res.profitlosscolor
+        this.profileShareDetails.ProfitRLoss = res.ProfitRLoss
+        this.profileShareDetails.ProfitRLossPercentage = res.ProfitRLossPercentage
+      }
      
     }
   }, error => {

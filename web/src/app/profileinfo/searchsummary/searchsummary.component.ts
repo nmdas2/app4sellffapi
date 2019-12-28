@@ -20,6 +20,7 @@ export class SearchsummaryComponent implements OnInit, OnDestroy {
   loggedInUserInfo: User;
   currentProfileId: number;
   searchProfileId: number;
+  srchType: number;
   srchParam: string;
   hasSession: boolean = false;
   readonlyUserInfo: ProfileInfo;
@@ -52,6 +53,7 @@ export class SearchsummaryComponent implements OnInit, OnDestroy {
     this.aroute.queryParams.subscribe(params => {
       let key = params;
       this.srchParam = key && key.searchTerm ? key.searchTerm : '';
+      this.srchType = key && key.searchType ? key.searchType : 0;
       this.searchResults = [];
       this.getSearchResult();
     });
@@ -61,6 +63,7 @@ export class SearchsummaryComponent implements OnInit, OnDestroy {
     this.userTrackerSub.unsubscribe();
     this.commonService.isSummaryPage.next(false);
   }
+
   openotherprofile(RefsearchUserIdBo) {
     this.readonlyUserInfo = <ProfileInfo>{};
     this.readonlyUserInfo = RefsearchUserIdBo;
@@ -104,17 +107,19 @@ export class SearchsummaryComponent implements OnInit, OnDestroy {
   }
 
   getSearchResult() {
-    this.pfrlsrvs.getUsersBySearchTerm(this.srchParam)
+    this.pfrlsrvs.getAdvancedSearchBySearchTerm(this.srchType, this.srchParam)
       .subscribe(res => {
         if (res && res.length > 0) {
           this.searchResults = res;
           this.pageChanged({ page: this.currentPage, itemsPerPage: this.itemsPerPage })
         }
-        else
+        else {
           this.searchResults = [];
-
+          this.tempSearchResults = [];
+        }
       });
   }
+
   pageChanged(event) {
     this.currentPage = event.page - 1
     let itemsPerPage = event.itemsPerPage;

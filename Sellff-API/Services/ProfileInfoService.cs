@@ -18,6 +18,11 @@ namespace Sellff_API.Services
         {
             return objProfileInfoDAO.GetUsersInfoBySearchTerm(searchTerm);
         }
+        
+        public List<ProfileInfoBO> GetUsersInfoBySearchTypeAndTerm(int searchType,string searchTerm)
+        {
+            return objProfileInfoDAO.GetUsersInfoBySearchTypeAndTerm(searchType,searchTerm);
+        }
 
         public List<ProfileInfoBO> GetAllDetailsBySearchTerm(string searchTerm)
         {

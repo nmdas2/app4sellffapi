@@ -1,5 +1,5 @@
 
-.keyword-wrapper {
+/*.keyword-wrapper {
   width: 100%;
   position: relative;
 }
@@ -25,22 +25,6 @@
 #keyword-button:hover {
   color: #ccc
 }
-.filter-select {
-  width: 50%;
-  list-style: none;
-  font-size: 1.1em;
-  color: rgb(105, 105, 105);
-  border: 1px solid #ccc;
-  border-top: none;
-  /*so things don't jump around*/
-  position: absolute;
-  left: 25%;
-  top: calc(50% + 25px);
-  background: #fff
-}
-.filter-select-list img {
-  margin-right: 30px;
-}
 .tags {
   font-size: 12px;
   font-style: italic;
@@ -52,20 +36,9 @@
 .filter-select-list:hover .tags {
   color: #fff;
 }
-.filter-select-list {
-  cursor: pointer;
-  padding: 5px 10px;
-}
-.filter-select-list:hover {
-  background:  #C0C0C0;
-  color: #fff
-}
-.list-highlight,
-.list-highlight:hover {
-  background: rgb(55, 55, 55);
-  color: #fff
-}
-@media only screen and (max-width: 768px) {
+*/
+
+/*@media only screen and (max-width: 768px) {
   .filter-select,
   #keyword {
     width: 80%;
@@ -93,4 +66,4 @@
   #keyword-button {
     right: 3.5%
   }
-}
+}*/

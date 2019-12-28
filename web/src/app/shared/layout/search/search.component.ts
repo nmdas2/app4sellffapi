@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import {  FormBuilder,Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
 
 @Component({
   selector: 'app-search',
@@ -9,30 +8,30 @@ import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  searchForm: FormGroup;
-  results: any[] = [];
-  searchprofiles: FormControl = new FormControl();
+
+  ngOnInit(): void {
+    
+  }
+
+  searchType: any = [{ 'value': 0, 'name': 'All' }, { 'value': 1, 'name': 'By Name' }, { 'value': 2, 'name': 'By Services offered' }, { 'value': 3, 'name': 'By Services needed' }]
+  submitted = false;
   constructor(
-    private profileService: ProfileinfoService,
     private router: Router,
     private formBuilder: FormBuilder
   ) { }
 
-  ngOnInit() {
-    this.searchForm = this.formBuilder.group({
-      searchprofiles: ['', [Validators.required, Validators.maxLength(25)]]
-    });
-    // this.searchprofiles.valueChanges
-    //   .subscribe(searchprofiles => this.profileService.getUsersBySearchTerm(searchprofiles)
-    //   .subscribe(response => this.results=response));
-  }
-
+  searchForm = this.formBuilder.group({
+    searchprofilesType:[this.searchType[0]],
+    searchprofiles: ['', [Validators.required, Validators.maxLength(25)]]     
+  });
+  
   onSubmit() {
     if (this.searchForm.invalid) {
       return;
     }
-    var sparam = this.searchForm.value["searchprofiles"];
-    this.router.navigate(['/profileinfo/searchsummary/'], { queryParams: { searchTerm: sparam } });
+    var sparamType = this.searchForm.value["searchprofilesType"].value;
+    var sparamValue = this.searchForm.value["searchprofiles"];
+    this.router.navigate(['/profileinfo/searchsummary/'], { queryParams: { searchType: sparamType, searchTerm: sparamValue } });
   }
 
   get f() { return this.searchForm.controls; }

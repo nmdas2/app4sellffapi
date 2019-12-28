@@ -47,8 +47,8 @@ export class ProfileinfoService {
     return this.http.get<searchRes[]>(`${consts.DomainURL}ProfileInfo/GetSummaryResults?parttext=${parttext}`, { headers: reqHeader });
   }
 
-  getAdvancedSearchBySearchTerm(parttext: string) {
-    return this.http.get<searchRes[]>(`${consts.DomainURL}ProfileInfo/GetAdvancedSearchResults?parttext=${parttext}`);
+  getAdvancedSearchBySearchTerm(type:number,parttext: string) {
+    return this.http.get<searchRes[]>(`${consts.DomainURL}ProfileInfo/GetAdvancedSearchResults?partype=${type}&parttext=${parttext}`);
   }
 
   getUserProfileByURLString(UrlString: string) {
