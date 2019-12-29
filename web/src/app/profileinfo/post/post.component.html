@@ -91,7 +91,7 @@
                                         <div *ngIf="post.ContentType==1" class="p-t-each" >
                                             <a href="javascript:void(0)" (click)="getUserContent(post.UserContent, post.Title, contentTemplate)">
                                                 <span class="postspcltextclass">
-                                                    {{post.Title}} <br><br>
+                                                    <b>{{post.Title}} </b><br><br>
                                                     {{post.UserContent}}
                                                 </span>
                                             </a>
@@ -154,7 +154,7 @@
             </div>
             <ng-template #contentTemplate>
                 <div class="modal-header">
-                    <h4 class="modal-title pull-left">{{userTitle}}</h4>
+                    <h3 class="modal-title pull-left">{{userTitle}}</h3>
                    
                 </div>
                 <div class="modal-body">
