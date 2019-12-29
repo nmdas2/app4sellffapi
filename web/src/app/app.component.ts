@@ -320,10 +320,9 @@ export class AppComponent implements OnInit, OnDestroy {
         } else if (events.type === HttpEventType.Response) {
           this.modalRef.hide();
           let user = JSON.parse(localStorage.getItem('currentUser'));
-          this.authenticationService.loginForImages(user)
+          this.authenticationService.getUserDetailsByUserId(user.UserId)
             .subscribe(res => {
               if (res.UserId > 0) {
-
                 localStorage.setItem('bannerpic', res.BannerPicPath);
                 this.commonService.bannerPicTracker.next(res.bannerpicpath)
                 this.bannerpicpath = res.BannerPicPath;
@@ -349,13 +348,11 @@ export class AppComponent implements OnInit, OnDestroy {
         } else if (events.type === HttpEventType.Response) {
           this.modalRef.hide();
           let user = JSON.parse(localStorage.getItem('currentUser'));
-          this.authenticationService.loginForImages(user)
+          this.authenticationService.getUserDetailsByUserId(user.UserId)
             .subscribe(res => {
               if (res.UserId > 0) {
                 localStorage.setItem('profilepic', res.ProfilePicPath);
-
                 this.commonService.profilePicTracker.next(res.ProfilePicPath)
-
               }
             })
           this.fileUploadProgress = '';

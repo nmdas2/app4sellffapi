@@ -51,6 +51,10 @@ export class AuthenticationService {
         return this.http.post<any>(`${consts.DomainURL}SellffDefault/AuthenticateSellffUserInfo`, user)
     }
 
+    getUserDetailsByUserId(userId: number) {
+        return this.http.get<any>(`${consts.DomainURL}SellffDefault/GetUserDetailsByUserId/${userId}`)
+    }
+
     logout() {
         // remove user from local storage and set current user to null
         localStorage.removeItem('userToken');

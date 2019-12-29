@@ -35,6 +35,12 @@ namespace Sellff_API.Controllers
 
         }
 
+        [HttpGet, Route("api/SellffDefault/GetUserDetailsByUserId/{userId}")]
+        public IHttpActionResult GetUserDetailsByUserId(int userId)
+        {
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, objSellffDefaultService.GetUserDetailsByUserId(userId)));
+        }
+
         ///summary
         /// This method will check user infomation, if not there in DB, registers users
         ///</summary>

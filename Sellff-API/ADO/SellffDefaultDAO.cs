@@ -79,6 +79,66 @@ namespace Sellff_API.ADO
             return objAuthenticationBO;
         }
 
+        public ProfileInfoBO GetUserDetailsByUserId(int userId)
+        {
+            SqlParameter[] objSqlParam = new SqlParameter[1];
+            ProfileInfoBO objAuthenticationBO = null;
+            try
+            {
+                objSqlParam[0] = new SqlParameter("@UserId", SqlDbType.Int) { Value = userId };
+
+                DataSet _objDataSet = SqlHelper.SqlHelper.ExecuteDataset(SqlHelper.SqlHelper.Connect(), CommandType.StoredProcedure, "Proc_UserDetailsByUserId", objSqlParam);
+                if (_objDataSet.Tables[0].Rows.Count > 0)
+                {
+                    objAuthenticationBO = new ProfileInfoBO();
+                    var objDataRow = _objDataSet.Tables[0].Rows[0];
+                    objAuthenticationBO.UserId = Convert.ToInt32(objDataRow["UserId"]);
+                    objAuthenticationBO.Email = Convert.ToString(objDataRow["Email"]);
+                    objAuthenticationBO.DisplayName = Convert.ToString(objDataRow["DisplayName"]);
+                    objAuthenticationBO.ProfilePicPath = Convert.ToString(objDataRow["ProfilePicPath"]);
+                    if (string.IsNullOrEmpty(objAuthenticationBO.ProfilePicPath))
+                        objAuthenticationBO.ProfilePicPath = "http://4sellff.com/sellffapi/AppImages/profilepics/dprfpic.jpg";
+                    objAuthenticationBO.BannerPicPath = Convert.ToString(objDataRow["BannerPicPath"]);
+                    if (string.IsNullOrEmpty(objAuthenticationBO.BannerPicPath))
+                        objAuthenticationBO.BannerPicPath = "http://4sellff.com/sellffapi/AppImages/bannerpics/defbannerpic.jpg";
+                    objAuthenticationBO.UserRefProfileId = 0;
+                    objAuthenticationBO.City = Convert.ToString(objDataRow["City"]);
+                    objAuthenticationBO.CreatedOn = Convert.ToString(objDataRow["CreatedOn"]);
+                    if (!string.IsNullOrEmpty(objAuthenticationBO.CreatedOn))
+                    {
+                        objAuthenticationBO.CreatedOn = DateTime.Parse(objAuthenticationBO.CreatedOn).ToString("MM'/'dd'/'yyyy");
+                    }
+                    objAuthenticationBO.Views = Convert.ToInt32(objDataRow["Views"]);
+                    objAuthenticationBO.Posts = Convert.ToInt32(objDataRow["Posts"]);
+                    objAuthenticationBO.Rank = Convert.ToInt32(objDataRow["Rank"]);
+                    objAuthenticationBO.ProfileSummary = Convert.ToString(objDataRow["ProfileSummary"]);
+                    objAuthenticationBO.FacebookLink = Convert.ToString(objDataRow["FacebookLink"]);
+                    objAuthenticationBO.LinkedInLink = Convert.ToString(objDataRow["LinkedInLink"]);
+                    objAuthenticationBO.InstagramLink = Convert.ToString(objDataRow["InstagramLink"]);
+                    objAuthenticationBO.TwitterLink = Convert.ToString(objDataRow["TwitterLink"]);
+                    objAuthenticationBO.YouTubeLink = Convert.ToString(objDataRow["YouTubeLink"]);
+                    objAuthenticationBO.WebsiteLink = Convert.ToString(objDataRow["WebsiteLink"]);
+                    objAuthenticationBO.GooglePlusLink = Convert.ToString(objDataRow["GooglePlusLink"]);
+                    //objAuthenticationBO.SocialEmail = Convert.ToString(objDataRow["SocialEmail"]);
+                    objAuthenticationBO.Occupation = Convert.ToString(objDataRow["Occupation"]);
+                    objAuthenticationBO.Reviews = Convert.ToInt32(objDataRow["Reviews"]);
+                    objAuthenticationBO.Investors = Convert.ToInt32(objDataRow["Investors"]);
+                    objAuthenticationBO.Investments = Convert.ToInt32(objDataRow["Investments"]);
+                    objAuthenticationBO.ErrorMessage = "";
+                }
+                else
+                {
+                    objAuthenticationBO.ErrorMessage = "Invalid user name / password";
+                }
+            }
+            catch (Exception ex)
+            {
+                objAuthenticationBO.ErrorMessage = ex.Message;
+                log4netlogger.Error(ex);
+            }
+            return objAuthenticationBO;
+        }
+
         public EmailTemplatesBO GetEmailTemplate(string emailTemplateId)
         {
             EmailTemplatesBO objEmailTemplatesBO = new EmailTemplatesBO();

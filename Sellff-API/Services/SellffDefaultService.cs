@@ -20,6 +20,11 @@ namespace Sellff_API.Services
         {
             return objSellffDefaultDAO.AuthenticateSellffUserInfo(userName, password);
         } 
+        
+        public ProfileInfoBO GetUserDetailsByUserId(int userId)
+        {
+            return objSellffDefaultDAO.GetUserDetailsByUserId(userId);
+        } 
         public AuthenticationBO RegisterSellffUserInfo(AuthenticationBO objAuthenticationBO)
         {
             AuthenticationBO objResponseBO = objSellffDefaultDAO.RegisterSellffUserInfo(objAuthenticationBO);
