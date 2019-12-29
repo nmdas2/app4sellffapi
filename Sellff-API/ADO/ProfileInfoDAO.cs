@@ -1084,6 +1084,7 @@ namespace Sellff_API.ADO
                     {
                         UserShareDetailsBO objPriceValuesBO = new UserShareDetailsBO();
                         var objDataRow = _objDataSet.Tables[0].Rows[i];
+                        objPriceValuesBO.UserId = UserId;
                         objPriceValuesBO.DayDate = ToJsonTicks(Convert.ToDateTime(objDataRow["dt"]));
                         objPriceValuesBO.onlyDate = Convert.ToDateTime(objDataRow["dt"]).Day;
                         objPriceValuesBO.SharePriceValue = Convert.ToDecimal(objDataRow["SharePrice"]);

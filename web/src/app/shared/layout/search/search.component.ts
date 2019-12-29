@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit {
   
-  searchType: any = [{ 'value': 0, 'name': 'All' }, { 'value': 1, 'name': 'By Name' }, { 'value': 2, 'name': 'By Services offered' }, { 'value': 3, 'name': 'By Services needed' }]
+  searchType: any = [{ 'value': 0, 'name': 'all' }, { 'value': 1, 'name': 'by name' }, { 'value': 2, 'name': 'by services offered' }, { 'value': 3, 'name': 'by services needed' }]
   submitted = false;
   searchForm = this.formBuilder.group({
     searchprofilesType:[this.searchType[0]],

@@ -78,7 +78,8 @@ ngOnInit() {
     if (localStorage.getItem('profileviewUser')) {
       profileViewUserId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
     }
-    if (currentUserId == res.UserId || profileViewUserId == res.UserId) {
+    
+    if (res.length > 0 && (currentUserId == res[0].UserId || profileViewUserId == res[0].UserId)) {
       this.setGraphData(res);
     }
   }, error => {
