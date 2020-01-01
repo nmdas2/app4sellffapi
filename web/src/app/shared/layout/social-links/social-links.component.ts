@@ -3,6 +3,7 @@ import { ProfileInfo, userAboutInfo } from 'src/app/_models/profileinfo';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { CommonService } from 'src/app/_services/common.service';
 import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-social-links',
@@ -12,36 +13,44 @@ import { ProfileinfoService } from 'src/app/_services/profileinfo.service';
 export class SocialLinksComponent implements OnInit {
   @Input() displayDataProfile: ProfileInfo;
   @Input() isEditbale: Boolean;
-
-  socialIconsDetails: ProfileInfo;
-  userProfileInfo: ProfileInfo;
-  postLayoutType: string = "";
-  PlaceHolder: string = "";
-  socialLink: string = "";
-
-  isCityInEditMode: boolean = false;
-  isOccupationInEditMode: boolean = false;
-  isAboutInEditMode: boolean = false;
-  userCity: string = '';
-  UserOccupation: string = '';
+  cityForm: FormGroup; OcuupForm: FormGroup; socialIconsDetails: ProfileInfo; userProfileInfo: ProfileInfo;
+  postLayoutType: string = ""; PlaceHolder: string = ""; socialLink: string = "";
+  loggedInUserInfo: ProfileInfo; dataDisplayProfile: ProfileInfo; readonlyUserInfo: ProfileInfo;
+  isCityInEditMode: boolean = false; isOccupationInEditMode: boolean = false;
+  isAboutInEditMode: boolean = false; userCity: string = '';  UserOccupation: string = '';
 
   constructor(
+    private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private commonService: CommonService,
     private profileInfoService: ProfileinfoService,
   ) { }
 
   ngOnInit() {
+    this.cityForm = this.formBuilder.group({
+      CityUser: ['', Validators.required]
+  });
+  this.OcuupForm = this.formBuilder.group({
+      OccupationUser: ['', [Validators.required]]
+  });
     this.commonService.socialAndHeaderWidgetsTracker$.subscribe(status => {
       let userId = 0;
-      if (localStorage.getItem('currentUser')) {
-        userId = JSON.parse(localStorage.getItem('currentUser')).UserId;
-
+      if (localStorage.getItem('currentUser') != null) {
+        this.dataDisplayProfile = this.loggedInUserInfo = JSON.parse(localStorage.getItem('currentUser'));        
       }
-      if (localStorage.getItem('profileviewUser')) {
-        userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
-
+      if (localStorage.getItem('profileviewUser') != null) {
+        this.dataDisplayProfile = this.readonlyUserInfo = JSON.parse(localStorage.getItem('profileviewUser'));
+        this.isAboutInEditMode = false;
       }
+      userId = this.dataDisplayProfile.UserId;
+      // if (localStorage.getItem('currentUser')) {
+      //   userId = JSON.parse(localStorage.getItem('currentUser')).UserId;
+        
+      // }
+      // if (localStorage.getItem('profileviewUser')) {
+      //   userId = JSON.parse(localStorage.getItem('profileviewUser')).UserId;
+
+      // }
       this.authenticationService.socialLinksByUserId(userId)
         .subscribe(res => {
           this.socialIconsDetails = res;
@@ -65,8 +74,12 @@ export class SocialLinksComponent implements OnInit {
       this.isCityInEditMode = false;
       this.isOccupationInEditMode = false;
     }
-
+    //this.userCity = this.displayDataProfile.City;
+    //this.UserOccupation = this.dataDisplayProfile.Occupation;
+    if(this.dataDisplayProfile.Occupation == "") this.dataDisplayProfile.Occupation = "occupation";
   }
+  get f() { return this.cityForm.controls; }
+  get oc() { return this.OcuupForm.controls; }
 
   showSocialLayout(type: string) {
     this.socialLink = "";
@@ -172,37 +185,43 @@ export class SocialLinksComponent implements OnInit {
   }
 
   updatecityvalue(): void {
+    if (this.cityForm.invalid) { return; }
     this.isCityInEditMode = false;
-    if (this.userCity) {
+    if (this.cityForm.value.CityUser != "") {
       let userAboutInfoBO = <userAboutInfo>{};
-      userAboutInfoBO.City = this.userCity;
-      userAboutInfoBO.UserId = this.displayDataProfile.UserId;
+      userAboutInfoBO.City = this.cityForm.value.CityUser;
+      userAboutInfoBO.UserId = this.dataDisplayProfile.UserId;
       this.profileInfoService.updateusercityvalue(userAboutInfoBO)
         .subscribe(res => {
           if (res) {
+            this.dataDisplayProfile.City = userAboutInfoBO.City;
+            //localStorage.setItem('currentUser', this.dataDisplayProfile);
             this.commonService.profileData.next(true);
           }
         }, error => {
           console.log(error);
         })
-    }
+      }//else{this.userCity = this.displayDataProfile.City}
   }
 
   updateoccupationvalue(): void {
+    if (this.OcuupForm.invalid) { return; }
     this.isOccupationInEditMode = false;
-    if (this.UserOccupation) {
+    if (this.OcuupForm.value.OccupationUser != "") {
       let userAboutInfoBO = <userAboutInfo>{};
-      userAboutInfoBO.Occupation = this.UserOccupation;
+      userAboutInfoBO.Occupation = this.OcuupForm.value.OccupationUser;
       userAboutInfoBO.UserId = this.displayDataProfile.UserId;
       this.profileInfoService.updateuseroccupationvalue(userAboutInfoBO)
         .subscribe(res => {
           if (res) {
+            this.dataDisplayProfile.Occupation = userAboutInfoBO.Occupation;
+            //localStorage.setItem('currentUser', this.dataDisplayProfile);
             this.commonService.profileData.next(true);
           }
         }, error => {
           console.log(error);
         })
-    }
+    }//else{this.UserOccupation = this.displayDataProfile.Occupation}
   }
 
   oncitycancel() {
