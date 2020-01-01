@@ -34,7 +34,7 @@
                                 </div>
                                 <div *ngIf="f.CityUser.errors" class="invalid-feedback">
                                     <div
-                                        *ngIf="(submitted || f.CityUser.dirty || f.CityUser.touched) && f.CityUser.errors.required">
+                                        *ngIf="(f.CityUser.dirty || f.CityUser.touched) && f.CityUser.errors.required">
                                         city is required</div>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                                 </div>
                                 <div *ngIf="oc.OccupationUser.errors" class="invalid-feedback">
                                     <div
-                                        *ngIf="(submitted || oc.OccupationUser.dirty || oc.OccupationUser.touched) && oc.OccupationUser.errors.required">
+                                        *ngIf="(oc.OccupationUser.dirty || oc.OccupationUser.touched) && oc.OccupationUser.errors.required">
                                         occupation is required</div>
                                 </div>
                             </div>
