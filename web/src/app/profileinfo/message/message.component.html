@@ -57,8 +57,8 @@
                             <ul>
                                 <li>
                                     <div class="row">
-                                        <label class="text-left col-sm-6" *ngIf="commmessage.DisplayName != loggedInUserInfo.DisplayName">{{commmessage.DisplayName}}</label>
-                                        <label  class="text-right" [ngClass]="{'col-sm-6':commmessage.DisplayName != loggedInUserInfo.DisplayName, 'col-sm-12':commmessage.DisplayName == loggedInUserInfo.DisplayName }" *ngIf="commmessage.MessageSentTime">{{commmessage.MessageSentTime}}</label>
+                                        <label class="text-left col-xs-6" *ngIf="commmessage.DisplayName != loggedInUserInfo.DisplayName">{{commmessage.DisplayName}}</label>
+                                        <label  class="text-right" [ngClass]="{'col-xs-6':commmessage.DisplayName != loggedInUserInfo.DisplayName, 'col-sm-12':commmessage.DisplayName == loggedInUserInfo.DisplayName }" *ngIf="commmessage.MessageSentTime">{{commmessage.MessageSentTime}}</label>
                                     </div>           
                                     <p  class="messge-detail" [ngClass]="{'':commmessage.DisplayName != loggedInUserInfo.DisplayName, 'active':commmessage.DisplayName == loggedInUserInfo.DisplayName }" *ngIf="commmessage.Message">{{commmessage.Message}}</p>
                                 </li>

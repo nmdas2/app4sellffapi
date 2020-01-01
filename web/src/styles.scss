@@ -910,7 +910,7 @@ table tbody tr td.lalign {
     text-align: left;
 }
 
-.table tr td img {
+.search-summary tr td img {
     width: 75px;
     height: 75px;
     border-bottom: none;
@@ -1468,6 +1468,11 @@ li.dropdown.user.user-menu span .notification span{
     width: auto;
     font-size: 16px;
 }
+.search-summary thead {
+    background: none repeat scroll 0 0 #3c8dbc;
+    cursor: pointer;
+    font-size: 20px;
+}
 // Responsive CSS Starting Here
 @media only screen and (max-width: 1440px) {
     .buy {
@@ -1517,6 +1522,44 @@ li.dropdown.user.user-menu span .notification span{
 @media only screen and (max-width: 800px) {}
 
 @media only screen and (max-width: 767px) {
+    body .search-summary tr td img {
+        width: 40px;
+        height: 40px;
+    }
+    .search-summary thead {        
+        font-size: 12px;
+    }
+    body .message-m-b {
+        margin-bottom: 10px;
+        padding-bottom: 0;
+    }
+    body .location_top .btn-custom, body .location_top .btn-primary {
+        font-size: 14px;
+        padding: 2px 15px;
+        border: none;
+    }
+    body .location_top .form-control {
+        font-size: 12px;
+        height: auto;
+        padding: 1px 5px;
+    }
+    body .skin-blue .sidebar-menu>li>a {
+        padding-bottom: 0;
+    }
+    body .upload-file input {
+        width: 100%;
+        padding: 8px;
+    }
+    body .global_dropdown {
+        -ms-flex: 0 0 50px;
+        flex: 0 0 50px;
+        max-width: 50px;
+    }
+    body .autocomplete {
+        -ms-flex: 0 0 calc(100% - 50px);
+        flex: 0 0 calc(100% - 50px);
+        max-width: calc(100% - 50px);
+    }
     body .offered-needed-main .service {
         flex: 0 0 calc(50% - 10px);
         max-width: calc(50% - 10px);
@@ -1525,6 +1568,7 @@ li.dropdown.user.user-menu span .notification span{
         font-size: 14px !important;
         padding: 1px 2px !important;
         line-height: normal !important;
+        min-height: 21px;
     }
     body .btn-normal-link {
         font-size: 11px;
@@ -1537,6 +1581,7 @@ li.dropdown.user.user-menu span .notification span{
         padding: 1px 4px;
         font-size: 12px;
         margin-right: 5px;
+        min-height: 21px;
     }
     body .block-full-width {
         display: -ms-flexbox;
@@ -1659,10 +1704,7 @@ li.dropdown.user.user-menu span .notification span{
         font-size: 14px;
         padding: 5px 15px;
     }
-    .box img {
-        height: 65px;
-        width: 65px;
-    }
+    
     .h3, h3 {
         font-size: 18px;
     }
@@ -1780,7 +1822,7 @@ li.dropdown.user.user-menu span .notification span{
         width: 100%;
     }
     body .search-summary tbody tr td {
-        font-size: 14px;
+        font-size: 12px;
     }
     body .ranking-count {
         font-size: 28px;
