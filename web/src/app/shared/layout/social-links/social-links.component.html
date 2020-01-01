@@ -7,14 +7,14 @@
                     <div class="icon"><i class="fa fa-cog" aria-hidden="true"></i></div>
                     <!-- <img src="../../../assets/images/time.svg" class="l-o-icon occupation-icon" /> -->
                     <div class="btn service-offered l-t-o-link" *ngIf="!isOccupationInEditMode; else elseOccBlock">
-                        {{displayDataProfile.Occupation}} <button class="btn-normal-link" *ngIf="isEditbale"
+                        {{dataDisplayProfile.Occupation}} <button class="btn-normal-link" *ngIf="isEditbale"
                             (click)="enableoccupationedit()"><i class="fa fa-pencil-square-o"></i></button>
                     </div>
 
                     <!-- <img src="../../../assets/images/location.svg" class="l-o-icon" /> -->
                     <div class="icon"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
                     <div class="btn service-offered l-t-o-link" *ngIf="!isCityInEditMode; else elseCityBlock">
-                        {{displayDataProfile.City}} <button class="btn-normal-link" *ngIf="isEditbale"
+                        {{dataDisplayProfile.City}} <button class="btn-normal-link" *ngIf="isEditbale"
                             (click)="enablecityedit()">
                             <i class="fa fa-pencil-square-o"></i></button></div>
 
@@ -22,26 +22,43 @@
                     <div class="icon"> <i class="fa fa-calendar" aria-hidden="true"></i></div>
                     <div class="service-offered l-t-o-link">Joined {{displayDataProfile.CreatedOn | date : "MMMM - y"}}
                     </div>
-                </div>
-                <ng-template #elseCityBlock>
-                    <div class="edit-box">
-                        <input type="text" [(ngModel)]="userCity" class="form-control" required>
-                        <div class="text-edit-footer">
-                            <button class="btn btn-primary" (click)="updatecityvalue()">Update</button>
-                            <button class="btn btn-custom ml-3" (click)="oncitycancel()">Cancel</button>
-                        </div>
-                    </div>
+                </div>                
+                <ng-template #elseCityBlock>  
+                    <form [formGroup]="cityForm">                  
+                        <div class="form-group">
+                            <div class="edit-box">
+                                <input type="text" maxlength="50" formControlName="CityUser" placeholder="City" [(ngModel)]="dataDisplayProfile.City" class="form-control" required>
+                                <div class="text-edit-footer">
+                                    <button class="btn btn-primary" (click)="updatecityvalue()">Update</button>
+                                    <button class="btn btn-custom ml-3" (click)="oncitycancel()">Cancel</button>
+                                </div>
+                                <div *ngIf="f.CityUser.errors" class="invalid-feedback">
+                                    <div
+                                        *ngIf="(submitted || f.CityUser.dirty || f.CityUser.touched) && f.CityUser.errors.required">
+                                        city is required</div>
+                                </div>
+                            </div>
+                        </div>  
+                    </form>                  
                 </ng-template>
                 <ng-template #elseOccBlock>
-                    <div class="edit-box">
-                        <input type="text" [(ngModel)]="UserOccupation" class="form-control" required>
-                        <div class="text-edit-footer">
-                            <button class="btn btn-primary" (click)="updateoccupationvalue()">Update</button>
-                            <button class="btn btn-custom ml-3" (click)="onoccupationcancel()">Cancel</button>
+                    <form [formGroup]="OcuupForm">
+                        <div class="form-group">
+                            <div class="edit-box">
+                                <input type="text" maxlength="35" formControlName="OccupationUser" placeholder="occupation" [(ngModel)]="dataDisplayProfile.Occupation" class="form-control" required>
+                                <div class="text-edit-footer">
+                                    <button class="btn btn-primary" (click)="updateoccupationvalue()">Update</button>
+                                    <button class="btn btn-custom ml-3" (click)="onoccupationcancel()">Cancel</button>
+                                </div>
+                                <div *ngIf="oc.OccupationUser.errors" class="invalid-feedback">
+                                    <div
+                                        *ngIf="(submitted || oc.OccupationUser.dirty || oc.OccupationUser.touched) && oc.OccupationUser.errors.required">
+                                        occupation is required</div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </ng-template>
-
+                    </form>
+                </ng-template>                
             </div>
         </div>
         <div class="col-md-4 right-socail-links text-right">

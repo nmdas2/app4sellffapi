@@ -473,24 +473,38 @@ namespace Sellff_API.Controllers
         [HttpPost, Route("api/ProfileInfo/SaveUserProfilePic/{PicType}/{UserId}")]
         public HttpResponseMessage UploadJsonFile4ProfilePic(int PicType, int UserId)
         {
+            log4netlogger.Info("Image upload method intiated");
             HttpResponseMessage response = new HttpResponseMessage();
             var httpRequest = HttpContext.Current.Request;
             string picFileName = "";
-            if (httpRequest.Files.Count > 0)
+            try
             {
-                foreach (string file in httpRequest.Files)
+                if (httpRequest.Files.Count > 0)
                 {
-                    var postedFile = httpRequest.Files[file];
-                    picFileName = "0000000" + Convert.ToString(UserId) + DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss") + postedFile.FileName.Replace(" ", "-");                    
-                    if (PicType == 1)
-                        picFileName = "profilepics/" + picFileName;
-                    else
-                        picFileName = "bannerpics/" + picFileName;
-
-                    postedFile.SaveAs(HttpContext.Current.Server.MapPath("~/AppImages/" + picFileName));
+                    log4netlogger.Info("Files count is greaterthan 0");
+                    foreach (string file in httpRequest.Files)
+                    {
+                        var postedFile = httpRequest.Files[file];
+                        log4netlogger.Info("Image upload postedfile: " + postedFile);
+                        picFileName = "0000000" + Convert.ToString(UserId) + DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss") + postedFile.FileName.Replace(" ", "-");
+                        log4netlogger.Info("Image upload postedfile: " + picFileName);
+                        if (PicType == 1)
+                            picFileName = "profilepics/" + picFileName;
+                        else
+                            picFileName = "bannerpics/" + picFileName;
+                        log4netlogger.Info("Image upload: image is about to be saved to folder");
+                        postedFile.SaveAs(HttpContext.Current.Server.MapPath("~/AppImages/" + picFileName));
+                        log4netlogger.Info("Image upload: image is saved to folder");
+                    }
+                    response = Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.UpdateUserProfilePicById(UserId, picFileName, PicType));
+                    log4netlogger.Info("Image upload infor saved to DB");
                 }
-                response = Request.CreateResponse(HttpStatusCode.OK, objProfileInfoService.UpdateUserProfilePicById(UserId, picFileName, PicType));
             }
+            catch (Exception ex)
+            {
+                log4netlogger.Error(ex);
+            }
+            log4netlogger.Info("Image upload method completed");
             return response;
         }
 
