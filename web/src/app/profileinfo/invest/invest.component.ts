@@ -60,9 +60,9 @@ ngOnInit() {
         this.profileShareDetails = res;
       }
       else {
-        this.profileShareDetails.profitlosscolor = res.profitlosscolor
-        this.profileShareDetails.ProfitRLoss = res.ProfitRLoss
-        this.profileShareDetails.ProfitRLossPercentage = res.ProfitRLossPercentage
+        // this.profileShareDetails.profitlosscolor = res.profitlosscolor
+        // this.profileShareDetails.ProfitRLoss = res.ProfitRLoss
+        // this.profileShareDetails.ProfitRLossPercentage = res.ProfitRLossPercentage
       }
      
     }

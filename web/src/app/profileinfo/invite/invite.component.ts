@@ -128,9 +128,9 @@ export class InviteComponent implements OnInit {
       .subscribe(res => {
         if (res && res.length > 0){
           this.inviteUsersList = res;
-          this.pageChanged({page: this.currentPage, itemsPerPage: this.itemsPerPage})
-        }
-          
+          //this.pageChanged({page: this.currentPage, itemsPerPage: this.itemsPerPage})
+          this.tempInviteUsersList = res;
+        }          
         else
           this.inviteUsersList = [];
       }, error => {
@@ -157,7 +157,7 @@ export class InviteComponent implements OnInit {
   sendInvitation(inviteUser: InviteUsers) {
     this.profileService.updateUserInvitationSentDate(inviteUser.InviteGuid)
       .subscribe(res => {
-        this.successMsg = 'Invitation sent successfully';
+        this.successMsg = 'user created successfully';
         this.getInvitedUsersList();
         setTimeout(() => {
           this.successMsg = '';
