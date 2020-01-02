@@ -36,6 +36,9 @@
                                     <div
                                         *ngIf="(f.CityUser.dirty || f.CityUser.touched) && f.CityUser.errors.required">
                                         city is required</div>
+                                        <div
+                                        *ngIf="(f.CityUser.dirty || f.CityUser.touched) && f.CityUser.errors &&  !f.CityUser.errors.required">
+                                        Invalid Input</div>
                                 </div>
                             </div>
                         </div>  
@@ -45,15 +48,28 @@
                     <form [formGroup]="OcuupForm">
                         <div class="form-group">
                             <div class="edit-box">
-                                <input type="text" maxlength="35" formControlName="OccupationUser" placeholder="occupation" [(ngModel)]="dataDisplayProfile.Occupation" class="form-control" required>
+                                <!-- <input type="text" maxlength="35" formControlName="OccupationUser" placeholder="occupation" 
+                                [(ngModel)]="dataDisplayProfile.Occupation" class="form-control" required> -->
+
+                                <!-- <input type="text" maxlength="35" formControlName="OccupationUser" placeholder="occupation" 
+                                [(ngModel)]="dataDisplayProfile.Occupation" class="form-control" (input)="onKeyPress($event)" > -->
+
+                                <input type="text" maxlength="35" formControlName="OccupationUser" placeholder="occupation" 
+                                [(ngModel)]="dataDisplayProfile.Occupation" class="form-control" >
+
                                 <div class="text-edit-footer">
                                     <button class="btn btn-primary" (click)="updateoccupationvalue()">Update</button>
                                     <button class="btn btn-custom ml-3" (click)="onoccupationcancel()">Cancel</button>
                                 </div>
                                 <div *ngIf="oc.OccupationUser.errors" class="invalid-feedback">
                                     <div
-                                        *ngIf="(oc.OccupationUser.dirty || oc.OccupationUser.touched) && oc.OccupationUser.errors.required">
+                                        *ngIf="(oc.OccupationUser.dirty || oc.OccupationUser.touched)
+                                         && oc.OccupationUser.errors.required">
                                         occupation is required</div>
+                                        <div
+                                        *ngIf="(oc.OccupationUser.dirty || oc.OccupationUser.touched)
+                                         && oc.OccupationUser.errors && !oc.OccupationUser.errors.required">
+                                        Invalid input</div>
                                 </div>
                             </div>
                         </div>

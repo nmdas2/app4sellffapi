@@ -26,12 +26,15 @@ export class SocialLinksComponent implements OnInit {
     private profileInfoService: ProfileinfoService,
   ) { }
 
+  onKeyPress(key: any){
+    let keyIndex=key.data;
+  }
   ngOnInit() {
     this.cityForm = this.formBuilder.group({
-      CityUser: ['', Validators.required]
+      CityUser: ['', [Validators.required,Validators.pattern("^[a-zA-Z\-\,\.]+$")]]
   });
   this.OcuupForm = this.formBuilder.group({
-      OccupationUser: ['', [Validators.required]]
+      OccupationUser: ['', [Validators.required,Validators.pattern("^[a-zA-Z]+$")]]
   });
     this.commonService.socialAndHeaderWidgetsTracker$.subscribe(status => {
       let userId = 0;
@@ -195,7 +198,8 @@ export class SocialLinksComponent implements OnInit {
         .subscribe(res => {
           if (res) {
             this.dataDisplayProfile.City = userAboutInfoBO.City;
-            //localStorage.setItem('currentUser', this.dataDisplayProfile);
+            localStorage.removeItem("currentUser");
+            localStorage.setItem('currentUser', JSON.stringify(this.dataDisplayProfile));
             this.commonService.profileData.next(true);
           }
         }, error => {
@@ -215,7 +219,8 @@ export class SocialLinksComponent implements OnInit {
         .subscribe(res => {
           if (res) {
             this.dataDisplayProfile.Occupation = userAboutInfoBO.Occupation;
-            //localStorage.setItem('currentUser', this.dataDisplayProfile);
+            localStorage.removeItem("currentUser");
+            localStorage.setItem('currentUser', JSON.stringify(this.dataDisplayProfile));
             this.commonService.profileData.next(true);
           }
         }, error => {
